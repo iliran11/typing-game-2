@@ -1,17 +1,17 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-// import App from './App';
+import App from "./App";
 import "./index.css";
+import configureStore from "./store/store";
 import registerServiceWorker from "./registerServiceWorker";
-import { LetterStatus, ILetterProps } from "./components/letter";
-import Word from "./components/word";
+import { Provider } from 'react-redux';
 
-const liran: ILetterProps[] = [
-  { letter: "d", isSelected: false, status: LetterStatus.Correct },
-  { letter: "d", isSelected: false, status: LetterStatus.Correct },
-  { letter: "d", isSelected: false, status: LetterStatus.Correct }
-];
-ReactDOM.render(<Word letters={liran} />, document.getElementById(
-  "root"
-) as HTMLElement);
+const store = configureStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root") as HTMLElement
+);
 registerServiceWorker();
