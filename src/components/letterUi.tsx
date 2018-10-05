@@ -1,7 +1,7 @@
 import * as React from "react";
 import cx from "classnames";
 
-export interface ILetterProps {
+export interface LetterUiProps {
   letter: string;
   isSelected: boolean;
   status: LetterStatus;
@@ -13,7 +13,7 @@ export enum LetterStatus {
   Untyped
 }
 
-class Letter extends React.PureComponent<ILetterProps, object> {
+class Letter extends React.PureComponent<LetterUiProps, object> {
   get cssClass() {
     const { isSelected, status } = this.props;
     return cx("letter", {
@@ -23,7 +23,7 @@ class Letter extends React.PureComponent<ILetterProps, object> {
       untyped: status === LetterStatus.Untyped
     });
   }
-  
+
   public render() {
     return <span className={this.cssClass}>{this.props.letter}</span>;
   }

@@ -4,7 +4,7 @@ import Letter from "../classes/lettter";
 interface Game {
   letters: Letter[];
 }
-const text: string = "hello world whats up";
+const text: string = "hello world whats uphello world whats uphello world whats uphello world whats up";
 const letters: Letter[] = text.split("").map(value => {
   return new Letter(value);
 });
