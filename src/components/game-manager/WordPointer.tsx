@@ -12,10 +12,10 @@ function WordPointer({
   height: number;
 }) {
   const style = {
-    width: 10,
-    height: 10,
+    width: width,
+    height: height,
     left: x,
-    top: 0
+    top: y
   };
 
   return <div style={style} id="word-pointer" />;
