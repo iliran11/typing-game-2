@@ -1,0 +1,8 @@
+#word-pointer {
+  background-color: red;
+  position: absolute;
+  transition: left 0.5s
+}
+#game-text {
+  position: relative;
+}
