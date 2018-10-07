@@ -1,15 +1,17 @@
 import * as React from "react";
+import cx from "classnames";
 
 interface State {}
 interface Props {
   x: number;
   y: number;
   open: boolean;
+  input: string
 }
 
 class ToolTip extends React.Component<Props, State> {
-  tooltipRef : any;
-  constructor(props : any) {
+  tooltipRef: any;
+  constructor(props: any) {
     super(props);
     this.tooltipRef = React.createRef();
   }
@@ -26,11 +28,17 @@ class ToolTip extends React.Component<Props, State> {
       // toolTipRef.classList.remove('bounceInUp')
     }
   }
+  get tooltipClass() {
+    return cx("top in animated tooltip", {
+      active: this.props.open,
+      "non-active": !this.props.open
+    });
+  }
   public render() {
-    if(!this.props.open) return null;
+    // if (!this.props.open) return null;
     return (
       <div
-        className="top in animated tooltip"
+        className={this.tooltipClass}
         role="tooltip"
         // style="top: 25px; left: 31.8984px; display: block;"
         ref={this.tooltipRef}

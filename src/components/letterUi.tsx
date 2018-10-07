@@ -66,6 +66,7 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
           x={this.tooltipDimensions.x}
           y={this.tooltipDimensions.y}
           open = {this.props.isSelected}
+          input = {this.props.input}
         />
         <span className={this.cssClass} ref={this.letterRef}>
           {this.props.letter}

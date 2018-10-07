@@ -1,7 +1,6 @@
 .letter {
   display: inline-block;
-  position:relative;
-  
+  position: relative;
 }
 .letter-wrapper {
   display: inline-block;
@@ -23,6 +22,7 @@
   font-size: 12px;
   transform: translateX(-50%);
   left: 50%;
+  transition: all 0.1s ease-in-out;
 }
 .tooltip .tooltip-inner {
   max-width: 200px;
@@ -31,6 +31,14 @@
   text-align: center;
   background-color: #000;
   border-radius: 4px;
+}
+.tooltip.non-active {
+  opacity: 0;
+  top:0px;
+}
+.tooltip.active {
+  top: -25px;
+  opacity: 1;
 }
 .tooltip.top {
   padding: 5px 0;
