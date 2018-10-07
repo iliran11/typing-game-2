@@ -1,3 +1,9 @@
+.letter {
+  display: inline-block;
+}
+.letter-wrapper {
+  display: inline-block;
+}
 #word-pointer {
   background-color: red;
   position: absolute;
@@ -8,14 +14,14 @@
   position: relative;
   font-size: 25px;
 }
-#tooltip {
+.tooltip {
   transition: all 0.3s;
   position: absolute;
   display: block;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
-#tooltip .tooltip-inner {
+.tooltip .tooltip-inner {
   max-width: 200px;
   padding: 3px 8px;
   color: #fff;
@@ -23,17 +29,17 @@
   background-color: #000;
   border-radius: 4px;
 }
-#tooltip.top {
+.tooltip.top {
   padding: 5px 0;
 }
-#tooltip.top .tooltip-arrow {
+.tooltip.top .tooltip-arrow {
   bottom: 0;
   left: 50%;
   margin-left: -5px;
   border-width: 5px 5px 0;
   border-top-color: #000;
 }
-#tooltip .tooltip-arrow {
+.tooltip .tooltip-arrow {
   position: absolute;
   width: 0;
   height: 0;

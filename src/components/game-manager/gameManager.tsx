@@ -1,8 +1,7 @@
 import * as React from "react";
 import LetterData from "../../store/classes/lettter";
-import LetterUi, { LetterStatus } from "../letterUi";
+import LetterUi from "../letterUi";
 import WordPointer from "./WordPointer";
-import ToolTip from "./tooltip";
 import "./game.css";
 import "animate.css";
 
@@ -12,6 +11,7 @@ interface Props {
 
 interface State {
   index: number;
+  input: string[];
   hasMounted: boolean;
   isTooltipOpen: boolean;
 }
@@ -20,6 +20,7 @@ export default class GameManager extends React.Component<Props, State> {
   public lettersRefs: any[];
   public textBoxRef: any;
   public tooltipRef: any;
+  textboxNode: any;
 
   constructor(props: Props) {
     super(props);
@@ -31,7 +32,8 @@ export default class GameManager extends React.Component<Props, State> {
     this.state = {
       index: 0,
       hasMounted: false,
-      isTooltipOpen: false
+      isTooltipOpen: false,
+      input: []
     };
     this.textBoxRef = React.createRef();
     this.tooltipRef = React.createRef();
@@ -42,21 +44,27 @@ export default class GameManager extends React.Component<Props, State> {
     });
   }
   public componentDidMount() {
+    this.textboxNode = document.getElementById("game-text");
+    console.log(this.textboxNode);
     this.setState({
       hasMounted: true
     });
   }
   public onInputChange(event: any): void {
-    this.tooltipRef.current.classList.add("bounce");
     const targetValue = this.props.letters[this.state.index].getValue;
     const input = event.target.value;
+    const nextInput = [...this.state.input];
+    nextInput[this.state.index] = input;
     if (targetValue === input) {
       this.setState({
-        index: this.state.index + 1
+        index: this.state.index + 1,
+        input: nextInput
       });
     } else {
+      this.setState({
+        input: nextInput
+      });
     }
-    console.log(event.target.value);
   }
   public setRefs(ref: any): void {
     // console.log(ref.getBoundingClientRect());
@@ -65,13 +73,13 @@ export default class GameManager extends React.Component<Props, State> {
   }
   public renderLetter(letter: LetterData, index: number) {
     return (
-      <span ref={this.setRefs} key={index} className="letter-wrapper">
+      <div ref={this.setRefs} key={index} className="letter-wrapper">
         <LetterUi
           letter={letter.getValue}
-          isSelected={false}
-          status={LetterStatus.Correct}
+          isSelected={index === this.state.index}
+          input={this.state.input[index]}
         />
-      </span>
+      </div>
     );
   }
   get isMounted() {
@@ -121,7 +129,6 @@ export default class GameManager extends React.Component<Props, State> {
       return {
         x: startingPoint + this.letterCoords.width / 2 + this.letterCoords.x,
         y: this.letterCoords.y - this.letterCoords.height - 5
-        
       };
     }
     return {
@@ -136,12 +143,6 @@ export default class GameManager extends React.Component<Props, State> {
         <input onChange={this.onInputChange} value="" />
         <button onClick={this.onButtonClick}>click</button>
         <div id="game-text" ref={this.textBoxRef}>
-          <ToolTip
-            x={this.toolTipCoordinates.x}
-            y={this.toolTipCoordinates.y}
-            setRef={this.tooltipRef}
-            open={this.state.isTooltipOpen}
-          />
           <WordPointer
             x={this.pointerCoordinates.x}
             y={this.pointerCoordinates.y}
