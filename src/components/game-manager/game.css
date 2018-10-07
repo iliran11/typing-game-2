@@ -1,5 +1,7 @@
 .letter {
   display: inline-block;
+  position:relative;
+  
 }
 .letter-wrapper {
   display: inline-block;
@@ -18,8 +20,9 @@
   transition: all 0.3s;
   position: absolute;
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
+  transform: translateX(-50%);
+  left: 50%;
 }
 .tooltip .tooltip-inner {
   max-width: 200px;
