@@ -2,8 +2,12 @@
   display: inline-block;
   position: relative;
 }
+
 .letter.success {
   animation: 0.5s linear 0s pulse-success;
+}
+.letter.is-selected {
+  /* color:white; */
 }
 
 @keyframes pulse-success {
@@ -25,10 +29,11 @@
 }
 
 #word-pointer {
-  background-color: red;
+  background-color: rgba(179, 222, 129, 1);
   position: absolute;
   transition: all 0.3s;
-  opacity: 0.5;
+  z-index:9999;
+  color:white;
 }
 #game-text {
   position: relative;

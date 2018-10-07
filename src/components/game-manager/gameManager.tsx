@@ -148,6 +148,7 @@ export default class GameManager extends React.Component<Props, State> {
             y={this.pointerCoordinates.y}
             width={this.pointerCoordinates.width}
             height={this.pointerCoordinates.height}
+            input={this.props.letters[this.state.index].getValue}
           />
           {this.props.letters.map(this.renderLetter)}
         </div>

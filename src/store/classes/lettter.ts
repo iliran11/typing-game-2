@@ -6,7 +6,7 @@ export default class Letter {
     this.value = value;
     this.input = input || "";
   }
-  get getValue() {
+  get getValue(): string {
     return this.value;
   }
   get getInput() {

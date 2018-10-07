@@ -4,11 +4,13 @@ function WordPointer({
   x,
   y,
   width,
-  height
+  height,
+  input
 }: {
   x: number;
   y: number;
   width: number;
+  input: string;
   height: number;
 }) {
   const style = {
@@ -18,7 +20,11 @@ function WordPointer({
     top: y
   };
 
-  return <div style={style} id="word-pointer" />;
+  return (
+    <div style={style} id="word-pointer">
+      {input}
+    </div>
+  );
 }
 
 export default WordPointer;

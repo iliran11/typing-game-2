@@ -46,7 +46,8 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
   }
   get letterClassNames() {
     return cx("letter animated", {
-      success: this.props.input === this.props.letter
+      success: this.props.input === this.props.letter,
+      "is-selected": this.props.isSelected
     });
   }
 
