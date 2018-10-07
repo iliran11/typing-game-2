@@ -32,8 +32,8 @@
   background-color: rgba(179, 222, 129, 1);
   position: absolute;
   transition: all 0.3s;
-  z-index:9999;
-  color:white;
+  z-index: 9999;
+  color: white;
 }
 #game-text {
   position: relative;
@@ -47,6 +47,7 @@
   transform: translateX(-50%);
   left: 50%;
   transition: all 0.1s ease-in-out;
+  top:10px;
 }
 .tooltip .tooltip-inner {
   max-width: 200px;
@@ -64,7 +65,7 @@
   top: 0px;
 }
 .tooltip.active {
-  top: -25px;
+  top: -35px;
   opacity: 1;
 }
 .tooltip.top {
@@ -83,4 +84,9 @@
   height: 0;
   border-color: transparent;
   border-style: solid;
+}
+#underline-pointer {
+  position: absolute;
+  background-color:red;
+  transition: all 0.3s;
 }

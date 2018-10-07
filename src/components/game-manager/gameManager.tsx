@@ -2,6 +2,7 @@ import * as React from "react";
 import LetterData from "../../store/classes/lettter";
 import LetterUi from "../letterUi";
 import WordPointer from "./WordPointer";
+import UnderlinePointer from "./UnderlinePointer";
 import "./game.css";
 import "animate.css";
 
@@ -95,12 +96,15 @@ export default class GameManager extends React.Component<Props, State> {
     };
   }
   get letterCoords() {
-    return {
-      x: this.letterBoundingRect.x - this.textboxCoords.x,
-      y: this.letterBoundingRect.y - this.textboxCoords.y,
-      width: this.letterBoundingRect.width,
-      height: this.letterBoundingRect.height
-    };
+    if (this.isMounted) {
+      return {
+        x: this.letterBoundingRect.x - this.textboxCoords.x,
+        y: this.letterBoundingRect.y - this.textboxCoords.y,
+        width: this.letterBoundingRect.width,
+        height: this.letterBoundingRect.height
+      };
+    }
+    return { x: 0, y: 0, width: 0, height: 0 };
   }
   get textboxCoords() {
     return {
@@ -141,7 +145,6 @@ export default class GameManager extends React.Component<Props, State> {
     return (
       <div>
         <input onChange={this.onInputChange} value="" />
-        <button onClick={this.onButtonClick}>click</button>
         <div id="game-text" ref={this.textBoxRef}>
           <WordPointer
             x={this.pointerCoordinates.x}
@@ -149,6 +152,11 @@ export default class GameManager extends React.Component<Props, State> {
             width={this.pointerCoordinates.width}
             height={this.pointerCoordinates.height}
             input={this.props.letters[this.state.index].getValue}
+          />
+          <UnderlinePointer
+            y={this.letterCoords.y + this.letterCoords.height}
+            x={this.letterCoords.x}
+            width={this.letterCoords.width}
           />
           {this.props.letters.map(this.renderLetter)}
         </div>
