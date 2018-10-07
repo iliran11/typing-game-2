@@ -44,10 +44,9 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
       isMounted: true
     });
   }
-  get cssClass() {
-    const { isSelected } = this.props;
-    return cx("letter", {
-      selected: isSelected
+  get letterClassNames() {
+    return cx("letter animated", {
+      success: this.props.input === this.props.letter
     });
   }
 
@@ -61,16 +60,14 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
     }
     this.tooltipDimensions;
     return (
-      <div className="letter">
+      <div className={this.letterClassNames}>
         <ToolTip
           x={this.tooltipDimensions.x}
           y={this.tooltipDimensions.y}
-          open = {this.props.isSelected}
-          input = {this.props.input}
+          open={this.props.isSelected}
+          input={this.props.input}
         />
-        <span className={this.cssClass} ref={this.letterRef}>
-          {this.props.letter}
-        </span>
+        <span ref={this.letterRef}>{this.props.letter}</span>
       </div>
     );
   }

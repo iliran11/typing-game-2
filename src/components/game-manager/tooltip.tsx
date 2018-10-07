@@ -6,7 +6,7 @@ interface Props {
   x: number;
   y: number;
   open: boolean;
-  input: string
+  input: string;
 }
 
 class ToolTip extends React.Component<Props, State> {
@@ -29,10 +29,14 @@ class ToolTip extends React.Component<Props, State> {
     }
   }
   get tooltipClass() {
+    const isActive = this.props.open && this.props.input;
     return cx("top in animated tooltip", {
-      active: this.props.open,
-      "non-active": !this.props.open
+      active: isActive,
+      "non-active": !isActive
     });
+  }
+  get innerClass() {
+    return cx("tooltip-inner", { "has-space": (this.props.input === " ") });
   }
   public render() {
     // if (!this.props.open) return null;
@@ -44,7 +48,7 @@ class ToolTip extends React.Component<Props, State> {
         ref={this.tooltipRef}
       >
         <div className="tooltip-arrow" />
-        <div className="tooltip-inner">a</div>
+        <div className={this.innerClass}>{this.props.input}</div>
       </div>
     );
   }

@@ -2,9 +2,28 @@
   display: inline-block;
   position: relative;
 }
+.letter.success {
+  animation: 0.5s linear 0s pulse-success;
+}
+
+@keyframes pulse-success {
+  0% {
+    transform: scale(1);
+    color: initial;
+  }
+  50% {
+    transform: scale(1.2);
+    color: green;
+  }
+  100% {
+    transform: scale(1);
+    color: initial;
+  }
+}
 .letter-wrapper {
   display: inline-block;
 }
+
 #word-pointer {
   background-color: red;
   position: absolute;
@@ -32,9 +51,12 @@
   background-color: #000;
   border-radius: 4px;
 }
+.tooltip .tooltip-inner.has-space {
+  padding: 10px 11px;
+}
 .tooltip.non-active {
   opacity: 0;
-  top:0px;
+  top: 0px;
 }
 .tooltip.active {
   top: -25px;
