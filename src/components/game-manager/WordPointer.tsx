@@ -14,8 +14,8 @@ function WordPointer({
   height: number;
 }) {
   const style = {
-    width: width,
-    height: height,
+    width,
+    height,
     left: x,
     top: y
   };

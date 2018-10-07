@@ -21,7 +21,6 @@ export default class GameManager extends React.Component<Props, State> {
   public lettersRefs: any[];
   public textBoxRef: any;
   public tooltipRef: any;
-  textboxNode: any;
 
   constructor(props: Props) {
     super(props);
@@ -45,8 +44,6 @@ export default class GameManager extends React.Component<Props, State> {
     });
   }
   public componentDidMount() {
-    this.textboxNode = document.getElementById("game-text");
-    console.log(this.textboxNode);
     this.setState({
       hasMounted: true
     });

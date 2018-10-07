@@ -6,9 +6,6 @@
 .letter.success {
   animation: 0.5s linear 0s pulse-success;
 }
-.letter.is-selected {
-  /* color:white; */
-}
 
 @keyframes pulse-success {
   0% {
