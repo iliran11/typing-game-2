@@ -50,16 +50,11 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
       "is-selected": this.props.isSelected
     });
   }
+  get letterDisplay() {
+    return this.props.letter.toLowerCase()
+  }
 
-  public render() {
-    if (this.props.letter === " ") {
-      return (
-        <div className="letter">
-          <WhiteSpace />
-        </div>
-      );
-    }
-    
+  public render() {  
     return (
       <div className={this.letterClassNames}>
         <ToolTip
@@ -68,10 +63,9 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
           open={this.props.isSelected}
           input={this.props.input}
         />
-        <span ref={this.letterRef}>{this.props.letter}</span>
+        <span ref={this.letterRef}>{this.props.letter===" " ?  <WhiteSpace /> : this.letterDisplay}</span>
       </div>
     );
   }
 }
-
 export default Letter;

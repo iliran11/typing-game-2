@@ -21,6 +21,8 @@ export default class GameManager extends React.Component<Props, State> {
   public lettersRefs: any[];
   public textBoxRef: any;
   public tooltipRef: any;
+  public inputNode: any;
+  public buttonNode: any;
 
   constructor(props: Props) {
     super(props);
@@ -37,20 +39,23 @@ export default class GameManager extends React.Component<Props, State> {
     };
     this.textBoxRef = React.createRef();
     this.tooltipRef = React.createRef();
+    this.inputNode = React.createRef();
+    this.buttonNode = React.createRef();
   }
   public onButtonClick() {
-    this.setState({
-      isTooltipOpen: !this.state.isTooltipOpen
-    });
+    this.inputNode.current.focus();
   }
   public componentDidMount() {
     this.setState({
       hasMounted: true
     });
+    this.buttonNode.current.click();
   }
   public onInputChange(event: any): void {
-    const targetValue = this.props.letters[this.state.index].getValue;
-    const input = event.target.value;
+    const targetValue = this.props.letters[
+      this.state.index
+    ].getValue.toLowerCase();
+    const input = event.target.value.toLowerCase();
     const nextInput = [...this.state.input];
     nextInput[this.state.index] = input;
     if (targetValue === input) {
@@ -141,7 +146,13 @@ export default class GameManager extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <input onChange={this.onInputChange} value="" />
+        <button onClick={this.onButtonClick} ref={this.buttonNode}>hello</button>
+        <input
+          onChange={this.onInputChange}
+          autoCapitalize="none"
+          value={""}
+          ref={this.inputNode}
+        />
         <div id="game-text" ref={this.textBoxRef}>
           <WordPointer
             x={this.pointerCoordinates.x}
