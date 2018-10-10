@@ -1,5 +1,5 @@
 import * as React from "react";
-import LetterData from "../../store/classes/lettter";
+import LetterData from "../../store/classes/lettterData";
 import LetterUi from "../letterUi";
 import WordPointer from "./WordPointer";
 import UnderlinePointer from "./UnderlinePointer";

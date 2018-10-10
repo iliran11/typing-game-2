@@ -1,4 +1,4 @@
-import Letter from "../classes/lettter";
+import Letter from "../classes/lettterData";
 
 // const letters : Letter[] = [new ]
 interface Game {

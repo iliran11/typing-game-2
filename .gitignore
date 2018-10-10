@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/src/server-ts/node_modules
+/src/server-ts/dist
 
 # testing
 /coverage
