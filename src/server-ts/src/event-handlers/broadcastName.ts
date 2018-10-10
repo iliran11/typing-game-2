@@ -1,13 +1,11 @@
-import * as io from "socket.io";
-import Player from "../classes/Player";
-import PlayerManager from "../classes/PlayerManager";
-import RoomManager from "../classes/RoomManager";
-import sharedCode from "../../../client-server-code/client-server-code";
-const {
-  constants: { YOU_JOINED_ROOM, COMPETITOR_JOINED_GAME }
-} = sharedCode;
+import * as io from 'socket.io';
+import Player from '../classes/Player';
+import PlayerManager from '../classes/PlayerManager';
+import RoomManager from '../classes/RoomManager';
+import * as constants from '../../../constants';
 const playerManager = PlayerManager.getInstance();
 const roomManager = RoomManager.getInstance();
+const {COMPETITOR_JOINED_GAME,YOU_JOINED_ROOM} = constants
 
 export default function broadcastName(socket: io.Socket, playerName: string) {
   const player = playerManager.getPlayer(socket);

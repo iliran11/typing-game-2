@@ -15,7 +15,7 @@ export default class Player {
   }
   createGame(gameId: number, words: string[]) {
     this.gameId = gameId;
-    this.game = new Game(gameId, words);
+    this.game = new Game(gameId);
     this.words = words;
   }
   setName(name: string) {

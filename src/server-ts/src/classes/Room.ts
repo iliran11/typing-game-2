@@ -1,12 +1,7 @@
 import Player from "./Player";
 import * as io from "socket.io";
-import sharedCode from "../../../client-server-code/client-server-code";
 import ServerManager from "./ServerManager";
-
-const {
-  wpmScore,
-  constants: { SCORES_BROADCAST }
-} = sharedCode;
+import {SCORE_BROADCAST} from '../../../constants'
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -64,7 +59,7 @@ export default class Room {
     return this.players.map((player: Player) => {
       return {
         playerId: player.playerId,
-        score: wpmScore(player.playerGame.gameObject.words, this.timePassedMinutes)
+        score: 1
       };
     });
   }

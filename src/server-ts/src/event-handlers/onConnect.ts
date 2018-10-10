@@ -4,12 +4,8 @@ import PlayerManager from "../classes/PlayerManager";
 import Player from "../classes/Player";
 import onDisconnect from "./onDisconnect";
 import broadcastName from "./broadcastName";
-import sharedCode from "../../../client-server-code/client-server-code";
 import playerTyping from "./playerTyping";
-
-const {
-  constants: { BROADCAST_NAME, PLAYER_TYPING }
-} = sharedCode;
+import {BROADCAST_NAME,PLAYER_TYPING} from '../../../constants';
 
 const roomManager = RoomManager.getInstance();
 const playerManager = PlayerManager.getInstance();
