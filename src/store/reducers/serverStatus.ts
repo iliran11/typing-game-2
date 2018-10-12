@@ -1,3 +1,5 @@
+import { CONNECT_SERVER, YOU_JOINED_ROOM } from "../../constants";
+
 interface ServerStatus {
   roomId: number;
   isConnected: boolean;
@@ -18,6 +20,19 @@ const initialState: ServerStatus = {
   playersScore: {}
 };
 
-export default function ServerStatus(state = initialState) {
-  return state;
+export default function ServerStatus(state = initialState, action: any) {
+  switch (action.type) {
+    case CONNECT_SERVER:
+      return {
+        ...state,
+        isConnected: true
+      };
+    case YOU_JOINED_ROOM:
+      return {
+        ...state,
+        ...action.data
+      };
+    default:
+      return state;
+  }
 }

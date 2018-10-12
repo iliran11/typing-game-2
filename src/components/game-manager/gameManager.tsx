@@ -3,12 +3,14 @@ import LetterData from "../../store/classes/lettterData";
 import LetterUi from "../letterUi";
 import WordPointer from "./WordPointer";
 import UnderlinePointer from "./UnderlinePointer";
-import SocketManager from "../../utils/clientSocketManager";
+import socketManager from "../../socketManager";
 import "./game.css";
 import "animate.css";
 
 interface Props {
   letters: LetterData[];
+  broadcastName: any;
+  dispatch: any;
 }
 
 interface State {
@@ -24,7 +26,6 @@ export default class GameManager extends React.Component<Props, State> {
   public tooltipRef: any;
   public inputNode: any;
   public buttonNode: any;
-  public socketManager: SocketManager;
 
   constructor(props: Props) {
     super(props);
@@ -33,6 +34,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.onInputChange = this.onInputChange.bind(this);
     this.renderLetter = this.renderLetter.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.onPlayerNameClick = this.onPlayerNameClick.bind(this);
     this.state = {
       index: 0,
       hasMounted: false,
@@ -43,7 +45,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.tooltipRef = React.createRef();
     this.inputNode = React.createRef();
     this.buttonNode = React.createRef();
-    this.socketManager = SocketManager.getInstance();
+    socketManager.initSocket(props.dispatch);
   }
   public onButtonClick() {
     this.inputNode.current.focus();
@@ -52,7 +54,6 @@ export default class GameManager extends React.Component<Props, State> {
     this.setState({
       hasMounted: true
     });
-    this.buttonNode.current.click();
   }
   public onInputChange(event: any): void {
     const targetValue = this.props.letters[
@@ -76,6 +77,9 @@ export default class GameManager extends React.Component<Props, State> {
     // console.log(ref.getBoundingClientRect());
     const nextArr = [...this.lettersRefs, ref];
     this.lettersRefs = nextArr;
+  }
+  public onPlayerNameClick() {
+    socketManager.broadcastName("liran");
   }
   public renderLetter(letter: LetterData, index: number) {
     return (
@@ -149,8 +153,8 @@ export default class GameManager extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <button onClick={this.onButtonClick} ref={this.buttonNode}>
-          hello
+        <button onClick={this.onPlayerNameClick} ref={this.buttonNode}>
+          broadcast Name
         </button>
         <input
           onChange={this.onInputChange}
