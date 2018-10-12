@@ -67,7 +67,7 @@ export default class Room {
   private gameTick(): void {
     this.timePassed += this.timeIncrement;
     const serverInstance = ServerManager.getInstance().serverObject;
-    serverInstance.in(this.roomName).emit(SCORES_BROADCAST, this.scoresStats);
+    serverInstance.in(this.roomName).emit(SCORE_BROADCAST, this.scoresStats);
     // console.log(`${this.roomName}-tick!`);
   }
   private startGame(): void {

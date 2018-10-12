@@ -7,18 +7,12 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "server.js",
-      "program": "${workspaceFolder}/src/server-ts/dist/server.js"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/start",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "outFiles": [
-        "${workspaceFolder}/build/dist/**/*.js"
-      ]
+      "name": "nodemon",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/src/server-ts/dist/server-ts/src/server.js",
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

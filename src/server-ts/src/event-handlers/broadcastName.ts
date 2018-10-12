@@ -5,7 +5,7 @@ import RoomManager from '../classes/RoomManager';
 import * as constants from '../../../constants';
 const playerManager = PlayerManager.getInstance();
 const roomManager = RoomManager.getInstance();
-const {COMPETITOR_JOINED_GAME,YOU_JOINED_ROOM} = constants
+const {COMPETITOR_JOINED_ROOM,YOU_JOINED_ROOM} = constants
 
 export default function broadcastName(socket: io.Socket, playerName: string) {
   const player = playerManager.getPlayer(socket);
@@ -18,5 +18,5 @@ export default function broadcastName(socket: io.Socket, playerName: string) {
     players: room.playersInRoom,
     words: player.gameWords
   });
-  socket.to(room.roomName).emit(COMPETITOR_JOINED_GAME, player.serializable);
+  socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);
 }

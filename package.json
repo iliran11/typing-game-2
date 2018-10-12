@@ -6,6 +6,7 @@
     "@types/classnames": "^2.2.6",
     "@types/react-redux": "^6.0.9",
     "@types/react-router-dom": "^4.3.1",
+    "@types/socket.io-client": "^1.4.32",
     "animate.css": "^3.7.0",
     "classnames": "^2.2.6",
     "node-sass": "^4.9.3",
@@ -16,7 +17,8 @@
     "react-scripts-ts": "3.1.0",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",

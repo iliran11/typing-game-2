@@ -1,6 +1,5 @@
-export const INCREMENT_ENTHUSIASM = 'INCREMENT_ENTHUSIASM';
-export type INCREMENT_ENTHUSIASM = typeof INCREMENT_ENTHUSIASM;
-
-
-export const DECREMENT_ENTHUSIASM = 'DECREMENT_ENTHUSIASM';
-export type DECREMENT_ENTHUSIASM = typeof DECREMENT_ENTHUSIASM;
+export const SCORE_BROADCAST = 'score-broadcast';
+export const YOU_JOINED_ROOM = 'you-joined-room';
+export const COMPETITOR_JOINED_ROOM = 'competitor-joined-room';
+export const BROADCAST_NAME = 'broadcast-name';
+export const PLAYER_TYPING = 'player-typing';

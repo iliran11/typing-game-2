@@ -3,6 +3,7 @@ import LetterData from "../../store/classes/lettterData";
 import LetterUi from "../letterUi";
 import WordPointer from "./WordPointer";
 import UnderlinePointer from "./UnderlinePointer";
+import SocketManager from "../../utils/clientSocketManager";
 import "./game.css";
 import "animate.css";
 
@@ -23,6 +24,7 @@ export default class GameManager extends React.Component<Props, State> {
   public tooltipRef: any;
   public inputNode: any;
   public buttonNode: any;
+  public socketManager: SocketManager;
 
   constructor(props: Props) {
     super(props);
@@ -41,6 +43,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.tooltipRef = React.createRef();
     this.inputNode = React.createRef();
     this.buttonNode = React.createRef();
+    this.socketManager = SocketManager.getInstance();
   }
   public onButtonClick() {
     this.inputNode.current.focus();
@@ -146,7 +149,9 @@ export default class GameManager extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <button onClick={this.onButtonClick} ref={this.buttonNode}>hello</button>
+        <button onClick={this.onButtonClick} ref={this.buttonNode}>
+          hello
+        </button>
         <input
           onChange={this.onInputChange}
           autoCapitalize="none"
