@@ -18,6 +18,7 @@ interface State {
   input: string[];
   hasMounted: boolean;
   isTooltipOpen: boolean;
+  name: "";
 }
 
 export default class GameManager extends React.Component<Props, State> {
@@ -34,11 +35,13 @@ export default class GameManager extends React.Component<Props, State> {
     this.onInputChange = this.onInputChange.bind(this);
     this.renderLetter = this.renderLetter.bind(this);
     this.onPlayerNameClick = this.onPlayerNameClick.bind(this);
+    this.setName = this.setName.bind(this);
     this.state = {
       index: 0,
       hasMounted: false,
       isTooltipOpen: false,
-      input: []
+      input: [],
+      name: ""
     };
     this.textBoxRef = React.createRef();
     this.tooltipRef = React.createRef();
@@ -75,7 +78,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.lettersRefs = nextArr;
   }
   public onPlayerNameClick() {
-    socketManager.broadcastName("liran");
+    socketManager.broadcastName(this.state.name);
   }
   public renderLetter(letter: LetterData, index: number) {
     return (
@@ -87,6 +90,11 @@ export default class GameManager extends React.Component<Props, State> {
         />
       </div>
     );
+  }
+  public setName(event: any): void {
+    this.setState({
+      name: event.target.value
+    });
   }
   get isMounted() {
     return this.state.hasMounted;
@@ -149,9 +157,12 @@ export default class GameManager extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <button onClick={this.onPlayerNameClick} ref={this.buttonNode}>
-          broadcast Name
-        </button>
+        <div>
+          <button onClick={this.onPlayerNameClick} ref={this.buttonNode}>
+            broadcast Name
+          </button>
+          <input value={this.state.name} onChange={this.setName} />
+        </div>
         <input
           onChange={this.onInputChange}
           autoCapitalize="none"

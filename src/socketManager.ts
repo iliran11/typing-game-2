@@ -34,7 +34,7 @@ const socketManager: any = {
     // }
   },
   broadcastName(name: string) {
-    this.socket.emit(BROADCAST_NAME, { playerName: "liran" });
+    this.socket.emit(BROADCAST_NAME, { playerName: name});
   }
 };
 
