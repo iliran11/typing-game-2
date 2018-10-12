@@ -3,7 +3,7 @@ import GameManager from "./gameManager";
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    letters: state.reducer.letters
+    letters: state.gameData.letters
   };
 };
 
