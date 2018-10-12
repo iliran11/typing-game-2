@@ -5,7 +5,12 @@ import Player from "../classes/Player";
 import onDisconnect from "./onDisconnect";
 import broadcastName from "./broadcastName";
 import playerTyping from "./playerTyping";
-import {BROADCAST_NAME,PLAYER_TYPING} from '../../../constants';
+import {ServerConnectSuccessPayload} from '../../../types'
+import {
+  BROADCAST_NAME,
+  PLAYER_TYPING,
+  CONNECT_SERVER_SUCCESS
+} from "../../../constants";
 
 const roomManager = RoomManager.getInstance();
 const playerManager = PlayerManager.getInstance();
@@ -14,7 +19,8 @@ export default function onConnect(socket: io.Socket): void {
   console.log(`connect- ${socket.client.id}`);
   const player = new Player(socket);
   playerManager.addPlayer(player);
-
+  const connectPayload : ServerConnectSuccessPayload = { myId: player.playerId }
+  socket.emit(CONNECT_SERVER_SUCCESS,connectPayload );
   socket.on("disconnect", () => {
     onDisconnect(socket);
   });

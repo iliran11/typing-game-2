@@ -16,7 +16,7 @@ export default function broadcastName(socket: io.Socket, playerName: string) {
 
   socket.join(room.roomName);
   const response: JoiningRoomResponse = {
-    gameId: player.roomId,
+    roomId: player.roomId,
     players: room.playersInRoom,
     words: player.gameWords
   };

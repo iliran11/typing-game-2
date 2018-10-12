@@ -1,10 +1,10 @@
-import { CONNECT_SERVER, YOU_JOINED_ROOM } from "../../constants";
+import { CONNECT_SERVER_SUCCESS, YOU_JOINED_ROOM } from "../../constants";
 
 interface ServerStatus {
   roomId: number;
   isConnected: boolean;
-  myId: number;
-  playersScore: any;
+  myId: string;
+  players: any;
 }
 // interface PlayerScore {
 //   playerId: string;
@@ -16,21 +16,27 @@ interface ServerStatus {
 const initialState: ServerStatus = {
   roomId: -1,
   isConnected: false,
-  myId: -1,
-  playersScore: {}
+  myId: '',
+  players: {}
 };
 
-export default function ServerStatus(state = initialState, action: any) {
+export default function ServerStatus(
+  state = initialState,
+  action: any
+): ServerStatus {
+  const { payload: { roomId = -1, players = {}, myId = -1 } = {} } = action;
   switch (action.type) {
-    case CONNECT_SERVER:
+    case CONNECT_SERVER_SUCCESS:
       return {
         ...state,
-        isConnected: true
+        isConnected: true,
+        myId
       };
     case YOU_JOINED_ROOM:
       return {
         ...state,
-        ...action.data
+        roomId,
+        players
       };
     default:
       return state;

@@ -33,7 +33,6 @@ export default class GameManager extends React.Component<Props, State> {
     this.lettersRefs = [];
     this.onInputChange = this.onInputChange.bind(this);
     this.renderLetter = this.renderLetter.bind(this);
-    this.onButtonClick = this.onButtonClick.bind(this);
     this.onPlayerNameClick = this.onPlayerNameClick.bind(this);
     this.state = {
       index: 0,
@@ -46,9 +45,6 @@ export default class GameManager extends React.Component<Props, State> {
     this.inputNode = React.createRef();
     this.buttonNode = React.createRef();
     socketManager.initSocket(props.dispatch);
-  }
-  public onButtonClick() {
-    this.inputNode.current.focus();
   }
   public componentDidMount() {
     this.setState({

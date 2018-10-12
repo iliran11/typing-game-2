@@ -1,16 +1,25 @@
 import * as socketIo from "socket.io-client";
-import { JoiningRoomResponse } from "./types";
-import { YOU_JOINED_ROOM,BROADCAST_NAME } from "./constants";
+import { JoiningRoomResponse,ServerConnectSuccessPayload } from "./types";
+import {
+  YOU_JOINED_ROOM,
+  BROADCAST_NAME,
+  CONNECT_SERVER_SUCCESS
+} from "./constants";
 
 const socketManager: any = {
   initSocket(dispatch: any) {
     this.socket = socketIo.connect("http://localhost:4000");
     this.dispatch = dispatch;
-
+    this.socket.on(CONNECT_SERVER_SUCCESS, (data: ServerConnectSuccessPayload) => {
+      this.dispatch({
+        type: CONNECT_SERVER_SUCCESS,
+        payload: data
+      });
+    });
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
       this.dispatch({
         type: YOU_JOINED_ROOM,
-        data
+        payload: data
       });
     });
     //   this.socket.on(COMPETITOR_JOINED_GAME, playerObject => {
