@@ -7,7 +7,7 @@ class App extends React.Component {
   public render() {
     return (
       <Router>
-        <Route exact path="/" component={GameManager} />
+        <Route exact={true} path="/" component={GameManager} />
       </Router>
     );
   }
