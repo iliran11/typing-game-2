@@ -24,19 +24,12 @@ const socketManager: any = {
       }
     );
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
-      const playersObject = data.players.reduce(
-        (accumulator, player: PlayerSerialize) => {
-          accumulator[player.id] = player;
-          return accumulator;
-        },
-        {}
-      );
       this.dispatch({
         type: YOU_JOINED_ROOM,
         payload: {
           roomId: data.roomId,
           words: data.words,
-          players: playersObject
+          players: data.players
         }
       });
     });

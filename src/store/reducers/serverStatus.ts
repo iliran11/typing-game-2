@@ -1,4 +1,8 @@
-import { CONNECT_SERVER_SUCCESS, YOU_JOINED_ROOM,COMPETITOR_JOINED_ROOM } from "../../constants";
+import {
+  CONNECT_SERVER_SUCCESS,
+  YOU_JOINED_ROOM,
+  COMPETITOR_JOINED_ROOM
+} from "../../constants";
 
 interface ServerStatus {
   roomId: number;
@@ -16,7 +20,7 @@ interface ServerStatus {
 const initialState: ServerStatus = {
   roomId: -1,
   isConnected: false,
-  myId: '',
+  myId: "",
   players: {}
 };
 
@@ -38,14 +42,11 @@ export default function ServerStatus(
         roomId,
         players
       };
-    case COMPETITOR_JOINED_ROOM: 
+    case COMPETITOR_JOINED_ROOM:
       return {
         ...state,
-        players: {
-          ...state.players,
-          [action.payload.id]: action.payload
-        }
-      }
+        players: state.players.concat(action.payload)
+      };
     default:
       return state;
   }
