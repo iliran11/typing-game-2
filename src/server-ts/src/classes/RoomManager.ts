@@ -1,6 +1,7 @@
 import Room from "./Room";
 import * as socketIo from "socket.io";
 import Player from "./Player";
+import { MAX_PLAYERS_PER_ROOM } from "../../../constants";
 
 export default class RoomManager {
   private static instance: RoomManager;
@@ -24,7 +25,7 @@ export default class RoomManager {
     if (roomId) {
       const room = this.getRoom(roomId);
       room.deletePlayer(player);
-      console.log(`${player.playerId} has left ${room.roomName}`)
+      console.log(`${player.playerId} has left ${room.roomName}. Capacity: ${room.playersInRoom.length}/${MAX_PLAYERS_PER_ROOM}`)
     }
   }
   getRoom(roomId: number): Room {

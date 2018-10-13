@@ -4,6 +4,7 @@ import LetterUi from "../letterUi";
 import WordPointer from "./WordPointer";
 import UnderlinePointer from "./UnderlinePointer";
 import socketManager from "../../socketManager";
+import CompetitorList from "./CompetitorList";
 import "./game.css";
 import "animate.css";
 
@@ -11,6 +12,7 @@ interface Props {
   letters: LetterData[];
   broadcastName: any;
   dispatch: any;
+  players: any;
 }
 
 interface State {
@@ -152,29 +154,32 @@ export default class GameManager extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div>
-        <input
-          onChange={this.onInputChange}
-          autoCapitalize="none"
-          value={""}
-          ref={this.inputNode}
-        />
-        <div id="game-text" ref={this.textBoxRef}>
-          <WordPointer
-            x={this.pointerCoordinates.x}
-            y={this.pointerCoordinates.y}
-            width={this.pointerCoordinates.width}
-            height={this.pointerCoordinates.height}
-            input={this.props.letters[this.state.index].getValue}
+      <React.Fragment>
+        <CompetitorList players={this.props.players} />
+        <div>
+          <input
+            onChange={this.onInputChange}
+            autoCapitalize="none"
+            value={""}
+            ref={this.inputNode}
           />
-          <UnderlinePointer
-            y={this.letterCoords.y + this.letterCoords.height}
-            x={this.letterCoords.x}
-            width={this.letterCoords.width}
-          />
-          {this.props.letters.map(this.renderLetter)}
+          <div id="game-text" ref={this.textBoxRef}>
+            <WordPointer
+              x={this.pointerCoordinates.x}
+              y={this.pointerCoordinates.y}
+              width={this.pointerCoordinates.width}
+              height={this.pointerCoordinates.height}
+              input={this.props.letters[this.state.index].getValue}
+            />
+            <UnderlinePointer
+              y={this.letterCoords.y + this.letterCoords.height}
+              x={this.letterCoords.x}
+              width={this.letterCoords.width}
+            />
+            {this.props.letters.map(this.renderLetter)}
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
