@@ -5,7 +5,7 @@ interface Props {
 }
 
 class Competitor extends React.PureComponent<Props, object> {
-  render() {
+  public render() {
     return <div>{this.props.name}</div>;
   }
 }

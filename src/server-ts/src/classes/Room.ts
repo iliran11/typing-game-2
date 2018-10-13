@@ -1,8 +1,7 @@
 import Player from "./Player";
 import * as io from "socket.io";
 import ServerManager from "./ServerManager";
-import { SCORE_BROADCAST,MAX_PLAYERS_PER_ROOM } from "../../../constants";
-
+import { SCORE_BROADCAST, MAX_PLAYERS_PER_ROOM } from "../../../constants";
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -40,6 +39,7 @@ export default class Room {
   deletePlayer(player: Player): void {
     if (this.isRoomFull) {
       clearTimeout(this.timerId);
+      console.log(`${this.roomName}- Game Stopped.`)
     }
     const index = this.getPlayerIndex(player.playerId);
     this.players.splice(index, 1);
@@ -64,7 +64,7 @@ export default class Room {
     return this.players.map((player: Player) => {
       return {
         playerId: player.playerId,
-        score: 1
+        score: player.playerGame.getWpmScore(this.timePassedMinutes)
       };
     });
   }
@@ -78,6 +78,7 @@ export default class Room {
   private startGame(): void {
     const intervalTime: number = 1000;
     this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
+    console.log(`${this.roomName}-Game started.`)
     // io.to(this.roomName)
   }
   private get timePassedMinutes(): number {

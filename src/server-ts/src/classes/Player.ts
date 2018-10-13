@@ -7,9 +7,8 @@ export default class Player {
   static playerCounter: number = 1;
   private name: string;
   private socket: io.Socket;
-  private game: any;
+  private game: Game;
   private gameId: number;
-  private words: string[];
   // private game: Game;
   constructor(socket: io.Socket, name?) {
     this.socket = socket;
@@ -23,7 +22,6 @@ export default class Player {
   createGame(gameId: number, words: string[]) {
     this.gameId = gameId;
     this.game = new Game(gameId);
-    this.words = words;
   }
   private get guestName() {
     return `guest-${Player.playerCounter}`;
@@ -42,9 +40,6 @@ export default class Player {
   }
   get roomId(): number {
     return this.gameId;
-  }
-  get gameWords(): string[] {
-    return this.words;
   }
   get playerGame() {
     return this.game;

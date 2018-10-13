@@ -62,6 +62,8 @@ export default class GameManager extends React.Component<Props, State> {
     const input = event.target.value.toLowerCase();
     const nextInput = [...this.state.input];
     nextInput[this.state.index] = input;
+    // notify the server on the input.
+    socketManager.emitTyping(input);
     if (targetValue === input) {
       this.setState({
         index: this.state.index + 1,
@@ -95,7 +97,7 @@ export default class GameManager extends React.Component<Props, State> {
     });
   }
   get isMounted() {
-    return this.state.hasMounted;
+    return this.state.hasMounted && this.lettersRefs.length > 0;
   }
   get letterBoundingRect() {
     const coords = this.lettersRefs[this.state.index].getBoundingClientRect();
@@ -153,6 +155,9 @@ export default class GameManager extends React.Component<Props, State> {
   }
 
   public render() {
+    if (this.props.letters.length === 0) {
+      return <div>please wait</div>;
+    }
     return (
       <React.Fragment>
         <CompetitorList players={this.props.players} />

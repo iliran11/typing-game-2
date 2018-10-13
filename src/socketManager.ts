@@ -7,7 +7,9 @@ import {
 import {
   YOU_JOINED_ROOM,
   CONNECT_SERVER_SUCCESS,
-  COMPETITOR_JOINED_ROOM
+  COMPETITOR_JOINED_ROOM,
+  PLAYER_TYPING,
+  SET_GAME_LETTERS
 } from "./constants";
 
 const socketManager: any = {
@@ -28,8 +30,13 @@ const socketManager: any = {
         type: YOU_JOINED_ROOM,
         payload: {
           roomId: data.roomId,
-          words: data.words,
           players: data.players
+        }
+      });
+      this.dispatch({
+        type: SET_GAME_LETTERS,
+        payload: {
+          letters: data.letters
         }
       });
     });
@@ -49,6 +56,9 @@ const socketManager: any = {
     // emitEvent(eventName, data) {
     //   this.socket.emit(eventName, data);
     // }
+  },
+  emitTyping(typingInput: string) {
+    this.socket.emit(PLAYER_TYPING, { typingInput });
   }
 };
 

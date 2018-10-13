@@ -12,4 +12,10 @@ export default class Letter {
   get getInput() {
     return this.input;
   }
+  get isCorrect() {
+    return this.value === this.input;
+  }
+  setInput(input: string) {
+    this.input = input;
+  }
 }

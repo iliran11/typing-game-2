@@ -1,7 +1,7 @@
 export interface JoiningRoomResponse {
   roomId: number;
   players: PlayerSerialize[];
-  words: string[];
+  letters: string[];
 }
 
 export interface ServerConnectSuccessPayload {
