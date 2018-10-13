@@ -26,12 +26,12 @@ export default class Room {
   addPlayer(player: Player): void {
     this.players.push(player);
     player.createGame(this.roomId, this.gameWords);
+    console.log(
+      `${player.playerId} Joined ${this.roomName}. Capacity: ${
+        this.playersInRoom.length
+      }/${this.maxPlayersInRoom}`
+    );
     if (this.isRoomFull) {
-      console.log(
-        `${player.playerId} Joined ${this.roomName}. Capacity: ${
-          this.playersInRoom.length
-        }/${this.maxPlayersInRoom}`
-      );
       this.isClosed = true;
       this.startGame();
     }
