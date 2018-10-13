@@ -1,4 +1,4 @@
-import { CONNECT_SERVER_SUCCESS, YOU_JOINED_ROOM } from "../../constants";
+import { CONNECT_SERVER_SUCCESS, YOU_JOINED_ROOM,COMPETITOR_JOINED_ROOM } from "../../constants";
 
 interface ServerStatus {
   roomId: number;
@@ -38,6 +38,14 @@ export default function ServerStatus(
         roomId,
         players
       };
+    case COMPETITOR_JOINED_ROOM: 
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.payload.id]: action.payload
+        }
+      }
     default:
       return state;
   }
