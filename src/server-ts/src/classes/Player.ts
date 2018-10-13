@@ -19,7 +19,6 @@ export default class Player {
       this.name = this.guestName;
       Player.playerCounter++;
     }
-    this.name = name ? name : this.guestName;
   }
   createGame(gameId: number, words: string[]) {
     this.gameId = gameId;
