@@ -34,7 +34,6 @@ export default class GameManager extends React.Component<Props, State> {
     this.lettersRefs = [];
     this.onInputChange = this.onInputChange.bind(this);
     this.renderLetter = this.renderLetter.bind(this);
-    this.onPlayerNameClick = this.onPlayerNameClick.bind(this);
     this.setName = this.setName.bind(this);
     this.state = {
       index: 0,
@@ -76,9 +75,6 @@ export default class GameManager extends React.Component<Props, State> {
     // console.log(ref.getBoundingClientRect());
     const nextArr = [...this.lettersRefs, ref];
     this.lettersRefs = nextArr;
-  }
-  public onPlayerNameClick() {
-    socketManager.broadcastName(this.state.name);
   }
   public renderLetter(letter: LetterData, index: number) {
     return (
@@ -157,12 +153,6 @@ export default class GameManager extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <div>
-          <button onClick={this.onPlayerNameClick} ref={this.buttonNode}>
-            broadcast Name
-          </button>
-          <input value={this.state.name} onChange={this.setName} />
-        </div>
         <input
           onChange={this.onInputChange}
           autoCapitalize="none"

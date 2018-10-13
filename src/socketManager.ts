@@ -2,7 +2,6 @@ import * as socketIo from "socket.io-client";
 import { JoiningRoomResponse,ServerConnectSuccessPayload } from "./types";
 import {
   YOU_JOINED_ROOM,
-  BROADCAST_NAME,
   CONNECT_SERVER_SUCCESS
 } from "./constants";
 
@@ -33,9 +32,6 @@ const socketManager: any = {
     //   this.socket.emit(eventName, data);
     // }
   },
-  broadcastName(name: string) {
-    this.socket.emit(BROADCAST_NAME, { playerName: name});
-  }
 };
 
 export default socketManager;

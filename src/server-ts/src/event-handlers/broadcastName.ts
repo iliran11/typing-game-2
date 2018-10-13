@@ -8,9 +8,8 @@ const roomManager = RoomManager.getInstance();
 const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } = constants;
 import { JoiningRoomResponse } from "../../../types";
 
-export default function broadcastName(socket: io.Socket, playerName: string) {
+export default function allocatePlayerToRoom(socket: io.Socket) {
   const player = playerManager.getPlayer(socket);
-  player.setName(playerName);
   roomManager.addPlayer(player);
   const room = roomManager.getRoom(player.roomId);
 

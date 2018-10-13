@@ -4,23 +4,30 @@ import { PlayerSerialize } from "../../../types";
 // import Game from "./Game";
 
 export default class Player {
+  static playerCounter: number = 1;
   private name: string;
   private socket: io.Socket;
   private game: any;
   private gameId: number;
   private words: string[];
   // private game: Game;
-  constructor(socket: io.Socket) {
+  constructor(socket: io.Socket, name?) {
     this.socket = socket;
-    this.name = "";
+    if (name) {
+      this.name = name;
+    } else {
+      this.name = this.guestName;
+      Player.playerCounter++;
+    }
+    this.name = name ? name : this.guestName;
   }
   createGame(gameId: number, words: string[]) {
     this.gameId = gameId;
     this.game = new Game(gameId);
     this.words = words;
   }
-  setName(name: string) {
-    this.name = name;
+  private get guestName() {
+    return `guest - ${Player.playerCounter}`;
   }
   getSocket(): io.Socket {
     return this.socket;
