@@ -1,14 +1,17 @@
 import {
   CONNECT_SERVER_SUCCESS,
   YOU_JOINED_ROOM,
-  COMPETITOR_JOINED_ROOM
+  COMPETITOR_JOINED_ROOM,
+  SCORE_BROADCAST
 } from "../../constants";
+
+import { PlayerClient } from "../../types";
 
 interface ServerStatus {
   roomId: number;
   isConnected: boolean;
   myId: string;
-  players: any;
+  players: PlayerClient[];
 }
 // interface PlayerScore {
 //   playerId: string;
@@ -21,7 +24,7 @@ const initialState: ServerStatus = {
   roomId: -1,
   isConnected: false,
   myId: "",
-  players: {}
+  players: []
 };
 
 export default function ServerStatus(
@@ -46,6 +49,17 @@ export default function ServerStatus(
       return {
         ...state,
         players: state.players.concat(action.payload)
+      };
+    case SCORE_BROADCAST:
+      const nextPlayers = state.players.map(
+        (player: PlayerClient, index: number) => {
+          player.score = action.payload.players[index].score;
+          return player;
+        }
+      );
+      return {
+        ...state,
+        players: nextPlayers
       };
     default:
       return state;

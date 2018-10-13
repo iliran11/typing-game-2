@@ -1,8 +1,9 @@
 import * as React from "react";
 import Competitor from "./Competitor";
+import { PlayerClient } from "./../../types";
 
 interface Props {
-  players: any;
+  players: PlayerClient[];
 }
 
 class CompetitorList extends React.PureComponent<Props, object> {
@@ -10,10 +11,10 @@ class CompetitorList extends React.PureComponent<Props, object> {
     if (Array.isArray(this.props.players)) {
       return (
         <React.Fragment>
-          {this.props.players.map((player: any, index: number) => {
+          {this.props.players.map((player: PlayerClient, index: number) => {
             return (
               <div key={index}>
-                <Competitor name={player.name} />
+                <Competitor name={player.name} score={player.score} />
               </div>
             );
           })}

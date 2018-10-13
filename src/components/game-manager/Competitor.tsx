@@ -2,11 +2,12 @@ import * as React from "react";
 
 interface Props {
   name: string;
+  score: number;
 }
 
 class Competitor extends React.PureComponent<Props, object> {
   public render() {
-    return <div>{this.props.name}</div>;
+    return <div>{this.props.name} score: {this.props.score}</div>;
   }
 }
 

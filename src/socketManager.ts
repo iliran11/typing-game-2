@@ -9,7 +9,8 @@ import {
   CONNECT_SERVER_SUCCESS,
   COMPETITOR_JOINED_ROOM,
   PLAYER_TYPING,
-  SET_GAME_LETTERS
+  SET_GAME_LETTERS,
+  SCORE_BROADCAST
 } from "./constants";
 
 const socketManager: any = {
@@ -49,13 +50,14 @@ const socketManager: any = {
         }
       });
     });
-    //   this.socket.on(SCORES_BROADCAST, data => {
-    //     updateScores(data, dispatch);
-    //   });
-    // },
-    // emitEvent(eventName, data) {
-    //   this.socket.emit(eventName, data);
-    // }
+    this.socket.on(SCORE_BROADCAST, (data: any) => {
+      this.dispatch({
+        type: SCORE_BROADCAST,
+        payload: {
+          players: data
+        }
+      });
+    });
   },
   emitTyping(typingInput: string) {
     this.socket.emit(PLAYER_TYPING, { typingInput });
