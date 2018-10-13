@@ -31,13 +31,13 @@ export default function ServerStatus(
   state = initialState,
   action: any
 ): ServerStatus {
-  const { payload: { roomId = -1, players = {}, myId = -1 } = {} } = action;
+  const { payload: { roomId = -1, players = {} } = {} } = action;
   switch (action.type) {
     case CONNECT_SERVER_SUCCESS:
       return {
         ...state,
         isConnected: true,
-        myId
+        myId: action.payload.myId
       };
     case YOU_JOINED_ROOM:
       return {

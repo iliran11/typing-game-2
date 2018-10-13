@@ -22,7 +22,7 @@ const socketManager: any = {
       (data: ServerConnectSuccessPayload) => {
         this.dispatch({
           type: CONNECT_SERVER_SUCCESS,
-          payload: data
+          payload: { myId: data.myId }
         });
       }
     );

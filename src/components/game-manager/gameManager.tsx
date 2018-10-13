@@ -13,6 +13,7 @@ interface Props {
   broadcastName: any;
   dispatch: any;
   players: any;
+  myId: string
 }
 
 interface State {
@@ -160,6 +161,7 @@ export default class GameManager extends React.Component<Props, State> {
     }
     return (
       <React.Fragment>
+        <h4>My Name: {this.props.myId}</h4>
         <CompetitorList players={this.props.players} />
         <div>
           <input
