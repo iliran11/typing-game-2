@@ -7,7 +7,6 @@ import allocatePlayerToRoom from "./broadcastName";
 import playerTyping from "./playerTyping";
 import {ServerConnectSuccessPayload} from '../../../types'
 import {
-  BROADCAST_NAME,
   PLAYER_TYPING,
   CONNECT_SERVER_SUCCESS
 } from "../../../constants";
@@ -24,9 +23,6 @@ export default function onConnect(socket: io.Socket): void {
   allocatePlayerToRoom(socket);
   socket.on("disconnect", () => {
     onDisconnect(socket);
-  });
-  socket.on(BROADCAST_NAME, data => {
-    
   });
   socket.on(PLAYER_TYPING, data => {
     playerTyping(socket, data);
