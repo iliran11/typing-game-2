@@ -47,7 +47,6 @@ export default class RoomManager {
   private createNewRoom(): Room {
     const room = new Room(RoomManager.words);
     this.rooms.set(room.roomId, room);
-    console.log(`Room Created - ${room.roomId}`)
     return room;
   }
   private addPlayerToNewRoom(player: Player): void {

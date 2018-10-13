@@ -1,7 +1,7 @@
 import Player from "./Player";
 import * as io from "socket.io";
 import ServerManager from "./ServerManager";
-import {SCORE_BROADCAST} from '../../../constants'
+import { SCORE_BROADCAST } from "../../../constants";
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -27,7 +27,11 @@ export default class Room {
     this.players.push(player);
     player.createGame(this.roomId, this.gameWords);
     if (this.isRoomFull) {
-      console.log(`${this.roomName} started.`);
+      console.log(
+        `${player.playerId} Joined ${this.roomName}. Capacity: ${
+          this.playersInRoom.length
+        }/${this.maxPlayersInRoom}`
+      );
       this.isClosed = true;
       this.startGame();
     }

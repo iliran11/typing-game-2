@@ -14,7 +14,6 @@ export default function allocatePlayerToRoom(socket: io.Socket) {
   const room = roomManager.getRoom(player.roomId);
 
   socket.join(room.roomName);
-  console.log(`${player.playerId} Joined ${room.roomName}`)
   const response: JoiningRoomResponse = {
     roomId: player.roomId,
     players: room.playersInRoom,
