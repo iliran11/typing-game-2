@@ -24,6 +24,7 @@ export default class RoomManager {
     if (roomId) {
       const room = this.getRoom(roomId);
       room.deletePlayer(player);
+      console.log(`${player.playerId} has left ${room.roomName}`)
     }
   }
   getRoom(roomId: number): Room {

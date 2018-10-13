@@ -15,7 +15,7 @@ const roomManager = RoomManager.getInstance();
 const playerManager = PlayerManager.getInstance();
 
 export default function onConnect(socket: io.Socket): void {
-  console.log(`connect- ${socket.client.id}`);
+  // console.log(`connect- ${socket.client.id}`);
   const player = new Player(socket);
   playerManager.addPlayer(player);
   const connectPayload : ServerConnectSuccessPayload = { myId: player.playerId }
