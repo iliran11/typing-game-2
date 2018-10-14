@@ -20,6 +20,7 @@ interface State {
   hasMounted: boolean;
   isTooltipOpen: boolean;
   name: "";
+  letterComponents: any;
 }
 
 export default class GameManager extends React.Component<Props, State> {
@@ -41,7 +42,8 @@ export default class GameManager extends React.Component<Props, State> {
       hasMounted: false,
       isTooltipOpen: false,
       input: [],
-      name: ""
+      name: "",
+      letterComponents: []
     };
     this.textBoxRef = React.createRef();
     this.tooltipRef = React.createRef();
@@ -54,12 +56,20 @@ export default class GameManager extends React.Component<Props, State> {
       hasMounted: true
     });
   }
+  public componentDidUpdate(prevProps: any) {
+    if (prevProps.letters !== this.props.letters) {
+      this.setState({
+        letterComponents: this.props.letters.map(this.renderLetter)
+      });
+    }
+  }
   public onInputChange(event: any): void {
     const targetValue = this.props.letters[
       this.state.index
     ].getValue.toLowerCase();
     const input = event.target.value.toLowerCase();
     const nextInput = [...this.state.input];
+    // const currentLetter = <LetterUi letter={this.props.letters[this.state.index]}
     nextInput[this.state.index] = input;
     // notify the server on the input.
     socketManager.emitTyping(input);
@@ -179,7 +189,7 @@ export default class GameManager extends React.Component<Props, State> {
             x={this.letterCoords.x}
             width={this.letterCoords.width}
           />
-          {this.props.letters.map(this.renderLetter)}
+          {this.state.letterComponents}
         </div>
       </div>
     );
