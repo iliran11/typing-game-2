@@ -59,11 +59,14 @@ export default class GameManager extends React.Component<Props, State> {
       this.state.index
     ].getValue.toLowerCase();
     const input = event.target.value.toLowerCase();
+
     const nextInput = [...this.state.input];
     nextInput[this.state.index] = input;
     // notify the server on the input.
     socketManager.emitTyping(input);
     if (targetValue === input) {
+      this.lettersRefs[this.state.index +1].setParams(true);
+      this.lettersRefs[this.state.index].setParams(false,input);
       this.setState({
         index: this.state.index + 1,
         input: nextInput
@@ -75,17 +78,15 @@ export default class GameManager extends React.Component<Props, State> {
     }
   }
   public setRefs(ref: any): void {
-    // console.log(ref.getBoundingClientRect());
     const nextArr = [...this.lettersRefs, ref];
     this.lettersRefs = nextArr;
   }
   public renderLetter(letter: LetterData, index: number) {
     return (
-      <div ref={this.setRefs} key={index} className="letter-wrapper">
+      <div key={index} className="letter-wrapper">
         <LetterUi
           letter={letter.getValue}
-          isSelected={index === this.state.index}
-          input={this.state.input[index]}
+          ref={this.setRefs}
         />
       </div>
     );
@@ -99,7 +100,7 @@ export default class GameManager extends React.Component<Props, State> {
     return this.state.hasMounted && this.lettersRefs.length > 0;
   }
   get letterBoundingRect() {
-    const coords = this.lettersRefs[this.state.index].getBoundingClientRect();
+    const coords = this.lettersRefs[this.state.index].rectBound;
     return {
       x: coords.left,
       y: coords.top,
@@ -157,6 +158,7 @@ export default class GameManager extends React.Component<Props, State> {
     if (this.props.letters.length === 0) {
       return <div>please wait</div>;
     }
+    console.log();
     return (
       <div>
         <ScoreBoard />

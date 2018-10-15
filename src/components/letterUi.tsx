@@ -5,8 +5,6 @@ import ToolTip from "./game-manager/tooltip";
 
 export interface LetterUiProps {
   letter: string;
-  isSelected: boolean;
-  input: string;
 }
 interface State {
   isMounted: boolean;
@@ -18,18 +16,20 @@ export enum LetterStatus {
 }
 
 class Letter extends React.PureComponent<LetterUiProps, State> {
-  public letterRef: any;
-  constructor(props: any) {
+  private letterRef: any;
+  private isSelected: boolean = false;
+  private input: string = ""
+  private constructor(props: any) {
     super(props);
     this.letterRef = React.createRef();
     this.state = {
       isMounted: false
     };
   }
-  get isMounted() {
+  private get isMounted() {
     return this.state.isMounted;
   }
-  get tooltipDimensions() {
+  private get tooltipDimensions() {
     if (this.isMounted) {
       const letterData = this.letterRef.current.getBoundingClientRect();
       return {
@@ -44,26 +44,37 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
       isMounted: true
     });
   }
-  get letterClassNames() {
+  private get letterClassNames() {
     return cx("letter animated", {
-      success: this.props.input === this.props.letter,
-      "is-selected": this.props.isSelected
+      success: this.input === this.props.letter,
+      "is-selected": this.isSelected
     });
   }
-  get letterDisplay() {
-    return this.props.letter.toLowerCase()
+  private get letterDisplay() {
+    return this.props.letter.toLowerCase();
   }
-
-  public render() {  
+  public get rectBound() {
+    return this.letterRef.current.getBoundingClientRect();
+  }
+  public setParams(isSelected: boolean, input: string) {
+    this.isSelected = isSelected;
+    if (input) {
+      this.input = input;
+    }
+    this.forceUpdate();
+  }
+  public render() {
     return (
       <div className={this.letterClassNames}>
         <ToolTip
           x={this.tooltipDimensions.x}
           y={this.tooltipDimensions.y}
-          open={this.props.isSelected}
-          input={this.props.input}
+          open={this.isSelected}
+          input={this.input}
         />
-        <span ref={this.letterRef}>{this.props.letter===" " ?  <WhiteSpace /> : this.letterDisplay}</span>
+        <span ref={this.letterRef}>
+          {this.props.letter === " " ? <WhiteSpace /> : this.letterDisplay}
+        </span>
       </div>
     );
   }
