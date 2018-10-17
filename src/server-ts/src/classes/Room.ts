@@ -64,7 +64,8 @@ export default class Room {
     return this.players.map((player: Player) => {
       return {
         playerId: player.playerId,
-        score: player.playerGame.getWpmScore(this.timePassedMinutes)
+        score: player.playerGame.getWpmScore(this.timePassedMinutes),
+        completedPercntage: player.playerGame.getPercentageComplete
       };
     });
   }

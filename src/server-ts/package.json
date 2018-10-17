@@ -8,7 +8,8 @@
     "watch-ts": "tsc -w",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yello.bold, cyan.bold\" \"yarn run watch-ts\" \"yarn run watch-node\"",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "server": "nodemon dist/server.js"
+    "server": "nodemon dist/server-ts/src/server.js",
+    "static-server": "node dist/server-ts/src/server.js"
   },
   "keywords": [],
   "author": "",

@@ -16,4 +16,5 @@ export interface PlayerClient {
   id: string;
   name: string;
   score: number;
+  compeletedPercntage:number;
 }
