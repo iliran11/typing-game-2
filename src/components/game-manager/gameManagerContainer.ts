@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import GameManager from "./gameManager";
+import GameManager from "./GamrManager2";
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
