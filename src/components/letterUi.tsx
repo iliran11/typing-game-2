@@ -1,7 +1,7 @@
 import * as React from "react";
 import cx from "classnames";
-import WhiteSpace from "./game-manager/whitespace";
-import ToolTip from "./game-manager/tooltip";
+import WhiteSpace from "./whitespace";
+import ToolTip from "./tooltip";
 
 export interface LetterUiProps {
   letter: string;
