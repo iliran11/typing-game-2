@@ -12,6 +12,11 @@ export default class GameManager extends React.Component<Props, State> {
     super(props);
     socketManager.initSocket(props.dispatch);
   }
+  componentDidUpdate(prevProps: Props) {
+    if(prevProps.letters.length===0 && this.props.letters.length) {
+      console.log('letter here')
+    }
+  }
   public render() {
     console.log(this.props.letters);
     return <div>hello</div>;

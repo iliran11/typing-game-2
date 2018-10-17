@@ -15,9 +15,19 @@ export default function GameReducer(
 ): Game {
   switch (action.type) {
     case SET_GAME_LETTERS:
-      const lettersData = action.payload.letters.map((letter: string) => {
-        return new Letter(letter);
-      });
+      const lettersGroupSize = 20;
+      const lettersData = action.payload.letters.reduce(
+        (accumulator: string[][], value: string, index: number) => {
+          const currentGroupIndex = Math.floor(index / lettersGroupSize);
+          if (Array.isArray(accumulator[currentGroupIndex])) {
+            accumulator[currentGroupIndex].push(value);
+          } else {
+            accumulator[currentGroupIndex] = [value];
+          }
+          return accumulator;
+        },
+        []
+      );
       return {
         ...state,
         letters: lettersData
