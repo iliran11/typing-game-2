@@ -1,5 +1,5 @@
 import Letter from "../classes/lettterData";
-import { SET_GAME_LETTERS } from "../../constants";
+import { SET_GAME_LETTERS, LETTER_GROUP_SIZE } from "../../constants";
 
 // const letters : Letter[] = [new ]
 interface Game {
@@ -15,11 +15,10 @@ export default function GameReducer(
 ): Game {
   switch (action.type) {
     case SET_GAME_LETTERS:
-      const lettersGroupSize = 20;
       // devide all the letters to groups of letters. will help with performance while rendering.
       const lettersData = action.payload.letters.reduce(
         (accumulator: string[][], value: string, index: number) => {
-          const currentGroupIndex = Math.floor(index / lettersGroupSize);
+          const currentGroupIndex = Math.floor(index / LETTER_GROUP_SIZE);
           if (Array.isArray(accumulator[currentGroupIndex])) {
             accumulator[currentGroupIndex].push(value);
           } else {

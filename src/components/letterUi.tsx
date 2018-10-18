@@ -7,6 +7,7 @@ export interface LetterUiProps {
   letter: string;
   isSelected: boolean;
   input: string;
+  onRefReceive?: (ref: Element) => {};
 }
 interface State {
   isMounted: boolean;

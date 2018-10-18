@@ -5,6 +5,7 @@
 
 .letter.success {
   animation: 0.5s linear 0s pulse-success;
+  color:red;
 }
 
 @keyframes pulse-success {
