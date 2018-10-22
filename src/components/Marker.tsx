@@ -1,18 +1,14 @@
-import * as React from "react";
+import * as React from 'react';
 
-function WordPointer({
-  x,
-  y,
-  width,
-  height,
-  input
-}: {
+export interface markerProps {
   x: number;
   y: number;
   width: number;
   input: string;
   height: number;
-}) {
+}
+
+function WordPointer({ x, y, width, height, input }: markerProps) {
   const style = {
     width,
     height,

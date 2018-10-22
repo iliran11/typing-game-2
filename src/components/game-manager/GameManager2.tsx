@@ -2,6 +2,8 @@ import * as React from "react";
 import socketManager from "../../socketManager";
 import LetterGroup from "../LetterGroup";
 import { LETTER_GROUP_SIZE } from "../../constants";
+
+import Marker, {markerProps} from '../Marker'
 import "./game.css";
 interface Props {
   letters: string[][];
@@ -56,7 +58,7 @@ export default class GameManager extends React.Component<Props, State> {
   }
   private renderLetterGroup(letterGroup: string[], index: number) {
     return (
-      <div>
+      <div className="letter-group">
         <LetterGroup
           letters={letterGroup}
           onRefReceive={this.buildLetterNodes}
@@ -93,9 +95,8 @@ export default class GameManager extends React.Component<Props, State> {
   private onInput(event: any) {
     const { letterGroupIndex, index } = this.state;
     const input: string = event.target.value;
-    const currentLetter = this.props.letters[letterGroupIndex][index];
     const updatedInput = this.updateInputArray(letterGroupIndex, index, input);
-    if (input === currentLetter) {
+    if (input === this.currentLetter) {
       this.setState({
         ...this.incrementIndex,
         input: updatedInput
@@ -106,12 +107,28 @@ export default class GameManager extends React.Component<Props, State> {
       });
     }
   }
-
+  get currentLetter() :string  {
+    const { letterGroupIndex, index } = this.state;
+    return this.props.letters[letterGroupIndex][index];
+  }
+  get currentLetterNode() :Element {
+    return this.letterNodes[this.state.letterGroupIndex][this.state.index]
+  }
+  get markerProps() :markerProps {
+    return {
+      x:0,
+      y:0,
+      width:10,
+      input: 'f',
+      height:3
+    }
+  }
   public render() {
     return (
-      <div>
+      <div id="words-box">
         <input onChange={this.onInput} value={""} />
         {this.props.letters.map(this.renderLetterGroup)}
+        <Marker {...this.markerProps}/>
       </div>
     );
   }
