@@ -56,13 +56,13 @@ export default class GameManager extends React.Component<Props, State> {
   }
   private renderLetterGroup(letterGroup: string[], index: number) {
     return (
-      <span>
+      <div>
         <LetterGroup
           letters={letterGroup}
           onRefReceive={this.buildLetterNodes}
           inputArray={this.state.input[index]}
         />
-      </span>
+      </div>
     );
   }
   get incrementIndex(): { letterGroupIndex: number; index: number } {
