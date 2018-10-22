@@ -2,6 +2,13 @@
   display: inline-block;
   position: relative;
 }
+.letter-group {
+  display:inline-flex;
+}
+
+.letter-container {
+  display: inline-flex;
+}
 
 .letter.success {
   animation: 0.5s linear 0s pulse-success;

@@ -1,1 +1,7 @@
+.letter-group {
+  display:inline-flex;
+}
 
+.letter-container {
+  display: inline-flex;
+}
