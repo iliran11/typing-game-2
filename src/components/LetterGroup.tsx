@@ -32,7 +32,7 @@ export default class LetterGroup extends React.PureComponent<Props, State> {
       <React.Fragment>
         {this.props.letters.map((letter: string, index: number) => {
           return (
-            <div key={index} ref={this.setRefs}>
+            <div key={index} ref={this.setRefs} className="letter-container">
               <LetterUi
                 letter={letter}
                 input={this.getInput(index)}
