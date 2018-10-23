@@ -1,14 +1,25 @@
-.letter {
-  display: inline-block;
-  position: relative;
+#words-box {
+  width: 200x;
+  height:100px;
+  border: 1px solid red;
+  overflow: scroll;
+  font-size:20px;
+  position:relative;
 }
 .letter-group {
   display:inline-flex;
+  flex-wrap: wrap
 }
+
 
 .letter-container {
   display: inline-flex;
 }
+.letter {
+  display: inline-block;
+  position: relative;
+}
+
 
 .letter.success {
   animation: 0.5s linear 0s pulse-success;

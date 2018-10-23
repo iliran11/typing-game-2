@@ -1,6 +1,6 @@
 import LetterData from "../../../store/classes/lettterData";
 
-const words: string = "hellohello world yello green hello world yello green hello world yello";
+const words: string = "hellohello world yello green hello world yello green hello world yello hellohello world yello green hello world yello green hello world yellohellohello world yello green hello world yello green hello world yellohellohello world yello green hello world yello green hello world yellohellohello world yello green hello world yello green hello world yello";
 const lettersSample = words.split("").map(word => new LetterData(word));
 
 export default class Game {
