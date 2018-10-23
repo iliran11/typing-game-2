@@ -69,7 +69,7 @@ export default class GameManager extends React.Component<Props, State> {
     if (index + 1 === LETTER_GROUP_SIZE) {
       return {
         letterGroupIndex: letterGroupIndex + 1,
-        index: 1
+        index: 0
       };
     } else {
       return {
