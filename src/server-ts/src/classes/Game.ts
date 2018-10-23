@@ -27,7 +27,7 @@ export default class Game {
     return words.split("");
   }
   public getWpmScore(timeLeftMinutes: number) {
-    return (this.index + 1 / timeLeftMinutes) / 5;
+    return (this.index  / timeLeftMinutes) / 5;
   }
   public get getPercentageComplete() {
     return this.index / this.letters.length
