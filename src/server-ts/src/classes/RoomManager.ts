@@ -20,6 +20,7 @@ export default class RoomManager {
     } else {
        room = this.addPlayerToNewRoom(player);
     }
+    player.setRoomId(room.roomId)
     return room;
   }
   private addPlayerToExistingRoom(player: Player): Room {
@@ -34,7 +35,7 @@ export default class RoomManager {
   }
 
   removePlayer(player: Player): Room | null {
-    const roomId: number = player.playerGame.gameId;
+    const roomId: number = player.getRoomId;
     if (roomId) {
       const room = this.getRoom(roomId);
       room.deletePlayer(player);

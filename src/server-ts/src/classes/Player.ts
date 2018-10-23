@@ -1,6 +1,6 @@
-import * as io from "socket.io";
-import Game from "./Game";
-import { PlayerSerialize } from "../../../types";
+import * as io from 'socket.io';
+import Game from './Game';
+import { PlayerSerialize } from '../../../types';
 // import Game from "./Game";
 
 export default class Player {
@@ -8,8 +8,10 @@ export default class Player {
   private name: string;
   private socket: io.Socket;
   private game: Game;
+  private roomId: number;
+
   // private game: Game;
-  constructor(socket: io.Socket,name?) {
+  constructor(socket: io.Socket, name?) {
     this.socket = socket;
     if (name) {
       this.name = name;
@@ -38,5 +40,11 @@ export default class Player {
   }
   public get playerGame() {
     return this.game;
+  }
+  public get getRoomId(): number {
+    return this.roomId;
+  }
+  public setRoomId(roomId): void {
+    this.roomId = roomId;
   }
 }
