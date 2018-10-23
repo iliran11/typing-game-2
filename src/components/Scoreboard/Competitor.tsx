@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 interface Props {
   name: string;
@@ -6,8 +6,12 @@ interface Props {
 }
 
 class Competitor extends React.PureComponent<Props, object> {
-  public render() {
-    return <div>{this.props.name} score: {this.props.score}</div>;
+  render() {
+    return (
+      <div>
+        {this.props.name} score: {this.props.score}
+      </div>
+    );
   }
 }
 

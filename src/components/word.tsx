@@ -5,7 +5,7 @@ letters: LetterUiProps[];
 }
 
 class Word extends React.PureComponent<IWordProps, object> {
-  public render() {
+  render() {
     return (
       <div>
         {this.props.letters.map((letter: LetterUiProps, index: number) => {

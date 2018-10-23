@@ -1,14 +1,12 @@
-import * as React from "react";
-import LetterUi from "./letterUi";
+import * as React from 'react';
+import LetterUi from './letterUi';
 interface Props {
   letters: string[];
   inputArray: string[];
   onRefReceive: (ref: HTMLDivElement[]) => void;
 }
 
-interface State {}
-
-export default class LetterGroup extends React.PureComponent<Props, State> {
+export default class LetterGroup extends React.PureComponent<Props, object> {
   private letterRefs: HTMLDivElement[];
   constructor(props: Props) {
     super(props);
@@ -25,7 +23,7 @@ export default class LetterGroup extends React.PureComponent<Props, State> {
     if (Array.isArray(this.props.inputArray) && this.props.inputArray[index]) {
       return this.props.inputArray[index];
     }
-    return "";
+    return '';
   }
   render() {
     return (

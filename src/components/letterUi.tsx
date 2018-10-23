@@ -19,7 +19,7 @@ export enum LetterStatus {
 }
 
 class Letter extends React.PureComponent<LetterUiProps, State> {
-  public letterRef: any;
+  letterRef: any;
   constructor(props: any) {
     super(props);
     this.letterRef = React.createRef();
@@ -40,7 +40,7 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
     }
     return { x: 0, y: 0 };
   }
-  public componentDidMount() {
+  componentDidMount() {
     this.setState({
       isMounted: true
     });
@@ -55,7 +55,7 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
     return this.props.letter.toLowerCase()
   }
 
-  public render() {  
+    render() {  
     return (
       <div className={this.letterClassNames}>
         <ToolTip

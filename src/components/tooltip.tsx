@@ -9,7 +9,7 @@ interface Props {
 }
 
 class ToolTip extends React.Component<Props, {}> {
-  public tooltipRef: any;
+  tooltipRef: any;
   constructor(props: any) {
     super(props);
     this.tooltipRef = React.createRef();
@@ -24,7 +24,7 @@ class ToolTip extends React.Component<Props, {}> {
   get innerClass() {
     return cx("tooltip-inner", { "has-space": (this.props.input === " ") });
   }
-  public render() {
+  render() {
     return (
       <div
         className={this.tooltipClass}

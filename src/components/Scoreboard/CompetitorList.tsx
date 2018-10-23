@@ -1,13 +1,13 @@
-import * as React from "react";
-import Competitor from "./Competitor";
-import { PlayerClient } from "./../../types";
+import * as React from 'react';
+import Competitor from './Competitor';
+import { PlayerClient } from './../../types';
 
 interface Props {
   players: PlayerClient[];
 }
 
 class CompetitorList extends React.PureComponent<Props, object> {
-  public render() {
+  render() {
     if (Array.isArray(this.props.players)) {
       return (
         <React.Fragment>

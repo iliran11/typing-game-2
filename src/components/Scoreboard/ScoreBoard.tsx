@@ -1,5 +1,5 @@
-import * as React from "react";
-import CompetitorList from "./CompetitorList";
+import * as React from 'react';
+import CompetitorList from './CompetitorList';
 
 interface Props {
   myId: string;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 class ScoreBoard extends React.PureComponent<Props, object> {
-  public render() {
+  render() {
     return (
       <React.Fragment>
         <h4>My Name: {this.props.myId}</h4>
