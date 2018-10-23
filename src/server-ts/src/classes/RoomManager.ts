@@ -13,20 +13,35 @@ export default class RoomManager {
     // create first new room;
     this.createNewRoom();
   }
-  addPlayer(player: Player): void {
+  addPlayer(player: Player): Room {
+    let room :Room;
     if (this.openRooms > 0) {
-      this.addPlayerToExistingRoom(player);
+       room  = this.addPlayerToExistingRoom(player);
     } else {
-      this.addPlayerToNewRoom(player);
+       room = this.addPlayerToNewRoom(player);
     }
+    return room;
   }
-  removePlayer(player: Player): void {
+  private addPlayerToExistingRoom(player: Player): Room {
+    const selectedRoom: Room = this.rooms.get(this.availableRoomNumber);
+    selectedRoom.addPlayer(player);
+    return selectedRoom
+  }
+  private addPlayerToNewRoom(player: Player): Room {
+    const room = this.createNewRoom();
+    room.addPlayer(player);
+    return room;
+  }
+
+  removePlayer(player: Player): Room | null {
     const roomId: number = player.playerGame.gameId;
     if (roomId) {
       const room = this.getRoom(roomId);
       room.deletePlayer(player);
       console.log(`${player.playerId} has left ${room.roomName}. Capacity: ${room.playersInRoom.length}/${MAX_PLAYERS_PER_ROOM}`)
+      return room;
     }
+    return null;
   }
   getRoom(roomId: number): Room {
     return this.rooms.get(roomId);
@@ -40,19 +55,11 @@ export default class RoomManager {
   private get availableRoomNumber(): number {
     return this.openRoomsIds[0];
   }
-  private addPlayerToExistingRoom(player: Player): void {
-    const selectedRoom: Room = this.rooms.get(this.availableRoomNumber);
-    selectedRoom.addPlayer(player);
-    return;
-  }
+
   private createNewRoom(): Room {
     const room = new Room(RoomManager.words);
     this.rooms.set(room.roomId, room);
     return room;
-  }
-  private addPlayerToNewRoom(player: Player): void {
-    const room = this.createNewRoom();
-    room.addPlayer(player);
   }
   get openRoomsIds(): number[] {
     const openRooms: number[] = [];

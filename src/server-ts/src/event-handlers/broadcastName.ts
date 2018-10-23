@@ -10,12 +10,11 @@ import { JoiningRoomResponse } from "../../../types";
 
 export default function allocatePlayerToRoom(socket: io.Socket) {
   const player = playerManager.getPlayer(socket);
-  roomManager.addPlayer(player);
-  const room = roomManager.getRoom(player.playerGame.gameId);
+  const room = roomManager.addPlayer(player);
 
   socket.join(room.roomName);
   const response: JoiningRoomResponse = {
-    roomId: player.playerGame.gameId,
+    roomId: room.roomId,
     players: room.playersInRoom,
     letters: player.playerGame.getRawLetters
   };

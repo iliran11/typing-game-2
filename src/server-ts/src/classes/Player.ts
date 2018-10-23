@@ -9,7 +9,7 @@ export default class Player {
   private socket: io.Socket;
   private game: Game;
   // private game: Game;
-  constructor(socket: io.Socket, name?) {
+  constructor(socket: io.Socket,name?) {
     this.socket = socket;
     if (name) {
       this.name = name;
@@ -27,16 +27,16 @@ export default class Player {
   getSocket(): io.Socket {
     return this.socket;
   }
-  get serializable(): PlayerSerialize {
+  public get serializable(): PlayerSerialize {
     return {
       name: this.name,
       id: this.name
     };
   }
-  get playerId(): string {
+  public get playerId(): string {
     return this.name;
   }
-  get playerGame() {
+  public get playerGame() {
     return this.game;
   }
 }
