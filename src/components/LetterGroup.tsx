@@ -3,6 +3,7 @@ import LetterUi from './letterUi';
 interface Props {
   letters: string[];
   inputArray: string[];
+  currentIndex:number | null;
   onRefReceive: (ref: HTMLDivElement[]) => void;
 }
 
@@ -34,7 +35,8 @@ export default class LetterGroup extends React.PureComponent<Props, object> {
               <LetterUi
                 letter={letter}
                 input={this.getInput(index)}
-                isSelected={false}
+                isSelected={this.props.currentIndex===index}
+
               />
             </div>
           );

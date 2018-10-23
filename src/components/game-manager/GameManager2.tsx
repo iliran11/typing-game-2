@@ -59,6 +59,7 @@ export default class GameManager extends React.Component<Props, State> {
           letters={letterGroup}
           onRefReceive={this.buildLetterNodes}
           inputArray={this.state.input[index]}
+          currentIndex = {this.state.letterGroupIndex===index ? this.state.index : null}
         />
       </div>
     );
