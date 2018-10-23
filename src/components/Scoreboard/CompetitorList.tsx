@@ -14,7 +14,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
           {this.props.players.map((player: PlayerClient, index: number) => {
             return (
               <div key={index}>
-                <Competitor name={player.name} score={player.score} />
+                <Competitor name={player.name} score={player.score}  compeletedPercntage={player.compeletedPercntage}/>
               </div>
             );
           })}

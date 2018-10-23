@@ -53,8 +53,8 @@ export default function ServerStatus(
     case SCORE_BROADCAST:
       const nextPlayers = state.players.map(
         (player: PlayerClient, index: number) => {
-          player.score = action.payload.players[index].score;
-          player.compeletedPercntage = action.payload.players[index].compeletedPercntage;
+          player.score = action.payload.players[index].score
+          player.compeletedPercntage = action.payload.players[index].completedPercntage;
           return player;
         }
       );
