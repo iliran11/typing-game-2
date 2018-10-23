@@ -7,11 +7,13 @@ export default class Game {
   private index: number;
   private letters: LetterData[];
   gameId: number;
+   static gameCounter: number = 1;
 
-  constructor(gameId: number, letters?: LetterData) {
+  constructor() {
     this.letters = lettersSample;
     this.index = 0;
-    this.gameId = gameId;
+    this.gameId = Game.gameCounter;
+    Game.gameCounter++;
     this.letters = lettersSample;
   }
   public processNewTyping(input: string) {

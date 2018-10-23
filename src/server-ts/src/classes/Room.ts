@@ -25,7 +25,7 @@ export default class Room {
   }
   addPlayer(player: Player): void {
     this.players.push(player);
-    player.createGame(this.roomId, this.gameWords);
+    player.createGame();
     console.log(
       `${player.playerId} Joined ${this.roomName}. Capacity: ${
         this.playersInRoom.length
