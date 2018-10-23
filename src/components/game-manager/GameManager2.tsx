@@ -94,6 +94,7 @@ export default class GameManager extends React.Component<Props, State> {
     const { letterGroupIndex, index } = this.state;
     const input: string = event.target.value;
     const updatedInput = this.updateInputArray(letterGroupIndex, index, input);
+    socketManager.emitTyping(input);
     if (input === this.currentLetter) {
       this.setState(
         {
