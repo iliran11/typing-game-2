@@ -128,12 +128,12 @@ export default class GameManager extends React.Component<Props, State> {
   get markerProps(): markerProps {
     const letterNode = this.currentLetterNode;
     if (letterNode) {
-      console.log(this.wordBox)
       const { left, top } = letterNode.getBoundingClientRect();
       const wordBoxRect = this.wordBox.current.getBoundingClientRect()
-      const y = wordBoxRect.top - top;
-      const x = left - wordBoxRect.left;
-      console.log(wordBoxRect.left,left)
+      // calculate the position of x,y, with respect to scrolling.
+      const y = top - wordBoxRect.top +  this.wordBox.current.scrollTop;
+      const x = left - wordBoxRect.left   - this.wordBox.current.scrollLeft;
+      console.log(top,wordBoxRect.top,this.wordBox.current.scrollTop)
 
       
       const width = letterNode.clientWidth;
