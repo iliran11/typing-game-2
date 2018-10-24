@@ -30,7 +30,7 @@
   background-color:grey;
   position:absolute;
   left:0;
-  transition: transform 1s;
+  transition: transform 2s;
 }
 
 .competitor-wpm {

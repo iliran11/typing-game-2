@@ -17,6 +17,10 @@ export default class Game {
     this.letters = lettersSample;
   }
   public processNewTyping(input: string) {
+    // if we are out of letters, reached the end of the array already - do not process.
+    if(this.index===this.letters.length) {
+      return;
+    }
     const letter = this.letters[this.index];
     letter.setInput(input);
     if (letter.isCorrect) {
