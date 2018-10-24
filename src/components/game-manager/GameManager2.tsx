@@ -1,16 +1,16 @@
 import * as React from 'react';
+import cx from 'classnames';
 import socketManager from '../../socketManager';
 import LetterGroup from '../LetterGroup';
 import { LETTER_GROUP_SIZE } from '../../constants';
 import * as scrollIntoView from 'scroll-into-view';
-import cx from 'classnames'
 
 import Marker, { markerProps } from '../Marker';
 import './game.css';
 interface Props {
   letters: string[][];
   dispatch: any;
-  isGameActive: boolean
+  isGameActive: boolean;
 }
 
 interface State {
@@ -34,8 +34,6 @@ export default class GameManager extends React.Component<Props, State> {
     };
     this.letterNodes = [];
     this.wordBox = React.createRef();
-    socketManager.initSocket(props.dispatch);
-
     this.renderLetterGroup = this.renderLetterGroup.bind(this);
     this.buildLetterNodes = this.buildLetterNodes.bind(this);
     this.onInput = this.onInput.bind(this);
@@ -61,7 +59,9 @@ export default class GameManager extends React.Component<Props, State> {
           letters={letterGroup}
           onRefReceive={this.buildLetterNodes}
           inputArray={this.state.input[index]}
-          currentIndex = {this.state.letterGroupIndex===index ? this.state.index : null}
+          currentIndex={
+            this.state.letterGroupIndex === index ? this.state.index : null
+          }
         />
       </div>
     );
@@ -128,7 +128,7 @@ export default class GameManager extends React.Component<Props, State> {
     return this.letterNodes[letterGroupIndex][index];
   }
   get wordBoxClassNames() {
-    return cx({disabled: !this.props.isGameActive})
+    return cx({ disabled: !this.props.isGameActive });
   }
   get markerProps(): markerProps {
     const letterNode = this.currentLetterNode;
@@ -160,7 +160,11 @@ export default class GameManager extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <input onChange={this.onInput} value={''} />
-        <div id="words-box" className={this.wordBoxClassNames} ref={this.wordBox}>
+        <div
+          id="words-box"
+          className={this.wordBoxClassNames}
+          ref={this.wordBox}
+        >
           {this.props.letters.map(this.renderLetterGroup)}
           <Marker {...this.markerProps} />
         </div>
