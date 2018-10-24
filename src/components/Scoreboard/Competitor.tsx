@@ -1,7 +1,11 @@
 import * as React from 'react';
 import './competitor.css';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
-import Spinner from '../spinner/spinner'
+import Spinner from '../spinner/spinner';
+import CircularProgress from '../CircularProgress';
+
+// wpm of maximum progress in circular progress.
+const maxWpmGauge = 40;
 
 interface Props {
   name: string;
@@ -51,12 +55,13 @@ class Competitor extends React.PureComponent<Props, State> {
   }
   //avatar will be called only after the component has mounted so we have access to all refs here. no need
   get avatarTransformCompetitor() {
-    const visualOffset = 20
+    const visualOffset = 20;
     if (!this.progressBarRef.current) {
       return visualOffset;
     }
     // console.log(`bar width:${this.progressbarWidth}. percent:${this.props.compeletedPercntage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
     // a little visual addition to make it more appealing like.
+
     return (
       this.percentageCompleted * this.progressBarRef.current.clientWidth +
       visualOffset
@@ -77,9 +82,7 @@ class Competitor extends React.PureComponent<Props, State> {
   }
 
   render() {
-    if (this.props.index === 1) {
-      console.log(this.avatarTransformEmptySlot);
-    }
+    console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
       <div className="competitor-container">
         <div className="competitor-name-section">{this.nameSectionText}</div>
@@ -90,11 +93,17 @@ class Competitor extends React.PureComponent<Props, State> {
             style={this.avatarStyle}
             ref={this.avatarRef}
           />
-          <div style={{position:"absolute",left:30}}>
-          {this.isEmptySlot && <Spinner/>}
+          <div style={{ position: 'absolute', left: 30 }}>
+            {this.isEmptySlot && <Spinner />}
           </div>
         </div>
-        <div className="competitor-wpm">{this.normalizedWpmScore}</div>
+        <div className="competitor-wpm">
+          <div className="circular-progress">
+            <CircularProgress
+              percentage={this.normalizedWpmScore / maxWpmGauge} text={this.normalizedWpmScore}
+            />
+          </div>
+        </div>
       </div>
     );
   }

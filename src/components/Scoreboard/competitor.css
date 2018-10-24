@@ -3,10 +3,10 @@
   min-height: 70px;
   display: flex;
   flex: auto;
+  padding:0px 10px;
 }
 .competitor-name-section {
-  width: 25%;
-  padding-right: 2vw;
+  width: 50px;
   display:flex;
   align-items:center;
 }
@@ -15,13 +15,14 @@
   flex: auto;
   display: flex;
   align-items: center;
-  padding: 0px 30px;
+  padding-left:30px;
   position:relative;
 }
 .competitor-progress .progress-bar {
   height: 10px;
   background-color: rgb(76, 132, 139);
   flex: auto;
+  
 }
 .competitor-progress .avatar {
   height:30px;
@@ -36,5 +37,10 @@
 .competitor-wpm {
   width: 15%;
   display:flex;
+  justify-content: center;
   align-items:center;
+  width:100px;
+}
+.competitor-wpm .circular-progress {
+  width:50%;
 }
