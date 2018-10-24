@@ -24,7 +24,7 @@ class Competitor extends React.PureComponent<Props, object> {
     if(this.progressBarRef.current) {
       this.progressbarWidth = this.progressBarRef.current.clientWidth
     }
-    console.log(`bar width:${this.progressbarWidth}. percent:${this.props.compeletedPercntage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
+    // console.log(`bar width:${this.progressbarWidth}. percent:${this.props.compeletedPercntage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
     return this.props.compeletedPercntage * this.progressbarWidth;
   }
   get avatarStyle() {
