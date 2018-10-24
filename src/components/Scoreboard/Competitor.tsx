@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './competitor.css';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
+import Spinner from '../spinner/spinner'
 
 interface Props {
   name: string;
@@ -50,12 +51,12 @@ class Competitor extends React.PureComponent<Props, State> {
   }
   //avatar will be called only after the component has mounted so we have access to all refs here. no need
   get avatarTransformCompetitor() {
+    const visualOffset = 20
     if (!this.progressBarRef.current) {
-      return this.transformToEdge;
+      return visualOffset;
     }
     // console.log(`bar width:${this.progressbarWidth}. percent:${this.props.compeletedPercntage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
     // a little visual addition to make it more appealing like.
-    const visualOffset = 20;
     return (
       this.percentageCompleted * this.progressBarRef.current.clientWidth +
       visualOffset
@@ -89,6 +90,9 @@ class Competitor extends React.PureComponent<Props, State> {
             style={this.avatarStyle}
             ref={this.avatarRef}
           />
+          <div style={{position:"absolute",left:30}}>
+          {this.isEmptySlot && <Spinner/>}
+          </div>
         </div>
         <div className="competitor-wpm">{this.normalizedWpmScore}</div>
       </div>
