@@ -10,15 +10,18 @@ class CompetitorList extends React.PureComponent<Props, object> {
   render() {
     if (Array.isArray(this.props.players)) {
       return (
-        <React.Fragment>
+        <div className="competitor-list">
           {this.props.players.map((player: PlayerClient, index: number) => {
             return (
-              <div key={index}>
-                <Competitor name={player.name} score={player.score}  compeletedPercntage={player.compeletedPercntage}/>
-              </div>
+              <Competitor
+                name={player.name}
+                score={player.score}
+                compeletedPercntage={player.compeletedPercntage}
+                key={index}
+              />
             );
           })}
-        </React.Fragment>
+        </div>
       );
     } else {
       return null;

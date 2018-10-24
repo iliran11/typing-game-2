@@ -106,3 +106,8 @@
   background-color:red;
   transition: all 0.3s;
 }
+
+.competitor-list {
+  display: flex;
+  flex-direction: column;
+}

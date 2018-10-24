@@ -1,0 +1,40 @@
+.competitor-container {
+  /* background-color:red; */
+  min-height: 70px;
+  display: flex;
+  flex: auto;
+}
+.competitor-name-section {
+  width: 25%;
+  padding-right: 2vw;
+  display:flex;
+  align-items:center;
+}
+
+.competitor-progress {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  padding: 0px 30px;
+  position:relative;
+}
+.competitor-progress .progress-bar {
+  height: 10px;
+  background-color: rgb(76, 132, 139);
+  flex: auto;
+}
+.competitor-progress .avatar {
+  height:30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color:grey;
+  position:absolute;
+  left:0;
+  transition: transform 1s;
+}
+
+.competitor-wpm {
+  width: 15%;
+  display:flex;
+  align-items:center;
+}

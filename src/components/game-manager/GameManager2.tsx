@@ -54,7 +54,7 @@ export default class GameManager extends React.Component<Props, State> {
   }
   renderLetterGroup(letterGroup: string[], index: number) {
     return (
-      <div className="letter-group">
+      <div className="letter-group" key={index}>
         <LetterGroup
           letters={letterGroup}
           onRefReceive={this.buildLetterNodes}
