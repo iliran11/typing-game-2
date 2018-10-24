@@ -1,50 +1,95 @@
 import * as React from 'react';
-import './competitor.css'
+import './competitor.css';
+import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 
 interface Props {
   name: string;
   score: number;
-  compeletedPercntage:number;
+  compeletedPercntage: number;
+  index: number;
+}
+interface State {
+  hasMounted: boolean;
 }
 
-class Competitor extends React.PureComponent<Props, object> {
+class Competitor extends React.PureComponent<Props, State> {
   progressBarRef: any;
   progressbarWidth: number;
+  avatarRef: any;
   constructor(props: Props) {
-   super(props); 
-   this.progressBarRef = React.createRef();
+    super(props);
+    this.progressBarRef = React.createRef();
+    this.avatarRef = React.createRef();
+    this.state = {
+      hasMounted: false
+    };
   }
-  get normalizedWpmScore(){
-    if(this.props.score) {
-      return Math.floor(this.props.score)
+  componentDidMount() {
+    this.setState({
+      hasMounted: true
+    });
+  }
+  get normalizedWpmScore() {
+    if (this.props.score) {
+      return Math.floor(this.props.score);
     }
     return 0;
   }
-  get avatarTransform() {
-    if(!this.progressBarRef.current) {
-      return 0;
-    }
-    if(this.progressBarRef.current) {
-      this.progressbarWidth = this.progressBarRef.current.clientWidth
+  get avatarStyle() {
+    const transform = this.isEmptySlot
+      ? this.avatarTransformEmptySlot
+      : this.avatarTransformCompetitor;
+
+    return {
+      transform: `translateX(${transform}px)`
+    };
+  }
+  // relevent only on the first paint, when we don't have the refs yet.
+  get transformToEdge() {
+    return window.innerWidth * 0.333 * -1;
+  }
+  //avatar will be called only after the component has mounted so we have access to all refs here. no need
+  get avatarTransformCompetitor() {
+    if (!this.progressBarRef.current) {
+      return this.transformToEdge;
     }
     // console.log(`bar width:${this.progressbarWidth}. percent:${this.props.compeletedPercntage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
-    return this.props.compeletedPercntage * this.progressbarWidth;
+    // a little visual addition to make it more appealing like.
+    const visualOffset = 20;
+    return (
+      this.percentageCompleted * this.progressBarRef.current.clientWidth +
+      visualOffset
+    );
   }
-  get avatarStyle() {
-    return {
-      transform: `translateX(${this.avatarTransform}px)`
-    }
+  get avatarTransformEmptySlot() {
+    return this.transformToEdge;
   }
+  get percentageCompleted() {
+    // if the game hasn't started and the complete percentage is not defined yet - return 0;
+    return this.props.compeletedPercntage || 0;
+  }
+  get isEmptySlot() {
+    return this.props.name === EMPTY_COMPETITOR_SLOT;
+  }
+  get nameSectionText() {
+    return this.isEmptySlot ? 'Waiting ...' : this.props.name;
+  }
+
   render() {
+    if (this.props.index === 1) {
+      console.log(this.avatarTransformEmptySlot);
+    }
     return (
       <div className="competitor-container">
-        <div className="competitor-name-section">
-            {this.props.name}
-        </div>
+        <div className="competitor-name-section">{this.nameSectionText}</div>
         <div className="competitor-progress">
-          <div className="progress-bar" ref={this.progressBarRef}/>
-          <div className="avatar" style={this.avatarStyle}/>
-          </div>
+          <div className="progress-bar" ref={this.progressBarRef} />
+          <div
+            className="avatar"
+            style={this.avatarStyle}
+            ref={this.avatarRef}
+          />
+        </div>
         <div className="competitor-wpm">{this.normalizedWpmScore}</div>
       </div>
     );

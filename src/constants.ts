@@ -8,3 +8,4 @@ export const SET_GAME_LETTERS = 'set-game-letters';
 export const GAME_HAS_STARTED = 'game-has-started'
 
 export const LETTER_GROUP_SIZE = 20;
+export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot'

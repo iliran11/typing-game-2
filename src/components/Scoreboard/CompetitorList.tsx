@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Competitor from './Competitor';
 import { PlayerClient } from './../../types';
+import {EMPTY_COMPETITOR_SLOT} from '../../constants'
 
 interface Props {
   players: PlayerClient[];
@@ -33,7 +34,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
       };
     } else {
       return {
-        name: 'no gues',
+        name: EMPTY_COMPETITOR_SLOT,
         score: '',
         compeletedPercntage: 0
       };
@@ -41,8 +42,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
   }
   renderCompetitor(value: void, index: number): JSX.Element {
     const competitorProps = this.getCompetitorProps(index);
-    console.log('hi');
-    return <Competitor {...competitorProps} />;
+    return <Competitor {...competitorProps} index={index} />;
   }
 
   render() {
