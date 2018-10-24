@@ -5,7 +5,7 @@ import { SCORE_BROADCAST, MAX_PLAYERS_PER_ROOM,GAME_HAS_STARTED } from "../../..
 
 export default class Room {
   private static globalRoomCounter: number = 1;
-  private maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM;
+  public readonly maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM;
   private players: Player[];
   private gameWords: string[];
   private timerId: any;

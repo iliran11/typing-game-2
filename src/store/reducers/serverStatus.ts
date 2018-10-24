@@ -14,6 +14,7 @@ interface ServerStatus {
   myId: string;
   players: PlayerClient[];
   isGameActive: boolean;
+  roomSize: number;
 }
 // interface PlayerScore {
 //   playerId: string;
@@ -27,7 +28,8 @@ const initialState: ServerStatus = {
   isConnected: false,
   myId: '',
   players: [],
-  isGameActive: false
+  isGameActive: false,
+  roomSize: 0
 };
 
 export default function ServerStatus(
@@ -46,7 +48,8 @@ export default function ServerStatus(
       return {
         ...state,
         roomId,
-        players
+        players,
+        roomSize: action.payload.roomSize
       };
     case COMPETITOR_JOINED_ROOM:
       return {

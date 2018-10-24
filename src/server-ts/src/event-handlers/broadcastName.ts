@@ -16,7 +16,8 @@ export default function allocatePlayerToRoom(socket: io.Socket) {
   const response: JoiningRoomResponse = {
     roomId: room.roomId,
     players: room.playersInRoom,
-    letters: player.playerGame.getRawLetters
+    letters: player.playerGame.getRawLetters,
+    roomSize: room.maxPlayersInRoom
   };
   socket.emit(YOU_JOINED_ROOM, response);
   socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);

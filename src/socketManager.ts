@@ -32,7 +32,8 @@ const socketManager: any = {
         type: YOU_JOINED_ROOM,
         payload: {
           roomId: data.roomId,
-          players: data.players
+          players: data.players,
+          roomSize: data.roomSize
         }
       });
       this.dispatch({
