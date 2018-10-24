@@ -1,7 +1,7 @@
 import Player from "./Player";
 import * as io from "socket.io";
 import ServerManager from "./ServerManager";
-import { SCORE_BROADCAST, MAX_PLAYERS_PER_ROOM } from "../../../constants";
+import { SCORE_BROADCAST, MAX_PLAYERS_PER_ROOM,GAME_HAS_STARTED } from "../../../constants";
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -69,16 +69,18 @@ export default class Room {
       };
     });
   }
-
+  private get server() {
+    return ServerManager.getInstance().serverObject
+  }
   private gameTick(): void {
     this.timePassed += this.timeIncrement;
-    const serverInstance = ServerManager.getInstance().serverObject;
-    serverInstance.in(this.roomName).emit(SCORE_BROADCAST, this.scoresStats);
+    this.server.in(this.roomName).emit(SCORE_BROADCAST, this.scoresStats);
     // console.log(`${this.roomName}-tick!`);
   }
   private startGame(): void {
     const intervalTime: number = 1000;
     this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
+    this.server.in(this.roomName).emit(GAME_HAS_STARTED);
     console.log(`${this.roomName}-Game started.`)
     // io.to(this.roomName)
   }

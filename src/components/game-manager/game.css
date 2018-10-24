@@ -5,6 +5,11 @@
   overflow: scroll;
   font-size:20px;
   position:relative;
+  transition: background-color opacity 0.5s;
+}
+#words-box.disabled {
+  opacity:0.5;
+  background-color: grey;
 }
 .letter-group {
   display:inline-flex;

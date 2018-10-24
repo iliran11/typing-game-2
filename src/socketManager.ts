@@ -1,21 +1,22 @@
-import * as socketIo from "socket.io-client";
+import * as socketIo from 'socket.io-client';
 import {
   JoiningRoomResponse,
   ServerConnectSuccessPayload,
   PlayerSerialize
-} from "./types";
+} from './types';
 import {
   YOU_JOINED_ROOM,
   CONNECT_SERVER_SUCCESS,
   COMPETITOR_JOINED_ROOM,
   PLAYER_TYPING,
   SET_GAME_LETTERS,
-  SCORE_BROADCAST
-} from "./constants";
+  SCORE_BROADCAST,
+  GAME_HAS_STARTED
+} from './constants';
 
 const socketManager: any = {
   initSocket(dispatch: any) {
-    this.socket = socketIo.connect("http://localhost:4000");
+    this.socket = socketIo.connect('http://localhost:4000');
     this.dispatch = dispatch;
     this.socket.on(
       CONNECT_SERVER_SUCCESS,
@@ -48,6 +49,11 @@ const socketManager: any = {
           id: playerObject.id,
           name: playerObject.name
         }
+      });
+    });
+    this.socket.on(GAME_HAS_STARTED, () => {
+      this.dispatch({
+        type: GAME_HAS_STARTED
       });
     });
     this.socket.on(SCORE_BROADCAST, (data: any) => {

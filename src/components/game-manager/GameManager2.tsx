@@ -3,12 +3,14 @@ import socketManager from '../../socketManager';
 import LetterGroup from '../LetterGroup';
 import { LETTER_GROUP_SIZE } from '../../constants';
 import * as scrollIntoView from 'scroll-into-view';
+import cx from 'classnames'
 
 import Marker, { markerProps } from '../Marker';
 import './game.css';
 interface Props {
   letters: string[][];
   dispatch: any;
+  isGameActive: boolean
 }
 
 interface State {
@@ -125,7 +127,9 @@ export default class GameManager extends React.Component<Props, State> {
     const { letterGroupIndex, index } = this.incrementIndex;
     return this.letterNodes[letterGroupIndex][index];
   }
-
+  get wordBoxClassNames() {
+    return cx({disabled: !this.props.isGameActive})
+  }
   get markerProps(): markerProps {
     const letterNode = this.currentLetterNode;
     if (letterNode) {
@@ -156,7 +160,7 @@ export default class GameManager extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <input onChange={this.onInput} value={''} />
-        <div id="words-box" ref={this.wordBox}>
+        <div id="words-box" className={this.wordBoxClassNames} ref={this.wordBox}>
           {this.props.letters.map(this.renderLetterGroup)}
           <Marker {...this.markerProps} />
         </div>

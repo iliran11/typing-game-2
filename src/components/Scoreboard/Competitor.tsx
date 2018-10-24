@@ -15,7 +15,10 @@ class Competitor extends React.PureComponent<Props, object> {
    this.progressBarRef = React.createRef();
   }
   get normalizedWpmScore(){
-    return Math.floor(this.props.score)
+    if(this.props.score) {
+      return Math.floor(this.props.score)
+    }
+    return 0;
   }
   get avatarTransform() {
     if(!this.progressBarRef.current) {

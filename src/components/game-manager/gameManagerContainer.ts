@@ -4,6 +4,7 @@ import GameManager from "./GameManager2";
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
     letters: state.gameData.letters,
+    isGameActive: state.serverStatus.isGameActive
   };
 };
 
