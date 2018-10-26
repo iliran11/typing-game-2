@@ -1,5 +1,5 @@
 import ServerManager from "./classes/ServerManager";
-import * as packageJs from '../package.json'
+const  packageJs =require( '../package.json')
 
 var app = require('express')();
 var server = require('http').Server(app);
