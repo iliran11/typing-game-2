@@ -3,7 +3,7 @@ import cx from 'classnames';
 import socketManager from '../../socketManager';
 import LetterGroup from '../LetterGroup';
 import { LETTER_GROUP_SIZE } from '../../constants';
-// import * as scrollIntoView from 'scroll-into-view';
+import * as scrollIntoView from 'scroll-into-view';
 
 import Marker, { markerProps } from '../Marker';
 import './game.css';
@@ -113,7 +113,7 @@ export default class GameManager extends React.Component<Props, State> {
           input: updatedInput
         },
         () => {
-          // scrollIntoView(this.nextLetterNode);
+          scrollIntoView(this.nextLetterNode);
         }
       );
     } else {
@@ -145,9 +145,13 @@ export default class GameManager extends React.Component<Props, State> {
   get markerProps(): markerProps {
     if (this.letterNodes.length > 0) {
       const { left, top, width, height } = this.currentLetterRect;
+      if(this.currentLetterNode) {
+        
+        console.log(this.currentLetterNode.getBoundingClientRect().top,top)
+      }
       // calculate the position of x,y, with respect to scrolling.
-      const y = top - this.wordBoxRect.top ;
-      const x = left - this.wordBoxRect.left ;
+      const y = top - this.wordBoxRect.top
+      const x = left - this.wordBoxRect.left
       return {
         x,
         y,
