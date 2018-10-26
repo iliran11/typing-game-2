@@ -3,7 +3,7 @@ import cx from 'classnames';
 import socketManager from '../../socketManager';
 import LetterGroup from '../LetterGroup';
 import { LETTER_GROUP_SIZE } from '../../constants';
-import * as scrollIntoView from 'scroll-into-view';
+// import * as scrollIntoView from 'scroll-into-view';
 
 import Marker, { markerProps } from '../Marker';
 import './game.css';
@@ -23,6 +23,8 @@ interface State {
 export default class GameManager extends React.Component<Props, State> {
   private letterNodes: HTMLElement[][];
   private wordBox: any;
+  wordBoxRect: ClientRect | DOMRect;
+  lettersRect: (ClientRect | DOMRect)[][];
 
   constructor(props: Props) {
     super(props);
@@ -35,12 +37,19 @@ export default class GameManager extends React.Component<Props, State> {
     this.letterNodes = [];
     this.wordBox = React.createRef();
     this.renderLetterGroup = this.renderLetterGroup.bind(this);
-    this.buildLetterNodes = this.buildLetterNodes.bind(this);
+    this.memoizeDomRects = this.memoizeDomRects.bind(this);
     this.onInput = this.onInput.bind(this);
   }
-  buildLetterNodes(ref: HTMLDivElement[]) {
-    this.letterNodes.push(ref);
+  memoizeDomRects(refArray: HTMLDivElement[]) {
+    this.letterNodes.push(refArray);
     if (this.letterNodes.length === this.props.letters.length) {
+      // here we memoize the rects dimensions so we don't have to recalculate them every render.
+      this.lettersRect = this.letterNodes.map((refs: HTMLDivElement[]) => {
+        return refs.map((ref: HTMLDivElement) => {
+          return ref.getBoundingClientRect();
+        });
+      });
+      this.wordBoxRect = this.wordBox.current.getBoundingClientRect();
       this.setState({
         allRefsMounted: true,
         input: this.buildEmptyInputArray
@@ -57,7 +66,7 @@ export default class GameManager extends React.Component<Props, State> {
       <div className="letter-group" key={index}>
         <LetterGroup
           letters={letterGroup}
-          onRefReceive={this.buildLetterNodes}
+          onRefReceive={this.memoizeDomRects}
           inputArray={this.state.input[index]}
           currentIndex={
             this.state.letterGroupIndex === index ? this.state.index : null
@@ -104,7 +113,7 @@ export default class GameManager extends React.Component<Props, State> {
           input: updatedInput
         },
         () => {
-          scrollIntoView(this.nextLetterNode);
+          // scrollIntoView(this.nextLetterNode);
         }
       );
     } else {
@@ -123,6 +132,9 @@ export default class GameManager extends React.Component<Props, State> {
     }
     return this.letterNodes[this.state.letterGroupIndex][this.state.index];
   }
+  get currentLetterRect(): ClientRect | DOMRect {
+    return this.lettersRect[this.state.letterGroupIndex][this.state.index];
+  }
   get nextLetterNode(): HTMLElement {
     const { letterGroupIndex, index } = this.incrementIndex;
     return this.letterNodes[letterGroupIndex][index];
@@ -131,15 +143,11 @@ export default class GameManager extends React.Component<Props, State> {
     return cx({ disabled: !this.props.isGameActive });
   }
   get markerProps(): markerProps {
-    const letterNode = this.currentLetterNode;
-    if (letterNode) {
-      const { left, top } = letterNode.getBoundingClientRect();
-      const wordBoxRect = this.wordBox.current.getBoundingClientRect();
+    if (this.letterNodes.length > 0) {
+      const { left, top, width, height } = this.currentLetterRect;
       // calculate the position of x,y, with respect to scrolling.
-      const y = top - wordBoxRect.top + this.wordBox.current.scrollTop;
-      const x = left - wordBoxRect.left - this.wordBox.current.scrollLeft;
-      const width = letterNode.clientWidth;
-      const height = letterNode.clientHeight;
+      const y = top - this.wordBoxRect.top ;
+      const x = left - this.wordBoxRect.left ;
       return {
         x,
         y,
