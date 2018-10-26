@@ -103,7 +103,7 @@ export default class GameManager extends React.Component<Props, State> {
   }
   onInput(event: any) {
     const { letterGroupIndex, index } = this.state;
-    const input: string = event.target.value;
+    const input: string = event.target.value.toLowerCase();
     const updatedInput = this.updateInputArray(letterGroupIndex, index, input);
     socketManager.emitTyping(input);
     if (input === this.currentLetter) {
@@ -168,7 +168,7 @@ export default class GameManager extends React.Component<Props, State> {
   render() {
     return (
       <React.Fragment>
-        <input onChange={this.onInput} value={''} />
+        <input onChange={this.onInput} value={''} autoCorrect="off" autoCapitalize="none" />
         <div
           id="words-box"
           className={this.wordBoxClassNames}
