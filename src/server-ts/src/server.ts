@@ -1,13 +1,14 @@
 import ServerManager from "./classes/ServerManager";
 import * as packageJs from '../package.json'
 
+var app = require('express')();
+var server = require('http').Server(app);
+const port = process.env.PORT || 4000
+server.listen(port);
+// WARNING: app.listen(80) will NOT work here!
 
-const serverManager = ServerManager.getInstance();
-
-const express = require('express')
-const app = express()
-const port = 5000
-
-app.get('/', (req, res) => res.send(`Server Version: ${packageJs.version}`))
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.get('/', function (req, res) {
+  res.send(`Server Version: ${packageJs.version}`)
+});
+const serverManager = ServerManager.getInstance(server);
+console.log('server started.')

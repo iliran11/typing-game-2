@@ -5,16 +5,16 @@ export default class ServerManager {
   private server: io.Server;
   private static instance: ServerManager;
 
-  private constructor() {
-    this.server = io.listen(4000);
+  private constructor(expressInstance) {
+    this.server = io(expressInstance);
     this.server.on("connection", onConnect);
   }
   get serverObject() {
     return this.server;
   }
-  static getInstance() {
+  static getInstance(expressInstance?) {
     if (!ServerManager.instance) {
-      ServerManager.instance = new ServerManager();
+      ServerManager.instance = new ServerManager(expressInstance);
     }
     return ServerManager.instance;
   }
