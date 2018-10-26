@@ -4,12 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import DebugDialog from './DebugDialog/DebugDialog';
 
-export interface Props {}
+// export interface Props {}
 
-export interface State {}
+// export interface State {}
 
-export default class AppToolBar extends React.Component<Props, State> {
-  constructor(props: Props) {
+export default class AppToolBar extends React.Component<{}, {}> {
+  constructor(props: {}) {
     super(props);
 
     this.state = {

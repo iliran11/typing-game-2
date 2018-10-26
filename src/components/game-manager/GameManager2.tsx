@@ -23,8 +23,8 @@ interface State {
 export default class GameManager extends React.Component<Props, State> {
   private letterNodes: HTMLElement[][];
   private wordBox: any;
-  wordBoxRect: ClientRect | DOMRect;
-  lettersRect: (ClientRect | DOMRect)[][];
+  private wordBoxRect: ClientRect | DOMRect;
+  private lettersRect: (ClientRect | DOMRect)[][];
 
   constructor(props: Props) {
     super(props);
@@ -145,10 +145,7 @@ export default class GameManager extends React.Component<Props, State> {
   get markerProps(): markerProps {
     if (this.letterNodes.length > 0) {
       const { left, top, width, height } = this.currentLetterRect;
-      if(this.currentLetterNode) {
-        
-        console.log(this.currentLetterNode.getBoundingClientRect().top,top)
-      }
+
       // calculate the position of x,y, with respect to scrolling.
       const y = top - this.wordBoxRect.top
       const x = left - this.wordBoxRect.left

@@ -53,7 +53,7 @@ class Competitor extends React.PureComponent<Props, State> {
   get transformToEdge() {
     return window.innerWidth * 0.333 * -1;
   }
-  //avatar will be called only after the component has mounted so we have access to all refs here. no need
+  // avatar will be called only after the component has mounted so we have access to all refs here. no need
   get avatarTransformCompetitor() {
     const visualOffset = 20;
     if (!this.progressBarRef.current) {

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import DebugInfo from './DebugInfo';
-import packageJson from '../../../../package.json'
+// import packageJson from '../../../../package.json'
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
@@ -8,7 +8,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
     myId: state.serverStatus.myId,
     players: state.serverStatus.players,
     roomSize: state.serverStatus.roomSize,
-    version: packageJson.version
+    // version: packageJson.version
   };
 };
 

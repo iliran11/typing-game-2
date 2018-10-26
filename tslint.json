@@ -12,6 +12,8 @@
     "ordered-imports": false,
     "object-literal-sort-keys":false,
     "interface-name": false,
-    "member-access": [true, "no-public"]
+    "member-access": [true, "no-public"],
+    "array-type":false,
+    "class-name":false
   }
 }
