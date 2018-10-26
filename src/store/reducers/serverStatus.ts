@@ -49,7 +49,8 @@ export default function ServerStatus(
         ...state,
         roomId,
         players,
-        roomSize: action.payload.roomSize
+        roomSize: action.payload.roomSize,
+        isGameActive: action.payload.isGameActive
       };
     case COMPETITOR_JOINED_ROOM:
       return {

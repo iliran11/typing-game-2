@@ -3,7 +3,7 @@ import RoomManager from "../classes/RoomManager";
 import PlayerManager from "../classes/PlayerManager";
 import Player from "../classes/Player";
 import onDisconnect from "./onDisconnect";
-import allocatePlayerToRoom from "./broadcastName";
+import allocatePlayerToRoom from "./allocatePlayerToRoom";
 import playerTyping from "./playerTyping";
 import {ServerConnectSuccessPayload} from '../../../types'
 import {

@@ -11,6 +11,7 @@ export default class Room {
   private timerId: any;
   private timePassed: number;
   private timeIncrement: number;
+  private gameActive: boolean;
   isClosed: boolean;
   roomId: number;
 
@@ -22,6 +23,8 @@ export default class Room {
     this.isClosed = false;
     this.timePassed = 0;
     this.timeIncrement = 1000;
+    this.gameActive = false;
+
   }
   addPlayer(player: Player): void {
     this.players.push(player);
@@ -69,6 +72,9 @@ export default class Room {
       };
     });
   }
+  get isGameActive() {
+    return this.gameActive
+  }
   private get server() {
     return ServerManager.getInstance().serverObject
   }
@@ -80,12 +86,9 @@ export default class Room {
   private startGame(): void {
     const intervalTime: number = 1000;
     this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
-    this.server.in(this.roomName).emit(GAME_HAS_STARTED);
-    console.log(`${this.roomName}-Game started.`)
-    // io.to(this.roomName)
+    this.gameActive = true;
   }
   private get timePassedMinutes(): number {
     return this.timePassed / 60000;
   }
-  private endGame() {}
 }

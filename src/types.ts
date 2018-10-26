@@ -3,6 +3,7 @@ export interface JoiningRoomResponse {
   players: PlayerSerialize[];
   letters: string[];
   roomSize: number;
+  isGameActive: boolean;
 }
 
 export interface ServerConnectSuccessPayload {
