@@ -1,9 +1,10 @@
 {
   "name": "server-ts",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run static-server",
     "build": "tsc",
     "watch-ts": "tsc -w",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yello.bold, cyan.bold\" \"yarn run watch-ts\" \"yarn run watch-node\"",

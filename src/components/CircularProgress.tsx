@@ -4,7 +4,8 @@ import 'react-circular-progressbar/dist/styles.css';
 
 export default function CircularProgress(props: any) {
   // const percent = 25;
-  const percent = props.percentage;
+
+  const percent = props.percentage * 100;
   const styles = {
     text: { fontSize: 30 },
     path: { stroke: getCircleColor(percent) }
@@ -15,7 +16,7 @@ export default function CircularProgress(props: any) {
       strokeWidth={15}
       percentage={percent}
       text={`${props.text}`}
-      initialAnimation
+      initialAnimation={true}
     />
   );
 }

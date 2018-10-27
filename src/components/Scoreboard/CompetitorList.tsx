@@ -29,7 +29,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
     const gradients: number[] = [];
     while (gradients.length < MAX_PLAYERS_PER_ROOM) {
       const randomNumber = random(1, 4);
-      if (gradients.indexOf(randomNumber) > -1) continue;
+      if (gradients.indexOf(randomNumber) > -1) {continue};
       gradients.push(randomNumber);
     }
     return gradients;
