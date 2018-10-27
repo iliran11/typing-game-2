@@ -38,6 +38,10 @@
   position: absolute;
   left: 0;
   transition: transform 2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:white;
 }
 
 .competitor-wpm {

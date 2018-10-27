@@ -12,6 +12,7 @@ interface Props {
   score: number;
   compeletedPercntage: number;
   index: number;
+  avatarGradient: number;
 }
 interface State {
   hasMounted: boolean;
@@ -74,11 +75,15 @@ class Competitor extends React.PureComponent<Props, State> {
     // if the game hasn't started and the complete percentage is not defined yet - return 0;
     return this.props.compeletedPercntage || 0;
   }
-get isEmptySlot() {
+  get isEmptySlot() {
     return this.props.name === EMPTY_COMPETITOR_SLOT;
   }
   get nameSectionText() {
     return this.isEmptySlot ? 'Waiting ...' : this.props.name;
+  }
+  // extract the number from the guest. temporary method.
+  get guestNumber() {
+    return this.nameSectionText.split(' ')[1];
   }
 
   render() {
@@ -89,10 +94,12 @@ get isEmptySlot() {
         <div className="competitor-progress">
           <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
           <div
-            className="avatar shadow-8dp"
+            className={`avatar shadow-8dp gradient-${this.props.avatarGradient}`}
             style={this.avatarStyle}
             ref={this.avatarRef}
-          />
+          >
+            {this.guestNumber}
+          </div>
           <div style={{ position: 'absolute', left: 30 }}>
             {this.isEmptySlot && <Spinner />}
           </div>
@@ -100,7 +107,8 @@ get isEmptySlot() {
         <div className="competitor-wpm">
           <div className="circular-progress">
             <CircularProgress
-              percentage={this.normalizedWpmScore / maxWpmGauge} text={this.normalizedWpmScore}
+              percentage={this.normalizedWpmScore / maxWpmGauge}
+              text={this.normalizedWpmScore}
             />
           </div>
         </div>
