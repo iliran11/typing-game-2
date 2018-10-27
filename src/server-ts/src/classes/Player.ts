@@ -24,7 +24,7 @@ export default class Player {
     this.game = new Game();
   }
   private get guestName() {
-    return `guest-${Player.playerCounter}`;
+    return `Guest ${Player.playerCounter}`;
   }
   getSocket(): io.Socket {
     return this.socket;

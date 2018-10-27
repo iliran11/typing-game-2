@@ -1,6 +1,7 @@
 import * as React from 'react';
-import './App.css';
-import './shadows.css';
+import './css/App.css';
+import './css/shadows.css';
+import './css/gradients.css';
 import GamePage from './pages/GamePage';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBar';

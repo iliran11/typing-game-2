@@ -1,0 +1,28 @@
+.gradient-1 {
+  background: linear-gradient(
+    to right,
+    #ED213A 0%,
+    #93291E 100%
+  );
+}
+.gradient-2 {
+  background: linear-gradient(
+    to right,
+    #00B4DB 0%,
+    #0083B0 100%
+  );
+}
+.gradient-3 {
+  background: linear-gradient(
+    to right,
+    #636363 0%,
+    #a2ab58 100%
+  );
+}
+.gradient-4 {
+  background: linear-gradient(
+    to right,
+    #a8c0ff 0%,
+    #3f2b96 100%
+  );
+}
