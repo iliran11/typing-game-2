@@ -1,14 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames';
 import socketManager from '../../socketManager';
-import LetterGroup from '../LetterGroup';
-import { LETTER_GROUP_SIZE } from '../../constants';
+import LetterUi from '../letterUi';
 import * as scrollIntoView from 'scroll-into-view';
 
 import Marker, { markerProps } from '../Marker';
 import './game.css';
 interface Props {
-  letters: string[][];
+  letters: string[];
   dispatch: any;
   isGameActive: boolean;
 }
@@ -16,15 +15,15 @@ interface Props {
 interface State {
   letterGroupIndex: number;
   index: number;
-  input: string[][];
+  input: string[];
   allRefsMounted: boolean;
 }
 
 export default class GameManager extends React.Component<Props, State> {
-  private letterNodes: HTMLElement[][];
+  private letterNodes: HTMLElement[];
   private wordBox: any;
   private wordBoxRect: ClientRect | DOMRect;
-  private lettersRect: (ClientRect | DOMRect)[][];
+  private lettersRect: (ClientRect | DOMRect)[];
 
   constructor(props: Props) {
     super(props);
@@ -36,18 +35,16 @@ export default class GameManager extends React.Component<Props, State> {
     };
     this.letterNodes = [];
     this.wordBox = React.createRef();
-    this.renderLetterGroup = this.renderLetterGroup.bind(this);
+    this.renderLetters = this.renderLetters.bind(this);
     this.memoizeDomRects = this.memoizeDomRects.bind(this);
     this.onInput = this.onInput.bind(this);
   }
-  memoizeDomRects(refArray: HTMLDivElement[]) {
+  memoizeDomRects(refArray: HTMLDivElement) {
     this.letterNodes.push(refArray);
     if (this.letterNodes.length === this.props.letters.length) {
       // here we memoize the rects dimensions so we don't have to recalculate them every render.
-      this.lettersRect = this.letterNodes.map((refs: HTMLDivElement[]) => {
-        return refs.map((ref: HTMLDivElement) => {
-          return ref.getBoundingClientRect();
-        });
+      this.lettersRect = this.letterNodes.map((ref: HTMLDivElement) => {
+        return ref.getBoundingClientRect();
       });
       this.wordBoxRect = this.wordBox.current.getBoundingClientRect();
       this.setState({
@@ -58,58 +55,46 @@ export default class GameManager extends React.Component<Props, State> {
   }
   get buildEmptyInputArray() {
     return new Array(this.props.letters.length).fill(undefined).map(() => {
-      return new Array(LETTER_GROUP_SIZE).fill('');
+      return '';
     });
   }
-  renderLetterGroup(letterGroup: string[], index: number) {
+  renderLetters(letter: string, index: number) {
     return (
-      <div className="letter-group" key={index}>
-        <LetterGroup
+      <LetterUi
+        letter={letter}
+        isSelected={this.state.index === index}
+        input={this.state.input[index]}
+        onRefReceive={this.memoizeDomRects}
+      />
+
+      /* <LetterGroup
           letters={letterGroup}
           onRefReceive={this.memoizeDomRects}
           inputArray={this.state.input[index]}
           currentIndex={
             this.state.letterGroupIndex === index ? this.state.index : null
           }
-        />
-      </div>
+        /> */
     );
   }
   // get the next index value.
-  get incrementIndex(): { letterGroupIndex: number; index: number } {
-    const { letterGroupIndex, index } = this.state;
-    if (index + 1 === LETTER_GROUP_SIZE) {
-      return {
-        letterGroupIndex: letterGroupIndex + 1,
-        index: 0
-      };
-    } else {
-      return {
-        index: index + 1,
-        letterGroupIndex
-      };
-    }
+  get incrementIndex(): number  {
+    return this.state.index + 1
   }
-  updateInputArray(
-    letterGroupIndex: number,
-    index: number,
-    input: string
-  ): string[][] {
+  updateInputArray(index: number, input: string): string[] {
     const nextInputArray = [...this.state.input];
-    const nextGroupInputArray = [...nextInputArray[letterGroupIndex]];
-    nextGroupInputArray[index] = input;
-    nextInputArray[letterGroupIndex] = nextGroupInputArray;
+    nextInputArray[index] = input;
     return nextInputArray;
   }
   onInput(event: any) {
-    const { letterGroupIndex, index } = this.state;
+    const { index } = this.state;
     const input: string = event.target.value.toLowerCase();
-    const updatedInput = this.updateInputArray(letterGroupIndex, index, input);
+    const updatedInput = this.updateInputArray(index, input);
     socketManager.emitTyping(input);
     if (input === this.currentLetter) {
       this.setState(
         {
-          ...this.incrementIndex,
+          index: this.incrementIndex,
           input: updatedInput
         },
         () => {
@@ -123,8 +108,8 @@ export default class GameManager extends React.Component<Props, State> {
     }
   }
   get currentLetter(): string {
-    const { letterGroupIndex, index } = this.state;
-    return this.props.letters[letterGroupIndex][index];
+    const { index } = this.state;
+    return this.props.letters[index];
   }
   get currentLetterNode(): Element | null {
     if (this.letterNodes.length === 0) {
@@ -133,11 +118,10 @@ export default class GameManager extends React.Component<Props, State> {
     return this.letterNodes[this.state.letterGroupIndex][this.state.index];
   }
   get currentLetterRect(): ClientRect | DOMRect {
-    return this.lettersRect[this.state.letterGroupIndex][this.state.index];
+    return this.lettersRect[this.state.index];
   }
   get nextLetterNode(): HTMLElement {
-    const { letterGroupIndex, index } = this.incrementIndex;
-    return this.letterNodes[letterGroupIndex][index];
+    return this.letterNodes[this.incrementIndex];
   }
   get wordBoxClassNames() {
     return cx({ disabled: !this.props.isGameActive });
@@ -147,8 +131,8 @@ export default class GameManager extends React.Component<Props, State> {
       const { left, top, width, height } = this.currentLetterRect;
 
       // calculate the position of x,y, with respect to scrolling.
-      const y = top - this.wordBoxRect.top
-      const x = left - this.wordBoxRect.left
+      const y = top - this.wordBoxRect.top;
+      const x = left - this.wordBoxRect.left;
       return {
         x,
         y,
@@ -168,13 +152,18 @@ export default class GameManager extends React.Component<Props, State> {
   render() {
     return (
       <React.Fragment>
-        <input onChange={this.onInput} value={''} autoCorrect="off" autoCapitalize="none" />
+        <input
+          onChange={this.onInput}
+          value={''}
+          autoCorrect="off"
+          autoCapitalize="none"
+        />
         <div
           id="words-box"
           className={this.wordBoxClassNames}
           ref={this.wordBox}
         >
-          {this.props.letters.map(this.renderLetterGroup)}
+          {this.props.letters.map(this.renderLetters)}
           <Marker {...this.markerProps} />
         </div>
       </React.Fragment>

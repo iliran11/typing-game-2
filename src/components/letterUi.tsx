@@ -7,7 +7,7 @@ export interface LetterUiProps {
   letter: string;
   isSelected: boolean;
   input: string;
-  onRefReceive?: (ref: Element) => {};
+  onRefReceive: (ref: any) => void;
 }
 interface State {
   isMounted: boolean;
@@ -57,7 +57,7 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
 
     render() {  
     return (
-      <div className={this.letterClassNames}>
+      <div className={this.letterClassNames} ref={this.props.onRefReceive}>
         <ToolTip
           x={this.tooltipDimensions.x}
           y={this.tooltipDimensions.y}
