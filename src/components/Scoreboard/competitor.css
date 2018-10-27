@@ -3,43 +3,49 @@
   min-height: 70px;
   display: flex;
   flex: auto;
-  padding:0px 10px;
+  padding: 0px 10px;
 }
 .competitor-name-section {
   width: 50px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
 }
 
 .competitor-progress {
   flex: auto;
   display: flex;
   align-items: center;
-  padding-left:30px;
-  position:relative;
+  padding-left: 30px;
+  position: relative;
 }
 .competitor-progress .progress-bar {
   height: 10px;
-  background-color: rgba(179, 222, 129, 1);
-  flex: auto;  
+  background: rgba(19, 189, 19, 1);
+  background: linear-gradient(
+    to right,
+    rgba(19, 189, 19, 1) 0%,
+    rgba(62, 112, 14, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#13bd13', endColorstr='#3e700e', GradientType=1 );
+  flex: auto;
 }
 .competitor-progress .avatar {
-  height:30px;
+  height: 30px;
   width: 30px;
   border-radius: 50%;
-  background-color:grey;
-  position:absolute;
-  left:0;
+  background-color: grey;
+  position: absolute;
+  left: 0;
   transition: transform 2s;
 }
 
 .competitor-wpm {
   width: 15%;
-  display:flex;
+  display: flex;
   justify-content: center;
-  align-items:center;
-  width:100px;
+  align-items: center;
+  width: 100px;
 }
 .competitor-wpm .circular-progress {
-  width:50%;
+  width: 50%;
 }
