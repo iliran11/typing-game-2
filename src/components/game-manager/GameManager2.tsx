@@ -2,10 +2,11 @@ import * as React from 'react';
 import cx from 'classnames';
 import socketManager from '../../socketManager';
 import LetterUi from '../letterUi';
-import * as scrollIntoView from 'scroll-into-view';
-
 import Marker, { markerProps } from '../Marker';
 import './game.css';
+// no updated definitions for this library. that's a way to workaround it.
+const scrollIntoView = require('scroll-into-view');
+
 interface Props {
   letters: string[];
   dispatch: any;
@@ -36,25 +37,26 @@ export default class GameManager extends React.Component<Props, State> {
 
     this.letterNodes = [];
     this.wordBox = React.createRef();
-    this.inputRef= React.createRef();
+    this.inputRef = React.createRef();
     this.bodyElement = document.querySelector('body');
     this.onBodyClick = this.onBodyClick.bind(this);
-    /** 
+    /**
      * if user click on anywhere on body while playing
      * re-focus him on the input.
      */
-    if(this.bodyElement) {
-      this.bodyElement.addEventListener('click',this.onBodyClick)
+    if (this.bodyElement) {
+      this.bodyElement.addEventListener('click', this.onBodyClick);
     }
     this.renderLetters = this.renderLetters.bind(this);
     this.memoizeDomRects = this.memoizeDomRects.bind(this);
     this.onInput = this.onInput.bind(this);
+    this.scrollIntoView = this.scrollIntoView.bind(this);
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.bodyElement.removeEventListener(this.onBodyClick);
   }
   onBodyClick() {
-    if(this.inputRef.current) {
+    if (this.inputRef.current) {
       this.inputRef.current.focus();
     }
   }
@@ -96,21 +98,27 @@ export default class GameManager extends React.Component<Props, State> {
     nextInputArray[index] = input;
     return nextInputArray;
   }
+  scrollIntoView() {
+    scrollIntoView(this.nextLetterNode,
+      {
+        time: 200,
+        align: {
+          top: 0.2
+        },
+        isScrollable: () => true
+      }
+    );
+  }
   onInput(event: any) {
     const { index } = this.state;
     const input: string = event.target.value.toLowerCase();
     const updatedInput = this.updateInputArray(index, input);
     socketManager.emitTyping(input);
     if (input === this.currentLetter) {
-      this.setState(
-        {
-          index: this.incrementIndex,
-          input: updatedInput
-        },
-        () => {
-          scrollIntoView(this.nextLetterNode);
-        }
-      );
+      this.setState({
+        index: this.incrementIndex,
+        input: updatedInput
+      },this.scrollIntoView);
     } else {
       this.setState({
         input: updatedInput
@@ -168,7 +176,7 @@ export default class GameManager extends React.Component<Props, State> {
           autoCorrect="off"
           autoCapitalize="none"
           autoFocus={true}
-          id='game-input'
+          id="game-input"
           ref={this.inputRef}
         />
         <div

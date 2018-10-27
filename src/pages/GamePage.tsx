@@ -11,7 +11,7 @@ class GamePage extends PureComponent {
   }
   render() {
     return (
-      <div>
+      <div id="game-page">
         <ScoreBoardContainer />
         <GameManagerContainer />
       </div>

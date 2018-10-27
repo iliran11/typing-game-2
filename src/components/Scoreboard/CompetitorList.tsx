@@ -60,7 +60,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
   render() {
     if (Array.isArray(this.props.players)) {
       return (
-        <div className="competitor-list">
+        <div id="competitor-list">
           {this.emptySlotsArray.map(this.renderCompetitor)}
         </div>
       );

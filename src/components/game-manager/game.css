@@ -1,11 +1,22 @@
+#game-page {
+  display:flex;
+  flex-direction: column;
+}
+#app-toolbar {
+  flex:none;
+}
+#competitor-list {
+  flex:none;
+}
 #words-box {
   width: 200x;
-  height:100px;
   border: 1px solid red;
-  overflow: scroll;
+  overflow:hidden;
   font-size:20px;
   position:relative;
   transition: background-color opacity 0.5s;
+  font-size:40px;
+  flex:auto;
 }
 input {
   width:100%;
