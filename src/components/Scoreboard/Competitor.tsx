@@ -5,7 +5,7 @@ import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
 
 // wpm of maximum progress in circular progress.
-const maxWpmGauge = 40;
+const maxWpmGauge = 80;
 
 interface Props {
   name: string;
