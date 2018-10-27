@@ -42,7 +42,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
   }
   renderCompetitor(value: void, index: number): JSX.Element {
     const competitorProps = this.getCompetitorProps(index);
-    return <Competitor {...competitorProps} index={index} />;
+    return <Competitor {...competitorProps} index={index} key={index} />;
   }
 
   render() {
