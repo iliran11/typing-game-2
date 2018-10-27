@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Competitor from './Competitor';
-import { PlayerClient } from './../../types';
+import { PlayerClient } from '../../types';
 import { MAX_PLAYERS_PER_ROOM, EMPTY_COMPETITOR_SLOT } from '../../constants';
 import random from 'lodash.random';
 

@@ -13,7 +13,6 @@ interface Props {
 }
 
 interface State {
-  letterGroupIndex: number;
   index: number;
   input: string[];
   allRefsMounted: boolean;
@@ -24,20 +23,40 @@ export default class GameManager extends React.Component<Props, State> {
   private wordBox: any;
   private wordBoxRect: ClientRect | DOMRect;
   private lettersRect: (ClientRect | DOMRect)[];
+  private bodyElement: any;
+  private inputRef: any;
 
   constructor(props: Props) {
     super(props);
     this.state = {
-      letterGroupIndex: 0,
       index: 0,
       input: [],
       allRefsMounted: false
     };
+
     this.letterNodes = [];
     this.wordBox = React.createRef();
+    this.inputRef= React.createRef();
+    this.bodyElement = document.querySelector('body');
+    this.onBodyClick = this.onBodyClick.bind(this);
+    /** 
+     * if user click on anywhere on body while playing
+     * re-focus him on the input.
+     */
+    if(this.bodyElement) {
+      this.bodyElement.addEventListener('click',this.onBodyClick)
+    }
     this.renderLetters = this.renderLetters.bind(this);
     this.memoizeDomRects = this.memoizeDomRects.bind(this);
     this.onInput = this.onInput.bind(this);
+  }
+  componentWillUnmount(){
+    this.bodyElement.removeEventListener(this.onBodyClick);
+  }
+  onBodyClick() {
+    if(this.inputRef.current) {
+      this.inputRef.current.focus();
+    }
   }
   memoizeDomRects(refArray: HTMLDivElement) {
     this.letterNodes.push(refArray);
@@ -66,20 +85,11 @@ export default class GameManager extends React.Component<Props, State> {
         input={this.state.input[index]}
         onRefReceive={this.memoizeDomRects}
       />
-
-      /* <LetterGroup
-          letters={letterGroup}
-          onRefReceive={this.memoizeDomRects}
-          inputArray={this.state.input[index]}
-          currentIndex={
-            this.state.letterGroupIndex === index ? this.state.index : null
-          }
-        /> */
     );
   }
   // get the next index value.
-  get incrementIndex(): number  {
-    return this.state.index + 1
+  get incrementIndex(): number {
+    return this.state.index + 1;
   }
   updateInputArray(index: number, input: string): string[] {
     const nextInputArray = [...this.state.input];
@@ -115,7 +125,7 @@ export default class GameManager extends React.Component<Props, State> {
     if (this.letterNodes.length === 0) {
       return null;
     }
-    return this.letterNodes[this.state.letterGroupIndex][this.state.index];
+    return this.letterNodes[this.state.index];
   }
   get currentLetterRect(): ClientRect | DOMRect {
     return this.lettersRect[this.state.index];
@@ -157,6 +167,9 @@ export default class GameManager extends React.Component<Props, State> {
           value={''}
           autoCorrect="off"
           autoCapitalize="none"
+          autoFocus={true}
+          id='game-input'
+          ref={this.inputRef}
         />
         <div
           id="words-box"
