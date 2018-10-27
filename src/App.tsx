@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './App.css';
+import './shadows.css';
 import GamePage from './pages/GamePage';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBar';

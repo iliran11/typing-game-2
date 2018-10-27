@@ -74,7 +74,7 @@ class Competitor extends React.PureComponent<Props, State> {
     // if the game hasn't started and the complete percentage is not defined yet - return 0;
     return this.props.compeletedPercntage || 0;
   }
-  get isEmptySlot() {
+get isEmptySlot() {
     return this.props.name === EMPTY_COMPETITOR_SLOT;
   }
   get nameSectionText() {
@@ -87,9 +87,9 @@ class Competitor extends React.PureComponent<Props, State> {
       <div className="competitor-container">
         <div className="competitor-name-section">{this.nameSectionText}</div>
         <div className="competitor-progress">
-          <div className="progress-bar" ref={this.progressBarRef} />
+          <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
           <div
-            className="avatar"
+            className="avatar shadow-8dp"
             style={this.avatarStyle}
             ref={this.avatarRef}
           />

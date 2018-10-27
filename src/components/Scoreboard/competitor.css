@@ -20,9 +20,8 @@
 }
 .competitor-progress .progress-bar {
   height: 10px;
-  background-color: rgb(76, 132, 139);
-  flex: auto;
-  
+  background-color: rgba(179, 222, 129, 1);
+  flex: auto;  
 }
 .competitor-progress .avatar {
   height:30px;
