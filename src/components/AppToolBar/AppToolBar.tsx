@@ -28,7 +28,7 @@ export default class AppToolBar extends React.Component<{}, {}> {
           <Toolbar>
             <DebugDialog />
             <Typography variant="h6" color="inherit">
-              Typing Coacher.
+              Typing Coacher
             </Typography>
           </Toolbar>
         </AppBar>

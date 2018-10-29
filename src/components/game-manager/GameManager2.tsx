@@ -99,15 +99,17 @@ export default class GameManager extends React.Component<Props, State> {
     return nextInputArray;
   }
   scrollIntoView() {
-    scrollIntoView(this.nextLetterNode,
+    scrollIntoView(this.currentLetterNode,
       {
         time: 200,
         align: {
-          top: 0.2
+          top: 1
         },
         isScrollable: () => true
       }
+      
     );
+    window.scrollTo(0,0);
   }
   onInput(event: any) {
     const { index } = this.state;

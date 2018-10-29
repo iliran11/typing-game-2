@@ -15,7 +15,9 @@
   font-size:20px;
   position:relative;
   transition: background-color opacity 0.5s;
-  font-size:40px;
+  line-height: 2.2;
+  height: 154px;
+  font-size: 30px;
   flex:auto;
 }
 input {
