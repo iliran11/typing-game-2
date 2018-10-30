@@ -10,10 +10,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align:center;
-  color:green;
+  text-align: center;
+  position: relative;
+  color: green;
 }
-
+#you-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(70%);
+  background-color: #d3e8d3;
+  border-radius: 50%;
+  padding: 5px;
+  opacity: 0.6;
+  border: 2px dashed green;
+}
 .competitor-progress {
   flex: auto;
   display: flex;
@@ -43,7 +54,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color:white;
+  color: white;
 }
 
 .competitor-wpm {
@@ -57,5 +68,5 @@
   width: 50%;
 }
 .CircularProgressbar .CircularProgressbar-text {
-  font-size:30px;
+  font-size: 30px;
 }

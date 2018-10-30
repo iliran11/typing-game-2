@@ -14,6 +14,7 @@ class ScoreBoard extends React.PureComponent<Props, object> {
       <CompetitorList
         players={this.props.players}
         roomSize={this.props.roomSize}
+        myId={this.props.myId}
       />
     );
   }

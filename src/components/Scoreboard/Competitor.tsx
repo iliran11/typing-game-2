@@ -13,6 +13,7 @@ interface Props {
   compeletedPercntage: number;
   index: number;
   avatarGradient: number;
+  isMe: boolean;
 }
 interface State {
   hasMounted: boolean;
@@ -87,10 +88,14 @@ class Competitor extends React.PureComponent<Props, State> {
   }
 
   render() {
+    console.log(this.props.isMe);
     // console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
       <div className="competitor-container">
-        <div className="competitor-name-section">{this.nameSectionText}</div>
+        <div className="competitor-name-section">
+          <span>{this.nameSectionText}</span>
+          {this.props.isMe && <div id="you-indicator">You</div>}
+        </div>
         <div className="competitor-progress">
           <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
           <div

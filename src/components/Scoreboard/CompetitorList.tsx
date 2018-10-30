@@ -7,6 +7,7 @@ import random from 'lodash.random';
 interface Props {
   players: PlayerClient[];
   roomSize: number;
+  myId:string;
 }
 
 class CompetitorList extends React.PureComponent<Props, object> {
@@ -42,7 +43,8 @@ class CompetitorList extends React.PureComponent<Props, object> {
       return {
         name,
         score,
-        compeletedPercntage
+        compeletedPercntage,
+        isMe: name===this.props.myId
       };
     } else {
       return {
