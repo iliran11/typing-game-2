@@ -28,8 +28,7 @@ input {
   opacity: 0;
 }
 #words-box.disabled {
-  opacity:0.5;
-  background-color: grey;
+  opacity:0.1;
 }
 .letter-group {
   display:inline-flex;
