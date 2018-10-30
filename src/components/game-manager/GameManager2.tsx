@@ -61,6 +61,7 @@ export default class GameManager extends React.Component<Props, State> {
     }
   }
   memoizeDomRects(refArray: HTMLDivElement) {
+    // build the letter nodes.
     this.letterNodes.push(refArray);
     if (this.letterNodes.length === this.props.letters.length) {
       // here we memoize the rects dimensions so we don't have to recalculate them every render.
@@ -99,6 +100,11 @@ export default class GameManager extends React.Component<Props, State> {
     return nextInputArray;
   }
   scrollIntoView() {
+
+    // do not scroll if no changes in the y coordinate of the letters.
+    if(this.currentLetterRect.top===this.previousLetterRect.top) {
+      return;
+    }
     scrollIntoView(this.currentLetterNode,
       {
         time: 200,
@@ -140,8 +146,11 @@ export default class GameManager extends React.Component<Props, State> {
   get currentLetterRect(): ClientRect | DOMRect {
     return this.lettersRect[this.state.index];
   }
-  get nextLetterNode(): HTMLElement {
-    return this.letterNodes[this.incrementIndex];
+  get previousLetterRect() : ClientRect | DOMRect {
+    return this.lettersRect[this.state.index - 1]
+  }
+  get previousLetterNode(): HTMLElement {
+    return this.letterNodes[this.state.index - 1];
   }
   get wordBoxClassNames() {
     return cx({ disabled: !this.props.isGameActive });
