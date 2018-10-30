@@ -10,7 +10,7 @@ const scrollIntoView = require('scroll-into-view');
 interface Props {
   letters: string[];
   dispatch: any;
-  isGameActive: boolean;
+  gameActive: boolean;
 }
 
 interface State {
@@ -117,16 +117,16 @@ export default class GameManager extends React.Component<Props, State> {
     window.scrollTo(0, 0);
   }
   onInput(event: any) {
-    if (!this.props.isGameActive) {
+    if (!this.props.gameActive) {
       return;
     }
     const { index } = this.state;
     const input: string = event.target.value.toLowerCase();
     const updatedInput = this.updateInputArray(index, input);
     socketManager.emitTyping(input);
-    const gameInProgress = this.incrementIndex<this.props.letters.length
-    if(!gameInProgress) {
-      alert("game end!")
+    const gameInProgress = this.incrementIndex < this.props.letters.length;
+    if (!gameInProgress) {
+      alert('game end!');
     }
     if (input === this.currentLetter && gameInProgress) {
       this.setState(
@@ -162,7 +162,7 @@ export default class GameManager extends React.Component<Props, State> {
     return this.letterNodes[this.state.index - 1];
   }
   get wordBoxClassNames() {
-    return cx({ disabled: !this.props.isGameActive });
+    return cx({ disabled: !this.props.gameActive });
   }
   get markerProps(): markerProps {
     if (this.letterNodes.length > 0) {
@@ -205,7 +205,7 @@ export default class GameManager extends React.Component<Props, State> {
           ref={this.wordBox}
         >
           {this.props.letters.map(this.renderLetters)}
-          {this.props.isGameActive && <Marker {...this.markerProps} />}
+          {this.props.gameActive && <Marker {...this.markerProps} />}
         </div>
       </div>
     );
