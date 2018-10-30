@@ -7,18 +7,20 @@
 }
 #competitor-list {
   flex:none;
+  border-bottom: 1px solid #a7a7a7;
 }
 #words-box {
-  width: 200x;
-  border: 1px solid red;
+  padding: 0px 20px;
   overflow:hidden;
   font-size:20px;
   position:relative;
-  transition: background-color opacity 0.5s;
+  transition: background-color 0.5s, opacity 0.5s;
   line-height: 2.2;
-  height: 154px;
+  height: 190px;
+  padding-top:40px;
   font-size: 30px;
   flex:auto;
+  border-bottom: 1px solid #a7a7a7
 }
 input {
   width:100%;
@@ -46,7 +48,7 @@ input {
 
 .letter.success {
   animation: 0.5s linear 0s pulse-success;
-  color:red;
+  color:#56ab2f;
 }
 
 @keyframes pulse-success {
@@ -55,7 +57,7 @@ input {
     color: initial;
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.5);
     color: green;
   }
   100% {
@@ -67,8 +69,7 @@ input {
   display: inline-block;
 }
 
-#word-pointer {
-  background-color: rgba(179, 222, 129, 1);
+#marker {
   position: absolute;
   transition: all 0.3s;
   z-index: 9999;
@@ -104,7 +105,7 @@ input {
   top: 0px;
 }
 .tooltip.active {
-  top: -35px;
+  top: -42px;
   opacity: 1;
 }
 .tooltip.top {
@@ -128,9 +129,4 @@ input {
   position: absolute;
   background-color:red;
   transition: all 0.3s;
-}
-
-.competitor-list {
-  display: flex;
-  flex-direction: column;
 }

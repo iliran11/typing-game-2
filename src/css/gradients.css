@@ -26,3 +26,18 @@
     #3f2b96 100%
   );
 }
+.gradient-5 {
+  background: linear-gradient(
+    to top,
+    #56ab2f 0%,
+    #a8e063 100%
+  );
+}
+
+.gradient-6 {
+  background: linear-gradient(
+    to right,
+    #ebeceb 0%,
+    #FFFFFF 100%
+  );
+}

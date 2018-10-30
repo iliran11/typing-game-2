@@ -17,7 +17,7 @@ function WordPointer({ x, y, width, height, input }: markerProps) {
   };
 
   return (
-    <div style={style} id="word-pointer">
+    <div style={style} id="marker" className="gradient-5 shadow-4dp">
       {input}
     </div>
   );

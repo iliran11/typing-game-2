@@ -94,7 +94,9 @@ class Competitor extends React.PureComponent<Props, State> {
         <div className="competitor-progress">
           <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
           <div
-            className={`avatar shadow-8dp gradient-${this.props.avatarGradient}`}
+            className={`avatar shadow-8dp gradient-${
+              this.props.avatarGradient
+            }`}
             style={this.avatarStyle}
             ref={this.avatarRef}
           >
@@ -111,6 +113,7 @@ class Competitor extends React.PureComponent<Props, State> {
               text={this.normalizedWpmScore}
             />
           </div>
+          <span>WPM</span>
         </div>
       </div>
     );

@@ -171,7 +171,7 @@ export default class GameManager extends React.Component<Props, State> {
   }
   render() {
     return (
-      <React.Fragment>
+      <div className="shadow-2dp">
         <input
           onChange={this.onInput}
           value={''}
@@ -189,7 +189,7 @@ export default class GameManager extends React.Component<Props, State> {
           {this.props.letters.map(this.renderLetters)}
           <Marker {...this.markerProps} />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

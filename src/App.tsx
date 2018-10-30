@@ -10,7 +10,7 @@ import AppToolbar from './components/AppToolBar/AppToolBar';
 class App extends React.Component {
   render() {
     return (
-      <Fragment>
+      <div className="gradient-6" id="app-container">
         <AppToolbar />
         <Router>
           <Fragment>
@@ -18,7 +18,7 @@ class App extends React.Component {
             <Route exact={true} path="/game" component={GamePage} />
           </Fragment>
         </Router>
-      </Fragment>
+      </div>
     );
   }
 }
