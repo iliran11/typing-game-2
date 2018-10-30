@@ -88,7 +88,6 @@ class Competitor extends React.PureComponent<Props, State> {
   }
 
   render() {
-    console.log(this.props.isMe);
     // console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
       <div className="competitor-container">

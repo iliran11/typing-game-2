@@ -94,39 +94,48 @@ export default class GameManager extends React.Component<Props, State> {
   get incrementIndex(): number {
     return this.state.index + 1;
   }
+  get isGameEnd() {
+    return this.state.index > this.props.letters.length;
+  }
   updateInputArray(index: number, input: string): string[] {
     const nextInputArray = [...this.state.input];
     nextInputArray[index] = input;
     return nextInputArray;
   }
   scrollIntoView() {
-
     // do not scroll if no changes in the y coordinate of the letters.
-    if(this.currentLetterRect.top===this.previousLetterRect.top) {
+    if (this.currentLetterRect.top === this.previousLetterRect.top) {
       return;
     }
-    scrollIntoView(this.currentLetterNode,
-      {
-        time: 200,
-        align: {
-          top: 1
-        },
-        isScrollable: () => true
-      }
-      
-    );
-    window.scrollTo(0,0);
+    scrollIntoView(this.currentLetterNode, {
+      time: 200,
+      align: {
+        top: 1
+      },
+      isScrollable: () => true
+    });
+    window.scrollTo(0, 0);
   }
   onInput(event: any) {
+    if (!this.props.isGameActive) {
+      return;
+    }
     const { index } = this.state;
     const input: string = event.target.value.toLowerCase();
     const updatedInput = this.updateInputArray(index, input);
     socketManager.emitTyping(input);
-    if (input === this.currentLetter) {
-      this.setState({
-        index: this.incrementIndex,
-        input: updatedInput
-      },this.scrollIntoView);
+    const gameInProgress = this.incrementIndex<this.props.letters.length
+    if(!gameInProgress) {
+      alert("game end!")
+    }
+    if (input === this.currentLetter && gameInProgress) {
+      this.setState(
+        {
+          index: this.incrementIndex,
+          input: updatedInput
+        },
+        this.scrollIntoView
+      );
     } else {
       this.setState({
         input: updatedInput
@@ -146,8 +155,8 @@ export default class GameManager extends React.Component<Props, State> {
   get currentLetterRect(): ClientRect | DOMRect {
     return this.lettersRect[this.state.index];
   }
-  get previousLetterRect() : ClientRect | DOMRect {
-    return this.lettersRect[this.state.index - 1]
+  get previousLetterRect(): ClientRect | DOMRect {
+    return this.lettersRect[this.state.index - 1];
   }
   get previousLetterNode(): HTMLElement {
     return this.letterNodes[this.state.index - 1];
@@ -196,7 +205,7 @@ export default class GameManager extends React.Component<Props, State> {
           ref={this.wordBox}
         >
           {this.props.letters.map(this.renderLetters)}
-          <Marker {...this.markerProps} />
+          {this.props.isGameActive && <Marker {...this.markerProps} />}
         </div>
       </div>
     );
