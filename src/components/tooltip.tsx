@@ -15,14 +15,15 @@ class ToolTip extends React.Component<Props, {}> {
     this.tooltipRef = React.createRef();
   }
   get tooltipClass() {
-    const isActive = this.props.open && this.props.input;
-    return cx("top in animated tooltip", {
-      active: isActive,
-      "non-active": !isActive
-    });
+    return cx("top in animated tooltip");
   }
   get innerClass() {
     return cx("tooltip-inner", { "has-space": (this.props.input === " ") });
+  }
+  get toolTipPosition() {
+    return {
+      transform: `translate(${this.props.x}px,${this.props.y}px)`
+    }
   }
   render() {
     return (
@@ -30,6 +31,7 @@ class ToolTip extends React.Component<Props, {}> {
         className={this.tooltipClass}
         role="tooltip"
         ref={this.tooltipRef}
+        style={this.toolTipPosition}
       >
         <div className="tooltip-arrow" />
         <div className={this.innerClass}>{this.props.input}</div>

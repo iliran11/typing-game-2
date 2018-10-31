@@ -17,7 +17,6 @@
   transition: background-color 0.5s, opacity 0.5s;
   line-height: 2.2;
   height: 190px;
-  padding-top:40px;
   font-size: 30px;
   flex:auto;
   border-bottom: 1px solid #a7a7a7
@@ -81,12 +80,11 @@ input {
 .tooltip {
   transition: all 0.3s;
   position: absolute;
+  top:0px;
   display: block;
   font-size: 12px;
-  transform: translateX(-50%);
-  left: 50%;
   transition: all 0.1s ease-in-out;
-  top:10px;
+  z-index:9999
 }
 .tooltip .tooltip-inner {
   max-width: 200px;
@@ -99,16 +97,13 @@ input {
 .tooltip .tooltip-inner.has-space {
   padding: 10px 11px;
 }
-.tooltip.non-active {
-  opacity: 0;
-  top: 0px;
-}
 .tooltip.active {
   top: -42px;
   opacity: 1;
 }
 .tooltip.top {
   padding: 5px 0;
+  padding-top:0px;
 }
 .tooltip.top .tooltip-arrow {
   bottom: 0;

@@ -1,7 +1,6 @@
 import * as React from "react";
 import cx from "classnames";
 import WhiteSpace from "./whitespace";
-import ToolTip from "./tooltip";
 
 export interface LetterUiProps {
   letter: string;
@@ -58,12 +57,6 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
     render() {  
     return (
       <div className={this.letterClassNames} ref={this.props.onRefReceive}>
-        <ToolTip
-          x={this.tooltipDimensions.x}
-          y={this.tooltipDimensions.y}
-          open={this.props.isSelected}
-          input={this.props.input}
-        />
         <span ref={this.letterRef}>{this.props.letter===" " ?  <WhiteSpace /> : this.letterDisplay}</span>
       </div>
     );

@@ -11,6 +11,7 @@ interface Props {
   letters: string[];
   dispatch: any;
   gameActive: boolean;
+  changeToolTipPosition: (x: number, y: number) => void;
 }
 
 interface State {
@@ -40,6 +41,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.inputRef = React.createRef();
     this.bodyElement = document.querySelector('body');
     this.onBodyClick = this.onBodyClick.bind(this);
+    this.showLetterTooltip = this.showLetterTooltip.bind(this);
     /**
      * if user click on anywhere on body while playing
      * re-focus him on the input.
@@ -79,6 +81,19 @@ export default class GameManager extends React.Component<Props, State> {
     return new Array(this.props.letters.length).fill(undefined).map(() => {
       return '';
     });
+  }
+  showLetterTooltip() {
+    this.currentLetterRect;
+    // the arrow will point on the most left border of the letter. we want to move it to the center of the letter.
+    const letterWidthOffset = this.currentLetterRect.width / 2;
+    // we want that the tooltip will hover over the letter.
+    const topSpaceOffset = 25;
+    const scrollOffset = this.wordBox.current.scrollTop
+    console.log(scrollOffset)
+    this.props.changeToolTipPosition(
+      this.currentLetterRect.left + letterWidthOffset,
+      this.currentLetterRect.top - topSpaceOffset  - scrollOffset
+    );
   }
   renderLetters(letter: string, index: number) {
     return (
@@ -137,6 +152,8 @@ export default class GameManager extends React.Component<Props, State> {
         this.scrollIntoView
       );
     } else {
+      // user entered wrong input. show him the tooltip.
+      this.showLetterTooltip();
       this.setState({
         input: updatedInput
       });
