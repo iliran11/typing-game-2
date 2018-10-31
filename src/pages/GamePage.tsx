@@ -14,9 +14,14 @@ interface State {
   toolTipY: number;
   timerActive: boolean;
   gameActive: boolean;
+  isOpen: boolean;
+  tooltipInput: string;
 }
 
 class GamePage extends PureComponent<Props, State> {
+  currentInput: string;
+  tooltipTimer: any;
+
   constructor(props: any) {
     super(props);
     socketManager.initSocket(props.dispatch);
@@ -24,10 +29,14 @@ class GamePage extends PureComponent<Props, State> {
       timerActive: false,
       gameActive: false,
       toolTipX: 0,
-      toolTipY: 0
+      toolTipY: 0,
+      tooltipInput: '',
+      isOpen: false
     };
     this.onTimerFinish = this.onTimerFinish.bind(this);
     this.changeToolTipPosition = this.changeToolTipPosition.bind(this);
+    this.scheduleTooltipClosure = this.scheduleTooltipClosure.bind(this);
+    this.closeTooltip = this.closeTooltip.bind(this);
   }
   componentDidUpdate(prevProps: Props) {
     // game has become active on server - turn on the timer!;
@@ -43,13 +52,28 @@ class GamePage extends PureComponent<Props, State> {
       gameActive: true
     });
   }
-  changeToolTipPosition(toolTipX: number, toolTipY: number) {
-    // we want that the arrow (not the most left border of the tooltip) will point exactly on the coordinate supplied
-    const arrowOffset =  22 / 2
+  scheduleTooltipClosure() {
+    this.tooltipTimer = setTimeout(this.closeTooltip, 1000);
+  }
+  closeTooltip() {
     this.setState({
-      toolTipX: toolTipX - arrowOffset,
-      toolTipY
+      isOpen: false
     });
+  }
+  changeToolTipPosition(toolTipX: number, toolTipY: number, input: string) {
+    console.log(input);
+    // we want that the arrow (not the most left border of the tooltip) will point exactly on the coordinate supplied
+    const arrowOffset = 22 / 2;
+    clearTimeout(this.tooltipTimer);
+    this.setState(
+      {
+        toolTipX: toolTipX - arrowOffset,
+        toolTipY,
+        isOpen: true,
+        tooltipInput: input
+      },
+      this.scheduleTooltipClosure
+    );
   }
   render() {
     return (
@@ -57,9 +81,18 @@ class GamePage extends PureComponent<Props, State> {
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}
-        <ToolTip x={this.state.toolTipX} y={this.state.toolTipY} open={true} input="d" />
+        <ToolTip
+          x={this.state.toolTipX}
+          y={this.state.toolTipY}
+          isOpen={this.state.isOpen}
+          input={this.state.tooltipInput}
+        />
         <ScoreBoardContainer />
-        <GameManagerContainer gameActive={this.state.gameActive} changeToolTipPosition={this.changeToolTipPosition}/>
+        <GameManagerContainer
+          gameActive={this.state.gameActive}
+          changeToolTipPosition={this.changeToolTipPosition}
+          closeTooltip={this.closeTooltip}
+        />
       </div>
     );
   }
