@@ -84,7 +84,6 @@ export default class GameManager extends React.Component<Props, State> {
     });
   }
   showLetterTooltip(input: string) {
-    this.currentLetterRect;
     // the arrow will point on the most left border of the letter. we want to move it to the center of the letter.
     const letterWidthOffset = this.currentLetterRect.width / 2;
     // we want that the tooltip will hover over the letter.
