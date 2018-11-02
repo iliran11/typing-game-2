@@ -15,8 +15,8 @@
   font-size:20px;
   position:relative;
   transition: background-color 0.5s, opacity 0.5s;
-  line-height: 2;
-  height: 190px;
+  line-height: 1.5;
+  height: 80px;
   max-height:115px;
   font-size: 25px;
   flex:auto;
@@ -27,6 +27,7 @@ input {
   position: absolute;
   opacity: 0;
   font-size:30px;
+  top:0;
 }
 #words-box.disabled {
   opacity:0.1;

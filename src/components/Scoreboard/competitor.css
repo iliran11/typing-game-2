@@ -1,9 +1,9 @@
 .competitor-container {
   /* background-color:red; */
-  min-height: 70px;
   display: flex;
   flex: auto;
   padding: 0px 10px;
+  border-bottom:1px solid #a7a7a7;
 }
 .competitor-name-section {
   width: 50px;
@@ -65,7 +65,13 @@
   width: 100px;
 }
 .competitor-wpm .circular-progress {
-  width: 50%;
+  width: 35%;
+  margin-top: 7px;
+  margin-bottom: 5px;
+}
+.competitor-wpm .wpm-label {
+  transform:translateY(50%);
+  font-size: 10px;
 }
 .CircularProgressbar .CircularProgressbar-text {
   font-size: 30px;

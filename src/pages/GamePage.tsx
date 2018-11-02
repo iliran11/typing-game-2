@@ -61,7 +61,6 @@ class GamePage extends PureComponent<Props, State> {
     });
   }
   changeToolTipPosition(toolTipX: number, toolTipY: number, input: string) {
-    console.log(input);
     // we want that the arrow (not the most left border of the tooltip) will point exactly on the coordinate supplied
     const arrowOffset = 22 / 2;
     clearTimeout(this.tooltipTimer);

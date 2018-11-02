@@ -117,7 +117,7 @@ class Competitor extends React.PureComponent<Props, State> {
               text={this.normalizedWpmScore}
             />
           </div>
-          <span>WPM</span>
+          <span className="wpm-label">WPM</span>
         </div>
       </div>
     );
