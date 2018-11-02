@@ -102,6 +102,7 @@ export default class GameManager extends React.Component<Props, State> {
         isSelected={this.state.index === index}
         input={this.state.input[index]}
         onRefReceive={this.memoizeDomRects}
+        key={index}
       />
     );
   }

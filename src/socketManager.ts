@@ -16,8 +16,8 @@ import {
 
 const socketManager: any = {
   initSocket(dispatch: any) {
-    // this.socket = socketIo.connect('http://localhost:4000');
-    this.socket = socketIo.connect('https://typing-game-dev.herokuapp.com/');
+    this.socket = socketIo.connect('http://localhost:4000');
+    // this.socket = socketIo.connect('https://typing-game-dev.herokuapp.com/');
     this.dispatch = dispatch;
     this.socket.on(
       CONNECT_SERVER_SUCCESS,
