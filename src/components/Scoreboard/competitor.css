@@ -46,15 +46,9 @@
 .competitor-progress .avatar {
   height: 30px;
   width: 30px;
-  border-radius: 50%;
-  background-color: grey;
   position: absolute;
-  left: 0;
+  left: 10px;
   transition: transform 2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
 }
 
 .competitor-wpm {

@@ -3,6 +3,7 @@ import './competitor.css';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
+import Avatar from './Avatar'
 
 // wpm of maximum progress in circular progress.
 const maxWpmGauge = 80;
@@ -22,11 +23,9 @@ interface State {
 class Competitor extends React.PureComponent<Props, State> {
   progressBarRef: any;
   progressbarWidth: number;
-  avatarRef: any;
   constructor(props: Props) {
     super(props);
     this.progressBarRef = React.createRef();
-    this.avatarRef = React.createRef();
     this.state = {
       hasMounted: false
     };
@@ -57,16 +56,14 @@ class Competitor extends React.PureComponent<Props, State> {
   }
   // avatar will be called only after the component has mounted so we have access to all refs here. no need
   get avatarTransformCompetitor() {
-    const visualOffset = 20;
+    const visualOffset = 0;
     if (!this.progressBarRef.current) {
       return visualOffset;
     }
     // console.log(`bar width:${this.progressbarWidth}. percent:${this.props.compeletedPercntage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
     // a little visual addition to make it more appealing like.
-
     return (
-      this.percentageCompleted * this.progressBarRef.current.clientWidth +
-      visualOffset
+      this.percentageCompleted * this.progressBarRef.current.clientWidth
     );
   }
   get avatarTransformEmptySlot() {
@@ -86,25 +83,21 @@ class Competitor extends React.PureComponent<Props, State> {
   get guestNumber() {
     return this.nameSectionText.split(' ')[1];
   }
+  get name() :string {
+    return this.props.isMe? 'YOU' : this.nameSectionText
+  }
 
   render() {
     // console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
       <div className="competitor-container">
         <div className="competitor-name-section">
-          <span>{this.nameSectionText}</span>
-          {this.props.isMe && <div id="you-indicator">You</div>}
+          <span>{this.name}</span>
         </div>
         <div className="competitor-progress">
           <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
-          <div
-            className={`avatar shadow-8dp gradient-${
-              this.props.avatarGradient
-            }`}
-            style={this.avatarStyle}
-            ref={this.avatarRef}
-          >
-            {this.guestNumber}
+          <div className="avatar"  style={this.avatarStyle}>
+          <Avatar />
           </div>
           <div style={{ position: 'absolute', left: 30 }}>
             {this.isEmptySlot && <Spinner />}
