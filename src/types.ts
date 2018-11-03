@@ -13,10 +13,17 @@ export interface ServerConnectSuccessPayload {
 export interface PlayerSerialize {
   name: string;
   id: string;
+  type: PlayerType
 }
 export interface PlayerClient {
   id: string;
   name: string;
   score: number;
-  compeletedPercntage:number;
+  compeletedPercntage: number;
+  type: PlayerType;
+}
+
+export enum PlayerType {
+  bot = "BOT",
+  human = "HUMAN"
 }

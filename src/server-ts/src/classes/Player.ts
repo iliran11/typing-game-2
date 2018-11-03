@@ -1,6 +1,6 @@
 import * as io from 'socket.io';
 import Game from './Game';
-import { PlayerSerialize } from '../../../types';
+import { PlayerSerialize,PlayerType } from '../../../types';
 // import Game from "./Game";
 
 export default class Player {
@@ -24,7 +24,10 @@ export default class Player {
     this.game = new Game();
   }
   protected get guestName() {
-    return `Guest ${Player.playerCounter}`;
+    return `${this.serializable.type} ${Player.playerCounter}`;
+  }
+  protected get playerType() {
+    return PlayerType.human
   }
   getSocket(): io.Socket {
     return this.socket;
@@ -32,7 +35,8 @@ export default class Player {
   public get serializable(): PlayerSerialize {
     return {
       name: this.name,
-      id: this.name
+      id: this.name,
+      type: this.playerType
     };
   }
   public get playerId(): string {

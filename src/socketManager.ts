@@ -58,7 +58,8 @@ const socketManager: any = {
         type: COMPETITOR_JOINED_ROOM,
         payload: {
           id: playerObject.id,
-          name: playerObject.name
+          name: playerObject.name,
+          type:playerObject.type
         }
       });
     });
