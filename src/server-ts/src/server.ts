@@ -3,7 +3,7 @@ import  * as packageJs from '../package.json'
 
 var app = require('express')();
 var server = require('http').Server(app);
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4001
 server.listen(port);
 // WARNING: app.listen(80) will NOT work here!
 

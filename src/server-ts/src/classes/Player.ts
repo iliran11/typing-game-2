@@ -23,7 +23,7 @@ export default class Player {
   createGame() {
     this.game = new Game();
   }
-  private get guestName() {
+  protected get guestName() {
     return `Guest ${Player.playerCounter}`;
   }
   getSocket(): io.Socket {

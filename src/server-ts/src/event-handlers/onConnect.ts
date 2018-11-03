@@ -3,7 +3,7 @@ import RoomManager from "../classes/RoomManager";
 import PlayerManager from "../classes/PlayerManager";
 import Player from "../classes/Player";
 import onDisconnect from "./onDisconnect";
-import allocatePlayerToRoom from "./allocatePlayerToRoom";
+import {allocatePlayerToRoom,notifyPlayerOnRoom} from "./allocatePlayerToRoom";
 import playerTyping from "./playerTyping";
 import {ServerConnectSuccessPayload} from '../../../types'
 import {
@@ -20,7 +20,8 @@ export default function onConnect(socket: io.Socket): void {
   playerManager.addPlayer(player);
   const connectPayload : ServerConnectSuccessPayload = { myId: player.playerId }
   socket.emit(CONNECT_SERVER_SUCCESS,connectPayload );
-  allocatePlayerToRoom(socket);
+  const room = allocatePlayerToRoom(socket);
+  notifyPlayerOnRoom(socket,room,player);
   socket.on("disconnect", () => {
     onDisconnect(socket);
   });

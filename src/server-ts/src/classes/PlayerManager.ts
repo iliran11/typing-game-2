@@ -3,7 +3,7 @@ import Player from "./Player";
 
 export default class PlayerManager {
   private static instance: PlayerManager;
-  private players: Map<io.Socket, Player>;
+  private players: Map<io.Socket | string, Player>;
   private constructor() {
     this.players = new Map();
   }

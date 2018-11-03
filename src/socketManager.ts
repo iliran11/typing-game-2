@@ -16,7 +16,7 @@ import {
 
 const socketManager: any = {
   initSocket(dispatch: any) {
-    this.socket = socketIo.connect('http://localhost:4000');
+    this.socket = socketIo.connect('http://localhost:4001');
     // this.socket = socketIo.connect('https://typing-game-dev.herokuapp.com/');
     this.dispatch = dispatch;
     this.socket.on(
@@ -28,7 +28,14 @@ const socketManager: any = {
         });
       }
     );
+    this.socket.on("reconnect_attempt",()=>{
+      console.log("reconnect_attempt")
+    })
+    this.socket.on("connect_timeout",()=>{
+      console.log("connect_timeout")
+    })
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
+      console.log('hi')
       this.dispatch({
         type: YOU_JOINED_ROOM,
         payload: {
@@ -46,6 +53,7 @@ const socketManager: any = {
       });
     });
     this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerSerialize) => {
+      console.log('hi')
       this.dispatch({
         type: COMPETITOR_JOINED_ROOM,
         payload: {
@@ -55,11 +63,15 @@ const socketManager: any = {
       });
     });
     this.socket.on(GAME_HAS_STARTED, () => {
+      console.log('hi')
+
       this.dispatch({
         type: GAME_HAS_STARTED
       });
     });
     this.socket.on(SCORE_BROADCAST, (data: any) => {
+      console.log('hi')
+
       this.dispatch({
         type: SCORE_BROADCAST,
         payload: {

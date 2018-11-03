@@ -10,8 +10,6 @@ export default class RoomManager {
 
   private constructor() {
     this.rooms = new Map();
-    // create first new room;
-    this.createNewRoom();
   }
   addPlayer(player: Player): Room {
     let room :Room;
