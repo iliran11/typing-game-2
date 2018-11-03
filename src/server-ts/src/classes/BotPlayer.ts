@@ -4,8 +4,8 @@ import {PlayerType } from '../../../types'
 export default class BotPlayer extends Player {
   private static botPlayerCounter = 0;
 
-  constructor(guestName,playerType) {
-    super(guestName,playerType)
+  constructor(socket,name?) {
+    super(socket,name);
   }
   public static getNextBotId() {
     this.botPlayerCounter++;

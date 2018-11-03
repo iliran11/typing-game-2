@@ -4,6 +4,7 @@ import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
 import Avatar from './Avatar'
+import {PlayerType} from '../../types'
 
 // wpm of maximum progress in circular progress.
 const maxWpmGauge = 80;
@@ -15,6 +16,7 @@ interface Props {
   index: number;
   avatarGradient: number;
   isMe: boolean;
+  type: PlayerType
 }
 interface State {
   hasMounted: boolean;
@@ -97,7 +99,7 @@ class Competitor extends React.PureComponent<Props, State> {
         <div className="competitor-progress">
           <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
           <div className="avatar"  style={this.avatarStyle}>
-          <Avatar />
+          <Avatar type={this.props.type}/>
           </div>
           <div style={{ position: 'absolute', left: 30 }}>
             {this.isEmptySlot && <Spinner />}
