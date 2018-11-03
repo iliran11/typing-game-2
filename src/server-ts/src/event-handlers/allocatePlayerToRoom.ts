@@ -8,6 +8,7 @@ import ServerManager from '../classes/ServerManager';
 const playerManager = PlayerManager.getInstance();
 const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } = constants;
 import { JoiningRoomResponse } from '../../../types';
+import BotPlayer from '../classes/BotPlayer';
 
 export function allocatePlayerToRoom(socket: io.Socket) {
   const player = playerManager.getPlayer(socket);
@@ -16,6 +17,9 @@ export function allocatePlayerToRoom(socket: io.Socket) {
     getServer()
       .in(room.roomName)
       .emit(constants.GAME_HAS_STARTED);
+    room.allBotPlayers.forEach((player: (BotPlayer))=>{
+      player.onGameStart();
+    });
     console.log(`${this.roomName}-Game started.`);
   }
   return room;

@@ -5,7 +5,7 @@ import { PlayerSerialize,PlayerType } from '../../../types';
 
 export default class Player {
   static playerCounter: number = 1;
-  private name: string;
+  protected name: string;
   private socket: io.Socket;
   private game: Game;
   private roomId: number;
@@ -26,7 +26,7 @@ export default class Player {
   protected get guestName() {
     return `${this.serializable.type} ${Player.playerCounter}`;
   }
-  protected get playerType() {
+  public get playerType() {
     return PlayerType.human
   }
   getSocket(): io.Socket {

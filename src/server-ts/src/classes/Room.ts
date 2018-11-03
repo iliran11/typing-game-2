@@ -13,12 +13,13 @@ import {
   allocatePlayerToRoom,
   broadcastCompetitorToRoom
 } from '../event-handlers/allocatePlayerToRoom';
+import { PlayerType } from '../../../types';
 
 export default class Room {
   private static globalRoomCounter: number = 1;
   public readonly maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM;
   // time without any real player join - so we can add a bot.
-  private players: Player[];
+  private players: (Player | BotPlayer)[];
   private gameWords: string[];
   // measure game length duration - not sure if needed.
   private timerId: any;
@@ -91,6 +92,11 @@ export default class Room {
   get isGameActive() {
     return this.gameActive;
   }
+  get allBotPlayers(): (Player | BotPlayer)[] {
+    return this.players.filter((player: Player | BotPlayer) => {
+      return player instanceof BotPlayer;
+    });
+  }
   private get server() {
     return ServerManager.getInstance().serverObject;
   }
@@ -125,8 +131,8 @@ export default class Room {
     const botPlayerId = BotPlayer.getNextBotId();
     const player = new BotPlayer(botPlayerId);
     PlayerManager.getInstance().addPlayer(player);
-    allocatePlayerToRoom(botPlayerId);
-    broadcastCompetitorToRoom(player, this,null);
+    allocatePlayerToRoom(player.playerId);
+    broadcastCompetitorToRoom(player, this, null);
 
     if (!this.isRoomFull) {
       this.restartCountdownBot();
