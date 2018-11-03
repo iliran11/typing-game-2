@@ -57,7 +57,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
   }
   renderCompetitor(value: void, index: number): JSX.Element {
     const competitorProps = this.getCompetitorProps(index);
-    return <Competitor {...competitorProps} index={index} key={index} avatarGradient={this.gradients[index]}/>;
+    return <Competitor {...competitorProps} index={index} key={index} randomAvatarIndex={this.gradients[index]}/>;
   }
 
   render() {

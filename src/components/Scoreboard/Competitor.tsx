@@ -14,7 +14,7 @@ interface Props {
   score: number;
   compeletedPercntage: number;
   index: number;
-  avatarGradient: number;
+  randomAvatarIndex: number;
   isMe: boolean;
   type: PlayerType
 }
@@ -99,7 +99,7 @@ class Competitor extends React.PureComponent<Props, State> {
         <div className="competitor-progress">
           <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
           <div className="avatar"  style={this.avatarStyle}>
-          <Avatar type={this.props.type}/>
+          <Avatar type={this.props.type} index={this.props.randomAvatarIndex}/>
           </div>
           <div style={{ position: 'absolute', left: 30 }}>
             {this.isEmptySlot && <Spinner />}
