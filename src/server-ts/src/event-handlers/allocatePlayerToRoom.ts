@@ -20,7 +20,7 @@ export function allocatePlayerToRoom(socket: io.Socket) {
   }
   return room;
 }
-export function notifyPlayerOnRoom(
+export function sendPlayerRoomInfo(
   socket: io.Socket,
   room: Room,
   player: Player
@@ -34,7 +34,17 @@ export function notifyPlayerOnRoom(
     isGameActive: room.isGameActive
   };
   socket.emit(YOU_JOINED_ROOM, response);
-  socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);
+  broadcastCompetitorToRoom(player, room, socket);
+}
+
+export function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
+  if (socket) {
+    socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);
+  } else {
+    getServer()
+      .to(room.roomName)
+      .emit(COMPETITOR_JOINED_ROOM, player.serializable);
+  }
 }
 
 function getServer() {

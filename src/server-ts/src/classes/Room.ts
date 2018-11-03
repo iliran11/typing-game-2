@@ -9,7 +9,10 @@ import {
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
-import {allocatePlayerToRoom} from '../event-handlers/allocatePlayerToRoom';
+import {
+  allocatePlayerToRoom,
+  broadcastCompetitorToRoom
+} from '../event-handlers/allocatePlayerToRoom';
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -20,7 +23,7 @@ export default class Room {
   // measure game length duration - not sure if needed.
   private timerId: any;
   private timePassed: number;
-  private timeIncrement: number= 1000;
+  private timeIncrement: number = 1000;
   private gameActive: boolean;
   isClosed: boolean;
   roomId: number;
@@ -123,7 +126,9 @@ export default class Room {
     const player = new BotPlayer(botPlayerId);
     PlayerManager.getInstance().addPlayer(player);
     allocatePlayerToRoom(botPlayerId);
-    if(!this.isRoomFull) {
+    broadcastCompetitorToRoom(player, this,null);
+
+    if (!this.isRoomFull) {
       this.restartCountdownBot();
     }
   }
