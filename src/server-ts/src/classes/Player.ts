@@ -16,21 +16,21 @@ export default class Player {
     if (name) {
       this.name = name;
     } else {
-      this.name = this.guestName;
+      this.name = `${this.serializable.type} ${Player.playerCounter}`;
       Player.playerCounter++;
     }
   }
   createGame() {
     this.game = new Game();
   }
-  protected get guestName() {
-    return `${this.serializable.type} ${Player.playerCounter}`;
-  }
   public get playerType() {
     return PlayerType.human
   }
   getSocket(): io.Socket {
     return this.socket;
+  }
+  public getName() {
+    return this.name
   }
   public get serializable(): PlayerSerialize {
     return {
