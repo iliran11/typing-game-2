@@ -5,7 +5,8 @@ import ServerManager from './ServerManager';
 import {
   SCORE_BROADCAST,
   MAX_PLAYERS_PER_ROOM,
-  GAME_HAS_STARTED
+  GAME_START_DELAY,
+  BOT_SPAWN_RATE
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
@@ -29,7 +30,7 @@ export default class Room {
   isClosed: boolean;
   roomId: number;
   // time it takes for a bot to born
-  botInterval = 5000;
+  botInterval = BOT_SPAWN_RATE;
   botRecruitTimer: any;
 
   constructor(words: string[]) {
@@ -38,7 +39,8 @@ export default class Room {
     this.players = [];
     this.gameWords = words;
     this.isClosed = false;
-    this.timePassed = 0;
+    // game timer start with negative value. becuase of countdown the clients gets when the game starts.
+    this.timePassed = GAME_START_DELAY * 1000 * -1;
     this.gameActive = false;
     this.addBot = this.addBot.bind(this);
     this.startCountdownBot();
@@ -114,7 +116,7 @@ export default class Room {
     this.gameActive = true;
   }
   private get timePassedMinutes(): number {
-    return this.timePassed / 60000;
+    return ((this.timePassed) / 60000) ;
   }
   // initiate a countdown for adding a bot
   private startCountdownBot(): void {

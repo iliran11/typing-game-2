@@ -9,4 +9,5 @@ export const GAME_HAS_STARTED = 'game-has-started'
 
 export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;
+export const BOT_SPAWN_RATE = 5000;
 export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot'

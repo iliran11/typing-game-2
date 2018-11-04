@@ -22,12 +22,9 @@ function startGame(room: Room) {
   getServer()
     .in(room.roomName)
     .emit(constants.GAME_HAS_STARTED);
-  const botsDelay = (GAME_START_DELAY + 1) * 1000;
-  setTimeout(() => {
-    room.allBotPlayers.forEach((player: BotPlayer) => {
-      player.onGameStart();
-    });
-  }, botsDelay);
+  room.allBotPlayers.forEach((player: BotPlayer) => {
+    player.onGameStart();
+  });
   console.log(`${room.roomName}-Game started.`);
 }
 

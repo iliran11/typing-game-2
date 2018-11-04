@@ -1,6 +1,6 @@
 import LetterData from "../../../store/classes/lettterData";
 
-const words: string = "hellohello worldhellohello worldhellohello worldhellohello worldhellohello hellohello worldhellohello worldhellohello worldhellohello worldhellohello hellohello worldhellohello worldhellohello worldhellohello worldhellohello ";
+const words: string = "12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 12345 ";
 const lettersSample = words.split("").map(word => new LetterData(word));
 
 export default class Game {
@@ -30,8 +30,8 @@ export default class Game {
   public get getRawLetters() {
     return words.split("");
   }
-  public getWpmScore(timeLeftMinutes: number) {
-    return (this.index  / timeLeftMinutes) / 5;
+  public getWpmScore(minutesPassed: number) {
+    return ((this.index  / minutesPassed)/5);
   }
   public get getPercentageComplete() {
     return this.index / this.letters.length
