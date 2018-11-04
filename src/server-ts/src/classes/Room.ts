@@ -97,6 +97,9 @@ export default class Room {
       return player instanceof BotPlayer;
     });
   }
+  get timeElapsed() {
+    return this.timePassed
+  }
   private get server() {
     return ServerManager.getInstance().serverObject;
   }
