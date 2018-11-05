@@ -34,8 +34,14 @@ export default class RoomManager {
 
   removePlayer(player: Player): Room | null {
     const roomId: number = player.getRoomId;
+
     if (roomId) {
       const room = this.getRoom(roomId);
+      /** if game is active - do not delete player
+       *  TODO: mark the player as non-active.
+       * 
+      */
+       if(room.isGameActive) return room;
       room.deletePlayer(player);
       console.log(`${player.playerId} has left ${room.roomName}. Capacity: ${room.playersInRoom.length}/${MAX_PLAYERS_PER_ROOM}`)
       return room;

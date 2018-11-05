@@ -3,7 +3,9 @@ import {
   YOU_JOINED_ROOM,
   COMPETITOR_JOINED_ROOM,
   SCORE_BROADCAST,
-  GAME_HAS_STARTED
+  GAME_HAS_STARTED,
+  COMPETITOR_LEFT,
+  COMPETITOR_DELETION
 } from '../../constants';
 
 import { PlayerClient } from '../../types';
@@ -75,6 +77,29 @@ export default function ServerStatus(
         ...state,
         isGameActive: true
       };
+    case COMPETITOR_DELETION:
+    case COMPETITOR_LEFT: 
+    const nextState = {...state};
+    const nextPlayersArray = [...state.players]
+    const indexOfLeavingPlayer = nextState.players.findIndex((player:any)=>{
+      return player.name=== action.payload.playerId;
+    })
+    // if competitor left in the middle of the game - just mark him as not active.
+    if(action.type===COMPETITOR_LEFT) {
+
+      nextPlayersArray[indexOfLeavingPlayer].isActive = false;
+      nextState.players = nextPlayersArray;
+      return nextState;
+      /**
+       * else - competitor left before the game began. so he will be replaced in another player.
+       * he will be deleted from the array of players in the server so a new player can be assigned.
+       * we will delete him from the client array too.
+       */
+    } else {
+      nextPlayersArray.splice(indexOfLeavingPlayer,1);
+      nextState.players = nextPlayersArray;
+      return nextState
+    }
     default:
       return state;
   }

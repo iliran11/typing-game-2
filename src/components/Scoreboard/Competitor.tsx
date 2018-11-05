@@ -17,6 +17,7 @@ interface Props {
   randomAvatarIndex: number;
   isMe: boolean;
   type: PlayerType
+  isActive:boolean
 }
 interface State {
   hasMounted: boolean;
@@ -88,11 +89,19 @@ class Competitor extends React.PureComponent<Props, State> {
   get name() :string {
     return this.props.isMe? 'YOU' : this.nameSectionText
   }
+  get competitorStyle() {
+    if(this.props.isActive===false) {
+      return {
+        opacity: 0.2
+      }
+    }
+    return {}
+  }
 
   render() {
     // console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
-      <div className="competitor-container">
+      <div className="competitor-container" style={this.competitorStyle}>
         <div className="competitor-name-section">
           <span>{this.name}</span>
         </div>

@@ -11,7 +11,9 @@ import {
   PLAYER_TYPING,
   SET_GAME_LETTERS,
   SCORE_BROADCAST,
-  GAME_HAS_STARTED
+  GAME_HAS_STARTED,
+  COMPETITOR_LEFT,
+  COMPETITOR_DELETION
 } from './constants';
 
 const socketManager: any = {
@@ -69,10 +71,34 @@ const socketManager: any = {
         }
       });
     });
+    this.socket.on(COMPETITOR_LEFT,(data: PlayerSerialize)=>{
+      this.dispatch(handleCompetitorleave(data))
+    })
   },
   emitTyping(typingInput: string) {
     this.socket.emit(PLAYER_TYPING, { typingInput });
   }
 };
+
+function handleCompetitorleave(data:any)  {
+  return function(dispatch:any,getState:any) {
+    const state = getState();   
+    if(state.serverStatus.isGameActive) {
+      dispatch({
+        type:COMPETITOR_LEFT,
+        payload: {
+          playerId: data.id
+        }
+      })
+    } else {
+      dispatch({
+        type:COMPETITOR_DELETION,
+        payload: {
+          playerId: data.id
+        }
+      })
+    }
+  }
+}
 
 export default socketManager;

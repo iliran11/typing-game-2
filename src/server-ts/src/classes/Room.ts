@@ -43,7 +43,7 @@ export default class Room {
     this.timePassed = GAME_START_DELAY * 1000 * -1;
     this.gameActive = false;
     this.addBot = this.addBot.bind(this);
-    if(MAX_PLAYERS_PER_ROOM>1) {
+    if (MAX_PLAYERS_PER_ROOM > 1) {
       this.startCountdownBot();
     }
   }
@@ -62,8 +62,10 @@ export default class Room {
   }
   deletePlayer(player: Player): void {
     if (this.isRoomFull) {
-      clearTimeout(this.timerId);
-      console.log(`${this.roomName}- Game Stopped.`);
+      // TODO: implement tracking of human players in the room. when we have 0 human players, stop the game.
+      
+      // clearTimeout(this.timerId);
+      // console.log(`${this.roomName}- Game Stopped.`);
     }
     const index = this.getPlayerIndex(player.playerId);
     this.players.splice(index, 1);
@@ -102,7 +104,7 @@ export default class Room {
     });
   }
   get timeElapsed() {
-    return this.timePassed
+    return this.timePassed;
   }
   private get server() {
     return ServerManager.getInstance().serverObject;
@@ -118,7 +120,7 @@ export default class Room {
     this.gameActive = true;
   }
   private get timePassedMinutes(): number {
-    return ((this.timePassed) / 60000) ;
+    return this.timePassed / 60000;
   }
   // initiate a countdown for adding a bot
   private startCountdownBot(): void {

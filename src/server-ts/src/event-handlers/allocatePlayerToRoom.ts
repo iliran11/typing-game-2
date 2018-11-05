@@ -4,7 +4,7 @@ import PlayerManager from '../classes/PlayerManager';
 import RoomManager from '../classes/RoomManager';
 import Room from '../classes/Room';
 import * as constants from '../../../constants';
-import ServerManager from '../classes/ServerManager';
+import {emitToRoom} from '../utilities';
 const playerManager = PlayerManager.getInstance();
 const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM, GAME_START_DELAY } = constants;
 import { JoiningRoomResponse } from '../../../types';
@@ -19,9 +19,7 @@ export function allocatePlayerToRoom(socket: io.Socket) {
   return room;
 }
 function startGame(room: Room) {
-  getServer()
-    .in(room.roomName)
-    .emit(constants.GAME_HAS_STARTED);
+  emitToRoom(room.roomName,constants.GAME_HAS_STARTED)
   room.allBotPlayers.forEach((player: BotPlayer) => {
     player.onGameStart();
   });
@@ -49,12 +47,6 @@ export function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
   if (socket) {
     socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);
   } else {
-    getServer()
-      .to(room.roomName)
-      .emit(COMPETITOR_JOINED_ROOM, player.serializable);
+    emitToRoom(room.roomName,COMPETITOR_JOINED_ROOM,player.serializable)
   }
-}
-
-function getServer() {
-  return ServerManager.getInstance().serverObject;
 }
