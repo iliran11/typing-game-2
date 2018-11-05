@@ -13,7 +13,8 @@ export default class Letter {
     return this.input;
   }
   get isCorrect() {
-    return this.value === this.input;
+    
+    return this.value.toLowerCase() === this.input.toLowerCase();
   }
   setInput(input: string) {
     this.input = input;

@@ -145,7 +145,7 @@ export default class GameManager extends React.Component<Props, State> {
       alert('game end!');
     }
     // if input is corret
-    if (input === this.currentLetter && gameInProgress) {
+    if (input === this.currentLetter.toLocaleLowerCase() && gameInProgress) {
       this.props.closeTooltip();
       this.setState(
         {

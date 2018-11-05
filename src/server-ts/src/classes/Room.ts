@@ -43,7 +43,9 @@ export default class Room {
     this.timePassed = GAME_START_DELAY * 1000 * -1;
     this.gameActive = false;
     this.addBot = this.addBot.bind(this);
-    this.startCountdownBot();
+    if(MAX_PLAYERS_PER_ROOM>1) {
+      this.startCountdownBot();
+    }
   }
   addPlayer(player: Player): void {
     this.players.push(player);
