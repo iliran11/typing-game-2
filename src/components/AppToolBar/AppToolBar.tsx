@@ -23,7 +23,7 @@ export default class AppToolBar extends React.Component<{}, {}> {
   }
   render() {
     return (
-      <div id="app-toolbar-">
+      <div id="app-toolbar">
         <AppBar position="static" color="default">
           <Toolbar>
             <DebugDialog />

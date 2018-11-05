@@ -4,6 +4,8 @@
 }
 #app-toolbar {
   flex:none;
+  z-index:100;
+  position:relative;
 }
 #competitor-list {
   flex:none;
