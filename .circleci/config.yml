@@ -16,6 +16,7 @@ jobs:
 
     steps:
       - checkout
+      - run: bash ./deploy.sh
 
       # Download and cache dependencies
       - restore_cache:
