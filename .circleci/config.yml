@@ -4,9 +4,8 @@
 #
 version: 2
 jobs:
-  build:
-    machine: true
-      
+  deploy-dev:
+    machine: true      
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -16,7 +15,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run build
-      - run: bash ./deploy.sh
+      - run: bash ./deploy-dev.sh
 
       # Download and cache dependencies
       - restore_cache:
@@ -24,9 +23,13 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
-      - run: yarn install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+workflows:
+  version: 2
+  - deploy-dev:
+    filters:
+      branches:
+        only: dev
