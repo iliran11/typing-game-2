@@ -31,4 +31,7 @@ workflows:
   version: 2
   deploy-dev-workflow:
     jobs: 
-      - deploy-dev
+      - deploy-dev:
+          filters:
+            branches:
+              only: dev
