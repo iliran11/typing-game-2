@@ -1,0 +1,53 @@
+#result-page {
+  height: 100%;
+  padding: 0px 20px;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+#result-page #my-score-data {
+  padding: 0px 10px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+}
+#my-score-data h1 {
+  margin: 0;
+  font-size: 30px;
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.867);
+}
+.star-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: inline-flex;
+  line-height: 1;
+  /* transform: rotate(45deg); */
+  color: white;
+}
+.star-text {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.87;
+}
+#score-section-star .star {
+  height: 100px;
+  width: 100px;
+}
+#score-section-star .star-text {
+  font-size: 20px;
+  color:green;
+}
+#score-details {
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.867);
+  font-size: 18px;
+}

@@ -41,3 +41,10 @@
     #FFFFFF 100%
   );
 }
+.gradient-7 {
+  background: linear-gradient(
+    to right,
+    #0ba360 0%,
+    #3cba92 100%
+  );
+}
