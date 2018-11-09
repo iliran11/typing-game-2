@@ -44,10 +44,33 @@
 }
 #score-section-star .star-text {
   font-size: 20px;
-  color:green;
+  color: green;
 }
 #score-details {
   line-height: 2;
   color: rgba(255, 255, 255, 0.867);
   font-size: 18px;
+}
+.graph-bar-container {
+  width: 100%;
+  height: 200px;
+  margin-top:10px;
+}
+.result-graph {
+  display: flex;
+  height:100%;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+}
+
+.result-graph-bar {
+  height: 100%;
+  flex:auto;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  opacity:0.9;
+}
+.result-graph-bar:not(:last-child) {
+  margin-right:15px;
 }

@@ -1,29 +1,37 @@
 import React from 'react';
-import Star from '../../components/Star/Star';
+import MyScoreSection from './MyScoreSection';
+import ResultsBarGraph from './ResultsBarGraph';
 import './resultPage.css';
+import {PlayerScore} from '../../types'
 
 interface Props {
   hi: boolean;
 }
-
-export default function(props: Props) {
+const competitors: PlayerScore[] =
+[
+  new PlayerScore("1",50,20),
+  new PlayerScore("1",30,20),
+  new PlayerScore("1",40,20),
+  new PlayerScore("1",10,20),
+]
+const resultbarProps = competitors.map((playerScore:PlayerScore)=>{
+  return playerScore.score
+})
+const normalizedCompetitors = normalizeNumbers(resultbarProps)
+export default function ResultPage(props: Props) {
+  // TODO: refactor my-score-data to different component
   return (
     <div id="result-page">
-      <div id="my-score-data" className="gradient-7">
-        <h1>Your Score:</h1>
-        <div id="score-section-star">
-          <Star><span className="larger-text">2</span>nd</Star>
-        </div>
-        <div id="score-details">
-          <span>Speed:21 wpm</span>
-          <br />
-          <span>Accuracy:</span>
-          <span>92%</span>
-          <br />
-          <span>Typed </span>21<span> words in </span>
-          <span>1:32</span> minutes
-        </div>
+      <MyScoreSection />
+      <div className="graph-bar-container">
+        <ResultsBarGraph competitors={normalizedCompetitors} />
       </div>
     </div>
   );
 }
+// https://stackoverflow.com/questions/13368046/how-to-normalize-a-list-of-positive-numbers-in-javascript
+function normalizeNumbers(numbers: number[]) {
+  const ratio = Math.max(...numbers) / 100;
+  numbers = numbers.map(v => Math.round(v / ratio));
+  return numbers;
+  };
