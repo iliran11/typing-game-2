@@ -13,7 +13,7 @@ export interface ServerConnectSuccessPayload {
 export interface PlayerSerialize {
   name: string;
   id: string;
-  type: PlayerType
+  type: PlayerType;
 }
 export interface PlayerClient {
   id: string;
@@ -25,6 +25,24 @@ export interface PlayerClient {
 }
 
 export enum PlayerType {
-  bot = "BOT",
-  human = "HUMAN"
+  bot = 'BOT',
+  human = 'HUMAN'
+}
+
+export interface IPlayerScore {
+  playerId: string;
+  score: number;
+  completedPercntage: number;
+}
+
+export class PlayerScore implements PlayerScore {
+  playerId: string;
+  score: number;
+  completedPercntage: number;
+
+  constructor(playerId: string, score: number, completedPercntage: number) {
+    this.playerId = playerId;
+    this.score = score;
+    this.completedPercntage = completedPercntage;
+  }
 }

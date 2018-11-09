@@ -14,7 +14,7 @@ import {
   allocatePlayerToRoom,
   broadcastCompetitorToRoom
 } from '../event-handlers/allocatePlayerToRoom';
-import { PlayerType } from '../../../types';
+import { PlayerScore } from '../../../types';
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -63,7 +63,6 @@ export default class Room {
   deletePlayer(player: Player): void {
     if (this.isRoomFull) {
       // TODO: implement tracking of human players in the room. when we have 0 human players, stop the game.
-      
       // clearTimeout(this.timerId);
       // console.log(`${this.roomName}- Game Stopped.`);
     }
@@ -86,13 +85,17 @@ export default class Room {
   get roomName(): string {
     return `room-${this.roomId}`;
   }
-  get scoresStats() {
+  get scoresStats(): PlayerScore[] {
     return this.players.map((player: Player) => {
-      return {
-        playerId: player.playerId,
-        score: player.playerGame.getWpmScore(this.timePassedMinutes),
-        completedPercntage: player.playerGame.getPercentageComplete
-      };
+      const playerId = player.playerId;
+      const score = player.playerGame.getWpmScore(this.timePassedMinutes);
+      const completedPercntage = player.playerGame.getPercentageComplete;
+      return new PlayerScore(playerId, score, completedPercntage);
+      // return {
+      //   playerId: player.playerId,
+      //   score: player.playerGame.getWpmScore(this.timePassedMinutes),
+      //   completedPercntage:
+      // };
     });
   }
   get isGameActive() {
