@@ -1,12 +1,12 @@
 import React from 'react'
-import Star from '../../components/Star/Star'
+import Medal from '../../components/Medal/Medal'
 
 export default function MyScoreSection() {
   return (
     <div id="my-score-data" className="gradient-7">
     <h1>Your Score:</h1>
     <div id="score-section-star">
-      <Star><span className="larger-text">2</span>nd</Star>
+      <Medal><span className="larger-text">2</span>nd</Medal>
     </div>
     <div id="score-details">
       <span>Speed:21 wpm</span>
