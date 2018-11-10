@@ -101,7 +101,7 @@ class Competitor extends React.PureComponent<Props, State> {
   render() {
     // console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
-      <div className="competitor-container" style={this.competitorStyle}>
+      <div className={`competitor-container ${this.props.isMe ? 'gradient-8' : ''}`} style={this.competitorStyle}>
         <div className="competitor-name-section">
           <span>{this.name}</span>
         </div>

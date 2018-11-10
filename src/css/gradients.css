@@ -1,50 +1,25 @@
 .gradient-1 {
-  background: linear-gradient(
-    to right,
-    #ED213A 0%,
-    #93291E 100%
-  );
+  background: linear-gradient(to right, #ed213a 0%, #93291e 100%);
 }
 .gradient-2 {
-  background: linear-gradient(
-    to right,
-    #00B4DB 0%,
-    #0083B0 100%
-  );
+  background: linear-gradient(to right, #00b4db 0%, #0083b0 100%);
 }
 .gradient-3 {
-  background: linear-gradient(
-    to right,
-    #636363 0%,
-    #a2ab58 100%
-  );
+  background: linear-gradient(to right, #636363 0%, #a2ab58 100%);
 }
 .gradient-4 {
-  background: linear-gradient(
-    to right,
-    #a8c0ff 0%,
-    #3f2b96 100%
-  );
+  background: linear-gradient(to right, #a8c0ff 0%, #3f2b96 100%);
 }
 .gradient-5 {
-  background: linear-gradient(
-    to top,
-    #56ab2f 0%,
-    #a8e063 100%
-  );
+  background: linear-gradient(to top, #56ab2f 0%, #a8e063 100%);
 }
 
 .gradient-6 {
-  background: linear-gradient(
-    to right,
-    #ebeceb 0%,
-    #FFFFFF 100%
-  );
+  background: linear-gradient(to right, #ebeceb 0%, #ffffff 100%);
 }
 .gradient-7 {
-  background: linear-gradient(
-    to right,
-    #0ba360 0%,
-    #3cba92 100%
-  );
+  background: linear-gradient(to right, #0ba360 0%, #3cba92 100%);
+}
+.gradient-8 {
+  background: linear-gradient(to right, #caf3e6 0%, white 100%);
 }
