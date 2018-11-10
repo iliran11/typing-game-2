@@ -29,6 +29,7 @@ export default class Room {
   private timePassed: number;
   private timeIncrement: number = 1000;
   private finalScores: (void | PlayerScore)[];
+  private roomStartTimestamp: number;
   isClosed: boolean;
   roomId: number;
   // time it takes for a bot to born
@@ -113,9 +114,11 @@ export default class Room {
     const playerIndex = this.players.findIndex((gamePlayer: Player) => {
       return gamePlayer.getName === finishedPlayer.getName;
     });
+    const timestampNow = Date.now();
     this.finalScores[playerIndex] = {
       ...this.getPlayerScore(finishedPlayer),
-      finishedTimestamp: Date.now()
+      finishedTimestamp: timestampNow,
+      gameDuration: timestampNow - this.roomStartTimestamp
     };
   }
   get isGameActive() {
@@ -154,7 +157,10 @@ export default class Room {
     this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
     this.isClosed = true;
     this.stopCountdownBot();
-    emitToRoom(this.roomName, GAME_HAS_STARTED, {startTimeStamp: Date.now()});
+    this.roomStartTimestamp = Date.now();
+    emitToRoom(this.roomName, GAME_HAS_STARTED, {
+      startTimeStamp: this.roomStartTimestamp
+    });
     this.allBotPlayers.forEach((player: BotPlayer) => {
       player.onGameStart();
     });

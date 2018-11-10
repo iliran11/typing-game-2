@@ -24,6 +24,7 @@ export interface PlayerClient {
   hasLeft: boolean;
   isFinished:boolean;
   finishedTimestamp:number;
+  gameDuration:number;
 }
 
 export enum PlayerType {
@@ -42,6 +43,7 @@ export class PlayerScore implements PlayerScore {
   score: number;
   completedPercntage: number;
   finishedTimestamp: number | void;
+  gameDuration: number|void;
 
   constructor(playerId: string, score: number, completedPercntage: number) {
     this.playerId = playerId;

@@ -19,7 +19,7 @@ interface ServerStatus {
   players: PlayerClient[];
   isGameActive: boolean;
   roomSize: number;
-  gameStartTimestamp:number;
+  gameStartTimestamp: number;
 }
 // interface PlayerScore {
 //   playerId: string;
@@ -35,7 +35,7 @@ const initialState: ServerStatus = {
   players: [],
   isGameActive: false,
   roomSize: 0,
-  gameStartTimestamp:0
+  gameStartTimestamp: 0
 };
 
 export default function ServerStatus(
@@ -67,11 +67,16 @@ export default function ServerStatus(
     case SCORE_BROADCAST:
       const nextPlayers = state.players.map(
         (player: PlayerClient, index: number) => {
-          player.score = action.payload.players[index].score;
-          player.compeletedPercntage =
-            action.payload.players[index].completedPercntage;
-          player.finishedTimestamp =
-            action.payload.players[index].finishedTimestamp;
+          const {
+            score,
+            completedPercntage,
+            finishedTimestamp,
+            gameDuration
+          } = action.payload.players[index];
+          player.score = score;
+          player.compeletedPercntage = completedPercntage;
+          player.finishedTimestamp = finishedTimestamp;
+          player.gameDuration = gameDuration;
           return player;
         }
       );
