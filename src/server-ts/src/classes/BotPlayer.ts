@@ -2,6 +2,7 @@ import Player from './Player';
 import { PlayerType } from '../../../types';
 import playerTyping from '../event-handlers/playerTyping';
 import RoomManager from '../classes/RoomManager';
+import onGameFinished from '../event-handlers/onGameFinished'
 const random = require('lodash.random');
 export default class BotPlayer extends Player {
   private static botPlayerCounter = 0;
@@ -39,7 +40,14 @@ export default class BotPlayer extends Player {
     // console.log(`${this.guestName} typed: ${typingData.typingInput}. next typing in: ${timeToNextLetter}`)
     playerTyping(this.name, typingData);
     this.typingIndex++;
-    setTimeout(this.type, timeToNextLetter);
+    // if there are more letters to type - type. else - annouce game finished.
+    if(this.typingIndex< this.playerGame.getRawLetters.length){
+      setTimeout(this.type, timeToNextLetter);
+    } else{
+      // console.log(`${this.getName} is Done typing in room-${this.getRoomId}!`);
+      onGameFinished(this.name);
+      
+    }
   }
   getSocket() {
     return this.playerId;
