@@ -6,9 +6,11 @@ import onDisconnect from "./onDisconnect";
 import {allocatePlayerToRoom,sendPlayerRoomInfo} from "./allocatePlayerToRoom";
 import playerTyping from "./playerTyping";
 import {ServerConnectSuccessPayload} from '../../../types'
+import onGameFinished from '../event-handlers/onGameFinished'
 import {
   PLAYER_TYPING,
-  CONNECT_SERVER_SUCCESS
+  CONNECT_SERVER_SUCCESS,
+  GAME_HAS_FINISHED
 } from "../../../constants";
 
 const roomManager = RoomManager.getInstance();
@@ -31,4 +33,7 @@ export default function onConnect(socket: io.Socket): void {
   socket.on(PLAYER_TYPING, data => {
     playerTyping(socket, data);
   });
+  socket.on(GAME_HAS_FINISHED,()=>{
+    onGameFinished(socket);
+  })
 }

@@ -29,7 +29,7 @@ export default class Player {
   getSocket(): io.Socket {
     return this.socket;
   }
-  public getName() {
+  public get getName() {
     return this.name
   }
   public get serializable(): PlayerSerialize {

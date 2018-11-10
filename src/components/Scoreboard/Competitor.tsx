@@ -17,7 +17,7 @@ interface Props {
   randomAvatarIndex: number;
   isMe: boolean;
   type: PlayerType
-  isActive:boolean
+  hasLeft:boolean
 }
 interface State {
   hasMounted: boolean;
@@ -90,7 +90,7 @@ class Competitor extends React.PureComponent<Props, State> {
     return this.props.isMe? 'YOU' : this.nameSectionText
   }
   get competitorStyle() {
-    if(this.props.isActive===false) {
+    if(this.props.hasLeft) {
       return {
         opacity: 0.2
       }

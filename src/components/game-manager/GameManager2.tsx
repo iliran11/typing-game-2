@@ -143,7 +143,16 @@ export default class GameManager extends React.Component<Props, State> {
     socketManager.emitTyping(input);
     const gameInProgress = this.incrementIndex < this.props.letters.length;
     if (!gameInProgress) {
+      /*
+       * update redux that our local game is finished
+       * for animation purposes and navigation to result page.
+       */
       this.props.gameIsFinished();
+       /*
+       * update the server that our local game is finished. 
+       * in purpose of letting our people know that u are finished.
+       */ 
+      socketManager.emitFinishedGame();
     }
     // if input is corret
     if (input === this.currentLetter.toLocaleLowerCase() && gameInProgress) {

@@ -21,7 +21,8 @@ export interface PlayerClient {
   score: number;
   compeletedPercntage: number;
   type: PlayerType;
-  isActive: boolean;
+  hasLeft: boolean;
+  isFinished:boolean;
 }
 
 export enum PlayerType {

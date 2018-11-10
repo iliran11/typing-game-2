@@ -9,6 +9,8 @@ export const CONNECT_SERVER_SUCCESS = 'connect_server';
 export const MAX_PLAYERS_PER_ROOM = 4;
 export const SET_GAME_LETTERS = 'set-game-letters';
 export const GAME_HAS_STARTED = 'game-has-started';
+export const GAME_HAS_FINISHED = 'game-has-finished'
+export const COMPETITOR_HAS_FINISHED = 'competitor-has-finished'
 
 export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;

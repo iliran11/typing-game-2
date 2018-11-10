@@ -8,6 +8,7 @@ interface Game {
 }
 const initialState: Game = {
   letters: [],
+  // indicated if the game is over for the current local player.
   isGameFinished: false
 };
 
