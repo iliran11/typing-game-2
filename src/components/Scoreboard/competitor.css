@@ -48,7 +48,7 @@
   width: 30px;
   position: absolute;
   left: 10px;
-  transition: transform 1.5s;
+  transition: transform 1s;
 }
 .completed-icon {
   width: 20px;
@@ -82,7 +82,7 @@
 
 .finish-shake {
 
-  animation: finish-shake 0.5s ease-in;
+  /* animation: finish-shake 0.5s ease-in; */
 }
 
 @keyframes finish-shake {

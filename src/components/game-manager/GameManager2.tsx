@@ -55,6 +55,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.memoizeDomRects = this.memoizeDomRects.bind(this);
     this.onInput = this.onInput.bind(this);
     this.scrollIntoView = this.scrollIntoView.bind(this);
+    this.checkIfFinished = this.checkIfFinished.bind(this);
   }
   componentWillUnmount() {
     this.bodyElement.removeEventListener(this.onBodyClick);
@@ -121,7 +122,10 @@ export default class GameManager extends React.Component<Props, State> {
   }
   scrollIntoView() {
     // do not scroll if no changes in the y coordinate of the letters.
-    if (this.currentLetterRect.top === this.previousLetterRect.top) {
+    if (
+      this.currentLetter &&
+      this.currentLetterRect.top === this.previousLetterRect.top
+    ) {
       return;
     }
     scrollIntoView(this.currentLetterNode, {
@@ -133,44 +137,50 @@ export default class GameManager extends React.Component<Props, State> {
     });
     window.scrollTo(0, 0);
   }
+  checkIfFinished() {
+    // means we have comleted all the words.
+    if (this.state.index === this.props.letters.length) {
+      /*
+       * update redux that our local game is finished
+       * for animation purposes and navigation to result page.
+       */
+      this.props.gameIsFinished();
+      /*
+       * update the server that our local game is finished.
+       * in purpose of letting our people know that u are finished.
+       */
+
+      socketManager.emitFinishedGame();
+    }
+  }
   onInput(event: any) {
-    if (!this.props.gameActive) {
+    // if server indicated that game is not active - do not process input.
+    if (!this.props.gameActive || !this.currentLetter) {
       return;
     }
     const { index } = this.state;
     const input: string = event.target.value.toLowerCase();
     const updatedInput = this.updateInputArray(index, input);
     socketManager.emitTyping(input);
-    const gameInProgress = this.incrementIndex < this.props.letters.length;
-    if (!gameInProgress) {
-      /*
-       * update redux that our local game is finished
-       * for animation purposes and navigation to result page.
-       */
-      this.props.gameIsFinished();
-       /*
-       * update the server that our local game is finished. 
-       * in purpose of letting our people know that u are finished.
-       */ 
-      socketManager.emitFinishedGame();
-    }
-    // if input is corret
-    if (input === this.currentLetter.toLocaleLowerCase() && gameInProgress) {
-      this.props.closeTooltip();
-      this.setState(
-        {
-          index: this.incrementIndex,
+      // if input is corret
+      if (input === this.currentLetter.toLowerCase()) {
+        this.props.closeTooltip();
+        this.setState(
+          {
+            index: this.incrementIndex,
+            input: updatedInput
+          },()=>{
+            this.scrollIntoView();
+            this.checkIfFinished();
+          }
+        );
+      } else {
+        // user entered wrong input. show him the tooltip.
+        this.showLetterTooltip(input);
+        this.setState({
           input: updatedInput
-        },
-        this.scrollIntoView
-      );
-    } else {
-      // user entered wrong input. show him the tooltip.
-      this.showLetterTooltip(input);
-      this.setState({
-        input: updatedInput
-      });
-    }
+        });
+      }
   }
   get currentLetter(): string {
     const { index } = this.state;
@@ -195,7 +205,7 @@ export default class GameManager extends React.Component<Props, State> {
     return cx({ disabled: !this.props.gameActive });
   }
   get markerProps(): markerProps {
-    if (this.letterNodes.length > 0) {
+    if (this.letterNodes.length > 0 && this.currentLetter) {
       const { left, top, width, height } = this.currentLetterRect;
 
       // calculate the position of x,y, with respect to scrolling.
