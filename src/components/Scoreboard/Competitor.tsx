@@ -3,8 +3,8 @@ import './competitor.css';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
-import Avatar from './Avatar'
-import {PlayerType} from '../../types'
+import Avatar from './Avatar';
+import { PlayerType } from '../../types';
 
 // wpm of maximum progress in circular progress.
 const maxWpmGauge = 80;
@@ -16,11 +16,13 @@ interface Props {
   index: number;
   randomAvatarIndex: number;
   isMe: boolean;
-  type: PlayerType
-  hasLeft:boolean
+  type: PlayerType;
+  hasLeft: boolean;
+  isFinished: boolean;
 }
 interface State {
   hasMounted: boolean;
+  isFinished: boolean;
 }
 
 class Competitor extends React.PureComponent<Props, State> {
@@ -30,8 +32,10 @@ class Competitor extends React.PureComponent<Props, State> {
     super(props);
     this.progressBarRef = React.createRef();
     this.state = {
-      hasMounted: false
+      hasMounted: false,
+      isFinished: false
     };
+    this.onTransitionEnd = this.onTransitionEnd.bind(this);
   }
   componentDidMount() {
     this.setState({
@@ -65,9 +69,8 @@ class Competitor extends React.PureComponent<Props, State> {
     }
     // console.log(`bar width:${this.progressbarWidth}. percent:${this.props.compeletedPercntage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
     // a little visual addition to make it more appealing like.
-    return (
-      this.percentageCompleted * this.progressBarRef.current.clientWidth
-    );
+
+    return this.percentageCompleted * this.progressBarRef.current.clientWidth;
   }
   get avatarTransformEmptySlot() {
     return this.transformToEdge;
@@ -86,29 +89,44 @@ class Competitor extends React.PureComponent<Props, State> {
   get guestNumber() {
     return this.nameSectionText.split(' ')[1];
   }
-  get name() :string {
-    return this.props.isMe? 'YOU' : this.nameSectionText
+  get name(): string {
+    return this.props.isMe ? 'YOU' : this.nameSectionText;
   }
   get competitorStyle() {
-    if(this.props.hasLeft) {
-      return {
-        opacity: 0.2
-      }
+    return {
+      opacity: this.props.hasLeft ? 0.2 : 1,
+      backgroundColor: this.state.isFinished ? 'red' : 'initial'
+    };
+  }
+  onTransitionEnd() {
+    if (this.percentageCompleted === 1) {
+      this.setState({
+        isFinished: true
+      });
     }
-    return {}
   }
 
   render() {
+    console.log(this.percentageCompleted);
     // console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
-      <div className={`competitor-container ${this.props.isMe ? 'gradient-8' : ''}`} style={this.competitorStyle}>
+      <div
+        className={`competitor-container ${
+          this.props.isMe ? 'gradient-8' : ''
+        }`}
+        style={this.competitorStyle}
+        onTransitionEnd={this.onTransitionEnd}
+      >
         <div className="competitor-name-section">
           <span>{this.name}</span>
         </div>
         <div className="competitor-progress">
           <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
-          <div className="avatar"  style={this.avatarStyle}>
-          <Avatar type={this.props.type} index={this.props.randomAvatarIndex}/>
+          <div className="avatar" style={this.avatarStyle}>
+            <Avatar
+              type={this.props.type}
+              index={this.props.randomAvatarIndex}
+            />
           </div>
           <div style={{ position: 'absolute', left: 30 }}>
             {this.isEmptySlot && <Spinner />}

@@ -110,7 +110,7 @@ export default function ServerStatus(
       return state;
   }
 }
-
+// mark the finishing player as completed.
 function onCompetitorFinish(
   state: ServerStatus,
   payload: PlayerSerialize
