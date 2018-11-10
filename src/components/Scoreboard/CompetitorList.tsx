@@ -7,15 +7,17 @@ import random from 'lodash.random';
 interface Props {
   players: PlayerClient[];
   roomSize: number;
-  myId:string;
+  myId: string;
+  history: any;
 }
 
 class CompetitorList extends React.PureComponent<Props, object> {
-  gradients: number[]
+  gradients: number[];
   constructor(props: any) {
     super(props);
     this.renderCompetitor = this.renderCompetitor.bind(this);
-    this.gradients = this.buildGradients
+    this.gradients = this.buildGradients;
+    this.navigateToResult = this.navigateToResult.bind(this);
   }
   /**
    * we don't want to render just the number of players CURRENTLY being connect to the room.
@@ -30,7 +32,9 @@ class CompetitorList extends React.PureComponent<Props, object> {
     const gradients: number[] = [];
     while (gradients.length < MAX_PLAYERS_PER_ROOM) {
       const randomNumber = random(1, MAX_PLAYERS_PER_ROOM);
-      if (gradients.indexOf(randomNumber) > -1) {continue};
+      if (gradients.indexOf(randomNumber) > -1) {
+        continue;
+      }
       gradients.push(randomNumber);
     }
     return gradients;
@@ -39,13 +43,20 @@ class CompetitorList extends React.PureComponent<Props, object> {
     const { players } = this.props;
     const player = index < players.length ? players[index] : null;
     if (player) {
-      const { name, score, compeletedPercntage,type,hasLeft,isFinished} = player;
+      const {
+        name,
+        score,
+        compeletedPercntage,
+        type,
+        hasLeft,
+        isFinished
+      } = player;
       return {
         name,
         score,
         compeletedPercntage,
         type,
-        isMe: name===this.props.myId,
+        isMe: name === this.props.myId,
         hasLeft,
         isFinished
       };
@@ -59,9 +70,19 @@ class CompetitorList extends React.PureComponent<Props, object> {
   }
   renderCompetitor(value: void, index: number): JSX.Element {
     const competitorProps = this.getCompetitorProps(index);
-    return <Competitor {...competitorProps} index={index} key={index} randomAvatarIndex={this.gradients[index]}/>;
+    return (
+      <Competitor
+        {...competitorProps}
+        index={index}
+        key={index}
+        randomAvatarIndex={this.gradients[index]}
+        navigateToResult={this.navigateToResult}
+      />
+    );
   }
-
+  navigateToResult() {
+    this.props.history.push('result');
+  }
   render() {
     if (Array.isArray(this.props.players)) {
       return (

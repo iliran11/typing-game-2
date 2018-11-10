@@ -58,7 +58,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.checkIfFinished = this.checkIfFinished.bind(this);
   }
   componentWillUnmount() {
-    this.bodyElement.removeEventListener(this.onBodyClick);
+    this.bodyElement.removeEventListener('click', this.onBodyClick);
   }
   onBodyClick() {
     if (this.inputRef.current) {
@@ -162,25 +162,26 @@ export default class GameManager extends React.Component<Props, State> {
     const input: string = event.target.value.toLowerCase();
     const updatedInput = this.updateInputArray(index, input);
     socketManager.emitTyping(input);
-      // if input is corret
-      if (input === this.currentLetter.toLowerCase()) {
-        this.props.closeTooltip();
-        this.setState(
-          {
-            index: this.incrementIndex,
-            input: updatedInput
-          },()=>{
-            this.scrollIntoView();
-            this.checkIfFinished();
-          }
-        );
-      } else {
-        // user entered wrong input. show him the tooltip.
-        this.showLetterTooltip(input);
-        this.setState({
+    // if input is corret
+    if (input === this.currentLetter.toLowerCase()) {
+      this.props.closeTooltip();
+      this.setState(
+        {
+          index: this.incrementIndex,
           input: updatedInput
-        });
-      }
+        },
+        () => {
+          this.scrollIntoView();
+          this.checkIfFinished();
+        }
+      );
+    } else {
+      // user entered wrong input. show him the tooltip.
+      this.showLetterTooltip(input);
+      this.setState({
+        input: updatedInput
+      });
+    }
   }
   get currentLetter(): string {
     const { index } = this.state;

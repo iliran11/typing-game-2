@@ -20,6 +20,7 @@ interface Props {
   type: PlayerType;
   hasLeft: boolean;
   isFinished: boolean;
+  navigateToResult: () => void;
 }
 interface State {
   hasMounted: boolean;
@@ -105,6 +106,9 @@ class Competitor extends React.PureComponent<Props, State> {
   }
   onTransitionEnd() {
     if (this.percentageCompleted === 1) {
+      if (this.props.isMe) {
+        setTimeout(this.props.navigateToResult, 1500);
+      }
       this.setState({
         isFinished: true
       });

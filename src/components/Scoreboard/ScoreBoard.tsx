@@ -6,6 +6,7 @@ interface Props {
   players: any;
   roomId: number;
   roomSize:number;
+  history: any;
 }
 
 class ScoreBoard extends React.PureComponent<Props, object> {
@@ -15,6 +16,7 @@ class ScoreBoard extends React.PureComponent<Props, object> {
         players={this.props.players}
         roomSize={this.props.roomSize}
         myId={this.props.myId}
+        history={this.props.history}
       />
     );
   }

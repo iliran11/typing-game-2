@@ -8,6 +8,7 @@ import ToolTip from '../components/tooltip';
 
 interface Props {
   isGameActive: boolean;
+  history:any;
 }
 interface State {
   toolTipX: number;
@@ -86,7 +87,7 @@ class GamePage extends PureComponent<Props, State> {
           isOpen={this.state.isOpen}
           input={this.state.tooltipInput}
         />
-        <ScoreBoardContainer />
+        <ScoreBoardContainer history={this.props.history}/>
         <GameManagerContainer
           gameActive={this.state.gameActive}
           changeToolTipPosition={this.changeToolTipPosition}
