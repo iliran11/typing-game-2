@@ -13,10 +13,10 @@ import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import {
   allocatePlayerToRoom,
-  broadcastCompetitorToRoom,
+  broadcastCompetitorToRoom
 } from '../event-handlers/allocatePlayerToRoom';
 import { PlayerScore, PlayerType } from '../../../types';
-import {emitToRoom} from '../utilities'
+import { emitToRoom } from '../utilities';
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -60,7 +60,7 @@ export default class Room {
       this.isClosed = true;
     }
     // bot should wait X time after a human is joined. so if a human has joined - start counting again.
-    this.restartCountdownBot()
+    this.restartCountdownBot();
   }
   deletePlayer(player: Player): void {
     if (this.isThereHuman === false) {
@@ -72,10 +72,10 @@ export default class Room {
     const index = this.getPlayerIndex(player.playerId);
     this.players.splice(index, 1);
   }
-  private get isThereHuman() : boolean {
-    return this.players.some((player:Player)=>{
-      return player.playerType === PlayerType.human
-    })
+  private get isThereHuman(): boolean {
+    return this.players.some((player: Player) => {
+      return player.playerType === PlayerType.human;
+    });
   }
   private getPlayerIndex(playerId: string): number {
     return this.players.findIndex((player: Player) => {
@@ -130,12 +130,11 @@ export default class Room {
     this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
     this.isClosed = true;
     this.stopCountdownBot();
-    emitToRoom(this.roomName,GAME_HAS_STARTED);
+    emitToRoom(this.roomName, GAME_HAS_STARTED);
     this.allBotPlayers.forEach((player: BotPlayer) => {
       player.onGameStart();
     });
     console.log(`${this.roomName}-Game started.`);
-
   }
   private get timePassedMinutes(): number {
     return this.timePassed / 60000;
@@ -160,7 +159,7 @@ export default class Room {
     PlayerManager.getInstance().addPlayer(player);
     allocatePlayerToRoom(player.playerId);
     broadcastCompetitorToRoom(player, this, null);
-    if(this.isGameActive) {
+    if (this.isGameActive) {
       this.startGame();
     }
 
