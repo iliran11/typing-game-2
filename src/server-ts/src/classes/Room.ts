@@ -6,15 +6,17 @@ import {
   SCORE_BROADCAST,
   MAX_PLAYERS_PER_ROOM,
   GAME_START_DELAY,
-  BOT_SPAWN_RATE
+  BOT_SPAWN_RATE,
+  GAME_HAS_STARTED
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import {
   allocatePlayerToRoom,
-  broadcastCompetitorToRoom
+  broadcastCompetitorToRoom,
 } from '../event-handlers/allocatePlayerToRoom';
-import { PlayerScore } from '../../../types';
+import { PlayerScore, PlayerType } from '../../../types';
+import {emitToRoom} from '../utilities'
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -26,7 +28,6 @@ export default class Room {
   private timerId: any;
   private timePassed: number;
   private timeIncrement: number = 1000;
-  private gameActive: boolean;
   isClosed: boolean;
   roomId: number;
   // time it takes for a bot to born
@@ -38,10 +39,10 @@ export default class Room {
     Room.globalRoomCounter++;
     this.players = [];
     this.gameWords = words;
+    // closed for new players additions. i.e - game has started.
     this.isClosed = false;
     // game timer start with negative value. becuase of countdown the clients gets when the game starts.
     this.timePassed = GAME_START_DELAY * 1000 * -1;
-    this.gameActive = false;
     this.addBot = this.addBot.bind(this);
     if (MAX_PLAYERS_PER_ROOM > 1) {
       this.startCountdownBot();
@@ -57,17 +58,24 @@ export default class Room {
     );
     if (this.isRoomFull) {
       this.isClosed = true;
-      this.startGame();
     }
+    // bot should wait X time after a human is joined. so if a human has joined - start counting again.
+    this.restartCountdownBot()
   }
   deletePlayer(player: Player): void {
-    if (this.isRoomFull) {
+    if (this.isThereHuman === false) {
+      this.stopGame();
       // TODO: implement tracking of human players in the room. when we have 0 human players, stop the game.
       // clearTimeout(this.timerId);
       // console.log(`${this.roomName}- Game Stopped.`);
     }
     const index = this.getPlayerIndex(player.playerId);
     this.players.splice(index, 1);
+  }
+  private get isThereHuman() : boolean {
+    return this.players.some((player:Player)=>{
+      return player.playerType === PlayerType.human
+    })
   }
   private getPlayerIndex(playerId: string): number {
     return this.players.findIndex((player: Player) => {
@@ -99,7 +107,7 @@ export default class Room {
     });
   }
   get isGameActive() {
-    return this.gameActive;
+    return this.players.length === MAX_PLAYERS_PER_ROOM;
   }
   get allBotPlayers(): (Player | BotPlayer)[] {
     return this.players.filter((player: Player | BotPlayer) => {
@@ -117,10 +125,17 @@ export default class Room {
     this.server.in(this.roomName).emit(SCORE_BROADCAST, this.scoresStats);
     // console.log(`${this.roomName}-tick!`);
   }
-  private startGame(): void {
+  startGame(): void {
     const intervalTime: number = 1000;
     this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
-    this.gameActive = true;
+    this.isClosed = true;
+    this.stopCountdownBot();
+    emitToRoom(this.roomName,GAME_HAS_STARTED);
+    this.allBotPlayers.forEach((player: BotPlayer) => {
+      player.onGameStart();
+    });
+    console.log(`${this.roomName}-Game started.`);
+
   }
   private get timePassedMinutes(): number {
     return this.timePassed / 60000;
@@ -145,9 +160,17 @@ export default class Room {
     PlayerManager.getInstance().addPlayer(player);
     allocatePlayerToRoom(player.playerId);
     broadcastCompetitorToRoom(player, this, null);
+    if(this.isGameActive) {
+      this.startGame();
+    }
 
     if (!this.isRoomFull) {
       this.restartCountdownBot();
     }
+  }
+  private stopGame() {
+    clearTimeout(this.botRecruitTimer);
+    clearTimeout(this.timerId);
+    this.isClosed = true;
   }
 }

@@ -1,7 +1,8 @@
 export const SCORE_BROADCAST = 'score-broadcast';
 export const YOU_JOINED_ROOM = 'you-joined-room';
-export const COMPETITOR_JOINED_ROOM = 'competitor-joined-room';
 export const COMPETITOR_LEFT = 'competitor-left';
+export const COMPETITOR_JOINED_ROOM = 'competitor-joined-room';
+export const BOT_JOINED_ROOM = 'bot-joined-room';
 export const COMPETITOR_DELETION = 'competitor-deletion';
 export const PLAYER_TYPING = 'player-typing';
 export const CONNECT_SERVER_SUCCESS = 'connect_server';

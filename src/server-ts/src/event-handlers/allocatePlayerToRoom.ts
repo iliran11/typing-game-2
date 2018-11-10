@@ -6,24 +6,16 @@ import Room from '../classes/Room';
 import * as constants from '../../../constants';
 import {emitToRoom} from '../utilities';
 const playerManager = PlayerManager.getInstance();
-const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM, GAME_START_DELAY } = constants;
+const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } = constants;
 import { JoiningRoomResponse } from '../../../types';
-import BotPlayer from '../classes/BotPlayer';
 
 export function allocatePlayerToRoom(socket: io.Socket) {
   const player = playerManager.getPlayer(socket);
   const room = RoomManager.getInstance().addPlayer(player);
-  if (room.isGameActive) {
-    startGame(room);
-  }
+  // if (room.isGameActive) {
+  //   startGame(room);
+  // }
   return room;
-}
-function startGame(room: Room) {
-  emitToRoom(room.roomName,constants.GAME_HAS_STARTED)
-  room.allBotPlayers.forEach((player: BotPlayer) => {
-    player.onGameStart();
-  });
-  console.log(`${room.roomName}-Game started.`);
 }
 
 export function sendPlayerRoomInfo(

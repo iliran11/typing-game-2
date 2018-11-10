@@ -22,6 +22,9 @@ export default function onConnect(socket: io.Socket): void {
   socket.emit(CONNECT_SERVER_SUCCESS,connectPayload );
   const room = allocatePlayerToRoom(socket);
   sendPlayerRoomInfo(socket,room,player);
+    if (room.isGameActive) {
+    room.startGame();
+  }
   socket.on("disconnect", () => {
     onDisconnect(socket);
   });
