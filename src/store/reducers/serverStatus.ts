@@ -2,6 +2,7 @@ import {
   CONNECT_SERVER_SUCCESS,
   YOU_JOINED_ROOM,
   COMPETITOR_JOINED_ROOM,
+  BOT_JOINED_ROOM,
   SCORE_BROADCAST,
   GAME_HAS_STARTED,
   COMPETITOR_LEFT,
@@ -55,6 +56,7 @@ export default function ServerStatus(
         isGameActive: action.payload.isGameActive
       };
     case COMPETITOR_JOINED_ROOM:
+    case BOT_JOINED_ROOM:
       return {
         ...state,
         players: state.players.concat(action.payload)

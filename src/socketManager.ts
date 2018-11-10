@@ -2,12 +2,14 @@ import * as socketIo from 'socket.io-client';
 import {
   JoiningRoomResponse,
   ServerConnectSuccessPayload,
-  PlayerSerialize
+  PlayerSerialize,
+  PlayerType
 } from './types';
 import {
   YOU_JOINED_ROOM,
   CONNECT_SERVER_SUCCESS,
   COMPETITOR_JOINED_ROOM,
+  BOT_JOINED_ROOM,
   PLAYER_TYPING,
   SET_GAME_LETTERS,
   SCORE_BROADCAST,
@@ -49,8 +51,9 @@ const socketManager: any = {
       });
     });
     this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerSerialize) => {
+      const type = playerObject.type === PlayerType.human ? COMPETITOR_JOINED_ROOM : BOT_JOINED_ROOM
       this.dispatch({
-        type: COMPETITOR_JOINED_ROOM,
+        type,
         payload: {
           id: playerObject.id,
           name: playerObject.name,
