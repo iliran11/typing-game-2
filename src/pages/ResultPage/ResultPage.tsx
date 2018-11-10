@@ -2,27 +2,29 @@ import React from 'react';
 import MyScoreSection from './MyScoreSection';
 import ResultsBarGraph from './ResultsBarGraph';
 import './resultPage.css';
-import {PlayerScore} from '../../types'
+import { PlayerScore } from '../../types';
 
 interface Props {
-  hi: boolean;
+  mySpeed: number;
+  numberOfLetters: number;
 }
-const competitors: PlayerScore[] =
-[
-  new PlayerScore("1",50,20),
-  new PlayerScore("1",30,20),
-  new PlayerScore("1",40,20),
-  new PlayerScore("1",10,20),
-]
-const resultbarProps = competitors.map((playerScore:PlayerScore)=>{
-  return playerScore.score
-})
-const normalizedCompetitors = normalizeNumbers(resultbarProps)
+const competitors: PlayerScore[] = [
+  new PlayerScore('1', 50, 20),
+  new PlayerScore('1', 30, 20),
+  new PlayerScore('1', 40, 20),
+  new PlayerScore('1', 10, 20)
+];
+const resultbarProps = competitors.map((playerScore: PlayerScore) => {
+  return playerScore.score;
+});
+const normalizedCompetitors = normalizeNumbers(resultbarProps);
 export default function ResultPage(props: Props) {
-  // TODO: refactor my-score-data to different component
   return (
     <div id="result-page">
-      <MyScoreSection />
+      <MyScoreSection
+        speed={props.mySpeed}
+        numberOfLetters={props.numberOfLetters}
+      />
       <div className="graph-bar-container">
         <ResultsBarGraph competitors={normalizedCompetitors} />
       </div>
@@ -34,4 +36,4 @@ function normalizeNumbers(numbers: number[]) {
   const ratio = Math.max(...numbers) / 100;
   numbers = numbers.map(v => Math.round(v / ratio));
   return numbers;
-  };
+}
