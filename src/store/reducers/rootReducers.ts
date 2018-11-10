@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import gameData from "./game";
+import gameData from "./gameData";
 import serverStatus from "./serverStatus";
 
 export default combineReducers({

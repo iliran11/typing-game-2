@@ -13,6 +13,7 @@ interface Props {
   gameActive: boolean;
   changeToolTipPosition: (x: number, y: number, input: string) => void;
   closeTooltip: () => void;
+  gameIsFinished: () => void;
 }
 
 interface State {
@@ -142,7 +143,7 @@ export default class GameManager extends React.Component<Props, State> {
     socketManager.emitTyping(input);
     const gameInProgress = this.incrementIndex < this.props.letters.length;
     if (!gameInProgress) {
-      alert('game end!');
+      this.props.gameIsFinished();
     }
     // if input is corret
     if (input === this.currentLetter.toLocaleLowerCase() && gameInProgress) {

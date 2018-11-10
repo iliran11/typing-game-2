@@ -1,12 +1,14 @@
 import Letter from "../classes/lettterData";
-import { SET_GAME_LETTERS } from "../../constants";
+import { SET_GAME_LETTERS,GAME_HAS_FINISHED } from "../../constants";
 
 // const letters : Letter[] = [new ]
 interface Game {
   letters: Letter[];
+  isGameFinished: boolean
 }
 const initialState: Game = {
-  letters: []
+  letters: [],
+  isGameFinished: false
 };
 
 export default function GameReducer(
@@ -19,6 +21,11 @@ export default function GameReducer(
         ...state,
         letters: action.payload.letters
       };
+    case GAME_HAS_FINISHED:
+      return {
+        ...state,
+        isGameFinished:true
+      }
   }
 
   return state;

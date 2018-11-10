@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import GameManager from "./GameManager2";
+import {gameIsFinished} from '../../store/gameAction'
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
@@ -7,7 +8,11 @@ const mapStateToProps = (state: any, ownProps: any) => {
   };
 };
 
+const mapDispatchToProps = {
+  gameIsFinished
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(GameManager);
