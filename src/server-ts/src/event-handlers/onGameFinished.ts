@@ -10,6 +10,7 @@ export default function onGameFinished(socket: io.Socket) {
   const player = playerManager.getPlayer(socket)
   const roomId = player.getRoomId;
   const room = roomManager.getRoom(roomId);
+  room.playerHasFinished(player);
   getServer().in(room.roomName).emit(COMPETITOR_HAS_FINISHED, player.serializable);
 
 

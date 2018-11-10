@@ -28,6 +28,7 @@ export default class Room {
   private timerId: any;
   private timePassed: number;
   private timeIncrement: number = 1000;
+  private finalScores: (void | PlayerScore)[];
   isClosed: boolean;
   roomId: number;
   // time it takes for a bot to born
@@ -41,6 +42,7 @@ export default class Room {
     this.gameWords = words;
     // closed for new players additions. i.e - game has started.
     this.isClosed = false;
+    this.finalScores = new Array(MAX_PLAYERS_PER_ROOM).fill(null);
     // game timer start with negative value. becuase of countdown the clients gets when the game starts.
     this.timePassed = GAME_START_DELAY * 1000 * -1;
     this.addBot = this.addBot.bind(this);
@@ -94,17 +96,24 @@ export default class Room {
     return `room-${this.roomId}`;
   }
   get scoresStats(): PlayerScore[] {
-    return this.players.map((player: Player) => {
-      const playerId = player.playerId;
-      const score = player.playerGame.getWpmScore(this.timePassedMinutes);
-      const completedPercntage = player.playerGame.getPercentageComplete;
-      return new PlayerScore(playerId, score, completedPercntage);
-      // return {
-      //   playerId: player.playerId,
-      //   score: player.playerGame.getWpmScore(this.timePassedMinutes),
-      //   completedPercntage:
-      // };
+    return this.players.map((player: Player, index: number) => {
+      /** if the player has an entry of the final score index - it means he is finished.
+       *  we will not re-calculate it. just retrieve it from the cached array.
+       */
+      return this.finalScores[index] || this.getPlayerScore(player);
     });
+  }
+  private getPlayerScore(player: Player) {
+    const playerId = player.playerId;
+    const score = player.playerGame.getWpmScore(this.timePassedMinutes);
+    const completedPercntage = player.playerGame.getPercentageComplete;
+    return new PlayerScore(playerId, score, completedPercntage);
+  }
+  playerHasFinished(finishedPlayer: Player) {
+    const playerIndex = this.players.findIndex((gamePlayer: Player) => {
+      return gamePlayer.getName === finishedPlayer.getName;
+    });
+    this.finalScores[playerIndex] = this.getPlayerScore(finishedPlayer);
   }
   get isGameActive() {
     return this.players.length === MAX_PLAYERS_PER_ROOM;
@@ -120,9 +129,21 @@ export default class Room {
   private get server() {
     return ServerManager.getInstance().serverObject;
   }
+  private get isAnyoneStillPlaying(): boolean {
+    /* if we encounter 'null' value in the final scores array
+     *  it means someone is still typing. in this case we shouldn't stop the game tick yet.
+     */
+
+    return this.finalScores.some((score: PlayerScore) => {
+      return score == null;
+    });
+  }
   private gameTick(): void {
     this.timePassed += this.timeIncrement;
     this.server.in(this.roomName).emit(SCORE_BROADCAST, this.scoresStats);
+    if (this.isAnyoneStillPlaying === false) {
+      this.stopGame();
+    }
     // console.log(`${this.roomName}-tick!`);
   }
   startGame(): void {
@@ -171,5 +192,6 @@ export default class Room {
     clearTimeout(this.botRecruitTimer);
     clearTimeout(this.timerId);
     this.isClosed = true;
+    console.log(`${this.roomName} has finished!`)
   }
 }
