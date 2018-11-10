@@ -113,7 +113,10 @@ export default class Room {
     const playerIndex = this.players.findIndex((gamePlayer: Player) => {
       return gamePlayer.getName === finishedPlayer.getName;
     });
-    this.finalScores[playerIndex] = this.getPlayerScore(finishedPlayer);
+    this.finalScores[playerIndex] = {
+      ...this.getPlayerScore(finishedPlayer),
+      finishedTimestamp: Date.now()
+    };
   }
   get isGameActive() {
     return this.players.length === MAX_PLAYERS_PER_ROOM;
@@ -151,7 +154,7 @@ export default class Room {
     this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
     this.isClosed = true;
     this.stopCountdownBot();
-    emitToRoom(this.roomName, GAME_HAS_STARTED);
+    emitToRoom(this.roomName, GAME_HAS_STARTED, {startTimeStamp: Date.now()});
     this.allBotPlayers.forEach((player: BotPlayer) => {
       player.onGameStart();
     });
@@ -192,6 +195,6 @@ export default class Room {
     clearTimeout(this.botRecruitTimer);
     clearTimeout(this.timerId);
     this.isClosed = true;
-    console.log(`${this.roomName} has finished!`)
+    console.log(`${this.roomName} has finished!`);
   }
 }

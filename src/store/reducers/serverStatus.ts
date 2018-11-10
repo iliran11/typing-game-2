@@ -19,6 +19,7 @@ interface ServerStatus {
   players: PlayerClient[];
   isGameActive: boolean;
   roomSize: number;
+  gameStartTimestamp:number;
 }
 // interface PlayerScore {
 //   playerId: string;
@@ -33,7 +34,8 @@ const initialState: ServerStatus = {
   myId: '',
   players: [],
   isGameActive: false,
-  roomSize: 0
+  roomSize: 0,
+  gameStartTimestamp:0
 };
 
 export default function ServerStatus(
@@ -68,6 +70,8 @@ export default function ServerStatus(
           player.score = action.payload.players[index].score;
           player.compeletedPercntage =
             action.payload.players[index].completedPercntage;
+          player.finishedTimestamp =
+            action.payload.players[index].finishedTimestamp;
           return player;
         }
       );
@@ -78,7 +82,8 @@ export default function ServerStatus(
     case GAME_HAS_STARTED:
       return {
         ...state,
-        isGameActive: true
+        isGameActive: true,
+        gameStartTimestamp: action.payload
       };
     case COMPETITOR_DELETION:
     case COMPETITOR_LEFT:
@@ -117,12 +122,10 @@ function onCompetitorFinish(
 ): ServerStatus {
   const nextState = { ...state };
   const nextPlayersArray = [...nextState.players];
-  const finishedPlayer = nextPlayersArray.find(
-    (player: PlayerClient) => {
-      return player.name === payload.name;
-    }
-  );
-  if(finishedPlayer){
+  const finishedPlayer = nextPlayersArray.find((player: PlayerClient) => {
+    return player.name === payload.name;
+  });
+  if (finishedPlayer) {
     finishedPlayer.isFinished = true;
   }
   nextState.players = nextPlayersArray;

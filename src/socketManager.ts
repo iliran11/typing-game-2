@@ -22,8 +22,8 @@ import {
 
 const socketManager: any = {
   initSocket(dispatch: any) {
-    // this.socket = socketIo.connect('http://localhost:4001');
-    this.socket = socketIo.connect('https://typing-game-dev.herokuapp.com/');
+    this.socket = socketIo.connect('http://localhost:4001');
+    // this.socket = socketIo.connect('https://typing-game-dev.herokuapp.com/');
     this.dispatch = dispatch;
     this.socket.on(
       CONNECT_SERVER_SUCCESS,
@@ -66,9 +66,12 @@ const socketManager: any = {
         }
       });
     });
-    this.socket.on(GAME_HAS_STARTED, () => {
+    this.socket.on(GAME_HAS_STARTED, (payload: any) => {
       this.dispatch({
-        type: GAME_HAS_STARTED
+        type: GAME_HAS_STARTED,
+        payload: {
+          gameStartTimestamp: payload.startTimeStamp
+        }
       });
     });
     this.socket.on(SCORE_BROADCAST, (data: any) => {
@@ -82,12 +85,12 @@ const socketManager: any = {
     this.socket.on(COMPETITOR_LEFT, (data: PlayerSerialize) => {
       this.dispatch(handleCompetitorleave(data));
     });
-    this.socket.on(COMPETITOR_HAS_FINISHED,(data:PlayerSerialize)=>{
+    this.socket.on(COMPETITOR_HAS_FINISHED, (data: PlayerSerialize) => {
       this.dispatch({
         type: COMPETITOR_HAS_FINISHED,
         payload: data
-      })
-    })
+      });
+    });
   },
   emitTyping(typingInput: string) {
     this.socket.emit(PLAYER_TYPING, { typingInput });
