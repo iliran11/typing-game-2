@@ -1,6 +1,7 @@
 import LetterData from "../../../store/classes/lettterData";
 
 const words: string = "I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short. I suppose I just jumped really high";
+// const words: string = "I went to the park and saw a tree";
 const lettersSample = words.split("").map(word => new LetterData(word));
 
 export default class Game {

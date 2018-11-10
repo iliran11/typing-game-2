@@ -3,7 +3,7 @@
   display: flex;
   flex: auto;
   padding: 0px 10px;
-  border-bottom:1px solid #a7a7a7;
+  border-bottom: 1px solid #a7a7a7;
 }
 .competitor-name-section {
   width: 50px;
@@ -50,6 +50,14 @@
   left: 10px;
   transition: transform 1.5s;
 }
+.completed-icon {
+  width: 20px;
+  height: 20px;
+  transform: translate(50%, -50%);
+  right: 0;
+  top: 0;
+  position: absolute;
+}
 
 .competitor-wpm {
   width: 15%;
@@ -64,9 +72,30 @@
   margin-bottom: 5px;
 }
 .competitor-wpm .wpm-label {
-  transform:translateY(50%);
+  transform: translateY(50%);
   font-size: 10px;
 }
+
 .CircularProgressbar .CircularProgressbar-text {
   font-size: 30px;
+}
+
+.finish-shake {
+
+  animation: finish-shake 0.5s ease-in;
+}
+
+@keyframes finish-shake {
+  0% {
+    transform: translateX(0);
+  }
+  33% {
+    transform: translateX(-10px);
+  }
+  66% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

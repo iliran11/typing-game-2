@@ -5,6 +5,7 @@ import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
 import Avatar from './Avatar';
 import { PlayerType } from '../../types';
+import checkedIcon from '../../assets/checked.svg';
 
 // wpm of maximum progress in circular progress.
 const maxWpmGauge = 80;
@@ -94,9 +95,13 @@ class Competitor extends React.PureComponent<Props, State> {
   }
   get competitorStyle() {
     return {
-      opacity: this.props.hasLeft ? 0.2 : 1,
-      backgroundColor: this.state.isFinished ? 'red' : 'initial'
+      opacity: this.props.hasLeft ? 0.2 : 1
     };
+  }
+  get competitorClassNames() {
+    return `competitor-container ${this.props.isMe ? 'gradient-8' : ''} ${
+      this.state.isFinished ? 'finish-shake' : ''
+    }`;
   }
   onTransitionEnd() {
     if (this.percentageCompleted === 1) {
@@ -107,13 +112,10 @@ class Competitor extends React.PureComponent<Props, State> {
   }
 
   render() {
-    console.log(this.percentageCompleted);
     // console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
       <div
-        className={`competitor-container ${
-          this.props.isMe ? 'gradient-8' : ''
-        }`}
+        className={this.competitorClassNames}
         style={this.competitorStyle}
         onTransitionEnd={this.onTransitionEnd}
       >
@@ -127,6 +129,9 @@ class Competitor extends React.PureComponent<Props, State> {
               type={this.props.type}
               index={this.props.randomAvatarIndex}
             />
+            {this.state.isFinished && (
+              <img className="completed-icon" src={checkedIcon} />
+            )}
           </div>
           <div style={{ position: 'absolute', left: 30 }}>
             {this.isEmptySlot && <Spinner />}
