@@ -118,7 +118,8 @@ export default class Room {
     this.finalScores[playerIndex] = {
       ...this.getPlayerScore(finishedPlayer),
       finishedTimestamp: timestampNow,
-      gameDuration: timestampNow - this.roomStartTimestamp
+      gameDuration: timestampNow - this.roomStartTimestamp,
+      accuracy:  finishedPlayer.playerGame.getRawLetters.length / finishedPlayer.playerGame.numberOfTypings
     };
   }
   get isGameActive() {

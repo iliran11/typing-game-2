@@ -67,16 +67,19 @@ export default function ServerStatus(
     case SCORE_BROADCAST:
       const nextPlayers = state.players.map(
         (player: PlayerClient, index: number) => {
+          // TODO: implement PlayerScore type here like in the server.
           const {
             score,
             completedPercntage,
             finishedTimestamp,
-            gameDuration
+            gameDuration,
+            accuracy
           } = action.payload.players[index];
           player.score = score;
           player.compeletedPercntage = completedPercntage;
           player.finishedTimestamp = finishedTimestamp;
           player.gameDuration = gameDuration;
+          player.accuracy = accuracy;
           return player;
         }
       );

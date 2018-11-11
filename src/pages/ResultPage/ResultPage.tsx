@@ -9,6 +9,7 @@ interface Props {
   numberOfLetters: number;
   gameDuration: number;
   myRanking:number;
+  accuracy:number;
 }
 const competitors: PlayerScore[] = [
   new PlayerScore('1', 50, 20),
@@ -28,6 +29,7 @@ export default function ResultPage(props: Props) {
         numberOfLetters={props.numberOfLetters}
         gameDuration={props.gameDuration}
         ranking={props.myRanking}
+        accuracy={props.accuracy}
       />
       <div className="graph-bar-container">
         <ResultsBarGraph competitors={normalizedCompetitors} />

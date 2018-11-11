@@ -6,6 +6,7 @@ interface Props {
   numberOfLetters: number;
   gameDuration: number;
   ranking: number;
+  accuracy:number;
 }
 export default function MyScoreSection(props: Props) {
   const gameDurationSeconds = Math.round(props.gameDuration / 1000);
@@ -20,12 +21,12 @@ export default function MyScoreSection(props: Props) {
       <div id="score-details">
         <span>Speed:{props.speed} wpm</span>
         <br />
-        {/* <span>Accuracy:</span>
-      <span>92%</span>
-      <br /> */}
+        <span>Accuracy:</span>
+      <span>{Math.round(props.accuracy * 100)}%</span>
+      <br />
         <span>Typed </span>
         {props.numberOfLetters}
-        <span> words in </span>
+        <span> letters in </span>
         <span>{gameDurationSeconds}</span> seconds
       </div>
     </div>

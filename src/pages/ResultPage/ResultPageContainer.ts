@@ -16,7 +16,9 @@ const mapStateToProps = (state:any) =>{
     mySpeed: Math.round(myPlayerData.score),
     numberOfLetters: state.gameData.letters.length,
     gameDuration: myPlayerData.gameDuration,
-    myRanking
+    myRanking,
+    accuracy: myPlayerData.accuracy
+
   }
 }
 export default connect(mapStateToProps,null)(ResultPage)

@@ -24,6 +24,7 @@ export interface PlayerClient {
   isFinished:boolean;
   finishedTimestamp:number;
   gameDuration:number;
+  accuracy:number;
 }
 
 export enum PlayerType {
@@ -35,6 +36,7 @@ export interface IPlayerScore {
   playerId: string;
   score: number;
   completedPercntage: number;
+
 }
 
 export class PlayerScore implements PlayerScore {
@@ -43,6 +45,7 @@ export class PlayerScore implements PlayerScore {
   completedPercntage: number;
   finishedTimestamp: number | void;
   gameDuration: number|void;
+  accuracy:number|void;
 
   constructor(playerId: string, score: number, completedPercntage: number) {
     this.playerId = playerId;
