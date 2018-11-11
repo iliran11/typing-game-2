@@ -1,28 +1,46 @@
-import React from 'react'
-import Medal from '../../components/Medal/Medal'
+import React from 'react';
+import Medal from '../../components/Medal/Medal';
 
 interface Props {
-  speed:number;
-  numberOfLetters:number;
-  gameDuration:number;
+  speed: number;
+  numberOfLetters: number;
+  gameDuration: number;
+  ranking: number;
 }
-export default function MyScoreSection(props:Props) {
-  const gameDurationSeconds = Math.round(props.gameDuration / 1000)
+export default function MyScoreSection(props: Props) {
+  const gameDurationSeconds = Math.round(props.gameDuration / 1000);
   return (
     <div id="my-score-data" className="gradient-7">
-    <h1>Your Score:</h1>
-    <div id="score-section-star">
-      <Medal><span className="larger-text">2</span>nd</Medal>
-    </div>
-    <div id="score-details">
-      <span>Speed:{props.speed} wpm</span>
-      <br />
-      {/* <span>Accuracy:</span>
+      <h1>Your Score:</h1>
+      <div id="score-section-star">
+        <Medal>
+          <span className="larger-text">{getMedalText(props.ranking)}</span>
+        </Medal>
+      </div>
+      <div id="score-details">
+        <span>Speed:{props.speed} wpm</span>
+        <br />
+        {/* <span>Accuracy:</span>
       <span>92%</span>
       <br /> */}
-      <span>Typed </span>{props.numberOfLetters}<span> words in </span>
-      <span>{gameDurationSeconds}</span> seconds
+        <span>Typed </span>
+        {props.numberOfLetters}
+        <span> words in </span>
+        <span>{gameDurationSeconds}</span> seconds
+      </div>
     </div>
-  </div>
-  )
+  );
+}
+
+function getMedalText(ranking: number) {
+  switch (ranking) {
+    case 0:
+      return '1st';
+    case 1:
+      return '2nd';
+    case 2:
+      return '3rd';
+    default:
+      return `${ranking+1}th`
+  }
 }

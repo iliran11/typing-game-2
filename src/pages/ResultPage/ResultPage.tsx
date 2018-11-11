@@ -8,6 +8,7 @@ interface Props {
   mySpeed: number;
   numberOfLetters: number;
   gameDuration: number;
+  myRanking:number;
 }
 const competitors: PlayerScore[] = [
   new PlayerScore('1', 50, 20),
@@ -26,6 +27,7 @@ export default function ResultPage(props: Props) {
         speed={props.mySpeed}
         numberOfLetters={props.numberOfLetters}
         gameDuration={props.gameDuration}
+        ranking={props.myRanking}
       />
       <div className="graph-bar-container">
         <ResultsBarGraph competitors={normalizedCompetitors} />

@@ -12,11 +12,11 @@ const mapStateToProps = (state:any) =>{
   const myRanking = rankings.findIndex((player:PlayerClient)=>{
     return player.id === myId
   })
-  console.log(myRanking);
   return {
     mySpeed: Math.round(myPlayerData.score),
     numberOfLetters: state.gameData.letters.length,
-    gameDuration: myPlayerData.gameDuration
+    gameDuration: myPlayerData.gameDuration,
+    myRanking
   }
 }
 export default connect(mapStateToProps,null)(ResultPage)

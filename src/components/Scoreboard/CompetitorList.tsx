@@ -62,7 +62,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
       };
     } else {
       return {
-        name: EMPTY_COMPETITOR_SLOT,
+        id: EMPTY_COMPETITOR_SLOT,
         score: '',
         compeletedPercntage: 0
       };
