@@ -7,6 +7,7 @@ import { PlayerScore } from '../../types';
 interface Props {
   mySpeed: number;
   numberOfLetters: number;
+  gameDuration: number;
 }
 const competitors: PlayerScore[] = [
   new PlayerScore('1', 50, 20),
@@ -24,6 +25,7 @@ export default function ResultPage(props: Props) {
       <MyScoreSection
         speed={props.mySpeed}
         numberOfLetters={props.numberOfLetters}
+        gameDuration={props.gameDuration}
       />
       <div className="graph-bar-container">
         <ResultsBarGraph competitors={normalizedCompetitors} />

@@ -4,8 +4,10 @@ import Medal from '../../components/Medal/Medal'
 interface Props {
   speed:number;
   numberOfLetters:number;
+  gameDuration:number;
 }
 export default function MyScoreSection(props:Props) {
+  const gameDurationSeconds = Math.round(props.gameDuration / 1000)
   return (
     <div id="my-score-data" className="gradient-7">
     <h1>Your Score:</h1>
@@ -19,7 +21,7 @@ export default function MyScoreSection(props:Props) {
       <span>92%</span>
       <br /> */}
       <span>Typed </span>{props.numberOfLetters}<span> words in </span>
-      <span>1:32</span> minutes
+      <span>{gameDurationSeconds}</span> seconds
     </div>
   </div>
   )
