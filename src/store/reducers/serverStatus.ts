@@ -96,7 +96,7 @@ export default function ServerStatus(
       const nextPlayersArray = [...state.players];
       const indexOfLeavingPlayer = nextState.players.findIndex(
         (player: any) => {
-          return player.name === action.payload.playerId;
+          return player.id === action.payload.playerId;
         }
       );
       // if competitor left in the middle of the game - just mark him as not active.
@@ -128,7 +128,7 @@ function onCompetitorFinish(
   const nextState = { ...state };
   const nextPlayersArray = [...nextState.players];
   const finishedPlayer = nextPlayersArray.find((player: PlayerClient) => {
-    return player.name === payload.name;
+    return player.id === payload.id;
   });
   if (finishedPlayer) {
     finishedPlayer.isFinished = true;

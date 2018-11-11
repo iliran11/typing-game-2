@@ -11,7 +11,6 @@ export interface ServerConnectSuccessPayload {
 }
 
 export interface PlayerSerialize {
-  name: string;
   id: string;
   type: PlayerType;
 }

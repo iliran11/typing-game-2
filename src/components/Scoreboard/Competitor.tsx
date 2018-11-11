@@ -11,7 +11,7 @@ import checkedIcon from '../../assets/checked.svg';
 const maxWpmGauge = 80;
 
 interface Props {
-  name: string;
+  id: string;
   score: number;
   compeletedPercntage: number;
   index: number;
@@ -82,10 +82,10 @@ class Competitor extends React.PureComponent<Props, State> {
     return this.props.compeletedPercntage || 0;
   }
   get isEmptySlot() {
-    return this.props.name === EMPTY_COMPETITOR_SLOT;
+    return this.props.id === EMPTY_COMPETITOR_SLOT;
   }
   get nameSectionText() {
-    return this.isEmptySlot ? 'Waiting ...' : this.props.name;
+    return this.isEmptySlot ? 'Waiting ...' : this.props.id;
   }
   // extract the number from the guest. temporary method.
   get guestNumber() {

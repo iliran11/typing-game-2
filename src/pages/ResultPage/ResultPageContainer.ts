@@ -7,10 +7,12 @@ const mapStateToProps = (state:any) =>{
   const myPlayerData :PlayerClient = state.serverStatus.players.find((player:PlayerClient)=>{
     return player.id===myId
   })
+  console.log(state.serverStatus.players)
   const rankings = state.serverStatus.players.sort(sortPlayersRanking)
   const myRanking = rankings.findIndex((player:PlayerClient)=>{
-    return player.id = myId
+    return player.id === myId
   })
+  console.log(myRanking);
   return {
     mySpeed: Math.round(myPlayerData.score),
     numberOfLetters: state.gameData.letters.length,
@@ -19,7 +21,7 @@ const mapStateToProps = (state:any) =>{
 }
 export default connect(mapStateToProps,null)(ResultPage)
 
-function sortPlayersRanking(a:PlayerClient,b:PlayerClient) {
+export function sortPlayersRanking(a:PlayerClient,b:PlayerClient) {
  if(a.gameDuration && !b.gameDuration) {
    // a wins
    return -1

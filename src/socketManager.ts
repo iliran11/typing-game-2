@@ -61,7 +61,6 @@ const socketManager: any = {
         type,
         payload: {
           id: playerObject.id,
-          name: playerObject.name,
           type: playerObject.type
         }
       });
