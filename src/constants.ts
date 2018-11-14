@@ -6,7 +6,6 @@ export const BOT_JOINED_ROOM = 'bot-joined-room';
 export const COMPETITOR_DELETION = 'competitor-deletion';
 export const PLAYER_TYPING = 'player-typing';
 export const CONNECT_SERVER_SUCCESS = 'connect_server';
-export const MAX_PLAYERS_PER_ROOM = 2;
 export const SET_GAME_LETTERS = 'set-game-letters';
 export const GAME_HAS_STARTED = 'game-has-started';
 export const GAME_HAS_FINISHED = 'game-has-finished'
@@ -16,3 +15,12 @@ export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;
 export const BOT_SPAWN_RATE = 5000;
 export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot';
+
+/** 
+ * CONFIG
+ */
+export const MAX_PLAYERS_PER_ROOM = 4;
+export const SERVER_URL = 'https://typing-game-dev.herokuapp.com/'
+// export const SERVER_URL = 'http://localhost:4001'
+
+

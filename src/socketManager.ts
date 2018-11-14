@@ -17,13 +17,14 @@ import {
   COMPETITOR_LEFT,
   COMPETITOR_DELETION,
   GAME_HAS_FINISHED,
-  COMPETITOR_HAS_FINISHED
+  COMPETITOR_HAS_FINISHED,
+  SERVER_URL
 } from './constants';
 
 const socketManager: any = {
   initSocket(dispatch: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
-    this.socket = socketIo.connect('https://typing-game-dev.herokuapp.com/');
+    this.socket = socketIo.connect(SERVER_URL);
     this.dispatch = dispatch;
     this.socket.on(
       CONNECT_SERVER_SUCCESS,
