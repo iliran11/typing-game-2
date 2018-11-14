@@ -27,6 +27,11 @@ export interface PlayerClient {
   accuracy:number;
 }
 
+export interface ResultGraphData extends PlayerClient {
+  normalizedWpm:number;
+  ranking:number;
+}
+
 export enum PlayerType {
   bot = 'BOT',
   human = 'HUMAN'

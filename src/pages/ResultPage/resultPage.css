@@ -71,6 +71,7 @@
   border-top-right-radius: 5px;
   opacity: 0.9;
   position: relative;
+  transition: height 0.5s
 }
 .result-graph-bar:not(:last-child) {
   margin-right: 15px;
