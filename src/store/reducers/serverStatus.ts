@@ -7,12 +7,14 @@ import {
   GAME_HAS_STARTED,
   COMPETITOR_LEFT,
   COMPETITOR_DELETION,
-  COMPETITOR_HAS_FINISHED
+  COMPETITOR_HAS_FINISHED,
+  RESTART_GAME
 } from '../../constants';
 import connectServerSuccess from './serverStatusHandlers/connectServerSuccess';
 import youJoinedRoom from './serverStatusHandlers/youJoinedRoom';
 import otherPlayerJoining from './serverStatusHandlers/otherPlayerJoining';
 import scoreBroadcast from './serverStatusHandlers/scoreBroadCast';
+import gameRestart from './serverStatusHandlers/gameRestart'
 
 import {
   PlayerClient,
@@ -44,6 +46,8 @@ export default function ServerStatus(
       return otherPlayerJoining(state, action);
     case SCORE_BROADCAST:
       return scoreBroadcast(state, action);
+    case RESTART_GAME: 
+      return gameRestart(state,action);
     case GAME_HAS_STARTED:
       return {
         ...state,

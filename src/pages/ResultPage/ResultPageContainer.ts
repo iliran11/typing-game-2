@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import ResultPage from './ResultPage';
 import { PlayerClient, ResultGraphData } from '../../types';
+import {restartGame} from '../../store/gameAction'
 
 const mapStateToProps = (state: any) => {
   const myId = state.serverStatus.myId;
@@ -41,9 +42,14 @@ const mapStateToProps = (state: any) => {
     competitors: graphData
   };
 };
+
+const mapDispatchToProps = {
+  restartGame
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ResultPage);
 
 export function sortPlayersRanking(a: PlayerClient, b: PlayerClient) {

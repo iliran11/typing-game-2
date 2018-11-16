@@ -11,6 +11,7 @@ interface Props {
   myRanking:number;
   accuracy:number;
   competitors:ResultGraphData[];
+  restartGame: ()=>void
 }
 
 export default function ResultPage(props: Props) {
@@ -27,7 +28,7 @@ export default function ResultPage(props: Props) {
         <ResultsBarGraph competitors={props.competitors} />
       </div>
       <div id="result-page-buttons">
-      <button id="compete-again" className="gradient-5 shadow-3dp">Compete Again</button>
+      <button id="compete-again" className="gradient-5 shadow-3dp" onClick={props.restartGame}>Compete Again</button>
       </div>
     </div>
   );
