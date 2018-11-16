@@ -4,7 +4,7 @@ import {EMPTY_COMPETITOR_SLOT} from '../../constants'
 export default class PlayerClientFactory implements PlayerClient {
   id: string = EMPTY_COMPETITOR_SLOT;
   playerId: string ="";
-  score: number = -1;
+  score: number = 0;
   compeletedPercntage: number = 0;
   type: PlayerType =PlayerType.bot;
   hasLeft: boolean = false;

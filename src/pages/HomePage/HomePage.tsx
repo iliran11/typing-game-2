@@ -6,5 +6,5 @@ export default function Home(props: any): any {
     props.history.push('/game');
     // console.log(props)
   };
-  return <button onClick={navigateToGame}>Start!</button>;
+  return <div id="home-page"><button onClick={navigateToGame}>Start!</button></div>;
 }
