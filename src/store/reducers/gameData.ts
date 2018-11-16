@@ -1,21 +1,19 @@
-import Letter from "../classes/lettterData";
 import { SET_GAME_LETTERS,GAME_HAS_FINISHED } from "../../constants";
+import {GameDataReducer} from '../../types'
 
 // const letters : Letter[] = [new ]
-interface Game {
-  letters: Letter[];
-  isGameFinished: boolean
-}
-const initialState: Game = {
+
+const initialState: GameDataReducer = {
   letters: [],
   // indicated if the game is over for the current local player.
   isGameFinished: false
 };
 
+
 export default function GameReducer(
-  state: Game = initialState,
+  state: GameDataReducer = initialState,
   action: any
-): Game {
+): GameDataReducer {
   switch (action.type) {
     case SET_GAME_LETTERS:
       return {

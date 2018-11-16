@@ -40,6 +40,8 @@ function renderBar(competitor: ResultGraphData, index: number) {
       </div>
       <div className="graph-wpm-info">
         <div className="graph-wpm-info-number shadow-6dp">
+          {/* 
+  // @ts-ignore */}
           <span>{Math.round(competitor.score)}</span>
           <span>WPM</span>
         </div>

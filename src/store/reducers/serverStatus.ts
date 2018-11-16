@@ -9,26 +9,18 @@ import {
   COMPETITOR_DELETION,
   COMPETITOR_HAS_FINISHED
 } from '../../constants';
+import connectServerSuccess from './serverStatusHandlers/connectServerSuccess';
+import youJoinedRoom from './serverStatusHandlers/youJoinedRoom';
+import otherPlayerJoining from './serverStatusHandlers/otherPlayerJoining';
+import scoreBroadcast from './serverStatusHandlers/scoreBroadCast';
 
-import { PlayerClient, PlayerSerialize } from '../../types';
+import {
+  PlayerClient,
+  PlayerSerialize,
+  ServerStatusReducer
+} from '../../types';
 
-interface ServerStatus {
-  roomId: number;
-  isConnected: boolean;
-  myId: string;
-  players: PlayerClient[];
-  isGameActive: boolean;
-  roomSize: number;
-  gameStartTimestamp: number;
-}
-// interface PlayerScore {
-//   playerId: string;
-//   name: string;
-//   score: number;
-//   status: number;
-// }
-
-const initialState: ServerStatus = {
+const initialState: ServerStatusReducer = {
   roomId: -1,
   isConnected: false,
   myId: '',
@@ -38,55 +30,20 @@ const initialState: ServerStatus = {
   gameStartTimestamp: 0
 };
 
-export default function ServerStatus(
-  state = initialState,
+export default function ServerStatusReducer(
+  state: ServerStatusReducer = initialState,
   action: any
-): ServerStatus {
-  const { payload: { roomId = -1, players = {} } = {} } = action;
+): ServerStatusReducer {
   switch (action.type) {
     case CONNECT_SERVER_SUCCESS:
-      return {
-        ...state,
-        isConnected: true,
-        myId: action.payload.myId
-      };
+      return connectServerSuccess(state, action);
     case YOU_JOINED_ROOM:
-      return {
-        ...state,
-        roomId,
-        players,
-        roomSize: action.payload.roomSize,
-        isGameActive: action.payload.isGameActive
-      };
+      return youJoinedRoom(state, action);
     case COMPETITOR_JOINED_ROOM:
     case BOT_JOINED_ROOM:
-      return {
-        ...state,
-        players: state.players.concat(action.payload)
-      };
+      return otherPlayerJoining(state, action);
     case SCORE_BROADCAST:
-      const nextPlayers = state.players.map(
-        (player: PlayerClient, index: number) => {
-          // TODO: implement PlayerScore type here like in the server.
-          const {
-            score,
-            completedPercntage,
-            finishedTimestamp,
-            gameDuration,
-            accuracy
-          } = action.payload.players[index];
-          player.score = score;
-          player.compeletedPercntage = completedPercntage;
-          player.finishedTimestamp = finishedTimestamp;
-          player.gameDuration = gameDuration;
-          player.accuracy = accuracy;
-          return player;
-        }
-      );
-      return {
-        ...state,
-        players: nextPlayers
-      };
+      return scoreBroadcast(state, action);
     case GAME_HAS_STARTED:
       return {
         ...state,
@@ -125,9 +82,9 @@ export default function ServerStatus(
 }
 // mark the finishing player as completed.
 function onCompetitorFinish(
-  state: ServerStatus,
+  state: ServerStatusReducer,
   payload: PlayerSerialize
-): ServerStatus {
+): ServerStatusReducer {
   const nextState = { ...state };
   const nextPlayersArray = [...nextState.players];
   const finishedPlayer = nextPlayersArray.find((player: PlayerClient) => {

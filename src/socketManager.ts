@@ -3,7 +3,9 @@ import {
   JoiningRoomResponse,
   ServerConnectSuccessPayload,
   PlayerSerialize,
-  PlayerType
+  PlayerType,
+  PlayerJoiningAction,
+  ScoreBroadcastAction
 } from './types';
 import {
   YOU_JOINED_ROOM,
@@ -58,29 +60,29 @@ const socketManager: any = {
         playerObject.type === PlayerType.human
           ? COMPETITOR_JOINED_ROOM
           : BOT_JOINED_ROOM;
-      this.dispatch({
+      const action: PlayerJoiningAction = {
         type,
-        payload: {
-          id: playerObject.id,
-          type: playerObject.type
-        }
-      });
+        payload: { ...playerObject }
+      };
+      this.dispatch(action);
     });
     this.socket.on(GAME_HAS_STARTED, (payload: any) => {
-      this.dispatch({
+      const action = {
         type: GAME_HAS_STARTED,
         payload: {
           gameStartTimestamp: payload.startTimeStamp
         }
-      });
+      };
+      this.dispatch(action);
     });
     this.socket.on(SCORE_BROADCAST, (data: any) => {
-      this.dispatch({
+      const action: ScoreBroadcastAction = {
         type: SCORE_BROADCAST,
         payload: {
           players: data
         }
-      });
+      };
+      this.dispatch(action);
     });
     this.socket.on(COMPETITOR_LEFT, (data: PlayerSerialize) => {
       this.dispatch(handleCompetitorleave(data));

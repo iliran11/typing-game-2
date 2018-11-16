@@ -1,0 +1,5 @@
+faster indication on my completion. V on my avatar.
+avatar should come from server.
+on refresh result page - do not generate error.
+infra - constants should be types so we can use them in interfaces.
+infra - break down the youJoinedRoom action. one part is for my person details, the other part is the game details (letters[])
