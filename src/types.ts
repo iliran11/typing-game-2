@@ -18,15 +18,15 @@ export interface PlayerSerialize {
 }
 export interface PlayerClient {
   id: string;
-  playerId?: string;
-  score?: number;
-  compeletedPercntage?: number;
+  playerId: string;
+  score: number;
+  compeletedPercntage: number;
   type: PlayerType;
-  hasLeft?: boolean;
-  isFinished?: boolean;
-  finishedTimestamp?: number;
-  gameDuration?: number;
-  accuracy?: number;
+  hasLeft: boolean;
+  isFinished: boolean;
+  finishedTimestamp: number;
+  gameDuration: number;
+  accuracy: number;
 }
 
 export interface ResultGraphData extends PlayerClient {

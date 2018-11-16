@@ -26,6 +26,9 @@ export default function ResultPage(props: Props) {
       <div className="graph-bar-container">
         <ResultsBarGraph competitors={props.competitors} />
       </div>
+      <div className="result-page-buttons">
+      <button>Compete Again</button>
+      </div>
     </div>
   );
 }

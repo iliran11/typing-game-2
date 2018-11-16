@@ -33,7 +33,6 @@ const mapStateToProps = (state: any) => {
     }
   );
   return {
-    // @ts-ignore
     mySpeed: Math.round(myPlayerData.score),
     numberOfLetters: state.gameData.letters.length,
     gameDuration: myPlayerData.gameDuration,
@@ -60,7 +59,6 @@ export function sortPlayersRanking(a: PlayerClient, b: PlayerClient) {
     // they are both undefined. we don't care about the order.
     return 0;
   }
-  // @ts-ignore
   if (a.gameDuration < b.gameDuration) {
     // a finished faster - he wins
     return -1;
