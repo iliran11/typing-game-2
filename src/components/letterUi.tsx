@@ -44,9 +44,17 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
       isMounted: true
     });
   }
+  get inputLowerCase(){
+    return this.props.input && this.props.input.toLowerCase();
+  }
+  get letterLowerCase() {
+    return this.props.letter && this.props.letter.toLowerCase();
+
+  }
   get letterClassNames() {
+
     return cx("letter animated", {
-      success: this.props.input === this.props.letter,
+      success: this.inputLowerCase === this.letterLowerCase,
       "is-selected": this.props.isSelected
     });
   }
