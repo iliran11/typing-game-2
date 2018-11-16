@@ -9,7 +9,8 @@ const mapStateToProps = (state: any) => {
       return player.id === myId;
     }
   );
-  const rankings: PlayerClient[] = state.serverStatus.players.sort(
+  let rankings: PlayerClient[] = [...state.serverStatus.players];
+  rankings = rankings.sort(
     sortPlayersRanking
   );
   const myRanking = rankings.findIndex((player: PlayerClient) => {

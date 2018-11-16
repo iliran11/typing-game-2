@@ -16,6 +16,7 @@ export interface PlayerSerialize {
 }
 export interface PlayerClient {
   id: string;
+  playerId:string;
   name: string;
   score: number;
   compeletedPercntage: number;
