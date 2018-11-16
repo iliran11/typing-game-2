@@ -30,7 +30,7 @@ const initialState: ServerStatusReducer = {
   gameStartTimestamp: 0
 };
 
-export default function ServerStatusReducer(
+export default function ServerStatus(
   state: ServerStatusReducer = initialState,
   action: any
 ): ServerStatusReducer {
