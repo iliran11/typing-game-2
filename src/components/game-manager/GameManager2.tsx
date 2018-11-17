@@ -67,7 +67,6 @@ export default class GameManager extends React.Component<Props, State> {
   }
   memoizeDomRects(refArray: HTMLDivElement) {
     // build the letter nodes.
-    if(!this.wordBox.current) {return;}
     this.letterNodes.push(refArray);
     if (this.letterNodes.length === this.props.letters.length) {
       // here we memoize the rects dimensions so we don't have to recalculate them every render.

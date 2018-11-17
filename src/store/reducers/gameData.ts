@@ -1,4 +1,4 @@
-import { SET_GAME_LETTERS,GAME_HAS_FINISHED } from "../../constants";
+import { SET_GAME_LETTERS,GAME_HAS_FINISHED,RESTART_GAME } from "../../constants";
 import {GameDataReducer} from '../../types'
 
 // const letters : Letter[] = [new ]
@@ -25,6 +25,8 @@ export default function GameReducer(
         ...state,
         isGameFinished:true
       }
+    case RESTART_GAME: 
+    return initialState;
   }
 
   return state;

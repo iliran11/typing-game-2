@@ -8,7 +8,7 @@ import ToolTip from '../components/tooltip';
 
 interface Props {
   isGameActive: boolean;
-  history:any;
+  history: any;
 }
 interface State {
   toolTipX: number;
@@ -25,7 +25,11 @@ class GamePage extends PureComponent<Props, State> {
 
   constructor(props: any) {
     super(props);
-    socketManager.initSocket(props.dispatch);
+    const isSocketConnected = socketManager.isSocketConnected()
+    console.log('is socket connected ',isSocketConnected)
+    if (!isSocketConnected) {
+      socketManager.initSocket(props.dispatch);
+    }
     this.state = {
       timerActive: false,
       gameActive: false,
@@ -87,7 +91,7 @@ class GamePage extends PureComponent<Props, State> {
           isOpen={this.state.isOpen}
           input={this.state.tooltipInput}
         />
-        <ScoreBoardContainer history={this.props.history}/>
+        <ScoreBoardContainer history={this.props.history} />
         <GameManagerContainer
           gameActive={this.state.gameActive}
           changeToolTipPosition={this.changeToolTipPosition}

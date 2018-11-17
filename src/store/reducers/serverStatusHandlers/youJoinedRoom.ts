@@ -10,6 +10,7 @@ export default function youJoinedRoom(
     roomId,
     players,
     roomSize: action.payload.roomSize,
-    isGameActive: action.payload.isGameActive
+    isGameActive: action.payload.isGameActive,
+    myId:action.payload.myId
   }
 }

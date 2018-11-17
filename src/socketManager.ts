@@ -1,7 +1,6 @@
 import * as socketIo from 'socket.io-client';
 import {
   JoiningRoomResponse,
-  ServerConnectSuccessPayload,
   PlayerSerialize,
   PlayerType,
   PlayerJoiningAction,
@@ -25,16 +24,18 @@ import {
 } from './constants';
 
 const socketManager: any = {
+  isSocketConnected(): boolean {
+    return Boolean(this.socket);
+  },
   initSocket(dispatch: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
     this.socket = socketIo.connect(SERVER_URL);
     this.dispatch = dispatch;
     this.socket.on(
       CONNECT_SERVER_SUCCESS,
-      (data: ServerConnectSuccessPayload) => {
+      () => {
         this.dispatch({
-          type: CONNECT_SERVER_SUCCESS,
-          payload: { myId: data.myId }
+          type: CONNECT_SERVER_SUCCESS
         });
       }
     );
@@ -46,7 +47,8 @@ const socketManager: any = {
           roomId: data.roomId,
           players: data.players,
           roomSize: data.roomSize,
-          isGameActive: data.isGameActive
+          isGameActive: data.isGameActive,
+          myId:data.myId
         }
       });
       this.dispatch({

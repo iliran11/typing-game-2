@@ -30,7 +30,8 @@ function sendPlayerRoomInfo(
     players: room.playersInRoom,
     letters: player.playerGame.getRawLetters,
     roomSize: room.maxPlayersInRoom,
-    isGameActive: room.isGameActive
+    isGameActive: room.isGameActive,
+    myId:player.playerId
   };
   socket.emit(YOU_JOINED_ROOM, response);
   broadcastCompetitorToRoom(player, room, socket);

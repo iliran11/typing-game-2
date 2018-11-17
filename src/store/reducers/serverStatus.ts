@@ -38,7 +38,7 @@ export default function ServerStatus(
 ): ServerStatusReducer {
   switch (action.type) {
     case CONNECT_SERVER_SUCCESS:
-      return connectServerSuccess(state, action);
+      return connectServerSuccess(state);
     case YOU_JOINED_ROOM:
       return youJoinedRoom(state, action);
     case COMPETITOR_JOINED_ROOM:

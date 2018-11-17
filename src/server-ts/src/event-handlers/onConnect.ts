@@ -5,7 +5,6 @@ import Player from '../classes/Player';
 import onDisconnect from './onDisconnect';
 import { allocateHumanToRoom } from './allocatePlayerToRoom';
 import playerTyping from './playerTyping';
-import { ServerConnectSuccessPayload } from '../../../types';
 import onGameFinished from '../event-handlers/onGameFinished';
 import onGameRestart from '../event-handlers/onGameRestart';
 import {
@@ -23,8 +22,7 @@ export default function onConnect(socket: io.Socket): void {
   const player = new Player(socket);
   playerManager.addPlayer(player);
   allocateHumanToRoom(socket,player);
-  const connectPayload: ServerConnectSuccessPayload = { myId: player.playerId };
-  socket.emit(CONNECT_SERVER_SUCCESS, connectPayload);
+  socket.emit(CONNECT_SERVER_SUCCESS);
 
   socket.on('disconnect', () => {
     onDisconnect(socket);

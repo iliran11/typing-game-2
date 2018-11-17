@@ -6,12 +6,8 @@ export interface JoiningRoomResponse {
   letters: string[];
   roomSize: number;
   isGameActive: boolean;
+  myId:string;
 }
-
-export interface ServerConnectSuccessPayload {
-  myId: string;
-}
-
 export interface PlayerSerialize {
   id: string;
   type: PlayerType;
@@ -78,12 +74,6 @@ export interface RootState {
   readonly gameData: GameDataReducer;
   readonly serverStatus: ServerStatusReducer;
 }
-
-export interface ServerSuccessAction {
-  type: string;
-  payload: { myId: string };
-}
-
 export interface PlayerJoiningAction {
   type: string;
   payload: PlayerSerialize;
