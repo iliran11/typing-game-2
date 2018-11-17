@@ -22,7 +22,7 @@ import {
   ServerStatusReducer
 } from '../../types';
 
-const initialState: ServerStatusReducer = {
+export const initialState: ServerStatusReducer = {
   roomId: -1,
   isConnected: false,
   myId: '',

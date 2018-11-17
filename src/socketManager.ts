@@ -20,7 +20,8 @@ import {
   COMPETITOR_DELETION,
   GAME_HAS_FINISHED,
   COMPETITOR_HAS_FINISHED,
-  SERVER_URL
+  SERVER_URL,
+  RESTART_GAME
 } from './constants';
 
 const socketManager: any = {
@@ -99,6 +100,9 @@ const socketManager: any = {
   },
   emitFinishedGame() {
     this.socket.emit(GAME_HAS_FINISHED);
+  },
+  emitGameRestart() {
+    this.socket.emit(RESTART_GAME)
   }
 };
 

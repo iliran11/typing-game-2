@@ -11,10 +11,14 @@ interface Props {
   myRanking:number;
   accuracy:number;
   competitors:ResultGraphData[];
-  restartGame: ()=>void
+  history:any;
+  restartGame: (history:any)=>void
 }
 
 export default function ResultPage(props: Props) {
+  const competeAgain = () => {
+    props.restartGame(props.history)
+  }
   return (
     <div id="result-page">
       <MyScoreSection
@@ -28,7 +32,7 @@ export default function ResultPage(props: Props) {
         <ResultsBarGraph competitors={props.competitors} />
       </div>
       <div id="result-page-buttons">
-      <button id="compete-again" className="gradient-5 shadow-3dp" onClick={props.restartGame}>Compete Again</button>
+      <button id="compete-again" className="gradient-5 shadow-3dp" onClick={competeAgain}>Compete Again</button>
       </div>
     </div>
   );
