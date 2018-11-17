@@ -11,10 +11,7 @@ import {
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
-import {
-  allocatePlayerToRoom,
-  broadcastCompetitorToRoom
-} from '../event-handlers/allocatePlayerToRoom';
+import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
 import { PlayerScore, PlayerType } from '../../../types';
 import { emitToRoom } from '../utilities';
 
@@ -119,7 +116,9 @@ export default class Room {
       ...this.getPlayerScore(finishedPlayer),
       finishedTimestamp: timestampNow,
       gameDuration: timestampNow - this.roomStartTimestamp,
-      accuracy:  finishedPlayer.playerGame.getRawLetters.length / finishedPlayer.playerGame.numberOfTypings
+      accuracy:
+        finishedPlayer.playerGame.getRawLetters.length /
+        finishedPlayer.playerGame.numberOfTypings
     };
   }
   get isGameActive() {
@@ -188,8 +187,7 @@ export default class Room {
     const botPlayerId = BotPlayer.getNextBotId();
     const player = new BotPlayer(botPlayerId);
     PlayerManager.getInstance().addPlayer(player);
-    allocatePlayerToRoom(player.playerId);
-    broadcastCompetitorToRoom(player, this, null);
+    allocateBotToRoom(player.playerId,player,this)
     if (this.isGameActive) {
       this.startGame();
     }

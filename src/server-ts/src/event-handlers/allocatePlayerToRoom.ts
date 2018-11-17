@@ -4,12 +4,13 @@ import PlayerManager from '../classes/PlayerManager';
 import RoomManager from '../classes/RoomManager';
 import Room from '../classes/Room';
 import * as constants from '../../../constants';
-import {emitToRoom} from '../utilities';
+import { emitToRoom } from '../utilities';
 const playerManager = PlayerManager.getInstance();
 const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } = constants;
 import { JoiningRoomResponse } from '../../../types';
+import { Socket } from 'dgram';
 
-export function allocatePlayerToRoom(socket: io.Socket) {
+function allocatePlayerToRoom(socket: io.Socket) {
   const player = playerManager.getPlayer(socket);
   const room = RoomManager.getInstance().addPlayer(player);
   // if (room.isGameActive) {
@@ -18,7 +19,7 @@ export function allocatePlayerToRoom(socket: io.Socket) {
   return room;
 }
 
-export function sendPlayerRoomInfo(
+function sendPlayerRoomInfo(
   socket: io.Socket,
   room: Room,
   player: Player
@@ -35,10 +36,23 @@ export function sendPlayerRoomInfo(
   broadcastCompetitorToRoom(player, room, socket);
 }
 
-export function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
+function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
   if (socket) {
     socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);
   } else {
-    emitToRoom(room.roomName,COMPETITOR_JOINED_ROOM,player.serializable)
+    emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, player.serializable);
   }
+}
+
+export function allocateHumanToRoom(socket:io.Socket,player:Player) {
+  const room = allocatePlayerToRoom(socket);
+  sendPlayerRoomInfo(socket, room, player);
+  if (room.isGameActive) {
+    room.startGame();
+  }
+}
+
+export function allocateBotToRoom(socket:string,player:Player,room:Room) {
+  allocatePlayerToRoom(socket);
+  broadcastCompetitorToRoom(player, room, null);
 }

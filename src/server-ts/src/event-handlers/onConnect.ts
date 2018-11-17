@@ -3,10 +3,7 @@ import RoomManager from '../classes/RoomManager';
 import PlayerManager from '../classes/PlayerManager';
 import Player from '../classes/Player';
 import onDisconnect from './onDisconnect';
-import {
-  allocatePlayerToRoom,
-  sendPlayerRoomInfo
-} from './allocatePlayerToRoom';
+import { allocateHumanToRoom } from './allocatePlayerToRoom';
 import playerTyping from './playerTyping';
 import { ServerConnectSuccessPayload } from '../../../types';
 import onGameFinished from '../event-handlers/onGameFinished';
@@ -25,13 +22,10 @@ export default function onConnect(socket: io.Socket): void {
   // console.log(`connect- ${socket.client.id}`);
   const player = new Player(socket);
   playerManager.addPlayer(player);
+  allocateHumanToRoom(socket,player);
   const connectPayload: ServerConnectSuccessPayload = { myId: player.playerId };
   socket.emit(CONNECT_SERVER_SUCCESS, connectPayload);
-  const room = allocatePlayerToRoom(socket);
-  sendPlayerRoomInfo(socket, room, player);
-  if (room.isGameActive) {
-    room.startGame();
-  }
+
   socket.on('disconnect', () => {
     onDisconnect(socket);
   });
