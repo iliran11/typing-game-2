@@ -7,24 +7,34 @@ const lettersArray = [
   ['123', '☺', '☺', 'space', '.', 'Go']
 ];
 
-export default function Keyboard() {
+interface Props {
+  letter: number;
+  row: number;
+}
+
+export default function Keyboard(props: Props) {
   return (
     <div id="keyboard">
-      {lettersArray.map((keyboardRow: any[], index: number) => {
+      {lettersArray.map((keyboardRow: any[], rowindex: number) => {
         return (
-          <div className="keyboard-row" key={`keyboard-row-${index}`}>
-            {keyboardRow.map((letter: any, index: number) => {
+          <div className="keyboard-row" key={`keyboard-row-${rowindex}`}>
+            {keyboardRow.map((letter: any, letterIndex: number) => {
               let id;
               switch (letter) {
                 case 'space':
                   id = 'space';
                   break;
               }
+              const isHighlighted =
+                props.letter === letterIndex && props.row === rowindex;
+              const letterClass = `keyboard-letter ${
+                isHighlighted ? 'highlight-letter' : null
+              }`;
               return (
                 <span
-                  className="keyboard-letter"
+                  className={letterClass}
                   id={id}
-                  key={`keyboard-letter-${index}`}
+                  key={`keyboard-letter-${letterIndex}`}
                 >
                   {letter}
                 </span>

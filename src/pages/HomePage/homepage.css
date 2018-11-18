@@ -24,7 +24,10 @@
 .keyboard-row .keyboard-letter:not(:last-child) {
   margin-right: 5px;
 }
-
+.keyboard-letter.highlight-letter {
+  background-color:#4dc74d;
+  color:white;
+}
 .keyboard-letter {
   flex:auto;
   display:flex;
