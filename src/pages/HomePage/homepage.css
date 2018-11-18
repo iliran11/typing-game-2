@@ -1,6 +1,48 @@
 #home-page button {
-  width:500px;
-  height:500px;
-  background-color:red;
-  font-size:60px;
+  width: 500px;
+  height: 500px;
+  background-color: red;
+  font-size: 60px;
 }
+
+#keyboard {
+  width: 300px;
+  margin-top:20px;
+}
+#compete-now {
+  margin-top:10px;
+}
+
+#keyboard .keyboard-row:not(:first-child) {
+  margin-top:10px;
+}
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  height: 30px;
+}
+.keyboard-row .keyboard-letter:not(:last-child) {
+  margin-right: 5px;
+}
+
+.keyboard-letter {
+  flex:auto;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.23921568627451);
+  color: rgba(51, 51, 51, 0.698039215686274);
+  font-size:20px;
+  line-height:1;
+}
+#space {
+  flex: 15 1 auto;
+}
+@media (min-width: 992px) { 
+  #keyboard{
+    width:600px;
+  }
+  .keyboard-row {
+    height:60px;
+  }
+ }

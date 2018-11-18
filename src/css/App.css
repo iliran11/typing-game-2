@@ -1,0 +1,8 @@
+#app-container {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+#app-toolbar{
+  width:100%;
+}

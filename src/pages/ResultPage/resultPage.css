@@ -164,14 +164,6 @@
   width: 100%;
   margin-top:10px;
 }
-
-#result-page-buttons button {
-  padding: 15px 0px;
-  border-radius: 10px;
-  width:100%;
-  color: white;
-  font-size: 20px;
-}
 #compete-again {
   background-color: blue;
   border-radius:10px;

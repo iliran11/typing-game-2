@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="gradient-6" id="app-container">
-        <AppToolbar />
+        <AppToolbar/>
         <Router>
           <Fragment>
             <Route exact={true} path="/" component={Home} />
