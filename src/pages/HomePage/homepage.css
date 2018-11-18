@@ -1,16 +1,16 @@
-#home-page button {
-  width: 500px;
-  height: 500px;
-  background-color: red;
-  font-size: 60px;
+#home-page {
+  height:100%;
 }
-
+#home-page p {
+  font-size:26px;
+  color: #618648;
+}
 #keyboard {
   width: 300px;
   margin-top:20px;
 }
 #compete-now {
-  margin-top:10px;
+  margin-top:20px;
 }
 
 #keyboard .keyboard-row:not(:first-child) {
