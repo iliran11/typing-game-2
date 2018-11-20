@@ -11,6 +11,7 @@ export interface JoiningRoomResponse {
 export interface PlayerSerialize {
   id: string;
   type: PlayerType;
+  avatar:number;
 }
 export interface PlayerClient {
   id: string;

@@ -1,11 +1,12 @@
-import { ServerStatusReducer,PlayerJoiningAction } from '../../../types';
-import PlayerClient from '../../classes/PlayerClientFactory'
+import { ServerStatusReducer, PlayerJoiningAction } from '../../../types';
+import PlayerClient from '../../classes/PlayerClientFactory';
 
 export default function otherPlayerJoining(
   state: ServerStatusReducer,
   action: PlayerJoiningAction
 ): ServerStatusReducer {
-  const opts = {id : action.payload.id,type: action.payload.type }
+  const { id, type, avatar } = action.payload;
+  const opts = { id, type, avatar };
   return {
     ...state,
     players: state.players.concat(new PlayerClient(opts))

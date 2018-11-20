@@ -12,9 +12,11 @@ export default class PlayerClientFactory implements PlayerClient {
   finishedTimestamp: number= -1;
   gameDuration: number = -1;
   accuracy: number = -1;
+  avatar: number = 0;
 
   constructor(opts: any) {
     this.id = opts.id || this.id
     this.type = opts.type || this.type
+    this.avatar = opts.avatar || this.avatar;
   }
 }

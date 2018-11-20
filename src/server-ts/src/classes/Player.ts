@@ -9,6 +9,7 @@ export default class Player {
   private socket: io.Socket;
   private game: Game;
   private roomId: number;
+  private anonymousAvatar: number;
 
   // private game: Game;
   constructor(socket: io.Socket, name?) {
@@ -31,7 +32,8 @@ export default class Player {
   public get serializable(): PlayerSerialize {
     return {
       id: this.name,
-      type: this.playerType
+      type: this.playerType,
+      avatar: this.anonymousAvatar
     };
   }
   public get playerId(): string {
@@ -45,5 +47,11 @@ export default class Player {
   }
   public setRoomId(roomId): void {
     this.roomId = roomId;
+  }
+  get Avatar() {
+    return this.anonymousAvatar
+  }
+  setAvatar(avatarIndex:number) {
+    this.anonymousAvatar = avatarIndex;
   }
 }

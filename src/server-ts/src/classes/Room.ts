@@ -7,13 +7,15 @@ import {
   MAX_PLAYERS_PER_ROOM,
   GAME_START_DELAY,
   BOT_SPAWN_RATE,
-  GAME_HAS_STARTED
+  GAME_HAS_STARTED,
+  RANDOM_AVATAR_MAX_INDEX
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
 import { PlayerScore, PlayerType } from '../../../types';
 import { emitToRoom } from '../utilities';
+const random = require('lodash.random');
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -27,6 +29,8 @@ export default class Room {
   private timeIncrement: number = 1000;
   private finalScores: (void | PlayerScore)[];
   private roomStartTimestamp: number;
+  // store the already given avatar indexes so we can give anonymous player a unique avatar.
+  private avatarIndexes: number;
   isClosed: boolean;
   roomId: number;
   // time it takes for a bot to born
@@ -49,6 +53,7 @@ export default class Room {
     }
   }
   addPlayer(player: Player): void {
+    player.setAvatar(this.randomAvatarIndex);
     this.players.push(player);
     player.createGame();
     console.log(
@@ -187,7 +192,7 @@ export default class Room {
     const botPlayerId = BotPlayer.getNextBotId();
     const player = new BotPlayer(botPlayerId);
     PlayerManager.getInstance().addPlayer(player);
-    allocateBotToRoom(player.playerId,player,this)
+    allocateBotToRoom(player.playerId, player, this);
     if (this.isGameActive) {
       this.startGame();
     }
@@ -201,5 +206,8 @@ export default class Room {
     clearTimeout(this.timerId);
     this.isClosed = true;
     console.log(`${this.roomName} has finished!`);
+  }
+  private get randomAvatarIndex(): number {
+    return random(0, 11);
   }
 }

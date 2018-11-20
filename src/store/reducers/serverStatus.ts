@@ -13,7 +13,7 @@ import {
 import connectServerSuccess from './serverStatusHandlers/connectServerSuccess';
 import youJoinedRoom from './serverStatusHandlers/youJoinedRoom';
 import otherPlayerJoining from './serverStatusHandlers/otherPlayerJoining';
-import scoreBroadcast from './serverStatusHandlers/scoreBroadCast';
+import scoreBroadcast from './serverStatusHandlers/scoreBroadcast';
 import gameRestart from './serverStatusHandlers/gameRestart'
 
 import {

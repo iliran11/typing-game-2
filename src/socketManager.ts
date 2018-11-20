@@ -41,14 +41,15 @@ const socketManager: any = {
     );
 
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
+      const {roomId,players,roomSize,isGameActive,myId} = data;
       this.dispatch({
         type: YOU_JOINED_ROOM,
         payload: {
-          roomId: data.roomId,
-          players: data.players,
-          roomSize: data.roomSize,
-          isGameActive: data.isGameActive,
-          myId:data.myId
+          roomId,
+          players,
+          roomSize,
+          isGameActive,
+          myId
         }
       });
       this.dispatch({
