@@ -16,13 +16,14 @@ export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;
 export const BOT_SPAWN_RATE = 5000;
 export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot';
+export const RANDOM_AVATAR_MAX_INDEX = 10;
 
 /** 
  * CONFIG
  */
 export const MAX_PLAYERS_PER_ROOM = 2;
-export const SERVER_URL = 'https://typing-game-dev.herokuapp.com/'
-// export const SERVER_URL = 'http://localhost:4001'
+// export const SERVER_URL = 'https://typing-game-dev.herokuapp.com/'
+export const SERVER_URL = 'http://localhost:4001'
 export const GAME_WORDS: string = "I went to the park and saw a tree it was a big tree and it was very green";
 // export const GAME_WORDS: string = "I went to the park and saw a tree";
 // const words: string = "I went to the park and saw a tree";
