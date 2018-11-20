@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '../../components/Scoreboard/Avatar';
 import star from '../../assets/star.svg';
-
+import checkedIcon from '../../assets/checked.svg';
 export default function ResultsBarGraph(props: any) {
   return <div className="result-graph">{props.competitors.map(renderBar)}</div>;
 }
@@ -19,6 +19,9 @@ function renderBar(competitor: any, index: number) {
             index={competitor.avatar}
             className="graph-bar-avatar"
           />
+          {competitor.compeletedPercntage===1 && (
+            <img className="completed-icon" src={checkedIcon} />
+          )}
           <div className="star-container">
             <img src={star} className="star" />
             <span className="ranking-number">{competitor.ranking + 1}</span>
