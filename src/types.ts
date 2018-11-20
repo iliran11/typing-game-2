@@ -24,6 +24,7 @@ export interface PlayerClient {
   finishedTimestamp: number;
   gameDuration: number;
   accuracy: number;
+  avatar:number;
 }
 
 export interface ResultGraphData extends PlayerClient {

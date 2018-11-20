@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Competitor from './Competitor';
+import Competitor from './competitorContainer';
 import { PlayerClient } from '../../types';
-import { MAX_PLAYERS_PER_ROOM, EMPTY_COMPETITOR_SLOT } from '../../constants';
-import random from 'lodash.random';
+import {EMPTY_COMPETITOR_SLOT } from '../../constants';
 
 interface Props {
   players: PlayerClient[];
@@ -12,11 +11,9 @@ interface Props {
 }
 
 class CompetitorList extends React.PureComponent<Props, object> {
-  gradients: number[];
   constructor(props: any) {
     super(props);
     this.renderCompetitor = this.renderCompetitor.bind(this);
-    this.gradients = this.buildGradients;
     this.navigateToResult = this.navigateToResult.bind(this);
   }
   /**
@@ -27,17 +24,6 @@ class CompetitorList extends React.PureComponent<Props, object> {
    */
   get emptySlotsArray(): void[] {
     return new Array(this.props.roomSize).fill(null);
-  }
-  get buildGradients() {
-    const gradients: number[] = [];
-    while (gradients.length < MAX_PLAYERS_PER_ROOM) {
-      const randomNumber = random(1, MAX_PLAYERS_PER_ROOM);
-      if (gradients.indexOf(randomNumber) > -1) {
-        continue;
-      }
-      gradients.push(randomNumber);
-    }
-    return gradients;
   }
   getCompetitorProps(index: number): any {
     const { players } = this.props;
@@ -75,7 +61,6 @@ class CompetitorList extends React.PureComponent<Props, object> {
         {...competitorProps}
         index={index}
         key={index}
-        randomAvatarIndex={this.gradients[index]}
         navigateToResult={this.navigateToResult}
       />
     );
