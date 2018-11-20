@@ -11,8 +11,10 @@ import {
   PLAYER_TYPING,
   CONNECT_SERVER_SUCCESS,
   GAME_HAS_FINISHED,
-  RESTART_GAME
+  RESTART_GAME,
+  REQUEST_JOIN_ROOM
 } from '../../../constants';
+import { RoomType } from '../../../types';
 
 const roomManager = RoomManager.getInstance();
 const playerManager = PlayerManager.getInstance();
@@ -20,10 +22,13 @@ const playerManager = PlayerManager.getInstance();
 export default function onConnect(socket: io.Socket): void {
   // console.log(`connect- ${socket.client.id}`);
   const player = new Player(socket);
-  playerManager.addPlayer(player);
-  allocateHumanToRoom(socket,player);
   socket.emit(CONNECT_SERVER_SUCCESS);
-
+  socket.on(REQUEST_JOIN_ROOM, (roomType) => {
+    if (roomType ===RoomType.public) {
+      playerManager.addPlayer(player);
+      allocateHumanToRoom(socket, player,roomType);
+    }
+  });
   socket.on('disconnect', () => {
     onDisconnect(socket);
   });

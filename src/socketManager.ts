@@ -4,7 +4,8 @@ import {
   PlayerSerialize,
   PlayerType,
   PlayerJoiningAction,
-  ScoreBroadcastAction
+  ScoreBroadcastAction,
+  RoomType
 } from './types';
 import {
   YOU_JOINED_ROOM,
@@ -20,7 +21,8 @@ import {
   GAME_HAS_FINISHED,
   COMPETITOR_HAS_FINISHED,
   SERVER_URL,
-  RESTART_GAME
+  RESTART_GAME,
+  REQUEST_JOIN_ROOM
 } from './constants';
 
 const socketManager: any = {
@@ -31,17 +33,13 @@ const socketManager: any = {
     // this.socket = socketIo.connect('http://localhost:4001');
     this.socket = socketIo.connect(SERVER_URL);
     this.dispatch = dispatch;
-    this.socket.on(
-      CONNECT_SERVER_SUCCESS,
-      () => {
-        this.dispatch({
-          type: CONNECT_SERVER_SUCCESS
-        });
-      }
-    );
-
+    this.socket.on(CONNECT_SERVER_SUCCESS, () => {
+      this.dispatch({
+        type: CONNECT_SERVER_SUCCESS
+      });
+    });
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
-      const {roomId,players,roomSize,isGameActive,myId} = data;
+      const { roomId, players, roomSize, isGameActive, myId } = data;
       this.dispatch({
         type: YOU_JOINED_ROOM,
         payload: {
@@ -105,7 +103,10 @@ const socketManager: any = {
     this.socket.emit(GAME_HAS_FINISHED);
   },
   emitGameRestart() {
-    this.socket.emit(RESTART_GAME)
+    this.socket.emit(RESTART_GAME);
+  },
+  emitRequestToJoinRoom(RoomType: RoomType) {
+    this.socket.emit(REQUEST_JOIN_ROOM, RoomType);
   }
 };
 

@@ -7,6 +7,7 @@ export interface JoiningRoomResponse {
   roomSize: number;
   isGameActive: boolean;
   myId:string;
+  roomType:RoomType
 }
 export interface PlayerSerialize {
   id: string;
@@ -35,6 +36,11 @@ export interface ResultGraphData extends PlayerClient {
 export enum PlayerType {
   bot = 'BOT',
   human = 'HUMAN'
+}
+
+export enum RoomType {
+  private='PRIVATE',
+  public='PUBLIC'
 }
 
 export interface IPlayerScore {
@@ -87,3 +93,4 @@ export interface ScoreBroadcastAction {
     players: any;
   };
 }
+

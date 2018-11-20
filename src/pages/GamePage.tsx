@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import {RoomType} from '../types'
 import socketManager from '../socketManager';
 import GameManagerContainer from '../components/game-manager/gameManagerContainer';
 import ScoreBoardContainer from '../components/Scoreboard/ScoreBoardContainer';
@@ -29,6 +30,7 @@ class GamePage extends PureComponent<Props, State> {
     console.log('is socket connected ',isSocketConnected)
     if (!isSocketConnected) {
       socketManager.initSocket(props.dispatch);
+      socketManager.emitRequestToJoinRoom(RoomType.public)
     }
     this.state = {
       timerActive: false,

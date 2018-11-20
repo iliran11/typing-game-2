@@ -7,7 +7,7 @@ import * as constants from '../../../constants';
 import { emitToRoom } from '../utilities';
 const playerManager = PlayerManager.getInstance();
 const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } = constants;
-import { JoiningRoomResponse } from '../../../types';
+import { JoiningRoomResponse,RoomType } from '../../../types';
 import { Socket } from 'dgram';
 
 function allocatePlayerToRoom(socket: io.Socket) {
@@ -22,7 +22,8 @@ function allocatePlayerToRoom(socket: io.Socket) {
 function sendPlayerRoomInfo(
   socket: io.Socket,
   room: Room,
-  player: Player
+  player: Player,
+  roomType:RoomType
 ) {
   socket.join(room.roomName);
   const response: JoiningRoomResponse = {
@@ -31,7 +32,8 @@ function sendPlayerRoomInfo(
     letters: player.playerGame.getRawLetters,
     roomSize: room.maxPlayersInRoom,
     isGameActive: room.isGameActive,
-    myId:player.playerId
+    myId:player.playerId,
+    roomType
   };
   socket.emit(YOU_JOINED_ROOM, response);
   broadcastCompetitorToRoom(player, room, socket);
@@ -45,9 +47,9 @@ function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
   }
 }
 
-export function allocateHumanToRoom(socket:io.Socket,player:Player) {
+export function allocateHumanToRoom(socket:io.Socket,player:Player,roomType:RoomType) {
   const room = allocatePlayerToRoom(socket);
-  sendPlayerRoomInfo(socket, room, player);
+  sendPlayerRoomInfo(socket, room, player,roomType);
   if (room.isGameActive) {
     room.startGame();
   }
