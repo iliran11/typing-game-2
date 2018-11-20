@@ -17,4 +17,4 @@ const mapStateToProps = (state: RootState, props: any) => {
 export default connect(
   mapStateToProps,
   null
-)(Competitor);i
+)(Competitor);

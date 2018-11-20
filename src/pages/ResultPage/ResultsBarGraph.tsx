@@ -1,15 +1,11 @@
 import React from 'react';
 import Avatar from '../../components/Scoreboard/Avatar';
-import { PlayerType, ResultGraphData } from '../../types';
 import star from '../../assets/star.svg';
 
-interface Props {
-  competitors: ResultGraphData[];
-}
-export default function ResultsBarGraph(props: Props) {
+export default function ResultsBarGraph(props: any) {
   return <div className="result-graph">{props.competitors.map(renderBar)}</div>;
 }
-function renderBar(competitor: ResultGraphData, index: number) {
+function renderBar(competitor: any, index: number) {
   return (
     <div
       className="result-graph-bar gradient-7"
@@ -19,8 +15,8 @@ function renderBar(competitor: ResultGraphData, index: number) {
       <div className="graph-ranking-info">
         <div className="graph-bar-avatar-container">
           <Avatar
-            type={PlayerType.human}
-            index={1}
+            type={competitor.type}
+            index={competitor.avatar}
             className="graph-bar-avatar"
           />
           <div className="star-container">

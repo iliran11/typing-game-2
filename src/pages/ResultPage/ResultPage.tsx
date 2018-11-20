@@ -32,7 +32,7 @@ export default function ResultPage(props: Props) {
         <ResultsBarGraph competitors={props.competitors} />
       </div>
       <div id="result-page-buttons">
-      <button id="compete-again" className="gradient-5 shadow-3dp" onClick={competeAgain}>Compete Again</button>
+      <button id="compete-again" className="gradient-5 shadow-3dp button-large" onClick={competeAgain}>Compete Again</button>
       </div>
     </div>
   );
