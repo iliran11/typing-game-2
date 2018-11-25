@@ -26,7 +26,6 @@ class GamePage extends PureComponent<Props, State> {
   constructor(props: any) {
     super(props);
     const isSocketConnected = socketManager.isSocketConnected()
-    console.log('is socket connected ',isSocketConnected)
     if (!isSocketConnected) {
       socketManager.initSocket(props.dispatch);
     }

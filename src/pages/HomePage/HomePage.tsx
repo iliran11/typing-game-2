@@ -58,8 +58,9 @@ export default class Home extends React.Component<Props, State> {
         step: this.state.step + 1
       },
       () => {
-        if (this.state.step < baseSteps.length - 1)
+        if (this.state.step < baseSteps.length - 1) {
           setTimeout(this.incrementStep, 300);
+        }
       }
     );
   }
@@ -67,10 +68,11 @@ export default class Home extends React.Component<Props, State> {
     this.props.history.push('/game');
   }
   render() {
+    const text = 'text'
     const currentStep = baseSteps[this.state.step];
     return (
       <div id="home-page">
-        <BaseTitle text={currentStep['text']} />
+        <BaseTitle text={currentStep[text]} />
         <Keyboard
           row={currentStep.keyboard[0]}
           letter={currentStep.keyboard[1]}
