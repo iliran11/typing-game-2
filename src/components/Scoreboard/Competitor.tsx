@@ -127,7 +127,7 @@ class Competitor extends React.PureComponent<Props, State> {
           <span>{this.name}</span>
         </div>
         <div className="competitor-progress">
-          <div className="progress-bar shadow-4dp" ref={this.progressBarRef} />
+          <div className="progress-bar" ref={this.progressBarRef} />
           <div className="avatar" style={this.avatarStyle}>
             <Avatar
               type={this.props.type}

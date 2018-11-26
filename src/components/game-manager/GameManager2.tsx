@@ -203,7 +203,7 @@ export default class GameManager extends React.Component<Props, State> {
     return this.letterNodes[this.state.index - 1];
   }
   get wordBoxClassNames() {
-    return cx({ disabled: !this.props.gameActive });
+    return cx('words-box-letters',{ disabled: !this.props.gameActive });
   }
   get markerProps(): markerProps {
     if (this.letterNodes.length > 0 && this.currentLetter) {
@@ -230,7 +230,7 @@ export default class GameManager extends React.Component<Props, State> {
   }
   render() {
     return (
-      <div className="shadow-2dp">
+      <div>
         <input
           onChange={this.onInput}
           value={''}

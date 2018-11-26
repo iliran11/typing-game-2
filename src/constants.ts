@@ -21,7 +21,7 @@ export const RANDOM_AVATAR_MAX_INDEX = 10;
 /** 
  * CONFIG
  */
-export const MAX_PLAYERS_PER_ROOM = 2;
+export const MAX_PLAYERS_PER_ROOM = 4;
 // export const SERVER_URL = 'https://typing-game-dev.herokuapp.com/'
 export const SERVER_URL = 'http://localhost:4001'
 export const GAME_WORDS: string = "I went to the park and saw a tree it was a big tree and it was very green";

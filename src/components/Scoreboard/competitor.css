@@ -1,9 +1,15 @@
+#competitor-list .CircularProgressbar .CircularProgressbar-text {
+  fill:#365902;
+}
 .competitor-container {
   /* background-color:red; */
   display: flex;
   flex: auto;
   padding: 0px 10px;
-  border-bottom: 1px solid #a7a7a7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+.competitor-container:last-child {
+  border-bottom: none;
 }
 .competitor-name-section {
   width: 50px;
@@ -12,7 +18,9 @@
   justify-content: center;
   text-align: center;
   position: relative;
-  color: green;
+  color: #365902;
+  font-size:14px;
+  opacity: 0.87;
 }
 #you-indicator {
   position: absolute;
@@ -33,6 +41,7 @@
   position: relative;
 }
 .competitor-progress .progress-bar {
+  border-radius:4px;
   height: 10px;
   background: rgba(19, 189, 19, 1);
   background: linear-gradient(
@@ -72,8 +81,9 @@
   margin-bottom: 5px;
 }
 .competitor-wpm .wpm-label {
-  transform: translateY(50%);
+  transform: translate(5px,50%);
   font-size: 10px;
+  color: #365902;
 }
 
 .CircularProgressbar .CircularProgressbar-text {
@@ -81,7 +91,6 @@
 }
 
 .finish-shake {
-
   /* animation: finish-shake 0.5s ease-in; */
 }
 

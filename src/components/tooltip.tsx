@@ -21,7 +21,7 @@ class ToolTip extends React.Component<Props, object> {
     });
   }
   get tooltipClass() {
-    return cx('top in animated tooltip');
+    return cx('top in animated tooltip words-box-letters');
   }
   get innerClass() {
     return cx('tooltip-inner', { 'has-space': this.props.input === ' ' });

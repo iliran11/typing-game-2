@@ -7,8 +7,9 @@ export default function CircularProgress(props: any) {
 
   const percent = props.percentage * 100;
   const styles = {
-    text: { fontSize: 30 },
-    path: { stroke: getCircleColor(percent) }
+    text: { fontSize: 42,stroke:'#365902' },
+    path: { stroke: getCircleColor(percent) },
+    trail: { stroke: 'transparent' },
   };
   return (
     <CircularProgressbar
