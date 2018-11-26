@@ -1,20 +1,24 @@
 #home-page {
-  height:100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 #home-page p {
-  font-size:26px;
+  font-size: 22px;
   color: #618648;
 }
 #keyboard {
   width: 300px;
-  margin-top:20px;
+  margin-top: 20px;
 }
 #compete-now {
-  margin-top:20px;
+  margin-top: 20px;
 }
 
 #keyboard .keyboard-row:not(:first-child) {
-  margin-top:10px;
+  margin-top: 10px;
 }
 .keyboard-row {
   display: flex;
@@ -25,27 +29,27 @@
   margin-right: 5px;
 }
 .keyboard-letter.highlight-letter {
-  background-color:#4dc74d;
-  color:white;
+  background-color: #4dc74d;
+  color: white;
 }
 .keyboard-letter {
-  flex:auto;
-  display:flex;
-  align-items:center;
+  flex: auto;
+  display: flex;
+  align-items: center;
   justify-content: center;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.23921568627451);
   color: rgba(51, 51, 51, 0.698039215686274);
-  font-size:20px;
-  line-height:1;
+  font-size: 20px;
+  line-height: 1;
 }
 #space {
   flex: 15 1 auto;
 }
-@media (min-width: 992px) { 
-  #keyboard{
-    width:600px;
+@media (min-width: 992px) {
+  #keyboard {
+    width: 600px;
   }
   .keyboard-row {
-    height:60px;
+    height: 60px;
   }
- }
+}
