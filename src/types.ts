@@ -47,9 +47,9 @@ export class PlayerScore implements PlayerScore {
   playerId: string;
   score: number;
   completedPercntage: number;
-  finishedTimestamp: number | void;
-  gameDuration: number | void;
-  accuracy: number | void;
+  finishedTimestamp: number | void = undefined;
+  gameDuration: number | void = undefined;
+  accuracy: number | void = undefined;
 
   constructor(playerId: string, score: number, completedPercntage: number) {
     this.playerId = playerId;

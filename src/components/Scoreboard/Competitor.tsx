@@ -29,7 +29,7 @@ interface State {
 
 class Competitor extends React.PureComponent<Props, State> {
   progressBarRef: any;
-  progressbarWidth: number;
+  progressbarWidth: number = 0;
   constructor(props: Props) {
     super(props);
     this.progressBarRef = React.createRef();

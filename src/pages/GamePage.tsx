@@ -20,7 +20,7 @@ interface State {
 }
 
 class GamePage extends PureComponent<Props, State> {
-  currentInput: string;
+  currentInput: string = '';
   tooltipTimer: any;
 
   constructor(props: any) {

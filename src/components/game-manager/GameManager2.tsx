@@ -25,8 +25,9 @@ interface State {
 export default class GameManager extends React.Component<Props, State> {
   private letterNodes: HTMLElement[];
   private wordBox: any;
-  private wordBoxRect: ClientRect | DOMRect;
-  private lettersRect: (ClientRect | DOMRect)[];
+  // @ts-ignore
+  private wordBoxRect: ClientRect | DOMRect ;
+  private lettersRect: (ClientRect | DOMRect)[] = [];
   private bodyElement: any;
   private inputRef: any;
 
@@ -70,7 +71,7 @@ export default class GameManager extends React.Component<Props, State> {
     this.letterNodes.push(refArray);
     if (this.letterNodes.length === this.props.letters.length) {
       // here we memoize the rects dimensions so we don't have to recalculate them every render.
-      this.lettersRect = this.letterNodes.map((ref: HTMLDivElement) => {
+      this.lettersRect = this.letterNodes.map((ref: HTMLElement) => {
         return ref.getBoundingClientRect();
       });
       this.wordBoxRect = this.wordBox.current.getBoundingClientRect();
