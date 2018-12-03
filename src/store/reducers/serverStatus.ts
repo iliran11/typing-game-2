@@ -13,7 +13,7 @@ import {
 import connectServerSuccess from './serverStatusHandlers/connectServerSuccess';
 import youJoinedRoom from './serverStatusHandlers/youJoinedRoom';
 import otherPlayerJoining from './serverStatusHandlers/otherPlayerJoining';
-import scoreBroadcast from './serverStatusHandlers/scoreBroadcast';
+import scoreBroadCast from './serverStatusHandlers/scoreBroadCast';
 import gameRestart from './serverStatusHandlers/gameRestart'
 
 import {
@@ -45,7 +45,7 @@ export default function ServerStatus(
     case BOT_JOINED_ROOM:
       return otherPlayerJoining(state, action);
     case SCORE_BROADCAST:
-      return scoreBroadcast(state, action);
+      return scoreBroadCast(state, action);
     case RESTART_GAME: 
       return gameRestart(state,action);
     case GAME_HAS_STARTED:
