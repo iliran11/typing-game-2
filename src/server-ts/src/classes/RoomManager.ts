@@ -22,6 +22,7 @@ export default class RoomManager {
     return room;
   }
   private addPlayerToExistingRoom(player: Player): Room {
+    // @ts-ignore
     const selectedRoom: Room = this.rooms.get(this.availableRoomNumber);
     selectedRoom.addPlayer(player);
     return selectedRoom
@@ -49,6 +50,7 @@ export default class RoomManager {
     return null;
   }
   getRoom(roomId: number): Room {
+    // @ts-ignore
     return this.rooms.get(roomId);
   }
   private get openRooms(): number {

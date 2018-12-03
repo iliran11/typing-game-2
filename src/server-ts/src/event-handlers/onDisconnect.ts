@@ -11,6 +11,7 @@ const roomManager = RoomManager.getInstance();
 export default function onDisconnect(socket: io.Socket): void {
   const player = playerManager.getPlayer(socket);
   playerManager.deletePlayer(socket);
+  // @ts-ignore
   const room: Room = roomManager.removePlayer(player);
   console.log(
     `${player.playerId} disconnected ${room.roomId}. Capacity:${

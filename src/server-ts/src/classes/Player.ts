@@ -7,9 +7,9 @@ export default class Player {
   static playerCounter: number = 1;
   protected name: string;
   private socket: io.Socket;
-  private game: Game;
-  private roomId: number;
-  private anonymousAvatar: number;
+  private game: Game = new Game();
+  private roomId: number = 0;
+  private anonymousAvatar: number = -1;
 
   // private game: Game;
   constructor(socket: io.Socket, name?) {

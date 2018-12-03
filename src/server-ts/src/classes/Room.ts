@@ -28,9 +28,9 @@ export default class Room {
   private timePassed: number;
   private timeIncrement: number = 1000;
   private finalScores: (void | PlayerScore)[];
-  private roomStartTimestamp: number;
+  private roomStartTimestamp: number = 0;
   // store the already given avatar indexes so we can give anonymous player a unique avatar.
-  private avatarIndexes: number;
+  private avatarIndexes: number = 0;
   isClosed: boolean;
   roomId: number;
   // time it takes for a bot to born
@@ -145,7 +145,7 @@ export default class Room {
      *  it means someone is still typing. in this case we shouldn't stop the game tick yet.
      */
 
-    return this.finalScores.some((score: PlayerScore) => {
+    return this.finalScores.some((score: void| PlayerScore) => {
       return score == null;
     });
   }
@@ -166,7 +166,8 @@ export default class Room {
     emitToRoom(this.roomName, GAME_HAS_STARTED, {
       startTimeStamp: this.roomStartTimestamp
     });
-    this.allBotPlayers.forEach((player: BotPlayer) => {
+    this.allBotPlayers.forEach((player: Player | BotPlayer) => {
+      // @ts-ignore
       player.onGameStart();
     });
     console.log(`${this.roomName}-Game started.`);

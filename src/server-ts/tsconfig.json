@@ -10,6 +10,14 @@
     "outDir": "dist",
     "resolveJsonModule": true,
     "baseUrl": ".",
+    "allowJs": true,
+    "skipLibCheck": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve"
   },
   "include": ["src/**/*"]
 }

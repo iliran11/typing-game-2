@@ -11,6 +11,7 @@ export default class PlayerManager {
     this.players.set(player.getSocket(), player);
   }
   getPlayer(socket: io.Socket): Player {
+    // @ts-ignore
     return this.players.get(socket);
   }
   deletePlayer(socket: io.Socket): void {
