@@ -1,6 +1,7 @@
 import React from 'react';
 import './homepage.css';
 import Keyboard from '../../components/keyboard/keyboard';
+import { fbLogin, loadFbSdk, getFbLoginStatus } from '../../utilities';
 
 const baseSteps = [
   {
@@ -48,9 +49,25 @@ export default class Home extends React.Component<Props, State> {
 
     this.navigateToGame = this.navigateToGame.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
+    loadFbSdk('653846344985974')
+      .then((result: any) => {
+        console.log(result);
+        return getFbLoginStatus();
+      })
+      .then((result: any) => {
+        console.log(result);
+      });
+    this.facebookLogin = this.facebookLogin.bind(this);
   }
   componentDidMount() {
     setTimeout(this.incrementStep);
+  }
+  facebookLogin() {
+    fbLogin({
+      scope: 'email'
+    }).then((result: any) => {
+      console.log(result);
+    });
   }
   incrementStep() {
     this.setState(
@@ -68,7 +85,7 @@ export default class Home extends React.Component<Props, State> {
     this.props.history.push('/game');
   }
   render() {
-    const text = 'text'
+    const text = 'text';
     const currentStep = baseSteps[this.state.step];
     return (
       <div id="home-page">
@@ -83,6 +100,13 @@ export default class Home extends React.Component<Props, State> {
           onClick={this.navigateToGame}
         >
           Compete Now
+        </button>
+        <button
+          id="compete-now"
+          className="button-large gradient-2"
+          onClick={this.facebookLogin}
+        >
+          Login Now
         </button>
       </div>
     );
