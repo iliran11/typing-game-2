@@ -1,7 +1,19 @@
 const request = require('request');
 var jwt = require('jsonwebtoken');
 const secret = 'secret-key';
-var base64Img = require('base64-img');
+const mongoose = require('mongoose');
+const dbPassword = 'bEKqgqW38Ts5Naek';
+const dbUser = 'admin';
+let dev_db_url = `mongodb://${dbUser}:${dbPassword}@ds127624.mlab.com:27624/typing-game`;
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', function() {
+  console.log('hello database')
+});
+
+mongoose.connect(dev_db_url);
+mongoose.Promise = global.Promise;
+
 import ServerManager from './classes/ServerManager';
 
 // var packageJs = require('../package.json');
