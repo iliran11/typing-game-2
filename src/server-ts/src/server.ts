@@ -1,6 +1,7 @@
 const request = require('request');
 var jwt = require('jsonwebtoken');
 const secret = 'secret-key';
+var base64Img = require('base64-img');
 import ServerManager from './classes/ServerManager';
 
 // var packageJs = require('../package.json');
@@ -13,19 +14,14 @@ server.listen(port);
 
 app.get('/bye', function(req, res) {
   // res.send(`ddServer Version: ${packageJs.version}`);
+  res.send(200);
 });
-app.post('/api/login', function(req, res) {
-  // const facebookToken = req.headers['authorization'];
-  const facebookToken =
-    'EAAJSq3chbXYBAJcAbI7N2EbURA0CV9M9J1ymTPJjoOXqSKLEgYwuwdnefVcu0u9T3fPWUHoZA9NZAj0S51gVafFF91RKJnJfZC9dAFTW3LPZCnAkJxmoMg1fNITqbIKwDDiVy59V8p42UCtX5uBAsb04WOYCFDKZAgEy4pnZCtq95qOJrR3TtjPREwZBov1hbCSlRLNFDP78gZDZD';
-
-  var path = `https://graph.facebook.com/me?access_token=${facebookToken}`;
+app.post('/login', function(req, res) {
+  const facebookToken = req.headers['authorization'];
+  var path = `https://graph.facebook.com/v3.2/me?&access_token=${facebookToken}`;
   request(path, (error, response, body) => {
-    // console.log('error:', error);
-    // console.log('statusCode:', response && response.statusCode);
-    // console.log('body:', body);
-    const userData = JSON.parse(body)
-    const token = jwt.sign({ id: userData.id }, secret, (err, token) => {
+    const userData = JSON.parse(body);
+    jwt.sign({ id: userData.id }, secret, (err, token) => {
       res.send(token);
     });
   });
