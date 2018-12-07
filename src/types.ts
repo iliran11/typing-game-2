@@ -90,7 +90,23 @@ export interface ScoreBroadcastAction {
 
 export interface AuthReducer {
   fbSdkLoaded: boolean;
+  loggedIn: boolean;
+  facebookLoggedIn: boolean;
+  facebookToken: string | null;
 }
 export interface SdkLoadedSuccessAction {
   type: string;
+}
+
+export interface LoginVerificationStatus {
+  loginStatus: boolean;
+}
+
+export interface LoginTokenObject {
+  token: string;
+}
+
+export interface FacebookStatusAction {
+  loggedIn: boolean;
+  token: string | null;
 }

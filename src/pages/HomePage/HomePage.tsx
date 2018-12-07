@@ -35,7 +35,8 @@ const BaseTitle = (props: any) => {
 
 interface Props {
   history: any;
-  sdkLoadedSuccess: any;
+  processInitialAuthentication: any;
+  login: any;
 }
 interface State {
   step: number;
@@ -47,30 +48,16 @@ export default class Home extends React.Component<Props, State> {
     this.state = {
       step: 0
     };
-
+    this.props.processInitialAuthentication();
     this.navigateToGame = this.navigateToGame.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
-    const gameToken = localStorage.getItem('gameToken');
-    loadFbSdk('653846344985974')
-      .then((result: any) => {
-        this.props.sdkLoadedSuccess();
-        return getFbLoginStatus();
-      })
-      .then((result: any) => {
-        const token = result.authResponse.accessToken;
-        localStorage.setItem('facebookToken', token);
-      });
     this.facebookLogin = this.facebookLogin.bind(this);
   }
   componentDidMount() {
     setTimeout(this.incrementStep);
   }
   facebookLogin() {
-    fbLogin({
-      scope: 'email'
-    }).then((result: any) => {
-      console.log(result);
-    });
+    this.props.login();
   }
   incrementStep() {
     this.setState(
