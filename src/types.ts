@@ -6,12 +6,12 @@ export interface JoiningRoomResponse {
   letters: string[];
   roomSize: number;
   isGameActive: boolean;
-  myId:string;
+  myId: string;
 }
 export interface PlayerSerialize {
   id: string;
   type: PlayerType;
-  avatar:number;
+  avatar: number;
 }
 export interface PlayerClient {
   id: string;
@@ -24,7 +24,7 @@ export interface PlayerClient {
   finishedTimestamp: number;
   gameDuration: number;
   accuracy: number;
-  avatar:number;
+  avatar: number;
 }
 
 export interface ResultGraphData extends PlayerClient {
@@ -86,4 +86,11 @@ export interface ScoreBroadcastAction {
   payload: {
     players: any;
   };
+}
+
+export interface AuthReducer {
+  fbSdkLoaded: boolean;
+}
+export interface SdkLoadedSuccessAction {
+  type: string;
 }
