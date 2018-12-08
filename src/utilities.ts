@@ -34,7 +34,7 @@ export function getFbLoginStatus() {
   return new Promise(resolve => {
     // @ts-ignore
     window.FB.getLoginStatus(responseStatus => {
-      resolve(responseStatus);
+      return resolve(responseStatus);
     });
   });
 }

@@ -1,3 +1,4 @@
+import {AUTH_HEADER_NAME,AUTH_FACEBOOK_HEADER} from '../../constants'
 const request = require('request');
 var jwt = require('jsonwebtoken');
 const secret = 'secret-key';
@@ -30,7 +31,7 @@ app.get('/bye', function(req, res) {
   res.send(200);
 });
 app.post('/login', function(req, res) {
-  const facebookToken = req.headers['facebookToken'];
+  const facebookToken = req.headers[AUTH_FACEBOOK_HEADER];
   var path = `https://graph.facebook.com/v3.2/me?&access_token=${facebookToken}`;
   request(path, (error, response, body) => {
     const userData = JSON.parse(body);
@@ -44,7 +45,7 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/verify-login', function(req, res) {
-  const appToken = req.headers['app-token'];
+  const appToken = req.headers[AUTH_HEADER_NAME];
   jwt.verify(appToken, secret, function(err, decoded) {
     if (err) {
       res.status(400).send({

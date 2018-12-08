@@ -42,14 +42,15 @@ interface State {
 }
 
 export default class Home extends React.Component<Props, State> {
+  authenticationManager: AuthenticationManager;
   constructor(props: Props) {
     super(props);
     this.state = {
       step: 0
     };
     this.props.initAuthenticationManager();
-    const authenticationManager = AuthenticationManager.getInstance();
-    authenticationManager.initialAuthentication();
+    this.authenticationManager = AuthenticationManager.getInstance();
+    this.authenticationManager.initialAuthentication();
     this.navigateToGame = this.navigateToGame.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
     this.facebookLogin = this.facebookLogin.bind(this);
@@ -58,7 +59,7 @@ export default class Home extends React.Component<Props, State> {
     setTimeout(this.incrementStep);
   }
   facebookLogin() {
-    // this.props.login();
+    this.authenticationManager.login();
   }
   incrementStep() {
     this.setState(
