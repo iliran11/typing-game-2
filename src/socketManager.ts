@@ -22,6 +22,7 @@ import {
   SERVER_URL,
   RESTART_GAME
 } from './constants';
+import AuthenticationManager from './AuthenticationManager';
 
 const socketManager: any = {
   isSocketConnected(): boolean {
@@ -29,19 +30,25 @@ const socketManager: any = {
   },
   initSocket(dispatch: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
-    this.socket = socketIo.connect(SERVER_URL);
-    this.dispatch = dispatch;
-    this.socket.on(
-      CONNECT_SERVER_SUCCESS,
-      () => {
-        this.dispatch({
-          type: CONNECT_SERVER_SUCCESS
-        });
+    const authManager = AuthenticationManager.getInstance();
+    this.socket = socketIo.connect(
+      SERVER_URL,
+      {
+        query: { token: authManager.appToken }
       }
     );
+    this.socket.on('error', () => {
+      console.log('error!!!');
+    });
+    this.dispatch = dispatch;
+    this.socket.on(CONNECT_SERVER_SUCCESS, () => {
+      this.dispatch({
+        type: CONNECT_SERVER_SUCCESS
+      });
+    });
 
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
-      const {roomId,players,roomSize,isGameActive,myId} = data;
+      const { roomId, players, roomSize, isGameActive, myId } = data;
       this.dispatch({
         type: YOU_JOINED_ROOM,
         payload: {
@@ -105,7 +112,7 @@ const socketManager: any = {
     this.socket.emit(GAME_HAS_FINISHED);
   },
   emitGameRestart() {
-    this.socket.emit(RESTART_GAME)
+    this.socket.emit(RESTART_GAME);
   }
 };
 

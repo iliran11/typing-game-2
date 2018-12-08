@@ -87,7 +87,7 @@ class AuthenticationManager {
   }
   verifyAppLogin() {
     return new Promise(resolve => {
-      const appToken = this.getAppToken();
+      const appToken = this.appToken;
       axios
         .get('/verify-login')
         .then(result => {
@@ -122,8 +122,8 @@ class AuthenticationManager {
     const token = localStorage.getItem(AUTH_HEADER_NAME);
     axios.defaults.headers.common[AUTH_HEADER_NAME] = token;
   }
-  private getAppToken() {
-    return localStorage.getItem('appToken');
+  get appToken() {
+    return localStorage.getItem(AUTH_HEADER_NAME);
   }
   static initManager(dispatch: any, state: RootState) {
     if (!AuthenticationManager.instance) {
