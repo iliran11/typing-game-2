@@ -37,6 +37,13 @@ export enum PlayerType {
   human = 'HUMAN'
 }
 
+export enum FbLoginStatus {
+  connected = 'connected',
+  authorizationExpired = 'authorization_expired',
+  notAuthorized = 'not_authorized',
+  unknown = 'unknown'
+}
+
 export interface IPlayerScore {
   playerId: string;
   score: number;
@@ -75,6 +82,7 @@ export interface ServerStatusReducer {
 export interface RootState {
   readonly gameData: GameDataReducer;
   readonly serverStatus: ServerStatusReducer;
+  readonly authentication: AuthReducer;
 }
 export interface PlayerJoiningAction {
   type: string;
