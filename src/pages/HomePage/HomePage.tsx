@@ -1,7 +1,7 @@
 import React from 'react';
 import './homepage.css';
 import Keyboard from '../../components/keyboard/keyboard';
-import { fbLogin, loadFbSdk, getFbLoginStatus } from '../../utilities';
+import AuthenticationManager from '../../AuthenticationManager';
 
 const baseSteps = [
   {
@@ -35,8 +35,7 @@ const BaseTitle = (props: any) => {
 
 interface Props {
   history: any;
-  processInitialAuthentication: any;
-  login: any;
+  initAuthenticationManager: any;
 }
 interface State {
   step: number;
@@ -48,7 +47,9 @@ export default class Home extends React.Component<Props, State> {
     this.state = {
       step: 0
     };
-    this.props.processInitialAuthentication();
+    this.props.initAuthenticationManager();
+    const authenticationManager = AuthenticationManager.getInstance();
+    authenticationManager.initialAuthentication();
     this.navigateToGame = this.navigateToGame.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
     this.facebookLogin = this.facebookLogin.bind(this);
@@ -57,7 +58,7 @@ export default class Home extends React.Component<Props, State> {
     setTimeout(this.incrementStep);
   }
   facebookLogin() {
-    this.props.login();
+    // this.props.login();
   }
   incrementStep() {
     this.setState(

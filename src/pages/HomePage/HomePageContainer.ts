@@ -1,11 +1,8 @@
 import { connect } from 'react-redux';
 import Home from './HomePage';
-import { processInitialAuthentication, doLogin } from '../../store/authAction';
+import { initAuthenticationManager } from '../../store/authAction';
 
-const mapDispatchToProps = {
-  processInitialAuthentication,
-  login: doLogin
-};
+const mapDispatchToProps = { initAuthenticationManager };
 const mapStateToProps = (state: any, props: any) => {
   return {};
 };
