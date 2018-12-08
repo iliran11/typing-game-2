@@ -1,6 +1,7 @@
-import {AUTH_HEADER_NAME,AUTH_FACEBOOK_HEADER} from '../../constants'
+import { AUTH_HEADER_NAME, AUTH_FACEBOOK_HEADER } from '../../constants';
 const request = require('request');
 var jwt = require('jsonwebtoken');
+var bodyParser = require('body-parser');
 const secret = 'secret-key';
 const mongoose = require('mongoose');
 const dbPassword = 'bEKqgqW38Ts5Naek';
@@ -25,16 +26,22 @@ var server = require('http').Server(app);
 const port = process.env.PORT || 4001;
 server.listen(port);
 // WARNING: app.listen(80) will NOT work here!
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 
 app.get('/bye', function(req, res) {
   // res.send(`ddServer Version: ${packageJs.version}`);
   res.send(200);
 });
 app.post('/login', function(req, res) {
-  const facebookToken = req.headers[AUTH_FACEBOOK_HEADER];
+  const facebookToken = req.body[AUTH_FACEBOOK_HEADER];
   var path = `https://graph.facebook.com/v3.2/me?&access_token=${facebookToken}`;
   request(path, (error, response, body) => {
     const userData = JSON.parse(body);
+    if (userData.error) {
+      res.send(400);
+    }
     jwt.sign({ id: userData.id }, secret, (err, token) => {
       const response: LoginTokenObject = { token };
       res.send({
