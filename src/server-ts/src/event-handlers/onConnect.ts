@@ -23,7 +23,6 @@ export default function onConnect(socket: io.Socket): void {
   playerManager.addPlayer(player);
   allocateHumanToRoom(socket,player);
   socket.emit(CONNECT_SERVER_SUCCESS);
-
   socket.on('disconnect', () => {
     onDisconnect(socket);
   });

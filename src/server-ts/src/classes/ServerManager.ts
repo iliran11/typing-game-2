@@ -1,6 +1,8 @@
 import * as io from 'socket.io';
 import onConnect from '../event-handlers/onConnect';
 import { Socket } from 'net';
+import { SECRET } from '../../../constants';
+const jwt = require('jsonwebtoken');
 
 export default class ServerManager {
   private server: io.Server;
@@ -10,8 +12,13 @@ export default class ServerManager {
     this.server = io(expressInstance);
     this.server.on('connection', onConnect);
     this.server.use((socket, next) => {
-      console.log(socket.handshake.query);
-      next(new Error('Authentication error'));
+      const token = socket.handshake.query.token;
+      jwt.verify(token, SECRET, (err, decoded) => {
+        socket.handshake.userId = decoded.id
+        return next();
+        if (err) {
+        }
+      });
     });
   }
   get serverObject() {

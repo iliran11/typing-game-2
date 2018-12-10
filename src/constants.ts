@@ -26,6 +26,7 @@ export const LOGGED_OUT = 'logged-out';
 export const FACEBOOK_LOGGED_IN = 'facebook-logged-in'
 export const AUTH_HEADER_NAME = 'app-token';
 export const AUTH_FACEBOOK_HEADER = 'facebookToken'
+export const SECRET = 'app-secret'
 
 /**
  * CONFIG
