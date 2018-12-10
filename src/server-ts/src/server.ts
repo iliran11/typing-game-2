@@ -1,4 +1,8 @@
-import { AUTH_HEADER_NAME, AUTH_FACEBOOK_HEADER,SECRET } from '../../constants';
+import {
+  AUTH_HEADER_NAME,
+  AUTH_FACEBOOK_HEADER,
+  SECRET
+} from '../../constants';
 const request = require('request');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
@@ -11,7 +15,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function() {
   console.log('hello database');
 });
-import { LoginTokenObject } from '../../types';
+import { LoginTokenObject, FacebookUserType } from '../../types';
 
 mongoose.connect(dev_db_url);
 mongoose.Promise = global.Promise;
@@ -27,19 +31,15 @@ server.listen(port);
 
 const image2base64 = require('image-to-base64');
 const picUrl =
-'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10153722535952924&height=50&width=50&ext=1546903893&hash=AeQZGRjk82nf0DRR';
+  'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10153722535952924&height=50&width=50&ext=1546903893&hash=AeQZGRjk82nf0DRR';
 
 image2base64(picUrl) // you can also to use url
-    .then(
-        (response) => {
-            // console.log(response); //cGF0aC90by9maWxlLmpwZw==
-        }
-    )
-    .catch(
-        (error) => {
-            // console.log(error); //Exepection error....
-        }
-    )
+  .then(response => {
+    // console.log(response); //cGF0aC90by9maWxlLmpwZw==
+  })
+  .catch(error => {
+    // console.log(error); //Exepection error....
+  });
 
 // WARNING: app.listen(80) will NOT work here!
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -61,13 +61,14 @@ app.get('/picturebase64', function(req, res) {
 });
 app.post('/login', function(req, res) {
   const facebookToken = req.body[AUTH_FACEBOOK_HEADER];
-  var path = `https://graph.facebook.com/v3.2/me?&access_token=${facebookToken}`;
+  const fields = 'id,first_name,last_name';
+  var path = `https://graph.facebook.com/v3.2/me?fields=${fields}&access_token=${facebookToken}`;
   request(path, (error, response, body) => {
-    const userData = JSON.parse(body);
-    if (userData.error) {
+    const userData: FacebookUserType = JSON.parse(body);
+    if (error) {
       res.send(400);
     }
-    jwt.sign({ id: userData.id }, SECRET, (err, token) => {
+    jwt.sign({ userData }, SECRET, (err, token) => {
       const response: LoginTokenObject = { token };
       res.send({
         token

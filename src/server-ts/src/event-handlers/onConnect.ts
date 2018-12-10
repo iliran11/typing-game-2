@@ -13,15 +13,22 @@ import {
   GAME_HAS_FINISHED,
   RESTART_GAME
 } from '../../../constants';
+import { FacebookUserType } from '../../../types';
+import { getSocketAuthentication } from '../utilities';
 
 const roomManager = RoomManager.getInstance();
 const playerManager = PlayerManager.getInstance();
 
 export default function onConnect(socket: io.Socket): void {
   // console.log(`connect- ${socket.client.id}`);
-  const player = new Player(socket);
+  const userData: FacebookUserType = getSocketAuthentication(socket);
+  const player = new Player(
+    socket,
+    `${userData.first_name} ${userData.last_name}`,
+    userData.id
+  );
   playerManager.addPlayer(player);
-  allocateHumanToRoom(socket,player);
+  allocateHumanToRoom(socket, player);
   socket.emit(CONNECT_SERVER_SUCCESS);
   socket.on('disconnect', () => {
     onDisconnect(socket);

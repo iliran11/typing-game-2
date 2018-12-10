@@ -118,3 +118,8 @@ export interface FacebookStatusAction {
   loggedIn: boolean;
   token: string | null;
 }
+export interface FacebookUserType {
+  id: string;
+  first_name: string;
+  last_name: string;
+}

@@ -6,15 +6,17 @@ import { PlayerSerialize, PlayerType } from '../../../types';
 export default class Player {
   static playerCounter: number = 1;
   protected name: string;
+  private id: string;
   private socket: io.Socket;
   private game: Game = new Game();
   private roomId: number = 0;
   private anonymousAvatar: number = -1;
 
   // private game: Game;
-  constructor(socket: io.Socket, name?) {
+  constructor(socket: io.Socket, name?, id?) {
     this.socket = socket;
-    this.name = `${this.serializable.type} ${Player.playerCounter}`;
+    this.name = name || `${this.serializable.type} ${Player.playerCounter}`;
+    this.id = id || `${this.serializable.type} ${Player.playerCounter}`;
     Player.playerCounter++;
   }
   createGame() {
@@ -37,7 +39,7 @@ export default class Player {
     };
   }
   public get playerId(): string {
-    return this.name;
+    return this.id;
   }
   public get playerGame() {
     return this.game;
@@ -49,9 +51,9 @@ export default class Player {
     this.roomId = roomId;
   }
   get Avatar() {
-    return this.anonymousAvatar
+    return this.anonymousAvatar;
   }
-  setAvatar(avatarIndex:number) {
+  setAvatar(avatarIndex: number) {
     this.anonymousAvatar = avatarIndex;
   }
 }
