@@ -12,8 +12,9 @@ import {
   FacebookUserType,
   UserModelInterface
 } from '../../types';
-import UserModel from './mongo/UserModel';
+import { createUserInstance, User } from './mongo/UserModel';
 import ServerManager from './classes/ServerManager';
+import { getBase64FacebookPic } from './utilities';
 
 // var packageJs = require('../package.json');
 initMongo();
@@ -21,18 +22,6 @@ var app = require('express')();
 var server = require('http').Server(app);
 const port = process.env.PORT || 4001;
 server.listen(port);
-const image2base64 = require('image-to-base64');
-const picUrl =
-  'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10153722535952924&height=50&width=50&ext=1546903893&hash=AeQZGRjk82nf0DRR';
-
-image2base64(picUrl) // you can also to use url
-  .then(response => {
-    // console.log(response); //cGF0aC90by9maWxlLmpwZw==
-  })
-  .catch(error => {
-    // console.log(error); //Exepection error....
-  });
-
 // WARNING: app.listen(80) will NOT work here!
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
@@ -41,15 +30,6 @@ app.use(bodyParser.json());
 app.get('/bye', function(req, res) {
   // res.send(`ddServer Version: ${packageJs.version}`);
   res.send(200);
-});
-app.get('/picturebase64', function(req, res) {
-  request(picUrl, (error, response, body) => {
-    // var buffer = new Buffer(body);
-    // var string = buffer.toString('base64');
-    console.log(body);
-
-    res.send(200);
-  });
 });
 app.post('/login', function(req, res) {
   const facebookToken = req.body[AUTH_FACEBOOK_HEADER];
@@ -62,7 +42,7 @@ app.post('/login', function(req, res) {
       first_name: firstName,
       last_name: lastName,
       picture: {
-        data: { url }
+        data: { url: pictureUrl }
       }
     } = data;
     const userData: FacebookUserType = {
@@ -80,13 +60,45 @@ app.post('/login', function(req, res) {
         token
       });
     });
-    const user = UserModel({
+    const user = createUserInstance({
       firstName,
       lastName,
       id,
-      picture: url
+      picture: pictureUrl
     });
-    user.save().catch(err => console.log(err));
+    const UserHandlingHasFinished = new Promise(resolve => {
+      user.isAlreadyExist().then(isAlreadyExist => {
+        /** we will resolve regardless of the result.
+         *  the assumption is that the user will exist in the database anyway.
+         *  so we want to resolve the promise to start updating the profile picture.
+         */
+        if (isAlreadyExist) {
+          resolve();
+        } else {
+          user
+            .save()
+            .then(() => {
+              resolve();
+            })
+            .catch(err => {
+              console.log(err);
+              resolve();
+            });
+        }
+      });
+    });
+    UserHandlingHasFinished.then(() => {
+      getBase64FacebookPic(pictureUrl).then(pictureData => {
+        User.findOne({ id })
+          .then(user => {
+            user.picture = pictureData;
+            return user.save();
+          })
+          .then(user => {
+            console.log('picture Saved');
+          });
+      });
+    });
   });
 });
 

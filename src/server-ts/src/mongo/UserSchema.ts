@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+import { User } from './UserModel';
 const UserScheme = mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -6,21 +7,19 @@ const UserScheme = mongoose.Schema({
   picture: String
 });
 
-UserScheme.pre('save', function(next) {
-  const User = mongoose.model('user', UserScheme);
-  // @ts-ignore
-  const queryId = this.id;
-  if (queryId) {
-    User.find({ id: queryId }).then(result => {
-      if (result.length === 0) {
-        return next();
-      }
-      next(
-        // @ts-ignore
-        Error(`${this.firstName} has login and not saved as it already exists.`)
-      );
-    });
-  }
-});
+UserScheme.methods.isAlreadyExist = function() {
+  return new Promise(resolve => {
+    const queryId = this.id;
+    if (queryId) {
+      User.find({ id: queryId }).then(result => {
+        if (result.length === 0) {
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      });
+    }
+  });
+};
 
 export default UserScheme;
