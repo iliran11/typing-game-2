@@ -24,7 +24,7 @@ export default function onConnect(socket: io.Socket): void {
   const userData: FacebookUserType = getSocketAuthentication(socket);
   const player = new Player(
     socket,
-    `${userData.first_name} ${userData.last_name}`,
+    `${userData.firstName} ${userData.lastName}`,
     userData.id
   );
   playerManager.addPlayer(player);

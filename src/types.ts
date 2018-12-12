@@ -120,6 +120,10 @@ export interface FacebookStatusAction {
 }
 export interface FacebookUserType {
   id: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface UserModelInterface extends FacebookUserType {
+  picture: string;
 }

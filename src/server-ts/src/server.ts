@@ -6,29 +6,21 @@ import {
 const request = require('request');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const dbPassword = 'bEKqgqW38Ts5Naek';
-const dbUser = 'admin';
-let dev_db_url = `mongodb://${dbUser}:${dbPassword}@ds127624.mlab.com:27624/typing-game`;
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function() {
-  console.log('hello database');
-});
-import { LoginTokenObject, FacebookUserType } from '../../types';
-
-mongoose.connect(dev_db_url);
-mongoose.Promise = global.Promise;
-
+import initMongo from './mongo/initMongo';
+import {
+  LoginTokenObject,
+  FacebookUserType,
+  UserModelInterface
+} from '../../types';
+import UserModel from './mongo/UserModel';
 import ServerManager from './classes/ServerManager';
 
 // var packageJs = require('../package.json');
-
+initMongo();
 var app = require('express')();
 var server = require('http').Server(app);
 const port = process.env.PORT || 4001;
 server.listen(port);
-
 const image2base64 = require('image-to-base64');
 const picUrl =
   'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10153722535952924&height=50&width=50&ext=1546903893&hash=AeQZGRjk82nf0DRR';
@@ -61,19 +53,40 @@ app.get('/picturebase64', function(req, res) {
 });
 app.post('/login', function(req, res) {
   const facebookToken = req.body[AUTH_FACEBOOK_HEADER];
-  const fields = 'id,first_name,last_name';
+  const fields = 'id,first_name,last_name,picture.width(100)';
   var path = `https://graph.facebook.com/v3.2/me?fields=${fields}&access_token=${facebookToken}`;
   request(path, (error, response, body) => {
-    const userData: FacebookUserType = JSON.parse(body);
+    const data = JSON.parse(body);
+    const {
+      id,
+      first_name: firstName,
+      last_name: lastName,
+      picture: {
+        data: { url }
+      }
+    } = data;
+    const userData: FacebookUserType = {
+      id,
+      firstName,
+      lastName
+    };
+
     if (error) {
       res.send(400);
     }
-    jwt.sign({ userData }, SECRET, (err, token) => {
+    jwt.sign(userData, SECRET, (err, token) => {
       const response: LoginTokenObject = { token };
       res.send({
         token
       });
     });
+    const user = UserModel({
+      firstName,
+      lastName,
+      id,
+      picture: url
+    });
+    user.save().catch(err => console.log(err));
   });
 });
 
