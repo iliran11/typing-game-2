@@ -34,7 +34,7 @@ function renderBar(competitor: any, index: number) {
           className="graph-bar-name"
           style={{ WebkitBoxOrient: 'vertical' }}
         >
-          {competitor.id}
+          {competitor.name}
         </span>
       </div>
       <div className="graph-wpm-info">

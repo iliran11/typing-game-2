@@ -11,7 +11,7 @@ export function emitToRoom(roomName, eventName, data?) {
 }
 
 export function getSocketAuthentication(socket: any) {
-  return socket.handshake.userData || {};
+  return socket.handshake.userData || null;
 }
 
 export function getBase64FacebookPic(url: string) {

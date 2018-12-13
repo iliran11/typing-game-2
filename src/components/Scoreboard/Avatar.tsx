@@ -33,10 +33,7 @@ export default function Avatar(props: Props) {
       borderRadius: '50%'
     };
     return (
-      <img
-        style={authenticatedAvatar}
-        src={`data:image/png;base64,${props.playerAvatar.picture}`}
-      />
+      <img style={authenticatedAvatar} src={`${props.playerAvatar.picture}`} />
     );
   }
 }

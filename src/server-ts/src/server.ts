@@ -56,47 +56,49 @@ app.post('/login', function(req, res) {
     }
     jwt.sign(userData, SECRET, (err, token) => {
       const response: LoginTokenObject = { token };
-      res.send({
-        token
+      const user = createUserInstance({
+        firstName,
+        lastName,
+        id,
+        picture: pictureUrl
       });
-    });
-    const user = createUserInstance({
-      firstName,
-      lastName,
-      id,
-      picture: pictureUrl
-    });
-    const UserHandlingHasFinished = new Promise(resolve => {
-      user.isAlreadyExist().then(isAlreadyExist => {
-        /** we will resolve regardless of the result.
-         *  the assumption is that the user will exist in the database anyway.
-         *  so we want to resolve the promise to start updating the profile picture.
-         */
-        if (isAlreadyExist) {
-          resolve();
-        } else {
-          user
-            .save()
-            .then(() => {
-              resolve();
+      const UserHandlingHasFinished = new Promise(resolve => {
+        user.isAlreadyExist().then(isAlreadyExist => {
+          /** we will resolve regardless of the result.
+           *  the assumption is that the user will exist in the database anyway.
+           *  so we want to resolve the promise to start updating the profile picture.
+           */
+          if (isAlreadyExist) {
+            return resolve();
+          } else {
+            user
+              .save()
+              .then(() => {
+                return resolve();
+              })
+              .catch(err => {
+                console.log(err);
+                return resolve();
+              });
+          }
+        });
+      });
+      UserHandlingHasFinished.then(() => {
+        // send response only after the server saved the url of the picture.
+        // the server in the background will continue with saving the actual picture in the database
+        res.send({
+          token
+        });
+        getBase64FacebookPic(pictureUrl).then(pictureData => {
+          User.findOne({ id })
+            .then(user => {
+              user.picture = `data:image/png;base64,${pictureData}`;
+              return user.save();
             })
-            .catch(err => {
-              console.log(err);
-              resolve();
+            .then(user => {
+              console.log('picture Saved');
             });
-        }
-      });
-    });
-    UserHandlingHasFinished.then(() => {
-      getBase64FacebookPic(pictureUrl).then(pictureData => {
-        User.findOne({ id })
-          .then(user => {
-            user.picture = pictureData;
-            return user.save();
-          })
-          .then(user => {
-            console.log('picture Saved');
-          });
+        });
       });
     });
   });

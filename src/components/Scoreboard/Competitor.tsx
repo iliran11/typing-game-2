@@ -4,7 +4,7 @@ import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
 import Avatar from './Avatar';
-import { PlayerType,PlayerAvatar } from '../../types';
+import { PlayerType, PlayerAvatar } from '../../types';
 import checkedIcon from '../../assets/checked.svg';
 
 // wpm of maximum progress in circular progress.

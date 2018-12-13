@@ -71,8 +71,9 @@ export default class Player {
   }
   public get serializable(): PlayerSerialize {
     return {
-      id: this.name,
-      type: this.playerType
+      id: this.id,
+      type: this.playerType,
+      name: this.name
     };
   }
   public get playerId(): string {
