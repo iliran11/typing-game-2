@@ -31,11 +31,10 @@ const socketManager: any = {
   },
   initSocket(dispatch: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
-    const authManager = AuthenticationManager.getInstance();
     this.socket = socketIo.connect(
       SERVER_URL,
       {
-        query: { token: authManager.appToken }
+        query: { token: AuthenticationManager.appToken }
       }
     );
     this.socket.on('error', () => {

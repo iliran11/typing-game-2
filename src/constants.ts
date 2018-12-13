@@ -23,10 +23,11 @@ export const RANDOM_AVATAR_MAX_INDEX = 10;
 export const SDK_LOAD_SUCESS = 'sdk-load-success';
 export const LOGGED_IN = 'logged-in';
 export const LOGGED_OUT = 'logged-out';
-export const FACEBOOK_LOGGED_IN = 'facebook-logged-in'
+export const LOGGING_IN_ACTION = 'logging-in-action';
+export const FACEBOOK_LOGGED_IN = 'facebook-logged-in';
 export const AUTH_HEADER_NAME = 'app-token';
-export const AUTH_FACEBOOK_HEADER = 'facebookToken'
-export const SECRET = 'app-secret'
+export const AUTH_FACEBOOK_HEADER = 'facebookToken';
+export const SECRET = 'app-secret';
 
 /**
  * CONFIG

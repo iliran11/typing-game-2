@@ -14,7 +14,8 @@ import {
   LOGGED_OUT,
   FACEBOOK_LOGGED_IN,
   AUTH_FACEBOOK_HEADER,
-  AUTH_HEADER_NAME
+  AUTH_HEADER_NAME,
+  LOGGING_IN_ACTION
 } from './constants';
 
 const appId = '653846344985974';
@@ -31,7 +32,7 @@ class AuthenticationManager {
   initialAuthentication() {
     loadFbSdk('653846344985974')
       .then((result: any) => {
-        this.sdkLoadedSuccess();
+        this.onSdkLoadedSuccess();
         return getFbLoginStatus();
       })
       .then((result: any) => {
@@ -39,12 +40,17 @@ class AuthenticationManager {
         switch (result.status) {
           case FbLoginStatus.connected:
             this.handleFacebookSuccessLogin(result);
-            this.setAxiosAuth();
-            this.verifyAppLogin();
+            if (AuthenticationManager.isThereAppToken) {
+              this.setAxiosAuth();
+            }
+            this.verifyAppLogin().then(result => {});
         }
       });
   }
   login() {
+    this.dispatch({
+      type: LOGGING_IN_ACTION
+    });
     this.facebookLogin().then((result: any) => {
       if (this.state.authentication.facebookLoggedIn) {
         axios
@@ -55,13 +61,25 @@ class AuthenticationManager {
             const data: LoginTokenObject = result.data;
             localStorage.setItem(AUTH_HEADER_NAME, data.token);
             this.setAxiosAuth();
+            this.dispatch({
+              type: LOGGED_IN
+            });
+          })
+          .catch(() => {
+            console.log('error in login');
           });
       }
     });
   }
+  logout() {
+    this.dispatch({
+      type: LOGGED_OUT
+    });
+    AuthenticationManager.deleteToken();
+  }
+
   private facebookLogin() {
     return new Promise(resolve => {
-      console.log(this.state.authentication.facebookLoggedIn);
       if (this.state.authentication.facebookLoggedIn) {
         // @ts-ignore
         return resolve(this.state.authentication.facebookToken);
@@ -75,7 +93,12 @@ class AuthenticationManager {
     });
   }
   private handleFacebookSuccessLogin(result: any) {
-    const FacebookToken = result.authResponse.accessToken;
+    let FacebookToken;
+    try {
+      FacebookToken = result.authResponse.accessToken;
+    } catch {
+      console.error(result);
+    }
     const payload: FacebookStatusAction = {
       loggedIn: true,
       token: FacebookToken
@@ -85,9 +108,9 @@ class AuthenticationManager {
       payload
     });
   }
-  verifyAppLogin() {
+  verifyAppLogin(): Promise<LoginVerificationStatus> {
     return new Promise(resolve => {
-      const appToken = this.appToken;
+      const appToken = AuthenticationManager.appToken;
       axios
         .get('/verify-login')
         .then(result => {
@@ -96,24 +119,26 @@ class AuthenticationManager {
             this.dispatch({
               type: LOGGED_OUT
             });
-            resolve(result);
+            AuthenticationManager.deleteToken();
+            resolve(data);
           }
           if (data.loginStatus === true && appToken) {
             this.dispatch({
               type: LOGGED_IN
             });
-            resolve(result);
+            resolve(data);
           }
         })
         .catch(err => {
           this.dispatch({
             type: LOGGED_OUT
           });
+          console.log('verify error');
           resolve(err);
         });
     });
   }
-  private sdkLoadedSuccess(): SdkLoadedSuccessAction {
+  private onSdkLoadedSuccess(): SdkLoadedSuccessAction {
     return {
       type: SDK_LOAD_SUCESS
     };
@@ -122,8 +147,14 @@ class AuthenticationManager {
     const token = localStorage.getItem(AUTH_HEADER_NAME);
     axios.defaults.headers.common[AUTH_HEADER_NAME] = token;
   }
-  get appToken() {
+  static get appToken() {
     return localStorage.getItem(AUTH_HEADER_NAME);
+  }
+  static get isThereAppToken() {
+    return Boolean(this.appToken);
+  }
+  static deleteToken() {
+    localStorage.removeItem(AUTH_HEADER_NAME);
   }
   static initManager(dispatch: any, state: RootState) {
     if (!AuthenticationManager.instance) {

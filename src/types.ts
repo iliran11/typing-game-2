@@ -11,7 +11,7 @@ export interface JoiningRoomResponse {
 export interface PlayerSerialize {
   id: string;
   type: PlayerType;
-  name:string;
+  name: string;
 }
 
 export interface PlayerGameInfo extends PlayerSerialize {
@@ -39,6 +39,11 @@ export interface ResultGraphData extends PlayerClient {
 export enum PlayerType {
   bot = 'BOT',
   human = 'HUMAN'
+}
+export enum LoginStatus {
+  loggedIn = 'connected',
+  loggedOut = 'logged-out',
+  connecting = 'connecting'
 }
 
 export enum FbLoginStatus {
@@ -102,7 +107,7 @@ export interface ScoreBroadcastAction {
 
 export interface AuthReducer {
   fbSdkLoaded: boolean;
-  loggedIn: boolean;
+  loggedIn: LoginStatus;
   facebookLoggedIn: boolean;
   facebookToken: string | null;
 }
