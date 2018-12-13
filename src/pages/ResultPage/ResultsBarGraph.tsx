@@ -16,7 +16,7 @@ function renderBar(competitor: any, index: number) {
         <div className="graph-bar-avatar-container">
           <Avatar
             type={competitor.type}
-            index={competitor.avatar}
+            playerAvatar={competitor.avatar}
             className="graph-bar-avatar"
           />
           {competitor.compeletedPercntage===1 && (

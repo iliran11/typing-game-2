@@ -2,15 +2,20 @@ import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import Competitor from './Competitor';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
+import { PlayerAvatar } from '../../types';
 
 const mapStateToProps = (state: RootState, props: any) => {
   const { id, index } = props;
-  const randomAvatarIndex =
+  const emptyAvatar: PlayerAvatar = {
+    isAnonymous: true,
+    picture: -1
+  };
+  const playerAvatar: PlayerAvatar =
     id !== EMPTY_COMPETITOR_SLOT
       ? state.serverStatus.players[index].avatar
-      : -1;
+      : emptyAvatar;
   return {
-    randomAvatarIndex
+    playerAvatar
   };
 };
 

@@ -4,7 +4,7 @@ import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
 import Avatar from './Avatar';
-import { PlayerType } from '../../types';
+import { PlayerType,PlayerAvatar } from '../../types';
 import checkedIcon from '../../assets/checked.svg';
 
 // wpm of maximum progress in circular progress.
@@ -15,7 +15,7 @@ interface Props {
   score: number;
   compeletedPercntage: number;
   index: number;
-  randomAvatarIndex: number;
+  playerAvatar: PlayerAvatar;
   isMe: boolean;
   type: PlayerType;
   hasLeft: boolean;
@@ -131,7 +131,7 @@ class Competitor extends React.PureComponent<Props, State> {
           <div className="avatar" style={this.avatarStyle}>
             <Avatar
               type={this.props.type}
-              index={this.props.randomAvatarIndex}
+              playerAvatar={this.props.playerAvatar}
             />
             {this.state.isFinished && (
               <img className="completed-icon" src={checkedIcon} />

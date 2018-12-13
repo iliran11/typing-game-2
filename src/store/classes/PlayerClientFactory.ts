@@ -1,22 +1,25 @@
-import {PlayerClient,PlayerType} from '../../types'
-import {EMPTY_COMPETITOR_SLOT} from '../../constants'
- 
+import { PlayerClient, PlayerType, PlayerAvatar } from '../../types';
+import { EMPTY_COMPETITOR_SLOT } from '../../constants';
+
 export default class PlayerClientFactory implements PlayerClient {
   id: string = EMPTY_COMPETITOR_SLOT;
-  playerId: string ="";
+  playerId: string = '';
   score: number = 0;
   compeletedPercntage: number = 0;
-  type: PlayerType =PlayerType.bot;
+  type: PlayerType = PlayerType.bot;
   hasLeft: boolean = false;
   isFinished: boolean = false;
-  finishedTimestamp: number= -1;
+  finishedTimestamp: number = -1;
   gameDuration: number = -1;
   accuracy: number = -1;
-  avatar: number = 0;
+  avatar: PlayerAvatar = {
+    isAnonymous: true,
+    picture: -1
+  };
 
   constructor(opts: any) {
-    this.id = opts.id || this.id
-    this.type = opts.type || this.type
+    this.id = opts.id || this.id;
+    this.type = opts.type || this.type;
     this.avatar = opts.avatar || this.avatar;
   }
 }
