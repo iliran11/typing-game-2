@@ -2,6 +2,7 @@ import React from 'react';
 import './homepage.css';
 import Keyboard from '../../components/keyboard/keyboard';
 import AuthenticationManager from '../../AuthenticationManager';
+import LoginButtonContainer from '../../components/login-button/LoginButtonContainer';
 
 const baseSteps = [
   {
@@ -53,13 +54,9 @@ export default class Home extends React.Component<Props, State> {
     this.authenticationManager.initialAuthentication();
     this.navigateToGame = this.navigateToGame.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
-    this.facebookLogin = this.facebookLogin.bind(this);
   }
   componentDidMount() {
     setTimeout(this.incrementStep);
-  }
-  facebookLogin() {
-    this.authenticationManager.login();
   }
   incrementStep() {
     this.setState(
@@ -93,13 +90,7 @@ export default class Home extends React.Component<Props, State> {
         >
           Compete Now
         </button>
-        <button
-          id="compete-now"
-          className="button-large gradient-2"
-          onClick={this.facebookLogin}
-        >
-          Login Now
-        </button>
+        <LoginButtonContainer />
       </div>
     );
   }
