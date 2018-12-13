@@ -11,7 +11,10 @@ export interface JoiningRoomResponse {
 export interface PlayerSerialize {
   id: string;
   type: PlayerType;
-  avatar: number;
+}
+
+export interface PlayerGameInfo extends PlayerSerialize {
+  avatar: PlayerAvatar;
 }
 export interface PlayerClient {
   id: string;
@@ -86,7 +89,7 @@ export interface RootState {
 }
 export interface PlayerJoiningAction {
   type: string;
-  payload: PlayerSerialize;
+  payload: PlayerGameInfo;
 }
 
 export interface ScoreBroadcastAction {
@@ -126,4 +129,9 @@ export interface FacebookUserType {
 
 export interface UserModelInterface extends FacebookUserType {
   picture: string;
+}
+
+export interface PlayerAvatar {
+  isAnonymous: boolean;
+  picture: number | string;
 }

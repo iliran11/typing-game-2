@@ -22,4 +22,17 @@ UserScheme.methods.isAlreadyExist = function() {
   });
 };
 
+UserScheme.methods.getPicture = function() {
+  return new Promise(resolve => {
+    const id = this.id;
+    User.findOne({ id })
+      .then(result => {
+        resolve(result.picture);
+      })
+      .catch(err => {
+        resolve(Error('no user is found'));
+      });
+  });
+};
+
 export default UserScheme;

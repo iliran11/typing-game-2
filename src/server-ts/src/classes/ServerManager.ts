@@ -14,7 +14,7 @@ export default class ServerManager {
     this.server.use((socket, next) => {
       const token = socket.handshake.query.token;
       jwt.verify(token, SECRET, (err, decoded) => {
-        socket.handshake.userData = decoded.userData
+        socket.handshake.userData = decoded
         return next();
         if (err) {
         }

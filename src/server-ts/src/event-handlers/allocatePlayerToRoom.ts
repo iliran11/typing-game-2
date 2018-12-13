@@ -7,7 +7,7 @@ import * as constants from '../../../constants';
 import { emitToRoom } from '../utilities';
 const playerManager = PlayerManager.getInstance();
 const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } = constants;
-import { JoiningRoomResponse } from '../../../types';
+import { JoiningRoomResponse, PlayerGameInfo } from '../../../types';
 import { Socket } from 'dgram';
 
 function allocatePlayerToRoom(socket: io.Socket) {
@@ -19,33 +19,33 @@ function allocatePlayerToRoom(socket: io.Socket) {
   return room;
 }
 
-function sendPlayerRoomInfo(
-  socket: io.Socket,
-  room: Room,
-  player: Player
-) {
+function sendPlayerRoomInfo(socket: io.Socket, room: Room, player: Player) {
   socket.join(room.roomName);
-  const response: JoiningRoomResponse = {
-    roomId: room.roomId,
-    players: room.playersInRoom,
-    letters: player.playerGame.getRawLetters,
-    roomSize: room.maxPlayersInRoom,
-    isGameActive: room.isGameActive,
-    myId:player.playerId
-  };
-  socket.emit(YOU_JOINED_ROOM, response);
-  broadcastCompetitorToRoom(player, room, socket);
+  room.completeInfoPlayersInRoom.then(players => {
+    const response: JoiningRoomResponse = {
+      roomId: room.roomId,
+      players,
+      letters: player.playerGame.getRawLetters,
+      roomSize: room.maxPlayersInRoom,
+      isGameActive: room.isGameActive,
+      myId: player.playerId
+    };
+    socket.emit(YOU_JOINED_ROOM, response);
+    broadcastCompetitorToRoom(player, room, socket);
+  });
 }
 
 function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
   if (socket) {
-    socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);
+    player.completeGameInfo.then((result: PlayerGameInfo) => {
+      socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, result);
+    });
   } else {
     emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, player.serializable);
   }
 }
 
-export function allocateHumanToRoom(socket:io.Socket,player:Player) {
+export function allocateHumanToRoom(socket: io.Socket, player: Player) {
   const room = allocatePlayerToRoom(socket);
   sendPlayerRoomInfo(socket, room, player);
   if (room.isGameActive) {
@@ -53,7 +53,7 @@ export function allocateHumanToRoom(socket:io.Socket,player:Player) {
   }
 }
 
-export function allocateBotToRoom(socket:string,player:Player,room:Room) {
+export function allocateBotToRoom(socket: string, player: Player, room: Room) {
   allocatePlayerToRoom(socket);
   broadcastCompetitorToRoom(player, room, null);
 }

@@ -22,11 +22,7 @@ const playerManager = PlayerManager.getInstance();
 export default function onConnect(socket: io.Socket): void {
   // console.log(`connect- ${socket.client.id}`);
   const userData: FacebookUserType = getSocketAuthentication(socket);
-  const player = new Player(
-    socket,
-    `${userData.firstName} ${userData.lastName}`,
-    userData.id
-  );
+  const player = new Player(socket, userData);
   playerManager.addPlayer(player);
   allocateHumanToRoom(socket, player);
   socket.emit(CONNECT_SERVER_SUCCESS);

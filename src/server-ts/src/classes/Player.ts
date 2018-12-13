@@ -1,7 +1,14 @@
 import * as io from 'socket.io';
 import Game from './Game';
-import { PlayerSerialize, PlayerType } from '../../../types';
-// import Game from "./Game";
+import {
+  FacebookUserType,
+  PlayerSerialize,
+  PlayerType,
+  PlayerAvatar,
+  PlayerGameInfo
+} from '../../../types';
+import { createUserInstance } from '../mongo/UserModel';
+// import Game from "./Game ";
 
 export default class Player {
   static playerCounter: number = 1;
@@ -11,12 +18,23 @@ export default class Player {
   private game: Game = new Game();
   private roomId: number = 0;
   private anonymousAvatar: number = -1;
+  private isAuthenticated: boolean = false;
+  private userDbModel: any;
 
   // private game: Game;
-  constructor(socket: io.Socket, name?, id?) {
+  constructor(socket: io.Socket, userData?: FacebookUserType) {
     this.socket = socket;
-    this.name = name || `${this.serializable.type} ${Player.playerCounter}`;
-    this.id = id || `${this.serializable.type} ${Player.playerCounter}`;
+    this.name =
+      (userData && `${userData.firstName} ${userData.lastName}`) ||
+      `${this.serializable.type} ${Player.playerCounter}`;
+    this.id =
+      (userData && userData.id) ||
+      `${this.serializable.type} ${Player.playerCounter}`;
+    if (userData) {
+      this.isAuthenticated = true;
+      //@ts-ignore
+      this.userDbModel = createUserInstance(userData);
+    }
     Player.playerCounter++;
   }
   createGame() {
@@ -31,11 +49,30 @@ export default class Player {
   public get getName() {
     return this.name;
   }
+  public get completeGameInfo(): Promise<PlayerGameInfo> {
+    return new Promise(resolve => {
+      this.avatar.then(picture => {
+        resolve({
+          ...this.serializable,
+          avatar: picture
+        });
+      });
+    });
+  }
+  public get avatar(): Promise<PlayerAvatar> {
+    return new Promise(resolve => {
+      if (!this.isAuthenticated) {
+        return resolve({ picture: this.anonymousAvatar, isAnonymous: true });
+      }
+      this.userDbModel.getPicture().then(picture => {
+        return resolve({ picture, isAnonymous: false });
+      });
+    });
+  }
   public get serializable(): PlayerSerialize {
     return {
       id: this.name,
-      type: this.playerType,
-      avatar: this.anonymousAvatar
+      type: this.playerType
     };
   }
   public get playerId(): string {
@@ -49,9 +86,6 @@ export default class Player {
   }
   public setRoomId(roomId): void {
     this.roomId = roomId;
-  }
-  get Avatar() {
-    return this.anonymousAvatar;
   }
   setAvatar(avatarIndex: number) {
     this.anonymousAvatar = avatarIndex;

@@ -13,7 +13,7 @@ import {
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
-import { PlayerScore, PlayerType } from '../../../types';
+import { PlayerScore, PlayerType, PlayerGameInfo } from '../../../types';
 import { emitToRoom } from '../utilities';
 const random = require('lodash.random');
 
@@ -92,6 +92,12 @@ export default class Room {
       return player.serializable;
     });
   }
+  get completeInfoPlayersInRoom(): Promise<PlayerGameInfo[]> {
+    const completeInfoPromises = this.players.map((player: Player) => {
+      return player.completeGameInfo;
+    });
+    return Promise.all(completeInfoPromises);
+  }
   get isRoomFull(): boolean {
     return this.players.length === this.maxPlayersInRoom;
   }
@@ -145,7 +151,7 @@ export default class Room {
      *  it means someone is still typing. in this case we shouldn't stop the game tick yet.
      */
 
-    return this.finalScores.some((score: void| PlayerScore) => {
+    return this.finalScores.some((score: void | PlayerScore) => {
       return score == null;
     });
   }

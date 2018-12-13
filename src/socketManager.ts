@@ -4,7 +4,8 @@ import {
   PlayerSerialize,
   PlayerType,
   PlayerJoiningAction,
-  ScoreBroadcastAction
+  ScoreBroadcastAction,
+  PlayerGameInfo
 } from './types';
 import {
   YOU_JOINED_ROOM,
@@ -66,7 +67,7 @@ const socketManager: any = {
         }
       });
     });
-    this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerSerialize) => {
+    this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerGameInfo) => {
       const type =
         playerObject.type === PlayerType.human
           ? COMPETITOR_JOINED_ROOM
