@@ -5,7 +5,8 @@ import {
   PlayerType,
   PlayerJoiningAction,
   ScoreBroadcastAction,
-  PlayerGameInfo
+  PlayerGameInfo,
+  Enviroments
 } from './types';
 import {
   YOU_JOINED_ROOM,
@@ -20,7 +21,6 @@ import {
   COMPETITOR_DELETION,
   GAME_HAS_FINISHED,
   COMPETITOR_HAS_FINISHED,
-  SERVER_URL,
   RESTART_GAME
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
@@ -32,7 +32,7 @@ const socketManager: any = {
   initSocket(dispatch: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
     this.socket = socketIo.connect(
-      SERVER_URL,
+      getServerUrl(),
       {
         query: { token: AuthenticationManager.appToken }
       }
@@ -138,3 +138,13 @@ function handleCompetitorleave(data: any) {
 }
 
 export default socketManager;
+
+function getServerUrl() {
+  if (process.env.REACT_APP_ENV === Enviroments.DEV) {
+    return 'http://localhost:4001';
+  }
+  if (process.env.REACT_APP_ENV === Enviroments.DEV) {
+    return 'https://typing-game-dev.herokuapp.com/';
+  }
+  return  '';
+}

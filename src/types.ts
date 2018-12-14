@@ -40,6 +40,10 @@ export enum PlayerType {
   bot = 'BOT',
   human = 'HUMAN'
 }
+export enum Enviroments {
+  LOCAL = 'LOCAL',
+  DEV = 'DEV'
+}
 export enum LoginStatus {
   loggedIn = 'connected',
   loggedOut = 'logged-out',

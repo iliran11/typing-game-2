@@ -1,8 +1,4 @@
-import {
-  AUTH_HEADER_NAME,
-  AUTH_FACEBOOK_HEADER,
-  SECRET
-} from '../../constants';
+import { AUTH_HEADER_NAME, AUTH_FACEBOOK_HEADER } from '../../constants';
 const request = require('request');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
@@ -17,6 +13,11 @@ import ServerManager from './classes/ServerManager';
 import { getBase64FacebookPic } from './utilities';
 
 // var packageJs = require('../package.json');
+const SECRET = process.env.SERVER_AUTH_SECRET;
+const result = require('dotenv').config();
+if (result.error) {
+  console.log(result.error);
+}
 initMongo();
 var app = require('express')();
 var server = require('http').Server(app);

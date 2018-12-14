@@ -1,7 +1,7 @@
 function initMongo() {
   const mongoose = require('mongoose');
-  const dbPassword = 'bEKqgqW38Ts5Naek';
-  const dbUser = 'admin';
+  const dbPassword = process.env.SERVER_DB_PASSWORD;
+  const dbUser = process.env.SERVER_DB_USER;
   // mongo ds131784.mlab.com:31784/typing-game -u admin -p bEKqgqW38Ts5Naek
   let dev_db_url = `mongodb://${dbUser}:${dbPassword}@ds131784.mlab.com:31784/typing-game`;
   let db = mongoose.connection;

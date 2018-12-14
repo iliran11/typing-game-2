@@ -27,14 +27,11 @@ export const LOGGING_IN_ACTION = 'logging-in-action';
 export const FACEBOOK_LOGGED_IN = 'facebook-logged-in';
 export const AUTH_HEADER_NAME = 'app-token';
 export const AUTH_FACEBOOK_HEADER = 'facebookToken';
-export const SECRET = 'app-secret';
 
 /**
  * CONFIG
  */
 export const MAX_PLAYERS_PER_ROOM = 4;
-// export const SERVER_URL = 'https://typing-game-dev.herokuapp.com/'
-export const SERVER_URL = 'http://localhost:4001';
 export const GAME_WORDS: string =
   'I went to the park and saw a tree it was a big tree and it was very green';
 // export const GAME_WORDS: string = "I went to the park and saw a tree";
