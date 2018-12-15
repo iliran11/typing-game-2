@@ -11,11 +11,15 @@ export default class AppToolBar extends React.Component<any, any> {
     this.state = {
       isDebugOpen: false
     };
+    this.navigateToProfile = this.navigateToProfile.bind(this);
   }
   handleDebug() {
     this.setState({
       isDebugOpen: true
     });
+  }
+  navigateToProfile() {
+    this.props.history.push('/my-profile');
   }
   render() {
     console.log(this.props.picture);
@@ -28,7 +32,9 @@ export default class AppToolBar extends React.Component<any, any> {
               <Typography variant="h6" color="inherit">
                 Typing Coacher
               </Typography>
-              {this.props.picture && <img src={this.props.picture} />}
+              {this.props.picture && (
+                <img src={this.props.picture} onClick={this.navigateToProfile} />
+              )}
             </div>
           </Toolbar>
         </AppBar>
