@@ -15,7 +15,8 @@ import {
   FACEBOOK_LOGGED_IN,
   AUTH_FACEBOOK_HEADER,
   AUTH_HEADER_NAME,
-  LOGGING_IN_ACTION
+  LOGGING_IN_ACTION,
+  SERVER_HANDSHAKE_RECIEVED
 } from './constants';
 
 const appId = '653846344985974';
@@ -126,6 +127,14 @@ class AuthenticationManager {
             this.dispatch({
               type: LOGGED_IN
             });
+            if (data.handshakeData) {
+              this.dispatch({
+                type: SERVER_HANDSHAKE_RECIEVED,
+                payload: {
+                  handshakeData: data.handshakeData
+                }
+              });
+            }
             resolve(data);
           }
         })

@@ -96,6 +96,7 @@ export interface RootState {
   readonly gameData: GameDataReducer;
   readonly serverStatus: ServerStatusReducer;
   readonly authentication: AuthReducer;
+  readonly myData: MyDataReducer;
 }
 export interface PlayerJoiningAction {
   type: string;
@@ -115,12 +116,18 @@ export interface AuthReducer {
   facebookLoggedIn: boolean;
   facebookToken: string | null;
 }
+export interface MyDataReducer {
+  picture: string;
+  firstName: string;
+  lastName: string;
+}
 export interface SdkLoadedSuccessAction {
   type: string;
 }
 
 export interface LoginVerificationStatus {
   loginStatus: boolean;
+  handshakeData: HandShakeData;
 }
 
 export interface LoginTokenObject {
@@ -144,4 +151,10 @@ export interface UserModelInterface extends FacebookUserType {
 export interface PlayerAvatar {
   isAnonymous: boolean;
   picture: number | string;
+}
+
+export interface HandShakeData {
+  picture: string;
+  firstName: string;
+  lastName: string;
 }

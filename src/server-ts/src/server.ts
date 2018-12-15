@@ -6,22 +6,23 @@ import initMongo from './mongo/initMongo';
 import {
   LoginTokenObject,
   FacebookUserType,
-  UserModelInterface
+  HandShakeData,
+  LoginVerificationStatus
 } from '../../types';
 import { createUserInstance, User } from './mongo/UserModel';
 import ServerManager from './classes/ServerManager';
 import { getBase64FacebookPic } from './utilities';
 
 // var packageJs = require('../package.json');
-const SECRET = process.env.SERVER_AUTH_SECRET;
 const result = require('dotenv').config();
 if (result.error) {
   console.log(result.error);
 }
+const SECRET = process.env.SERVER_AUTH_SECRET;
 initMongo();
 var app = require('express')();
 var server = require('http').Server(app);
-const port = process.env.PORT || 4001;
+const port = 4001;
 server.listen(port);
 // WARNING: app.listen(80) will NOT work here!
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -114,8 +115,17 @@ app.get('/verify-login', function(req, res) {
       });
     }
     if (decoded) {
-      res.status(200).send({
-        loginStatus: true
+      User.getPictureById(decoded.id).then(picture => {
+        const handshakeData: HandShakeData = {
+          picture,
+          firstName: decoded.firstName,
+          lastName: decoded.lastName
+        };
+        const response: LoginVerificationStatus = {
+          loginStatus: true,
+          handshakeData
+        };
+        res.status(200).send(response);
       });
     }
   });

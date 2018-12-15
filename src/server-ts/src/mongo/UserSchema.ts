@@ -1,12 +1,34 @@
 const mongoose = require('mongoose');
 import { User } from './UserModel';
+import { throws } from 'assert';
+import { resolve } from 'url';
 const UserScheme = mongoose.Schema({
   firstName: String,
   lastName: String,
   id: String,
   picture: String
 });
-
+UserScheme.statics.findById = function(id: String) {
+  return new Promise(resolve => {
+    this.findOne({ id }, function(error, user) {
+      resolve(user);
+    });
+  });
+};
+UserScheme.statics.getPictureById = function(id: string) {
+  return new Promise((resolve, reject) => {
+    this.findOne({ id })
+      .then(user => {
+        return user.getPicture();
+      })
+      .then(picture => {
+        resolve(picture);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 UserScheme.methods.isAlreadyExist = function() {
   return new Promise(resolve => {
     const queryId = this.id;
