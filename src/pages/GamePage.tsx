@@ -25,7 +25,7 @@ class GamePage extends PureComponent<Props, State> {
 
   constructor(props: any) {
     super(props);
-    const isSocketConnected = socketManager.isSocketConnected()
+    const isSocketConnected = socketManager.isSocketConnected();
     if (!isSocketConnected) {
       socketManager.initSocket(props.dispatch);
     }
@@ -90,12 +90,12 @@ class GamePage extends PureComponent<Props, State> {
           isOpen={this.state.isOpen}
           input={this.state.tooltipInput}
         />
-        <ScoreBoardContainer history={this.props.history} />
         <GameManagerContainer
           gameActive={this.state.gameActive}
           changeToolTipPosition={this.changeToolTipPosition}
           closeTooltip={this.closeTooltip}
         />
+        <ScoreBoardContainer history={this.props.history} />
       </div>
     );
   }

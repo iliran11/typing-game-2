@@ -7,7 +7,7 @@ import GamePage from './pages/GamePage';
 import ResultPage from './pages/ResultPage/ResultPageContainer';
 import Home from './pages/HomePage/HomePageContainer';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import AppToolbar from './components/AppToolBar/AppToolBar';
+import AppToolbar from './components/AppToolBar/AppToolBarContainer';
 
 class App extends React.Component {
   render() {

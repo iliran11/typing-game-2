@@ -4,11 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import DebugDialog from './DebugDialog/DebugDialog';
 
-// export interface Props {}
-
-// export interface State {}
-
-export default class AppToolBar extends React.Component<{}, {}> {
+export default class AppToolBar extends React.Component<any, any> {
   constructor(props: {}) {
     super(props);
 
@@ -22,14 +18,18 @@ export default class AppToolBar extends React.Component<{}, {}> {
     });
   }
   render() {
+    console.log(this.props.picture);
     return (
       <div id="app-toolbar">
         <AppBar position="static" color="default">
           <Toolbar>
             <DebugDialog />
-            <Typography variant="h6" color="inherit">
-              Typing Coacher
-            </Typography>
+            <div id="toolbar-layout">
+              <Typography variant="h6" color="inherit">
+                Typing Coacher
+              </Typography>
+              {this.props.picture && <img src={this.props.picture} />}
+            </div>
           </Toolbar>
         </AppBar>
       </div>
