@@ -1,5 +1,4 @@
 import Letter from './store/classes/lettterData';
-
 export interface JoiningRoomResponse {
   roomId: number;
   players: PlayerSerialize[];
@@ -146,6 +145,10 @@ export interface FacebookUserType {
 
 export interface UserModelInterface extends FacebookUserType {
   picture: string;
+}
+export interface GameModelInterface {
+  letters: string[];
+  players: PlayerSerialize[];
 }
 
 export interface PlayerAvatar {

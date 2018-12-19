@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 import { User } from './UserModel';
-import { throws } from 'assert';
-import { resolve } from 'url';
 const UserScheme = mongoose.Schema({
   firstName: String,
   lastName: String,

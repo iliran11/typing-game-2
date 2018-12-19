@@ -13,8 +13,14 @@ import {
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
-import { PlayerScore, PlayerType, PlayerGameInfo } from '../../../types';
+import {
+  PlayerScore,
+  PlayerType,
+  PlayerGameInfo,
+  GameModelInterface
+} from '../../../types';
 import { emitToRoom } from '../utilities';
+import { createGameRecord } from '../mongo/GameModel';
 const random = require('lodash.random');
 
 export default class Room {
@@ -176,6 +182,12 @@ export default class Room {
       // @ts-ignore
       player.onGameStart();
     });
+    createGameRecord({
+      letters: this.players[0].playerGame.getRawLetters,
+      players: this.playersInRoom
+    }).save().then(result=>{
+      console.log(result);
+    }).catch(err=>{console.log('game save error',err)});
     console.log(`${this.roomName}-Game started.`);
   }
   private get timePassedMinutes(): number {
