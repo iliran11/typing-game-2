@@ -7,7 +7,7 @@ import {
   PlayerAvatar,
   PlayerGameInfo
 } from '../../../types';
-import { createUserInstance } from '../mongo/UserModel';
+import { createUserInstance } from '../mongo/User/UserModel';
 // import Game from "./Game ";
 
 export default class Player {

@@ -9,7 +9,7 @@ import {
   HandShakeData,
   LoginVerificationStatus
 } from '../../types';
-import { createUserInstance, User } from './mongo/UserModel';
+import { createUserInstance, User } from './mongo/User/UserModel';
 import ServerManager from './classes/ServerManager';
 import { getBase64FacebookPic } from './utilities';
 
