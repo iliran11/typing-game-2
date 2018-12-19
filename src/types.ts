@@ -149,6 +149,7 @@ export interface UserModelInterface extends FacebookUserType {
 export interface GameModelInterface {
   letters: string[];
   players: PlayerSerialize[];
+  _id: string;
 }
 
 export interface PlayerAvatar {

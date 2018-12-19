@@ -20,8 +20,10 @@ import {
   GameModelInterface
 } from '../../../types';
 import { emitToRoom } from '../utilities';
-import { createGameRecord } from '../mongo/Game/GameModel';
+import { createGameDocument } from '../mongo/Game/GameModel';
+import { createGameRecords } from '../mongo/GameRecord/GameRecordModel';
 const random = require('lodash.random');
+const uuid = require('uuid/v4');
 
 export default class Room {
   private static globalRoomCounter: number = 1;
@@ -35,6 +37,7 @@ export default class Room {
   private timeIncrement: number = 1000;
   private finalScores: (void | PlayerScore)[];
   private roomStartTimestamp: number = 0;
+  private instanceId: string;
   // store the already given avatar indexes so we can give anonymous player a unique avatar.
   private avatarIndexes: number = 0;
   isClosed: boolean;
@@ -54,6 +57,7 @@ export default class Room {
     // game timer start with negative value. becuase of countdown the clients gets when the game starts.
     this.timePassed = GAME_START_DELAY * 1000 * -1;
     this.addBot = this.addBot.bind(this);
+    this.instanceId = `Room-${uuid()}`;
     if (MAX_PLAYERS_PER_ROOM > 1) {
       this.startCountdownBot();
     }
@@ -163,11 +167,12 @@ export default class Room {
   }
   private gameTick(): void {
     this.timePassed += this.timeIncrement;
-    this.server.in(this.roomName).emit(SCORE_BROADCAST, this.scoresStats);
+    const gameRecords = this.scoresStats;
+    this.server.in(this.roomName).emit(SCORE_BROADCAST, gameRecords);
     if (this.isAnyoneStillPlaying === false) {
       this.stopGame();
     }
-    // console.log(`${this.roomName}-tick!`);
+    createGameRecords(gameRecords, this.instanceId).save();
   }
   startGame(): void {
     const intervalTime: number = 1000;
@@ -182,12 +187,18 @@ export default class Room {
       // @ts-ignore
       player.onGameStart();
     });
-    createGameRecord({
+    createGameDocument({
       letters: this.players[0].playerGame.getRawLetters,
-      players: this.playersInRoom
-    }).save().then(result=>{
-      console.log(result);
-    }).catch(err=>{console.log('game save error',err)});
+      players: this.playersInRoom,
+      _id: this.instanceId
+    })
+      .save()
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log('game save error', err);
+      });
     console.log(`${this.roomName}-Game started.`);
   }
   private get timePassedMinutes(): number {
