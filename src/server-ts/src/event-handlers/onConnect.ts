@@ -5,8 +5,8 @@ import Player from '../classes/Player';
 import onDisconnect from './onDisconnect';
 import { allocateHumanToRoom } from './allocatePlayerToRoom';
 import playerTyping from './playerTyping';
-import onGameFinished from '../event-handlers/onGameFinished';
-import onGameRestart from '../event-handlers/onGameRestart';
+import onGameFinished from './onGameFinished';
+import onGameRestart from './onGameRestart';
 import {
   PLAYER_TYPING,
   CONNECT_SERVER_SUCCESS,

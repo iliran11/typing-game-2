@@ -20,7 +20,7 @@ import {
   GameModelInterface
 } from '../../../types';
 import { emitToRoom } from '../utilities';
-import { createGameRecord } from '../mongo/GameModel';
+import { createGameRecord } from '../mongo/Game/GameModel';
 const random = require('lodash.random');
 
 export default class Room {

@@ -1,6 +1,6 @@
 import PlayerManager from '../classes/PlayerManager'
 import RoomManager from '../classes/RoomManager'
-import {allocateHumanToRoom} from '../event-handlers/allocatePlayerToRoom'
+import {allocateHumanToRoom} from './allocatePlayerToRoom'
 import * as io from "socket.io";
 
 
