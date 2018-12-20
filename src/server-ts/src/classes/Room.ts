@@ -235,21 +235,26 @@ export default class Room {
       this.restartCountdownBot();
     }
   }
-  private stopGame(finalResult: PlayerScore[]) {
+  private stopGame(finalResult?: PlayerScore[]) {
     clearTimeout(this.botRecruitTimer);
     clearTimeout(this.timerId);
     this.isClosed = true;
     console.log(`${this.roomName} has finished!`);
-    const finalResultDocument = createGameRecords(finalResult, this.instanceId);
-    Game.findByIdAndUpdate(this.instanceId, {
-      finalResult: finalResultDocument
-    })
-      .then(result => {
-        console.log('ok!');
-      })
-      .catch(err => {
-        console.log(err);
+    if (finalResult) {
+      const finalResultDocument = createGameRecords(
+        finalResult,
+        this.instanceId
+      );
+      Game.findByIdAndUpdate(this.instanceId, {
+        finalResult: finalResultDocument
+          .then(result => {
+            console.log('ok!');
+          })
+          .catch(err => {
+            console.log(err);
+          })
       });
+    }
   }
   private get randomAvatarIndex(): number {
     return random(0, 11);
