@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 import initMongo from './mongo/initMongo';
 import loginController from './ExpressControllers/loginController';
 import verifyLoginController from './ExpressControllers/verifyLoginController';
+import gamesHistoryController from './ExpressControllers/gamesHistoryController'
 import {
   LoginTokenObject,
   FacebookUserType,
@@ -32,3 +33,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post('/login', loginController);
 app.get('/verify-login', verifyLoginController);
+app.get('/games-history',gamesHistoryController)
+
