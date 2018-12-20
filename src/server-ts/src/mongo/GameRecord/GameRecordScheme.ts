@@ -8,8 +8,9 @@ export const GameRecordSchema = mongoose.Schema({
   accuracy: Number
 });
 
-export const GameRecordsSchema =  mongoose.Schema({
-  results: [GameRecordSchema]
-})
+export const GameRecordsSchema = mongoose.Schema({
+  results: [GameRecordSchema],
+  gameInstanceId: String
+});
 
 export default GameRecordsSchema;

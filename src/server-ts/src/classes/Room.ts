@@ -21,7 +21,11 @@ import {
 } from '../../../types';
 import { emitToRoom } from '../utilities';
 import { createGameDocument } from '../mongo/Game/GameModel';
-import { createGameRecords } from '../mongo/GameRecord/GameRecordModel';
+import {
+  createGameRecords,
+  createGameRecord
+} from '../mongo/GameRecord/GameRecordModel';
+import { Game } from '../mongo/Game/GameModel';
 const random = require('lodash.random');
 const uuid = require('uuid/v4');
 
@@ -170,7 +174,7 @@ export default class Room {
     const gameRecords = this.scoresStats;
     this.server.in(this.roomName).emit(SCORE_BROADCAST, gameRecords);
     if (this.isAnyoneStillPlaying === false) {
-      this.stopGame();
+      this.stopGame(gameRecords);
     }
     createGameRecords(gameRecords, this.instanceId).save();
   }
@@ -231,11 +235,21 @@ export default class Room {
       this.restartCountdownBot();
     }
   }
-  private stopGame() {
+  private stopGame(finalResult: PlayerScore[]) {
     clearTimeout(this.botRecruitTimer);
     clearTimeout(this.timerId);
     this.isClosed = true;
     console.log(`${this.roomName} has finished!`);
+    const finalResultDocument = createGameRecords(finalResult, this.instanceId);
+    Game.findByIdAndUpdate(this.instanceId, {
+      finalResult: finalResultDocument
+    })
+      .then(result => {
+        console.log('ok!');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
   private get randomAvatarIndex(): number {
     return random(0, 11);
