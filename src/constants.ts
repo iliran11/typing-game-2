@@ -29,6 +29,10 @@ export const AUTH_HEADER_NAME = 'app-token';
 export const AUTH_FACEBOOK_HEADER = 'facebookToken';
 export const SERVER_HANDSHAKE_RECIEVED = 'server-handshake-recieved'
 
+// ------ SERVER GET-POST PARAMS ------- //
+
+export const USER_ID_PARAM = 'user-id-parm'
+
 /**
  * CONFIG
  */

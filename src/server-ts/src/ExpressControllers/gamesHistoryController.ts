@@ -1,10 +1,18 @@
 import { Game } from '../mongo/Game/GameModel';
+import { USER_ID_PARAM } from '../../../constants';
 
 export default function GamesHistoryController(req, res) {
-  Game.find({}).then(gamesModels => {
-    const response = gamesModels.map(game => {
-      return game.toObject();
+  const searchParamaer = req.body[USER_ID_PARAM];
+  if (!searchParamaer) {
+    res.send(400);
+    return;
+  }
+  Game.getGamesByUserId(searchParamaer)
+    .then(result => {
+      res.send(result);
+    })
+    .catch(error => {
+      console.log(error);
+      res.send(500);
     });
-    res.send(response);
-  });
 }
