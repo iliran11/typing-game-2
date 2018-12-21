@@ -13,20 +13,20 @@ UserScheme.statics.findById = function(id: String) {
     });
   });
 };
-UserScheme.statics.getPictureById = function(id: string) {
-  return new Promise((resolve, reject) => {
-    this.findOne({ id })
-      .then(user => {
-        return user.getPicture();
-      })
-      .then(picture => {
-        resolve(picture);
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
-};
+// UserScheme.statics.getPictureById = function(id: string) {
+//   return new Promise((resolve, reject) => {
+//     this.findOne({ id })
+//       .then(user => {
+//         return user.getPicture();
+//       })
+//       .then(picture => {
+//         resolve(picture);
+//       })
+//       .catch(err => {
+//         reject(err);
+//       });
+//   });
+// };
 UserScheme.methods.isAlreadyExist = function() {
   return new Promise(resolve => {
     const queryId = this.id;

@@ -3,10 +3,11 @@ import { loadFbSdk, getFbLoginStatus, fbLogin } from './utilities';
 import {
   SdkLoadedSuccessAction,
   LoginVerificationStatus,
-  LoginTokenObject,
+  HandShakeData,
   FacebookStatusAction,
   RootState,
-  FbLoginStatus
+  FbLoginStatus,
+  LoginResponse
 } from './types';
 import {
   SDK_LOAD_SUCESS,
@@ -59,11 +60,16 @@ class AuthenticationManager {
             [AUTH_FACEBOOK_HEADER]: this.state.authentication.facebookToken
           })
           .then((result: any) => {
-            const data: LoginTokenObject = result.data;
-            localStorage.setItem(AUTH_HEADER_NAME, data.token);
+            const loginResponse: LoginResponse = result.data;
+            localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
             this.setAxiosAuth();
             this.dispatch({
               type: LOGGED_IN
+            });
+            const handshakeData: HandShakeData = loginResponse.data;
+            this.dispatch({
+              type: SERVER_HANDSHAKE_RECIEVED,
+              payload: handshakeData
             });
           })
           .catch(() => {
@@ -128,11 +134,10 @@ class AuthenticationManager {
               type: LOGGED_IN
             });
             if (data.handshakeData) {
+              const handshakeData: HandShakeData = data.handshakeData;
               this.dispatch({
                 type: SERVER_HANDSHAKE_RECIEVED,
-                payload: {
-                  handshakeData: data.handshakeData
-                }
+                payload: handshakeData
               });
             }
             resolve(data);

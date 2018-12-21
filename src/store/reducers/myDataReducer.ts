@@ -4,7 +4,7 @@ import { MyDataReducer, HandShakeData } from '../../types';
 const initialState: MyDataReducer = {
   firstName: '',
   lastName: '',
-  picture: ''
+  facebookId: ''
 };
 
 export default function myDataReducer(
@@ -13,8 +13,9 @@ export default function myDataReducer(
 ) {
   switch (action.type) {
     case SERVER_HANDSHAKE_RECIEVED:
-      return handshakeDataRecieved(state, action.payload.handshakeData);
+      return handshakeDataRecieved(state, action.payload);
     default:
+      //TODO: Add LOGGED OUT CASE HERE.
       return state;
   }
 }

@@ -116,7 +116,7 @@ export interface AuthReducer {
   facebookToken: string | null;
 }
 export interface MyDataReducer {
-  picture: string;
+  facebookId: string;
   firstName: string;
   lastName: string;
 }
@@ -124,13 +124,14 @@ export interface SdkLoadedSuccessAction {
   type: string;
 }
 
+// TODO: change to: CheckStatusResponse;
 export interface LoginVerificationStatus {
   loginStatus: boolean;
   handshakeData: HandShakeData;
 }
-
-export interface LoginTokenObject {
+export interface LoginResponse {
   token: string;
+  data: HandShakeData;
 }
 
 export interface FacebookStatusAction {
@@ -141,10 +142,6 @@ export interface FacebookUserType {
   id: string;
   firstName: string;
   lastName: string;
-}
-
-export interface UserModelInterface extends FacebookUserType {
-  picture: string;
 }
 export interface GameModelInterface {
   letters: string[];
@@ -158,7 +155,7 @@ export interface PlayerAvatar {
 }
 
 export interface HandShakeData {
-  picture: string;
+  facebookId: string;
   firstName: string;
   lastName: string;
 }

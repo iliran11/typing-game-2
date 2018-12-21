@@ -45,3 +45,7 @@ export function fbLogin(options) {
     window.FB.login(response => resolve(response), options);
   });
 }
+
+export function pictureByFacebookId(facebookId: string) {
+  return `https://res.cloudinary.com/demo/image/facebook/${facebookId}.jpg`;
+}
