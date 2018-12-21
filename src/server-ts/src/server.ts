@@ -33,3 +33,6 @@ app.use(bodyParser.json());
 app.post('/login', loginController);
 app.get('/verify-login', verifyLoginController);
 app.get('/games-history', gamesHistoryController);
+
+const serverManager = ServerManager.getInstance(server);
+console.log('server started.');
