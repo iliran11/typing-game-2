@@ -7,7 +7,7 @@ function initMongo() {
   let db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:'));
   db.once('open', function() {
-    console.log('hello database');
+    // console.log('hello database');
   });
   mongoose.connect(dev_db_url);
   mongoose.Promise = global.Promise;

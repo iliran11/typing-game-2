@@ -1,5 +1,6 @@
 import React from 'react';
 import { PlayerType, PlayerAvatar } from '../../types';
+import { pictureByFacebookId } from '../../utilities';
 import avatar1 from '../../assets/145851-young-avatar-collection/svg/avatar1.svg';
 import avatar2 from '../../assets/145851-young-avatar-collection/svg/avatar2.svg';
 import avatar3 from '../../assets/145851-young-avatar-collection/svg/avatar3.svg';
@@ -32,9 +33,9 @@ export default function Avatar(props: Props) {
       ...style,
       borderRadius: '50%'
     };
-    return (
-      <img style={authenticatedAvatar} src={`${props.playerAvatar.picture}`} />
-    );
+    //@ts-ignore
+    const imageUrl = pictureByFacebookId(props.playerAvatar.picture);
+    return <img style={authenticatedAvatar} src={imageUrl} />;
   }
 }
 

@@ -7,7 +7,7 @@ import * as constants from '../../../constants';
 import { emitToRoom } from '../utilities';
 const playerManager = PlayerManager.getInstance();
 const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } = constants;
-import { JoiningRoomResponse, PlayerGameInfo } from '../../../types';
+import { JoiningRoomResponse } from '../../../types';
 import { Socket } from 'dgram';
 
 function allocatePlayerToRoom(socket: io.Socket) {
@@ -21,25 +21,21 @@ function allocatePlayerToRoom(socket: io.Socket) {
 
 function sendPlayerRoomInfo(socket: io.Socket, room: Room, player: Player) {
   socket.join(room.roomName);
-  room.completeInfoPlayersInRoom.then(players => {
-    const response: JoiningRoomResponse = {
-      roomId: room.roomId,
-      players,
-      letters: player.playerGame.getRawLetters,
-      roomSize: room.maxPlayersInRoom,
-      isGameActive: room.isGameActive,
-      myId: player.playerId
-    };
-    socket.emit(YOU_JOINED_ROOM, response);
-    broadcastCompetitorToRoom(player, room, socket);
-  });
+  const response: JoiningRoomResponse = {
+    roomId: room.roomId,
+    players: room.playersInRoom,
+    letters: player.playerGame.getRawLetters,
+    roomSize: room.maxPlayersInRoom,
+    isGameActive: room.isGameActive,
+    myId: player.playerId
+  };
+  socket.emit(YOU_JOINED_ROOM, response);
+  broadcastCompetitorToRoom(player, room, socket);
 }
 
 function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
   if (socket) {
-    player.completeGameInfo.then((result: PlayerGameInfo) => {
-      socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, result);
-    });
+    socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);
   } else {
     emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, player.serializable);
   }

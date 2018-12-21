@@ -5,7 +5,6 @@ import {
   PlayerSerialize,
   PlayerType,
   PlayerAvatar,
-  PlayerGameInfo
 } from '../../../types';
 import { createUserInstance } from '../mongo/User/UserModel';
 // import Game from "./Game ";
@@ -49,31 +48,18 @@ export default class Player {
   public get getName() {
     return this.name;
   }
-  public get completeGameInfo(): Promise<PlayerGameInfo> {
-    return new Promise(resolve => {
-      this.avatar.then(picture => {
-        resolve({
-          ...this.serializable,
-          avatar: picture
-        });
-      });
-    });
-  }
-  public get avatar(): Promise<PlayerAvatar> {
-    return new Promise(resolve => {
-      if (!this.isAuthenticated) {
-        return resolve({ picture: this.anonymousAvatar, isAnonymous: true });
-      }
-      this.userDbModel.getPicture().then(picture => {
-        return resolve({ picture, isAnonymous: false });
-      });
-    });
+  public get avatar(): PlayerAvatar {
+    if (!this.isAuthenticated) {
+      return { picture: this.anonymousAvatar, isAnonymous: true };
+    }
+    return { picture: this.id, isAnonymous: false };
   }
   public get serializable(): PlayerSerialize {
     return {
       id: this.id,
       type: this.playerType,
-      name: this.name
+      name: this.name,
+      avatar: this.avatar
     };
   }
   public get playerId(): string {

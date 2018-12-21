@@ -5,7 +5,6 @@ import {
   PlayerType,
   PlayerJoiningAction,
   ScoreBroadcastAction,
-  PlayerGameInfo,
   Enviroments
 } from './types';
 import {
@@ -67,7 +66,7 @@ const socketManager: any = {
         }
       });
     });
-    this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerGameInfo) => {
+    this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerSerialize) => {
       const type =
         playerObject.type === PlayerType.human
           ? COMPETITOR_JOINED_ROOM

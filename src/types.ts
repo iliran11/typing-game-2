@@ -11,9 +11,6 @@ export interface PlayerSerialize {
   id: string;
   type: PlayerType;
   name: string;
-}
-
-export interface PlayerGameInfo extends PlayerSerialize {
   avatar: PlayerAvatar;
 }
 export interface PlayerClient {
@@ -99,7 +96,7 @@ export interface RootState {
 }
 export interface PlayerJoiningAction {
   type: string;
-  payload: PlayerGameInfo;
+  payload: PlayerSerialize;
 }
 
 export interface ScoreBroadcastAction {

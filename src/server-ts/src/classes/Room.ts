@@ -13,12 +13,7 @@ import {
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
-import {
-  PlayerScore,
-  PlayerType,
-  PlayerGameInfo,
-  GameModelInterface
-} from '../../../types';
+import { PlayerScore, PlayerType, GameModelInterface } from '../../../types';
 import { emitToRoom } from '../utilities';
 import { createGameDocument } from '../mongo/Game/GameModel';
 import {
@@ -105,12 +100,6 @@ export default class Room {
     return this.players.map((player: Player) => {
       return player.serializable;
     });
-  }
-  get completeInfoPlayersInRoom(): Promise<PlayerGameInfo[]> {
-    const completeInfoPromises = this.players.map((player: Player) => {
-      return player.completeGameInfo;
-    });
-    return Promise.all(completeInfoPromises);
   }
   get isRoomFull(): boolean {
     return this.players.length === this.maxPlayersInRoom;
@@ -247,13 +236,13 @@ export default class Room {
       );
       Game.findByIdAndUpdate(this.instanceId, {
         finalResult: finalResultDocument
-          .then(result => {
-            console.log('ok!');
-          })
-          .catch(err => {
-            console.log(err);
-          })
-      });
+      })
+        .then(result => {
+          console.log('ok!');
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
   private get randomAvatarIndex(): number {
