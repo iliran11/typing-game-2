@@ -47,5 +47,5 @@ export function fbLogin(options) {
 }
 
 export function pictureByFacebookId(facebookId: string) {
-  return `https://res.cloudinary.com/demo/image/facebook/${facebookId}.jpg`;
+  return `https://res.cloudinary.com/dujbozubz/image/facebook/${facebookId}.jpg`;
 }

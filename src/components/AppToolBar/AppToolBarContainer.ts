@@ -7,7 +7,7 @@ const mapStateToProps = (state: RootState) => {
   return {
     firstName: state.myData.firstName,
     lastName: state.myData.lastName,
-    picture: pictureByFacebookId('50')
+    picture: pictureByFacebookId(state.myData.facebookId)
   };
 };
 

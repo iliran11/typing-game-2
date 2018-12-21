@@ -22,7 +22,6 @@ export default class AppToolBar extends React.Component<any, any> {
     this.props.history.push('/my-profile');
   }
   render() {
-    console.log(this.props.picture);
     return (
       <div id="app-toolbar">
         <AppBar position="static" color="default">

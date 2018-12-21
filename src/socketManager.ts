@@ -31,8 +31,9 @@ const socketManager: any = {
   },
   initSocket(dispatch: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
+    const url = getServerUrl();
     this.socket = socketIo.connect(
-      getServerUrl(),
+      url,
       {
         query: { token: AuthenticationManager.appToken }
       }
@@ -140,11 +141,11 @@ function handleCompetitorleave(data: any) {
 export default socketManager;
 
 function getServerUrl() {
-  if (process.env.REACT_APP_ENV === Enviroments.DEV) {
+  if (process.env.REACT_APP_ENV === Enviroments.LOCAL) {
     return 'http://localhost:4001';
   }
   if (process.env.REACT_APP_ENV === Enviroments.DEV) {
     return 'https://typing-game-dev.herokuapp.com/';
   }
-  return  '';
+  return '';
 }
