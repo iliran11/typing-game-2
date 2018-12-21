@@ -1,5 +1,6 @@
 import { Game } from '../mongo/Game/GameModel';
 import { USER_ID_PARAM } from '../../../constants';
+import { GameModelInterface } from '../../../types';
 
 export default function GamesHistoryController(req, res) {
   const searchParamaer = req.body[USER_ID_PARAM];
@@ -8,7 +9,7 @@ export default function GamesHistoryController(req, res) {
     return;
   }
   Game.getGamesByUserId(searchParamaer)
-    .then(result => {
+    .then((result: GameModelInterface[]) => {
       res.send(result);
     })
     .catch(error => {

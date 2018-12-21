@@ -156,3 +156,8 @@ export interface HandShakeData {
   firstName: string;
   lastName: string;
 }
+
+export interface IGamesHistoryReducer {
+  gameHistories: GameModelInterface[];
+  isFetched: boolean;
+}
