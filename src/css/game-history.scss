@@ -13,8 +13,13 @@
   -webkit-line-clamp: 2;
   padding: 0px 6px;
   display: flex;
-  align-items:center;
+  align-items: center;
   &:last-child {
     border-right: none;
   }
+}
+.history-item-avatar {
+  height: 30px;
+  width: 30px;
+  flex:none;
 }

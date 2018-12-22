@@ -18,6 +18,7 @@ export const BOT_SPAWN_RATE = 5000;
 export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot';
 export const RANDOM_AVATAR_MAX_INDEX = 10;
 
+
 // ------ AUTH ------- //
 
 export const SDK_LOAD_SUCESS = 'sdk-load-success';
@@ -37,6 +38,7 @@ export const LOAD_GAME_HISTORY_DATA = 'load-game-history-data';
 /**
  * CONFIG
  */
+export const MAX_WPM_GAUGE = 80;
 export const MAX_PLAYERS_PER_ROOM = 4;
 export const GAME_WORDS: string =
   'I went to the park and saw a tree it was a big tree and it was very green';

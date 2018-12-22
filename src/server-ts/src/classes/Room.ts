@@ -229,6 +229,7 @@ export default class Room {
     clearTimeout(this.timerId);
     this.isClosed = true;
     console.log(`${this.roomName} has finished!`);
+    //TODO: if there is no final result - delete or update accordingly this game on db.
     if (finalResult) {
       const finalResultDocument = createGameRecords(
         finalResult,

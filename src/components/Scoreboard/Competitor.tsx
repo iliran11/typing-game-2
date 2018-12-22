@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './competitor.css';
-import { EMPTY_COMPETITOR_SLOT } from '../../constants';
+import { EMPTY_COMPETITOR_SLOT,MAX_WPM_GAUGE } from '../../constants';
 import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
 import Avatar from './Avatar';
@@ -144,7 +144,7 @@ class Competitor extends React.PureComponent<Props, State> {
         <div className="competitor-wpm">
           <div className="circular-progress">
             <CircularProgress
-              percentage={this.normalizedWpmScore / maxWpmGauge}
+              percentage={this.normalizedWpmScore / MAX_WPM_GAUGE}
               text={this.normalizedWpmScore}
             />
           </div>
