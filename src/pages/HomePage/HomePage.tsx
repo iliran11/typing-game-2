@@ -50,6 +50,9 @@ export default class Home extends React.Component<Props, State> {
       step: 0
     };
     this.props.initAuthenticationManager();
+
+    // TODO: authentication initial operations on APP component. not homepage.
+
     this.authenticationManager = AuthenticationManager.getInstance();
     this.authenticationManager.initialAuthentication();
     this.navigateToGame = this.navigateToGame.bind(this);

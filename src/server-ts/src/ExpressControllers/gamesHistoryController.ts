@@ -3,7 +3,7 @@ import { USER_ID_PARAM } from '../../../constants';
 import { GameModelInterface } from '../../../types';
 
 export default function GamesHistoryController(req, res) {
-  const searchParamaer = req.body[USER_ID_PARAM];
+  const searchParamaer = req.query[USER_ID_PARAM];
   if (!searchParamaer) {
     res.send(400);
     return;

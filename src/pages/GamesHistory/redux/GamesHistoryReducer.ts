@@ -1,5 +1,5 @@
 import { IGamesHistoryReducer } from '../../../types';
-import {} from '../../../constants';
+import { LOAD_GAME_HISTORY_DATA } from '../../../constants';
 
 const initialState: IGamesHistoryReducer = {
   gameHistories: [],
@@ -10,5 +10,13 @@ export default function GamesHistoryReducer(
   state: IGamesHistoryReducer = initialState,
   action: any
 ) {
-  return state;
+  switch (action.type) {
+    case LOAD_GAME_HISTORY_DATA:
+      return {
+        ...state,
+        ...action.payload
+      };
+    default:
+      return state;
+  }
 }

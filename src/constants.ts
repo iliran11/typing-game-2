@@ -27,11 +27,12 @@ export const LOGGING_IN_ACTION = 'logging-in-action';
 export const FACEBOOK_LOGGED_IN = 'facebook-logged-in';
 export const AUTH_HEADER_NAME = 'app-token';
 export const AUTH_FACEBOOK_HEADER = 'facebookToken';
-export const SERVER_HANDSHAKE_RECIEVED = 'server-handshake-recieved'
+export const SERVER_HANDSHAKE_RECIEVED = 'server-handshake-recieved';
 
-// ------ SERVER GET-POST PARAMS ------- //
+// ------ GAME HISTORIES ------- //
 
-export const USER_ID_PARAM = 'user-id-parm'
+export const USER_ID_PARAM = 'user-id-parm';
+export const LOAD_GAME_HISTORY_DATA = 'load-game-history-data';
 
 /**
  * CONFIG
