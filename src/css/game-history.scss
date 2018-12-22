@@ -1,0 +1,20 @@
+#game-history-page {
+  width: 100%;
+  padding: 10px;
+}
+
+.game-history-item {
+  display: flex;
+  margin-top: 10px;
+}
+.history-item-player {
+  width: calc(100% / 4);
+  border-right: 1px solid #a7a7a7;
+  -webkit-line-clamp: 2;
+  padding: 0px 6px;
+  display: flex;
+  align-items:center;
+  &:last-child {
+    border-right: none;
+  }
+}

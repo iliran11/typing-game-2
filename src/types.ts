@@ -146,6 +146,9 @@ export interface GameModelInterface {
   letters: string[];
   players: PlayerSerialize[];
   _id: string;
+  finalResults: {
+    results: PlayerScore[];
+  };
 }
 
 export interface PlayerAvatar {

@@ -19,7 +19,7 @@
     "facebook-sdk-loader": "git+https://github.com/iliran11/facebook-sdk-loader.git",
     "install": "^0.12.2",
     "lodash.random": "^3.2.0",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.11.0",
     "npm": "^6.4.1",
     "react": "^16.5.2",
     "react-circular-progressbar": "^1.0.0",

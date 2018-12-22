@@ -8,9 +8,12 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state: RootState) => {
+  const {
+    gamesHistory: { isFetched, gameHistories }
+  } = state;
   return {
-    isFetching: state.gamesHistory.isFetched,
-    gameHistoryItems: state.gamesHistory.gameHistories
+    isFetched,
+    gameHistoryItems: gameHistories
   };
 };
 
