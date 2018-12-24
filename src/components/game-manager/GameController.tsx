@@ -50,17 +50,10 @@ export default class GameController extends React.Component<any, State> {
     socketManager.emitTyping(input);
     // if input is corret
     if (input === this.currentLetter.toLowerCase()) {
-      this.props.closeTooltip();
-      this.setState(
-        {
-          index: this.incrementIndex,
-          input: updatedInput
-        },
-        () => {
-          // this.scrollIntoView();
-          // this.checkIfFinished();
-        }
-      );
+      this.setState({
+        index: this.incrementIndex,
+        input: updatedInput
+      });
     } else {
       // user entered wrong input. show him the tooltip.
       // this.showLetterTooltip(input);
@@ -74,7 +67,6 @@ export default class GameController extends React.Component<any, State> {
   }
   onBodyClick() {
     if (this.inputRef.current) {
-      console.log(this.inputRef.current);
       this.inputRef.current.focus();
     }
   }
@@ -94,6 +86,7 @@ export default class GameController extends React.Component<any, State> {
           {...this.props}
           currentLetter={this.currentLetter}
           index={this.state.index}
+          input={this.state.input} // this.scrollIntoView();
         />
       </React.Fragment>
     );

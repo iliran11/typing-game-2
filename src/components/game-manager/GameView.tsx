@@ -23,7 +23,7 @@ interface State {
   allRefsMounted: boolean;
 }
 
-export default class GameManager extends React.Component<any, State> {
+export default class GameView extends React.Component<any, State> {
   private letterNodes: HTMLElement[];
   private wordBox: any;
   // @ts-ignore
@@ -49,6 +49,22 @@ export default class GameManager extends React.Component<any, State> {
     this.memoizeDomRects = this.memoizeDomRects.bind(this);
     this.scrollIntoView = this.scrollIntoView.bind(this);
     this.checkIfFinished = this.checkIfFinished.bind(this);
+  }
+  componentDidUpdate(prevProps: any) {
+    if (prevProps.index !== this.props.index) {
+      this.scrollIntoView();
+      this.checkIfFinished();
+    }
+    if (prevProps.input !== this.props.input) {
+      if (!this.props.input[this.props.index]) {
+        // it means this cycle it was a success type.
+        // the index has progressed and there is still no input for the new index.
+        return;
+      } else {
+        this.showLetterTooltip(this.props.input[this.props.index]);
+        console.log('show tooltip ');
+      }
+    }
   }
   memoizeDomRects(refArray: HTMLDivElement) {
     // build the letter nodes.
@@ -87,7 +103,7 @@ export default class GameManager extends React.Component<any, State> {
       <LetterUi
         letter={letter}
         isSelected={this.props.index === index}
-        input={this.state.input[index]}
+        input={this.props.input[index]}
         onRefReceive={this.memoizeDomRects}
         key={index}
       />
