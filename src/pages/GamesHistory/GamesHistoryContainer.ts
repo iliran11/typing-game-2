@@ -2,9 +2,11 @@ import { connect } from 'react-redux';
 import GamesHistory from './GamesHistory';
 import { fetchGamesHistory } from './redux/gamesHistoryActions';
 import { RootState } from '../../types';
+import { navigateToReplay } from '../../store/gameAction';
 
 const mapDispatchToProps = {
-  fetchGamesHistory
+  fetchGamesHistory,
+  navigateToReplay
 };
 
 const mapStateToProps = (state: RootState) => {

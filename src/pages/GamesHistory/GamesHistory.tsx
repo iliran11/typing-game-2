@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import GamesHistoryItem from './GamesHistoryItem';
 import { GameModelInterface } from '../../types';
+import { ROOM_ID_PARM } from '../../constants';
+import axios from 'axios';
 import '../../css/game-history.scss';
 
 interface Props {
@@ -9,13 +11,23 @@ interface Props {
   fetchGamesHistory: () => void;
 }
 
-class GamesHistory extends PureComponent<Props, {}> {
+class GamesHistory extends PureComponent<any, {}> {
   constructor(props: any) {
     super(props);
     this.props.fetchGamesHistory();
+    this.renderRow = this.renderRow.bind(this);
   }
-  renderRow(item: GameModelInterface) {
-    return <GamesHistoryItem item={item} key={item._id} />;
+  onItemClick(roomId: string) {
+    return () => {
+      this.props.navigateToReplay(roomId);
+    };
+  }
+  renderRow(item: GameModelInterface, index: number) {
+    return (
+      <div onClick={this.onItemClick(item._id)} key={item._id}>
+        <GamesHistoryItem item={item} />
+      </div>
+    );
   }
   render() {
     if (this.props.isFetched === false) {
