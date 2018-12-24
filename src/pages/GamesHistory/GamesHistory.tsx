@@ -19,7 +19,7 @@ class GamesHistory extends PureComponent<any, {}> {
   }
   onItemClick(roomId: string) {
     return () => {
-      this.props.navigateToReplay(roomId);
+      this.props.navigateToReplay(roomId, this.props.history.push);
     };
   }
   renderRow(item: GameModelInterface, index: number) {

@@ -19,8 +19,9 @@ export function restartGame(history: any) {
   };
 }
 
-export function navigateToReplay(roomInstanceId: string) {
+export function navigateToReplay(roomInstanceId: string, pushPage: any) {
   return function(dispatch: any, getState: any) {
+    pushPage('/replay?room-id=100')
     axios
       .get('./game-replay', {
         params: {
