@@ -10,6 +10,7 @@ const scrollIntoView = require('scroll-into-view');
 interface Props {
   letters: string[];
   dispatch: any;
+  currentLetter: string;
   gameActive: boolean;
   changeToolTipPosition: (x: number, y: number, input: string) => void;
   closeTooltip: () => void;
@@ -22,14 +23,12 @@ interface State {
   allRefsMounted: boolean;
 }
 
-export default class GameManager extends React.Component<Props, State> {
+export default class GameManager extends React.Component<any, State> {
   private letterNodes: HTMLElement[];
   private wordBox: any;
   // @ts-ignore
-  private wordBoxRect: ClientRect | DOMRect ;
+  private wordBoxRect: ClientRect | DOMRect;
   private lettersRect: (ClientRect | DOMRect)[] = [];
-  private bodyElement: any;
-  private inputRef: any;
 
   constructor(props: Props) {
     super(props);
@@ -41,30 +40,15 @@ export default class GameManager extends React.Component<Props, State> {
 
     this.letterNodes = [];
     this.wordBox = React.createRef();
-    this.inputRef = React.createRef();
-    this.bodyElement = document.querySelector('body');
-    this.onBodyClick = this.onBodyClick.bind(this);
     this.showLetterTooltip = this.showLetterTooltip.bind(this);
     /**
      * if user click on anywhere on body while playing
      * re-focus him on the input.
      */
-    if (this.bodyElement) {
-      this.bodyElement.addEventListener('click', this.onBodyClick);
-    }
     this.renderLetters = this.renderLetters.bind(this);
     this.memoizeDomRects = this.memoizeDomRects.bind(this);
-    this.onInput = this.onInput.bind(this);
     this.scrollIntoView = this.scrollIntoView.bind(this);
     this.checkIfFinished = this.checkIfFinished.bind(this);
-  }
-  componentWillUnmount() {
-    this.bodyElement.removeEventListener('click', this.onBodyClick);
-  }
-  onBodyClick() {
-    if (this.inputRef.current) {
-      this.inputRef.current.focus();
-    }
   }
   memoizeDomRects(refArray: HTMLDivElement) {
     // build the letter nodes.
@@ -102,29 +86,21 @@ export default class GameManager extends React.Component<Props, State> {
     return (
       <LetterUi
         letter={letter}
-        isSelected={this.state.index === index}
+        isSelected={this.props.index === index}
         input={this.state.input[index]}
         onRefReceive={this.memoizeDomRects}
         key={index}
       />
     );
   }
-  // get the next index value.
-  get incrementIndex(): number {
-    return this.state.index + 1;
-  }
+
   get isGameEnd() {
-    return this.state.index > this.props.letters.length;
-  }
-  updateInputArray(index: number, input: string): string[] {
-    const nextInputArray = [...this.state.input];
-    nextInputArray[index] = input;
-    return nextInputArray;
+    return this.props.index > this.props.letters.length;
   }
   scrollIntoView() {
     // do not scroll if no changes in the y coordinate of the letters.
     if (
-      this.currentLetter &&
+      this.props.currentLetter &&
       this.currentLetterRect.top === this.previousLetterRect.top
     ) {
       return;
@@ -140,7 +116,7 @@ export default class GameManager extends React.Component<Props, State> {
   }
   checkIfFinished() {
     // means we have comleted all the words.
-    if (this.state.index === this.props.letters.length) {
+    if (this.props.index === this.props.letters.length) {
       /*
        * update redux that our local game is finished
        * for animation purposes and navigation to result page.
@@ -154,60 +130,27 @@ export default class GameManager extends React.Component<Props, State> {
       socketManager.emitFinishedGame();
     }
   }
-  onInput(event: any) {
-    // if server indicated that game is not active - do not process input.
-    if (!this.props.gameActive || !this.currentLetter) {
-      return;
-    }
-    const { index } = this.state;
-    const input: string = event.target.value.toLowerCase();
-    const updatedInput = this.updateInputArray(index, input);
-    socketManager.emitTyping(input);
-    // if input is corret
-    if (input === this.currentLetter.toLowerCase()) {
-      this.props.closeTooltip();
-      this.setState(
-        {
-          index: this.incrementIndex,
-          input: updatedInput
-        },
-        () => {
-          this.scrollIntoView();
-          this.checkIfFinished();
-        }
-      );
-    } else {
-      // user entered wrong input. show him the tooltip.
-      this.showLetterTooltip(input);
-      this.setState({
-        input: updatedInput
-      });
-    }
-  }
-  get currentLetter(): string {
-    const { index } = this.state;
-    return this.props.letters[index];
-  }
+
   get currentLetterNode(): Element | null {
     if (this.letterNodes.length === 0) {
       return null;
     }
-    return this.letterNodes[this.state.index];
+    return this.letterNodes[this.props.index];
   }
   get currentLetterRect(): ClientRect | DOMRect {
-    return this.lettersRect[this.state.index];
+    return this.lettersRect[this.props.index];
   }
   get previousLetterRect(): ClientRect | DOMRect {
-    return this.lettersRect[this.state.index - 1];
+    return this.lettersRect[this.props.index - 1];
   }
   get previousLetterNode(): HTMLElement {
-    return this.letterNodes[this.state.index - 1];
+    return this.letterNodes[this.props.index - 1];
   }
   get wordBoxClassNames() {
-    return cx('words-box-letters',{ disabled: !this.props.gameActive });
+    return cx('words-box-letters', { disabled: !this.props.gameActive });
   }
   get markerProps(): markerProps {
-    if (this.letterNodes.length > 0 && this.currentLetter) {
+    if (this.letterNodes.length > 0 && this.props.currentLetter) {
       const { left, top, width, height } = this.currentLetterRect;
 
       // calculate the position of x,y, with respect to scrolling.
@@ -217,7 +160,7 @@ export default class GameManager extends React.Component<Props, State> {
         x,
         y,
         width,
-        input: this.currentLetter,
+        input: this.props.currentLetter,
         height
       };
     }
@@ -232,15 +175,6 @@ export default class GameManager extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <input
-          onChange={this.onInput}
-          value={''}
-          autoCorrect="off"
-          autoCapitalize="none"
-          autoFocus={true}
-          id="game-input"
-          ref={this.inputRef}
-        />
         <div
           id="words-box"
           className={this.wordBoxClassNames}
