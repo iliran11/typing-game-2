@@ -18,7 +18,6 @@ export const BOT_SPAWN_RATE = 5000;
 export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot';
 export const RANDOM_AVATAR_MAX_INDEX = 10;
 
-
 // ------ AUTH ------- //
 
 export const SDK_LOAD_SUCESS = 'sdk-load-success';
@@ -33,6 +32,7 @@ export const SERVER_HANDSHAKE_RECIEVED = 'server-handshake-recieved';
 // ------ GAME HISTORIES ------- //
 
 export const USER_ID_PARAM = 'user-id-parm';
+export const ROOM_ID_PARM = 'room-id';
 export const LOAD_GAME_HISTORY_DATA = 'load-game-history-data';
 
 /**

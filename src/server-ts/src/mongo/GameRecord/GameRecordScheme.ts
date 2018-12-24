@@ -1,3 +1,5 @@
+import { GameRecordsModel } from '../../../../types';
+
 const mongoose = require('mongoose');
 export const GameRecordSchema = mongoose.Schema({
   playerId: String,
@@ -8,9 +10,23 @@ export const GameRecordSchema = mongoose.Schema({
   accuracy: Number
 });
 
-export const GameRecordsSchema = mongoose.Schema({
+const GameRecordsSchema = mongoose.Schema({
   results: [GameRecordSchema],
   gameInstanceId: String
 });
 
-export default GameRecordsSchema;
+GameRecordsSchema.statics.getRecordsByRoomId = function(
+  roomId: string
+): Promise<GameRecordsModel[]> {
+  return new Promise((resolve, reject) => {
+    this.find({ gameInstanceId: roomId })
+      .then((result: GameRecordsModel[]) => {
+        resolve(result);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+export { GameRecordsSchema };

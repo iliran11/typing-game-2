@@ -6,6 +6,7 @@ import initMongo from './mongo/initMongo';
 import loginController from './ExpressControllers/loginController';
 import verifyLoginController from './ExpressControllers/verifyLoginController';
 import gamesHistoryController from './ExpressControllers/gamesHistoryController';
+import GamesHistoryController from './ExpressControllers/gameReplayController';
 import {
   FacebookUserType,
   HandShakeData,
@@ -33,6 +34,7 @@ app.use(bodyParser.json());
 app.post('/login', loginController);
 app.get('/verify-login', verifyLoginController);
 app.get('/games-history', gamesHistoryController);
+app.get('/game-replay', GamesHistoryController);
 
 const serverManager = ServerManager.getInstance(server);
 console.log('server started.');

@@ -1,5 +1,4 @@
 import Letter from './store/classes/lettterData';
-import GamesHistory from './pages/GamesHistory/GamesHistory';
 export interface JoiningRoomResponse {
   roomId: number;
   players: PlayerSerialize[];
@@ -146,7 +145,7 @@ export interface GameModelInterface {
   letters: string[];
   players: PlayerSerialize[];
   _id: string;
-  finalResult: {
+  finalResult?: {
     results: PlayerScore[];
   };
 }
@@ -165,4 +164,9 @@ export interface HandShakeData {
 export interface IGamesHistoryReducer {
   readonly gameHistories: GameModelInterface[];
   readonly isFetched: boolean;
+}
+
+export interface GameRecordsModel {
+  results: PlayerScore[];
+  gameInstanceId: string;
 }
