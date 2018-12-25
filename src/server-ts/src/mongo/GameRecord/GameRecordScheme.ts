@@ -1,5 +1,6 @@
 import { GameRecordsModel } from '../../../../types';
 
+//TODO: change name to game record schema;
 const mongoose = require('mongoose');
 export const GameRecordSchema = mongoose.Schema({
   playerId: String,

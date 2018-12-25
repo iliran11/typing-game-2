@@ -11,6 +11,7 @@ export const GAME_HAS_STARTED = 'game-has-started';
 export const GAME_HAS_FINISHED = 'game-has-finished';
 export const COMPETITOR_HAS_FINISHED = 'competitor-has-finished';
 export const RESTART_GAME = 'restart-game';
+export const LOAD_REPLAY = 'load-replay'
 
 export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;

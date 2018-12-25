@@ -170,3 +170,7 @@ export interface GameRecordsModel {
   results: PlayerScore[];
   gameInstanceId: string;
 }
+
+export interface ReplayReducer {
+  [roomId: string]: string;
+}

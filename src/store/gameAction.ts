@@ -1,6 +1,7 @@
 import socketManager from '../socketManager';
 import axios from 'axios';
-import { ROOM_ID_PARM } from '../constants';
+import { ROOM_ID_PARM, LOAD_REPLAY } from '../constants';
+import { GameRecordsModel } from '../types';
 
 import { GAME_HAS_FINISHED, RESTART_GAME } from '../constants';
 export function gameIsFinished() {
@@ -21,7 +22,7 @@ export function restartGame(history: any) {
 
 export function navigateToReplay(roomInstanceId: string, pushPage: any) {
   return function(dispatch: any, getState: any) {
-    pushPage('/replay?room-id=100');
+    pushPage(`/replay?${ROOM_ID_PARM}=${roomInstanceId}`);
   };
 }
 
@@ -34,7 +35,12 @@ export function fetchReplay(roomInstanceId: string) {
         }
       })
       .then(result => {
+        const data: GameRecordsModel[] = result.data;
         console.log(result);
+        dispatch({
+          type: LOAD_REPLAY,
+          payload: data
+        });
       });
   };
 }
