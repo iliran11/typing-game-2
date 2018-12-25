@@ -1,58 +1,63 @@
 import { connect } from 'react-redux';
 import ResultPage from './ResultPage';
-import { PlayerClient, ResultGraphData } from '../../types';
-import {restartGame} from '../../store/gameAction'
+import { PlayerGameStatus, RootState } from '../../types';
+import { restartGame } from '../../store/gameAction';
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: RootState) => {
   const myId = state.serverStatus.myId;
-  const myPlayerData: PlayerClient = state.serverStatus.players.find(
-    (player: PlayerClient) => {
-      return player.id === myId;
-    }
+  // @ts-ignore
+  const playersScores: PlayerGameStatus[] = Object.values(
+    state.serverStatus.playersGameStatus
   );
-  let rankings: PlayerClient[] = [...state.serverStatus.players];
-  rankings = rankings.sort(
-    sortPlayersRanking
-  );
-  const myRanking = rankings.findIndex((player: PlayerClient) => {
+  const myPlayerData: PlayerGameStatus =
+    state.serverStatus.playersGameStatus[myId];
+  // @ts-ignore
+  let rankings: PlayerGameStatus[] = playersScores;
+  rankings = rankings.sort(sortPlayersRanking);
+  const myRanking = rankings.findIndex((player: PlayerGameStatus) => {
     return player.id === myId;
   });
 
   const normalizedWpm = normalizeNumbers(
-    state.serverStatus.players.map((player: PlayerClient) => {
+    playersScores.map((player: PlayerGameStatus) => {
       return player.score;
     })
   );
-  const graphData: ResultGraphData[] = state.serverStatus.players.map(
-    (player: PlayerClient, index: number) => {
+  const graphData: any = playersScores.map(
+    (player: PlayerGameStatus, index: number) => {
       const ranking: number = rankings.findIndex(
-        (currentPlayer: PlayerClient) => {
+        (currentPlayer: PlayerGameStatus) => {
           return currentPlayer.id === player.id;
         }
       );
       return { ...player, normalizedWpm: normalizedWpm[index], ranking };
     }
   );
+  const mySpeed = Math.round(myPlayerData.score);
+  const numberOfLetters = state.gameData.letters.length;
+  const gameDuration = myPlayerData.gameDuration;
+
   return {
-    mySpeed: Math.round(myPlayerData.score),
-    numberOfLetters: state.gameData.letters.length,
-    gameDuration: myPlayerData.gameDuration,
+    mySpeed,
+    numberOfLetters,
+    gameDuration,
     myRanking,
     accuracy: myPlayerData.accuracy,
-    competitors: graphData
+    competitors: graphData,
+    players: state.serverStatus.players
   };
 };
 
 const mapDispatchToProps = {
   restartGame
-}
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ResultPage);
 
-export function sortPlayersRanking(a: PlayerClient, b: PlayerClient) {
+export function sortPlayersRanking(a: PlayerGameStatus, b: PlayerGameStatus) {
   if (a.gameDuration && !b.gameDuration) {
     // a wins
     return -1;
@@ -65,6 +70,7 @@ export function sortPlayersRanking(a: PlayerClient, b: PlayerClient) {
     // they are both undefined. we don't care about the order.
     return 0;
   }
+  // @ts-ignore
   if (a.gameDuration < b.gameDuration) {
     // a finished faster - he wins
     return -1;

@@ -1,11 +1,14 @@
 import { GameRecordsSchema, GameRecordSchema } from './GameRecordScheme';
-import { PlayerScore } from '../../../../types';
+import { PlayerGameStatus } from '../../../../types';
 const mongoose = require('mongoose');
 
 export const GameRecord = mongoose.model('GameRecord', GameRecordSchema);
 export const GameRecords = mongoose.model('GameRecords', GameRecordsSchema);
-export function createGameRecords(models: PlayerScore[], instanceId: string) {
-  const gameRecordModels = models.map((model: PlayerScore) => {
+export function createGameRecords(
+  models: PlayerGameStatus[],
+  instanceId: string
+) {
+  const gameRecordModels = models.map((model: PlayerGameStatus) => {
     return new GameRecord(model);
   });
   return new GameRecords({
@@ -14,6 +17,6 @@ export function createGameRecords(models: PlayerScore[], instanceId: string) {
   });
 }
 
-export function createGameRecord(model: PlayerScore[]) {
+export function createGameRecord(model: PlayerGameStatus[]) {
   return new GameRecord(model);
 }

@@ -13,7 +13,8 @@ const maxWpmGauge = 80;
 interface Props {
   id: string;
   score: number;
-  compeletedPercntage: number;
+  // compeletedPercntage: number;
+  completedPercentage: number;
   index: number;
   playerAvatar: PlayerAvatar;
   isMe: boolean;
@@ -69,7 +70,7 @@ class Competitor extends React.PureComponent<Props, State> {
     if (!this.progressBarRef.current) {
       return visualOffset;
     }
-    // console.log(`bar width:${this.progressbarWidth}. percent:${this.props.compeletedPercntage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
+    // console.log(`bar width:${this.progressbarWidth}. percent:${this.props.completedPercentage}. result: ${this.props.compeletedPercntage * this.progressbarWidth}`)
     // a little visual addition to make it more appealing like.
 
     return this.percentageCompleted * this.progressBarRef.current.clientWidth;
@@ -79,7 +80,7 @@ class Competitor extends React.PureComponent<Props, State> {
   }
   get percentageCompleted() {
     // if the game hasn't started and the complete percentage is not defined yet - return 0;
-    return this.props.compeletedPercntage || 0;
+    return this.props.completedPercentage || 0;
   }
   get isEmptySlot() {
     return this.props.id === EMPTY_COMPETITOR_SLOT;

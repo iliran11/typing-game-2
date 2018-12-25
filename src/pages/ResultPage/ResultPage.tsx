@@ -1,24 +1,23 @@
 import React from 'react';
 import MyScoreSection from './MyScoreSection';
 import ResultsBarGraph from './ResultsBarGraph';
-import {ResultGraphData} from '../../types'
 import './resultPage.css';
 
 interface Props {
   mySpeed: number;
   numberOfLetters: number;
   gameDuration: number;
-  myRanking:number;
-  accuracy:number;
-  competitors:ResultGraphData[];
-  history:any;
-  restartGame: (history:any)=>void
+  myRanking: number;
+  accuracy: number;
+  competitors: any;
+  history: any;
+  restartGame: (history: any) => void;
 }
 
-export default function ResultPage(props: Props) {
+export default function ResultPage(props: any) {
   const competeAgain = () => {
-    props.restartGame(props.history)
-  }
+    props.restartGame(props.history);
+  };
   return (
     <div id="result-page">
       <MyScoreSection
@@ -29,10 +28,16 @@ export default function ResultPage(props: Props) {
         accuracy={props.accuracy}
       />
       <div className="graph-bar-container">
-        <ResultsBarGraph competitors={props.competitors} />
+        <ResultsBarGraph competitors={props.competitors} players={props.players} />
       </div>
       <div id="result-page-buttons">
-      <button id="compete-again" className="gradient-5 shadow-3dp button-large" onClick={competeAgain}>Compete Again</button>
+        <button
+          id="compete-again"
+          className="gradient-5 shadow-3dp button-large"
+          onClick={competeAgain}
+        >
+          Compete Again
+        </button>
       </div>
     </div>
   );
