@@ -10,13 +10,17 @@ const mapStateToProps = (state: RootState, props: any) => {
     isAnonymous: true,
     picture: -1
   };
-  const playerAvatar: PlayerAvatar =
-    id !== EMPTY_COMPETITOR_SLOT
-      ? state.serverStatus.players[index].avatar
-      : emptyAvatar;
-  return {
-    playerAvatar
-  };
+  if (props.playerAvatar) {
+    return {
+      playerAvatar: props.playerAvatar
+    };
+  } else {
+    const playerAvatar: PlayerAvatar =
+      id !== EMPTY_COMPETITOR_SLOT
+        ? state.serverStatus.players[index].avatar
+        : emptyAvatar;
+    return { playerAvatar };
+  }
 };
 
 export default connect(

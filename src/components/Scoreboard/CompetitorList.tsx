@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Competitor from './competitorContainer';
-import { PlayerGameStatus } from '../../types';
+import { PlayerGameStatus, PlayerAvatar } from '../../types';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
   roomSize: number;
   myId: string;
   history: any;
+  avatars?: PlayerAvatar[];
 }
 
 class CompetitorList extends React.PureComponent<Props, object> {
@@ -44,7 +45,8 @@ class CompetitorList extends React.PureComponent<Props, object> {
         type,
         isMe: id === this.props.myId,
         hasLeft,
-        isFinished
+        isFinished,
+        playerAvatar: this.props.avatars && this.props.avatars[index]
       };
     } else {
       return {

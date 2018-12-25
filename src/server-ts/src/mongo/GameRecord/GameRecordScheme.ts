@@ -8,7 +8,10 @@ export const GameRecordSchema = mongoose.Schema({
   completedPercentage: Number,
   finishedTimestamp: Number,
   gameDuration: Number,
-  accuracy: Number
+  accuracy: Number,
+  id: String,
+  isFinished: Boolean,
+  type: String
 });
 
 const GameRecordsSchema = mongoose.Schema({

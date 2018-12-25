@@ -118,6 +118,7 @@ export interface RootState {
   readonly authentication: AuthReducer;
   readonly myData: MyDataReducer;
   readonly gamesHistory: IGamesHistoryReducer;
+  readonly replays: ReplayReducer;
 }
 export interface PlayerJoiningAction {
   type: string;
@@ -190,7 +191,7 @@ export interface IGamesHistoryReducer {
 }
 
 export interface GameRecordsModel {
-  results: PlayerScore[];
+  results: PlayerGameStatus[];
   gameInstanceId: string;
 }
 
