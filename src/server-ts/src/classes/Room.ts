@@ -161,9 +161,6 @@ export default class Room {
       this.timePassedMinutes
     ).serialize;
     return currentPlayerStatus;
-    // const status = player.playerGame.getWpmScore();
-    // const completedPercntage = player.playerGame.getPercentageComplete;
-    // return new PlayerScore(playerId, score, completedPercntage);
   }
   private get roomStatus(): PlayerGameStatus[] {
     return this.players.map((player: Player, index: number) => {
