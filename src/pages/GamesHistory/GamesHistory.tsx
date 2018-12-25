@@ -29,6 +29,10 @@ class GamesHistory extends PureComponent<any, {}> {
       </div>
     );
   }
+  get gameHistoryItems() {
+    // @ts-ignore
+    return Object.values(this.props.gameHistoryItems);
+  }
   render() {
     if (this.props.isFetched === false) {
       //TODO: add here nice loader
@@ -40,7 +44,7 @@ class GamesHistory extends PureComponent<any, {}> {
     }
     return (
       <div id="game-history-page">
-        {this.props.gameHistoryItems.map(this.renderRow)}
+        {this.gameHistoryItems.map(this.renderRow)}
       </div>
     );
   }

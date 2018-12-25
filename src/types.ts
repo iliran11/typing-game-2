@@ -162,8 +162,7 @@ export interface HandShakeData {
 }
 
 export interface IGamesHistoryReducer {
-  readonly gameHistories: GameModelInterface[];
-  readonly isFetched: boolean;
+  readonly [gameId: string]: GameModelInterface;
 }
 
 export interface GameRecordsModel {

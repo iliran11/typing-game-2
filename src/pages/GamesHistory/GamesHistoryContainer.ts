@@ -10,12 +10,8 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state: RootState) => {
-  const {
-    gamesHistory: { isFetched, gameHistories }
-  } = state;
   return {
-    isFetched,
-    gameHistoryItems: gameHistories
+    gameHistoryItems: state.gamesHistory
   };
 };
 

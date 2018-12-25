@@ -13,7 +13,7 @@ export function fetchGamesHistory() {
         const gameHistories: GameModelInterface[] = response.data;
         dispatch({
           type: LOAD_GAME_HISTORY_DATA,
-          payload: { gameHistories, isFetched: true }
+          payload: gameHistories
         });
       });
   };
