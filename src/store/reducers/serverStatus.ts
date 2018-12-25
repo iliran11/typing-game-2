@@ -14,19 +14,16 @@ import connectServerSuccess from './serverStatusHandlers/connectServerSuccess';
 import youJoinedRoom from './serverStatusHandlers/youJoinedRoom';
 import otherPlayerJoining from './serverStatusHandlers/otherPlayerJoining';
 import scoreBroadCast from './serverStatusHandlers/scoreBroadCast';
-import gameRestart from './serverStatusHandlers/gameRestart'
+import gameRestart from './serverStatusHandlers/gameRestart';
 
-import {
-  PlayerClient,
-  PlayerSerialize,
-  ServerStatusReducer
-} from '../../types';
+import { PlayerSerialize, ServerStatusReducer } from '../../types';
 
 export const initialState: ServerStatusReducer = {
   roomId: -1,
   isConnected: false,
   myId: '',
   players: [],
+  playersGameStatus: {},
   isGameActive: false,
   roomSize: 0,
   gameStartTimestamp: 0
@@ -46,8 +43,8 @@ export default function ServerStatus(
       return otherPlayerJoining(state, action);
     case SCORE_BROADCAST:
       return scoreBroadCast(state, action);
-    case RESTART_GAME: 
-      return gameRestart(state,action);
+    case RESTART_GAME:
+      return gameRestart(state, action);
     case GAME_HAS_STARTED:
       return {
         ...state,
@@ -55,48 +52,10 @@ export default function ServerStatus(
         gameStartTimestamp: action.payload
       };
     case COMPETITOR_DELETION:
-    case COMPETITOR_LEFT:
-      const nextState = { ...state };
-      const nextPlayersArray = [...state.players];
-      const indexOfLeavingPlayer = nextState.players.findIndex(
-        (player: any) => {
-          return player.id === action.payload.playerId;
-        }
-      );
-      // if competitor left in the middle of the game - just mark him as not active.
-      if (action.type === COMPETITOR_LEFT) {
-        nextPlayersArray[indexOfLeavingPlayer].hasLeft = true;
-        nextState.players = nextPlayersArray;
-        return nextState;
-        /**
-         * else - competitor left before the game began. so he will be replaced in another player.
-         * he will be deleted from the array of players in the server so a new player can be assigned.
-         * we will delete him from the client array too.
-         */
-      } else {
-        nextPlayersArray.splice(indexOfLeavingPlayer, 1);
-        nextState.players = nextPlayersArray;
-        return nextState;
-      }
+      return state;
     case COMPETITOR_HAS_FINISHED:
-      return onCompetitorFinish(state, action.payload);
+      return state;
     default:
       return state;
   }
-}
-// mark the finishing player as completed.
-function onCompetitorFinish(
-  state: ServerStatusReducer,
-  payload: PlayerSerialize
-): ServerStatusReducer {
-  const nextState = { ...state };
-  const nextPlayersArray = [...nextState.players];
-  const finishedPlayer = nextPlayersArray.find((player: PlayerClient) => {
-    return player.id === payload.id;
-  });
-  if (finishedPlayer) {
-    finishedPlayer.isFinished = true;
-  }
-  nextState.players = nextPlayersArray;
-  return nextState;
 }

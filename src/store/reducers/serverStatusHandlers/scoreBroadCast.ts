@@ -1,29 +1,16 @@
-import { PlayerClient,ServerStatusReducer,ScoreBroadcastAction } from '../../../types';
+import {
+  ServerStatusReducer,
+  ScoreBroadcastAction,
+  PlayerGameStatus
+} from '../../../types';
 
 export default function youJoinedRoom(
   state: ServerStatusReducer,
   action: ScoreBroadcastAction
 ): ServerStatusReducer {
-  const nextPlayers = state.players.map(
-    (player: PlayerClient, index: number) => {
-      // TODO: implement PlayerScore type here like in the server.
-      const {
-        score,
-        completedPercntage,
-        finishedTimestamp,
-        gameDuration,
-        accuracy
-      } = action.payload.players[index];
-      player.score = score;
-      player.compeletedPercntage = completedPercntage;
-      player.finishedTimestamp = finishedTimestamp;
-      player.gameDuration = gameDuration;
-      player.accuracy = accuracy;
-      return player;
-    }
-  );
-  return {
-    ...state,
-    players: nextPlayers
-  };
+  const nextState = { ...state };
+  action.payload.players.forEach((player: PlayerGameStatus) => {
+    nextState.playersGameStatus[player.id] = player;
+  });
+  return nextState;
 }

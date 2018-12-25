@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Competitor from './competitorContainer';
-import { PlayerClient } from '../../types';
-import {EMPTY_COMPETITOR_SLOT } from '../../constants';
+import { PlayerGameStatus } from '../../types';
+import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 
 interface Props {
-  players: PlayerClient[];
+  players: PlayerGameStatus[];
   roomSize: number;
   myId: string;
   history: any;
@@ -31,7 +31,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
     if (player) {
       const {
         score,
-        compeletedPercntage,
+        completedPercentage,
         type,
         hasLeft,
         isFinished,
@@ -40,7 +40,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
       return {
         id,
         score,
-        compeletedPercntage,
+        completedPercentage,
         type,
         isMe: id === this.props.myId,
         hasLeft,

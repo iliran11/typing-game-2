@@ -13,24 +13,6 @@ export interface PlayerSerialize {
   name: string;
   avatar: PlayerAvatar;
 }
-export interface PlayerClient {
-  id: string;
-  playerId: string;
-  score: number;
-  compeletedPercntage: number;
-  type: PlayerType;
-  hasLeft: boolean;
-  isFinished: boolean;
-  finishedTimestamp: number;
-  gameDuration: number;
-  accuracy: number;
-  avatar: PlayerAvatar;
-}
-
-export interface ResultGraphData extends PlayerClient {
-  normalizedWpm: number;
-  ranking: number;
-}
 
 export enum PlayerType {
   bot = 'BOT',
@@ -52,25 +34,66 @@ export enum FbLoginStatus {
   notAuthorized = 'not_authorized',
   unknown = 'unknown'
 }
-
-export interface IPlayerScore {
-  playerId: string;
+export interface PlayerGameStatus {
+  id: string;
   score: number;
-  completedPercntage: number;
+  completedPercentage: number;
+  type: PlayerType;
+  hasLeft: boolean;
+  isFinished: boolean;
+  finishedTimeStamp?: number;
+  gameDuration?: number;
+  accuracy?: number;
+  avatar: PlayerAvatar;
 }
-
-export class PlayerScore implements PlayerScore {
-  playerId: string;
+export class PlayerGameStatusFactory implements PlayerGameStatus {
+  id: string;
   score: number;
-  completedPercntage: number;
-  finishedTimestamp: number | void = undefined;
-  gameDuration: number | void = undefined;
-  accuracy: number | void = undefined;
-
-  constructor(playerId: string, score: number, completedPercntage: number) {
-    this.playerId = playerId;
+  completedPercentage: number;
+  type: PlayerType;
+  hasLeft: boolean;
+  isFinished: boolean;
+  finishedTimeStamp?: number;
+  gameDuration?: number;
+  accuracy?: number;
+  avatar: PlayerAvatar;
+  constructor(options: any) {
+    const {
+      id,
+      score,
+      completedPercentage,
+      type,
+      hasLeft,
+      isFinished,
+      finishedTimeStamp,
+      gameDuration,
+      accuracy,
+      avatar
+    } = options;
+    this.id = id;
     this.score = score;
-    this.completedPercntage = completedPercntage;
+    this.completedPercentage = completedPercentage;
+    this.type = type;
+    this.hasLeft = hasLeft;
+    this.isFinished = isFinished;
+    this.finishedTimeStamp = finishedTimeStamp;
+    this.gameDuration = gameDuration;
+    this.accuracy = accuracy;
+    this.avatar = avatar;
+  }
+  get serialize(): PlayerGameStatus {
+    return {
+      id: this.id,
+      score: this.score,
+      completedPercentage: this.completedPercentage,
+      type: this.type,
+      hasLeft: this.hasLeft,
+      isFinished: this.isFinished,
+      finishedTimeStamp: this.finishedTimeStamp,
+      gameDuration: this.gameDuration,
+      accuracy: this.accuracy,
+      avatar: this.avatar
+    };
   }
 }
 
@@ -83,7 +106,8 @@ export interface ServerStatusReducer {
   readonly roomId: number;
   readonly isConnected: boolean;
   readonly myId: string;
-  readonly players: PlayerClient[];
+  readonly players: PlayerSerialize[];
+  readonly playersGameStatus: { [playerId: string]: PlayerGameStatus };
   readonly isGameActive: boolean;
   readonly roomSize: number;
   readonly gameStartTimestamp: number;
@@ -103,7 +127,7 @@ export interface PlayerJoiningAction {
 export interface ScoreBroadcastAction {
   type: string;
   payload: {
-    players: any;
+    players: PlayerGameStatus[];
   };
 }
 
@@ -145,8 +169,8 @@ export interface GameModelInterface {
   letters: string[];
   players: PlayerSerialize[];
   _id: string;
-  finalResult?: {
-    results: PlayerScore[];
+  finalResult: {
+    results: PlayerGameStatus[];
   };
 }
 

@@ -13,7 +13,11 @@ import {
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
-import { PlayerScore, PlayerType, GameModelInterface } from '../../../types';
+import {
+  PlayerType,
+  PlayerGameStatus,
+  PlayerGameStatusFactory
+} from '../../../types';
 import { emitToRoom } from '../utilities';
 import { createGameDocument } from '../mongo/Game/GameModel';
 import {
@@ -34,7 +38,7 @@ export default class Room {
   private timerId: any;
   private timePassed: number;
   private timeIncrement: number = 1000;
-  private finalScores: (void | PlayerScore)[];
+  private finalScores: PlayerGameStatus[];
   private roomStartTimestamp: number = 0;
   private instanceId: string;
   // store the already given avatar indexes so we can give anonymous player a unique avatar.
@@ -107,7 +111,7 @@ export default class Room {
   get roomName(): string {
     return `room-${this.roomId}`;
   }
-  get scoresStats(): PlayerScore[] {
+  get gameRecord(): PlayerGameStatus[] {
     return this.players.map((player: Player, index: number) => {
       /** if the player has an entry of the final score index - it means he is finished.
        *  we will not re-calculate it. just retrieve it from the cached array.
@@ -115,25 +119,19 @@ export default class Room {
       return this.finalScores[index] || this.getPlayerScore(player);
     });
   }
-  private getPlayerScore(player: Player) {
-    const playerId = player.playerId;
-    const score = player.playerGame.getWpmScore(this.timePassedMinutes);
-    const completedPercntage = player.playerGame.getPercentageComplete;
-    return new PlayerScore(playerId, score, completedPercntage);
-  }
   playerHasFinished(finishedPlayer: Player) {
     const playerIndex = this.players.findIndex((gamePlayer: Player) => {
       return gamePlayer.getName === finishedPlayer.getName;
     });
     const timestampNow = Date.now();
-    this.finalScores[playerIndex] = {
-      ...this.getPlayerScore(finishedPlayer),
-      finishedTimestamp: timestampNow,
-      gameDuration: timestampNow - this.roomStartTimestamp,
-      accuracy:
-        finishedPlayer.playerGame.getRawLetters.length /
+    //TODO: Unite with game status function.
+    this.finalScores[playerIndex] = finishedPlayer.playerGameStatus(
+      this.timePassedMinutes,
+      timestampNow,
+      timestampNow - this.roomStartTimestamp,
+      finishedPlayer.playerGame.getRawLetters.length /
         finishedPlayer.playerGame.numberOfTypings
-    };
+    );
   }
   get isGameActive() {
     return this.players.length === MAX_PLAYERS_PER_ROOM;
@@ -154,13 +152,27 @@ export default class Room {
      *  it means someone is still typing. in this case we shouldn't stop the game tick yet.
      */
 
-    return this.finalScores.some((score: void | PlayerScore) => {
-      return score == null;
+    return this.finalScores.some((playerGameStatus: PlayerGameStatus) => {
+      return playerGameStatus == null;
+    });
+  }
+  private getPlayerScore(player: Player): PlayerGameStatus {
+    const currentPlayerStatus: PlayerGameStatus = player.playerGameStatus(
+      this.timePassedMinutes
+    ).serialize;
+    return currentPlayerStatus;
+  }
+  private get roomStatus(): PlayerGameStatus[] {
+    return this.players.map((player: Player, index: number) => {
+      /** if the player has an entry of the final score index - it means he is finished.
+       *  we will not re-calculate it. just retrieve it from the cached array.
+       */
+      return this.finalScores[index] || this.getPlayerScore(player);
     });
   }
   private gameTick(): void {
     this.timePassed += this.timeIncrement;
-    const gameRecords = this.scoresStats;
+    const gameRecords: PlayerGameStatus[] = this.roomStatus;
     this.server.in(this.roomName).emit(SCORE_BROADCAST, gameRecords);
     if (this.isAnyoneStillPlaying === false) {
       this.stopGame(gameRecords);
@@ -183,7 +195,10 @@ export default class Room {
     createGameDocument({
       letters: this.players[0].playerGame.getRawLetters,
       players: this.playersInRoom,
-      _id: this.instanceId
+      _id: this.instanceId,
+      finalResult: {
+        results: this.finalScores
+      }
     })
       .save()
       .then(result => {
@@ -224,7 +239,7 @@ export default class Room {
       this.restartCountdownBot();
     }
   }
-  private stopGame(finalResult?: PlayerScore[]) {
+  private stopGame(finalResult?: PlayerGameStatus[]) {
     clearTimeout(this.botRecruitTimer);
     clearTimeout(this.timerId);
     this.isClosed = true;

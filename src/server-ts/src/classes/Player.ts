@@ -5,6 +5,8 @@ import {
   PlayerSerialize,
   PlayerType,
   PlayerAvatar,
+  PlayerGameStatus,
+  PlayerGameStatusFactory
 } from '../../../types';
 import { createUserInstance } from '../mongo/User/UserModel';
 // import Game from "./Game ";
@@ -76,5 +78,23 @@ export default class Player {
   }
   setAvatar(avatarIndex: number) {
     this.anonymousAvatar = avatarIndex;
+  }
+  playerGameStatus(
+    timePassedMinutes: number,
+    finishedTimeStamp?: number,
+    gameDuration?: number,
+    accuracy?: number
+  ): PlayerGameStatusFactory {
+    return new PlayerGameStatusFactory({
+      id: this.id,
+      score: this.playerGame.getWpmScore(timePassedMinutes),
+      completedPercentage: this.playerGame.getPercentageComplete,
+      type: this.playerType,
+      hasLeft: false,
+      isFinished: false,
+      finishedTimeStamp,
+      accuracy,
+      gameDuration
+    });
   }
 }
