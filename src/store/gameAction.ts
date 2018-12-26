@@ -1,6 +1,10 @@
 import socketManager from '../socketManager';
 import axios from 'axios';
-import { ROOM_ID_PARM, LOAD_REPLAY } from '../constants';
+import {
+  ROOM_ID_PARM,
+  LOAD_REPLAY,
+  LOAD_GAME_HISTORY_DATA
+} from '../constants';
 import { GameRecordsModel, ReplayEndPointResponseI } from '../types';
 
 import { GAME_HAS_FINISHED, RESTART_GAME, PLAYER_ID_PARAM } from '../constants';
@@ -15,6 +19,7 @@ export function restartGame(history: any) {
     dispatch({
       type: RESTART_GAME
     });
+
     socketManager.emitGameRestart();
     history.push('game');
   };
@@ -40,6 +45,10 @@ export function fetchReplay(roomInstanceId: string, playerId: string) {
         dispatch({
           type: LOAD_REPLAY,
           payload: replayEndPointResponse.gameRecords
+        });
+        dispatch({
+          type: LOAD_GAME_HISTORY_DATA,
+          payload: [replayEndPointResponse.gameInfo]
         });
       });
   };

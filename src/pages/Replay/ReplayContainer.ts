@@ -10,10 +10,13 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
   const gameInfo = state.gamesHistory[roomId];
   const replay = state.replays[roomId];
   const myId = state.myData.facebookId;
-  const avatars = state.gamesHistory[roomId].players.map(player => {
-    return player.avatar;
-  });
-  return { myId, roomId, gameInfo, replay, avatars };
+  return {
+    myId,
+    roomId,
+    gameInfo,
+    replay,
+    gameHistory: state.gamesHistory[roomId]
+  };
 };
 
 const mapDispatchToProps = {
