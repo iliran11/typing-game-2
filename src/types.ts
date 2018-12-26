@@ -124,6 +124,7 @@ export interface RootState {
   readonly myData: MyDataReducer;
   readonly gamesHistory: IGamesHistoryReducer;
   readonly replays: ReplayReducer;
+  readonly typing: TypingReducerI
 }
 export interface PlayerJoiningAction {
   type: string;

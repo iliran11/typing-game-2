@@ -10,6 +10,7 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
   const gameInfo = state.gamesHistory[roomId];
   const replay = state.replays[roomId];
   const myId = '10155286331682924';
+  const typingData = state.typing[`${roomId}-${myId}`];
 
   // const myId = state.myData.facebookId;
   // TODO: gameData should be available anywhere.
@@ -18,7 +19,8 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
     roomId,
     gameInfo,
     replay,
-    gameHistory: state.gamesHistory[roomId]
+    gameHistory: state.gamesHistory[roomId],
+    typingData
   };
 };
 

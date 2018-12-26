@@ -14,5 +14,5 @@ export default combineReducers({
   myData,
   gamesHistory: gameHistoriesReducer,
   replays: replaysReducer,
-  typingData: typingReducer
+  typing: typingReducer
 });

@@ -3,9 +3,10 @@ import CompetitorList from '../../components/Scoreboard/CompetitorList';
 import {
   GameRecordsModel,
   GameModelInterface,
-  PlayerAvatar
+  PlayerAvatar,
+  TypingModelI
 } from '../../types';
-import GameView from '../../components/game-manager/GameView';
+import GameTyper from './GameTyper';
 
 interface Props {
   roomId: number;
@@ -14,15 +15,19 @@ interface Props {
   replay: GameRecordsModel[];
   myId: string;
   history: any;
+  typingData: TypingModelI[];
 }
 
 class ReplayPage extends PureComponent<Props, any> {
   replayTimer: any;
+  typingTimer: any;
   constructor(props: any) {
     super(props);
     props.fetchReplay(props.roomId, this.props.myId);
     this.state = {
-      currentStep: 0
+      currentStep: 0,
+      index: 0,
+      input: []
     };
   }
   componentDidMount() {
@@ -30,10 +35,11 @@ class ReplayPage extends PureComponent<Props, any> {
       this.setState({
         currentStep: this.state.currentStep + 1
       });
-    }, 1000);
+    }, 1100);
   }
   componentDidUpdate() {
     if (this.state.currentStep === this.props.replay.length - 1) {
+      console.log('finished animation')
       clearInterval(this.replayTimer);
     }
   }
@@ -56,7 +62,7 @@ class ReplayPage extends PureComponent<Props, any> {
             myId={this.props.myId}
             history={this.props.history}
           />
-          {/* <GameView/> */}
+          {this.props.typingData && <GameTyper typingData={this.props.typingData} />}
         </div>
       );
     }

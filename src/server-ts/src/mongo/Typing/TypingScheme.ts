@@ -16,6 +16,7 @@ TypingScheme.statics.getTypingsOfPlayerInGame = function(
 ) {
   return new Promise((resolve, reject) => {
     this.find({ gameId, playerId })
+      .sort({ gameTimeStamp: 1 })
       .then(result => {
         resolve(result);
       })
