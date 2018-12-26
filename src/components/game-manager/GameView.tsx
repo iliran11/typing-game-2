@@ -18,7 +18,6 @@ interface Props {
 }
 
 interface State {
-  index: number;
   input: string[];
   allRefsMounted: boolean;
 }
@@ -33,7 +32,6 @@ export default class GameView extends React.Component<any, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      index: 0,
       input: [],
       allRefsMounted: false
     };
