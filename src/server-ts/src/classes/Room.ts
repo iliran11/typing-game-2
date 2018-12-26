@@ -39,7 +39,7 @@ export default class Room {
   private timePassed: number;
   private timeIncrement: number = 1000;
   private finalScores: PlayerGameStatus[];
-  private roomStartTimestamp: number = 0;
+  public roomStartTimestamp: number = 0;
   private instanceId: string;
   private gameTickSequence: number;
   // store the already given avatar indexes so we can give anonymous player a unique avatar.
@@ -271,5 +271,11 @@ export default class Room {
   }
   private get randomAvatarIndex(): number {
     return random(0, 11);
+  }
+  get roomTimePassed() {
+    return this.timePassed;
+  }
+  get roomInstanceId() {
+    return this.instanceId;
   }
 }
