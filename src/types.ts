@@ -204,7 +204,7 @@ export interface ReplayReducer {
   [roomId: string]: GameRecordsModel[];
 }
 
-export interface TypingModel {
+export interface TypingModelI {
   typedLetter: string;
   playerId: string;
   gameId: string;

@@ -1,9 +1,9 @@
-import { TypingScheme } from './TypingScheme';
-import { TypingModel } from '../../../../types';
+import TypingScheme from './TypingScheme';
+import { TypingModelI } from '../../../../types';
 const mongoose = require('mongoose');
 
-const TypingModel = mongoose.model('Typing', TypingScheme);
+export const TypingModel = mongoose.model('Typing', TypingScheme);
 
-export function createTypingRecord(typingModel: TypingModel) {
+export function createTypingRecord(typingModel: TypingModelI) {
   return new TypingModel(typingModel);
 }
