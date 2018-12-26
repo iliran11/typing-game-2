@@ -3,7 +3,8 @@ import axios from 'axios';
 import {
   ROOM_ID_PARM,
   LOAD_REPLAY,
-  LOAD_GAME_HISTORY_DATA
+  LOAD_GAME_HISTORY_DATA,
+  LOAD_TYPING
 } from '../constants';
 import { GameRecordsModel, ReplayEndPointResponseI } from '../types';
 
@@ -49,6 +50,10 @@ export function fetchReplay(roomInstanceId: string, playerId: string) {
         dispatch({
           type: LOAD_GAME_HISTORY_DATA,
           payload: [replayEndPointResponse.gameInfo]
+        });
+        dispatch({
+          type: LOAD_TYPING,
+          payload: replayEndPointResponse.gameTyping
         });
       });
   };

@@ -5,6 +5,7 @@ import {
   GameModelInterface,
   PlayerAvatar
 } from '../../types';
+import GameView from '../../components/game-manager/GameView';
 
 interface Props {
   roomId: number;
@@ -32,7 +33,6 @@ class ReplayPage extends PureComponent<Props, any> {
     }, 1000);
   }
   componentDidUpdate() {
-    console.log('didUpdate step: ', this.state.currentStep);
     if (this.state.currentStep === this.props.replay.length - 1) {
       clearInterval(this.replayTimer);
     }
@@ -56,6 +56,7 @@ class ReplayPage extends PureComponent<Props, any> {
             myId={this.props.myId}
             history={this.props.history}
           />
+          {/* <GameView/> */}
         </div>
       );
     }

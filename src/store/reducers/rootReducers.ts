@@ -5,6 +5,7 @@ import authRedcuer from './authReducer';
 import myData from './myDataReducer';
 import gameHistoriesReducer from '../../pages/GamesHistory/redux/GamesHistoryReducer';
 import replaysReducer from '../../store/reducers/replaysReducer';
+import typingReducer from '../../store/reducers/TypingsReducer';
 
 export default combineReducers({
   gameData,
@@ -12,5 +13,6 @@ export default combineReducers({
   authentication: authRedcuer,
   myData,
   gamesHistory: gameHistoriesReducer,
-  replays: replaysReducer
+  replays: replaysReducer,
+  typingData: typingReducer
 });

@@ -9,7 +9,10 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
   const roomId = queryString.parse(ownProps.location.search)[ROOM_ID_PARM];
   const gameInfo = state.gamesHistory[roomId];
   const replay = state.replays[roomId];
-  const myId = state.myData.facebookId;
+  const myId = '10155286331682924';
+
+  // const myId = state.myData.facebookId;
+  // TODO: gameData should be available anywhere.
   return {
     myId,
     roomId,

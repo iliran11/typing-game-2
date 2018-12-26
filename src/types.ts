@@ -204,6 +204,12 @@ export interface ReplayReducer {
   [roomId: string]: GameRecordsModel[];
 }
 
+
+//typing id is composed from roomId-playerId
+export interface TypingReducerI {
+  [typingId:string]: TypingModelI[]
+}
+
 export interface TypingModelI {
   typedLetter: string;
   playerId: string;
