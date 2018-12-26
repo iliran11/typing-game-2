@@ -11,12 +11,14 @@ export const GameRecordSchema = mongoose.Schema({
   accuracy: Number,
   id: String,
   isFinished: Boolean,
-  type: String});
+  type: String,
+  name:String
+});
 
 const GameRecordsSchema = mongoose.Schema({
   results: [GameRecordSchema],
   gameInstanceId: String,
-  gameTickSequenceId: Number,
+  gameTickSequenceId: Number
 });
 
 GameRecordsSchema.statics.getRecordsByRoomId = function(

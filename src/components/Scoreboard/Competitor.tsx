@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './competitor.css';
-import { EMPTY_COMPETITOR_SLOT,MAX_WPM_GAUGE } from '../../constants';
+import { EMPTY_COMPETITOR_SLOT, MAX_WPM_GAUGE } from '../../constants';
 import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';
 import Avatar from './Avatar';
@@ -22,6 +22,7 @@ interface Props {
   hasLeft: boolean;
   isFinished: boolean;
   navigateToResult: () => void;
+  name: string;
 }
 interface State {
   hasMounted: boolean;
@@ -86,7 +87,7 @@ class Competitor extends React.PureComponent<Props, State> {
     return this.props.id === EMPTY_COMPETITOR_SLOT;
   }
   get nameSectionText() {
-    return this.isEmptySlot ? 'Waiting ...' : this.props.id;
+    return this.isEmptySlot ? 'Waiting ...' : this.props.name;
   }
   // extract the number from the guest. temporary method.
   get guestNumber() {

@@ -46,7 +46,8 @@ class CompetitorList extends React.PureComponent<Props, object> {
         isMe: id === this.props.myId,
         hasLeft,
         isFinished,
-        playerAvatar: this.props.avatars && this.props.avatars[index]
+        playerAvatar: this.props.avatars && this.props.avatars[index],
+        name: player.name ? player.name : this.props.myId
       };
     } else {
       return {

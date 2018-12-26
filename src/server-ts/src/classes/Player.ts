@@ -94,7 +94,8 @@ export default class Player {
       isFinished: false,
       finishedTimeStamp,
       accuracy,
-      gameDuration
+      gameDuration,
+      name: this.serializable.name
     });
   }
 }

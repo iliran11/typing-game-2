@@ -45,6 +45,7 @@ export interface PlayerGameStatus {
   gameDuration?: number;
   accuracy?: number;
   avatar: PlayerAvatar;
+  name: string;
 }
 export class PlayerGameStatusFactory implements PlayerGameStatus {
   id: string;
@@ -57,6 +58,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
   gameDuration?: number;
   accuracy?: number;
   avatar: PlayerAvatar;
+  name: string;
   constructor(options: any) {
     const {
       id,
@@ -68,7 +70,8 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       finishedTimeStamp,
       gameDuration,
       accuracy,
-      avatar
+      avatar,
+      name
     } = options;
     this.id = id;
     this.score = score;
@@ -80,6 +83,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
     this.gameDuration = gameDuration;
     this.accuracy = accuracy;
     this.avatar = avatar;
+    this.name = name;
   }
   get serialize(): PlayerGameStatus {
     return {
@@ -92,7 +96,8 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       finishedTimeStamp: this.finishedTimeStamp,
       gameDuration: this.gameDuration,
       accuracy: this.accuracy,
-      avatar: this.avatar
+      avatar: this.avatar,
+      name: this.name
     };
   }
 }
@@ -196,5 +201,5 @@ export interface GameRecordsModel {
 }
 
 export interface ReplayReducer {
-  [roomId: string]: string;
+  [roomId: string]: GameRecordsModel[];
 }
