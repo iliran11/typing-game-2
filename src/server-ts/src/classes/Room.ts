@@ -41,6 +41,7 @@ export default class Room {
   private finalScores: PlayerGameStatus[];
   private roomStartTimestamp: number = 0;
   private instanceId: string;
+  private gameTickSequence: number;
   // store the already given avatar indexes so we can give anonymous player a unique avatar.
   private avatarIndexes: number = 0;
   isClosed: boolean;
@@ -64,6 +65,7 @@ export default class Room {
     if (MAX_PLAYERS_PER_ROOM > 1) {
       this.startCountdownBot();
     }
+    this.gameTickSequence = 1;
   }
   addPlayer(player: Player): void {
     player.setAvatar(this.randomAvatarIndex);
@@ -177,7 +179,12 @@ export default class Room {
     if (this.isAnyoneStillPlaying === false) {
       this.stopGame(gameRecords);
     }
-    createGameRecords(gameRecords, this.instanceId).save();
+    createGameRecords(
+      gameRecords,
+      this.instanceId,
+      this.gameTickSequence
+    ).save();
+    this.gameTickSequence++;
   }
   startGame(): void {
     const intervalTime: number = 1000;
@@ -248,7 +255,8 @@ export default class Room {
     if (finalResult) {
       const finalResultDocument = createGameRecords(
         finalResult,
-        this.instanceId
+        this.instanceId,
+        this.gameTickSequence
       );
       Game.findByIdAndUpdate(this.instanceId, {
         finalResult: finalResultDocument

@@ -11,12 +11,12 @@ export const GameRecordSchema = mongoose.Schema({
   accuracy: Number,
   id: String,
   isFinished: Boolean,
-  type: String
-});
+  type: String});
 
 const GameRecordsSchema = mongoose.Schema({
   results: [GameRecordSchema],
-  gameInstanceId: String
+  gameInstanceId: String,
+  gameTickSequenceId: Number,
 });
 
 GameRecordsSchema.statics.getRecordsByRoomId = function(
@@ -24,6 +24,8 @@ GameRecordsSchema.statics.getRecordsByRoomId = function(
 ): Promise<GameRecordsModel[]> {
   return new Promise((resolve, reject) => {
     this.find({ gameInstanceId: roomId })
+      .sort({ gameTickSequenceId: 1 })
+      .exec()
       .then((result: GameRecordsModel[]) => {
         resolve(result);
       })

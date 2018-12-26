@@ -8,14 +8,20 @@ class ReplayPage extends PureComponent<any, any> {
   }
   render() {
     if (this.props.replay) {
+      this.props.replay.forEach((item: any) => {
+        console.log(item.created,item.gameTickSequenceId,item.results[0].completedPercentage);
+      });
+      // console.log(this.props.replay);
       return (
-        <CompetitorList
-          players={this.props.replay[0].results}
-          avatars={this.props.avatars}
-          roomSize={4}
-          myId={this.props.myId}
-          history={this.props.history}
-        />
+        <div id="game-page">
+          <CompetitorList
+            players={this.props.replay[0].results}
+            avatars={this.props.avatars}
+            roomSize={4}
+            myId={this.props.myId}
+            history={this.props.history}
+          />
+        </div>
       );
     }
     return <div>wait for it</div>;

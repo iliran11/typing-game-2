@@ -6,14 +6,16 @@ export const GameRecord = mongoose.model('GameRecord', GameRecordSchema);
 export const GameRecords = mongoose.model('GameRecords', GameRecordsSchema);
 export function createGameRecords(
   models: PlayerGameStatus[],
-  instanceId: string
+  instanceId: string,
+  gameTickSequenceId: number
 ) {
   const gameRecordModels = models.map((model: PlayerGameStatus) => {
     return new GameRecord(model);
   });
   return new GameRecords({
     results: gameRecordModels,
-    gameInstanceId: instanceId
+    gameInstanceId: instanceId,
+    gameTickSequenceId
   });
 }
 
