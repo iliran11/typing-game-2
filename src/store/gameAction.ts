@@ -1,9 +1,9 @@
 import socketManager from '../socketManager';
 import axios from 'axios';
 import { ROOM_ID_PARM, LOAD_REPLAY } from '../constants';
-import { GameRecordsModel } from '../types';
+import { GameRecordsModel, ReplayEndPointResponseI } from '../types';
 
-import { GAME_HAS_FINISHED, RESTART_GAME } from '../constants';
+import { GAME_HAS_FINISHED, RESTART_GAME, PLAYER_ID_PARAM } from '../constants';
 export function gameIsFinished() {
   return {
     type: GAME_HAS_FINISHED
@@ -26,20 +26,20 @@ export function navigateToReplay(roomInstanceId: string, pushPage: any) {
   };
 }
 
-export function fetchReplay(roomInstanceId: string) {
+export function fetchReplay(roomInstanceId: string, playerId: string) {
   return function(dispatch: any) {
     axios
       .get('./game-replay', {
         params: {
-          [ROOM_ID_PARM]: roomInstanceId
+          [ROOM_ID_PARM]: roomInstanceId,
+          [PLAYER_ID_PARAM]: playerId
         }
       })
       .then(result => {
-        const data: GameRecordsModel[] = result.data;
-        console.log(result);
+        const replayEndPointResponse: ReplayEndPointResponseI = result.data;
         dispatch({
           type: LOAD_REPLAY,
-          payload: data
+          payload: replayEndPointResponse.gameRecords
         });
       });
   };

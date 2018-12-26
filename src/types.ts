@@ -210,3 +210,9 @@ export interface TypingModelI {
   gameId: string;
   gameTimeStamp: number;
 }
+
+export interface ReplayEndPointResponseI {
+  gameRecords: GameRecordsModel;
+  gameInfo: GameModelInterface;
+  gameTyping: TypingModelI[];
+}

@@ -2,7 +2,7 @@ import { GameRecords } from '../mongo/GameRecord/GameRecordModel';
 import { Game } from '../mongo/Game/GameModel';
 import { TypingModel } from '../mongo/Typing/TypingModel';
 import { ROOM_ID_PARM, PLAYER_ID_PARAM } from '../../../constants';
-import { GameRecordsModel } from '../../../types';
+import { ReplayEndPointResponseI } from '../../../types';
 const isNil = require('lodash.isnil');
 
 export default function GamesHistoryController(req, res) {
@@ -28,10 +28,11 @@ export default function GamesHistoryController(req, res) {
     playerIdParam
   );
   Promise.all([gameRecords, gameInfo, gameTyping]).then(values => {
-    res.send({
+    const response: ReplayEndPointResponseI = {
       gameRecords: values[0],
       gameInfo: values[1],
       gameTyping: values[2]
-    });
+    };
+    res.send(response);
   });
 }

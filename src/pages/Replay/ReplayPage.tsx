@@ -19,7 +19,7 @@ class ReplayPage extends PureComponent<Props, any> {
   replayTimer: any;
   constructor(props: any) {
     super(props);
-    props.fetchReplay(props.roomId);
+    props.fetchReplay(props.roomId,this.props.myId);
     this.state = {
       currentStep: 0
     };

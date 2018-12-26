@@ -30,7 +30,7 @@ GameScheme.statics.getGameInfoByGameId = function(
   roomId: string
 ): Promise<GameModelInterface> {
   return new Promise((resolve, reject) => {
-    this.find({ _id: roomId })
+    this.findOne({ _id: roomId })
       .then((gameModel: any) => {
         resolve(gameModel);
       })
