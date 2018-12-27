@@ -124,7 +124,7 @@ export interface RootState {
   readonly myData: MyDataReducer;
   readonly gamesHistory: IGamesHistoryReducer;
   readonly replays: ReplayReducer;
-  readonly typing: TypingReducerI
+  readonly typing: TypingReducerI;
 }
 export interface PlayerJoiningAction {
   type: string;
@@ -199,16 +199,16 @@ export interface IGamesHistoryReducer {
 export interface GameRecordsModel {
   results: PlayerGameStatus[];
   gameInstanceId: string;
+  _id: string;
 }
 
 export interface ReplayReducer {
   [roomId: string]: GameRecordsModel[];
 }
 
-
 //typing id is composed from roomId-playerId
 export interface TypingReducerI {
-  [typingId:string]: TypingModelI[]
+  [typingId: string]: TypingModelI[];
 }
 
 export interface TypingModelI {
@@ -216,6 +216,7 @@ export interface TypingModelI {
   playerId: string;
   gameId: string;
   gameTimeStamp: number;
+  _id: string;
 }
 
 export interface ReplayEndPointResponseI {

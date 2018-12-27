@@ -8,6 +8,7 @@ import { ROOM_ID_PARM } from '../../constants';
 const mapStateToProps = (state: RootState, ownProps: any) => {
   const roomId = queryString.parse(ownProps.location.search)[ROOM_ID_PARM];
   const gameInfo = state.gamesHistory[roomId];
+  // TODO: change replay to CompetitorsReplay
   const replay = state.replays[roomId];
   const myId = '10155286331682924';
   const typingData = state.typing[`${roomId}-${myId}`];

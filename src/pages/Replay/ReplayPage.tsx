@@ -1,14 +1,13 @@
-import React, { PureComponent } from 'react';
-import CompetitorList from '../../components/Scoreboard/CompetitorList';
+import * as React from 'react';
+import ReplayManager from './ReplayManager';
 import {
-  GameRecordsModel,
-  GameModelInterface,
   PlayerAvatar,
+  GameModelInterface,
+  GameRecordsModel,
   TypingModelI
 } from '../../types';
-import GameTyper from './GameTyper';
 
-interface Props {
+export interface ReplayPageProps {
   roomId: number;
   gameInfo: GameModelInterface;
   gameHistory: GameModelInterface;
@@ -16,32 +15,13 @@ interface Props {
   myId: string;
   history: any;
   typingData: TypingModelI[];
+  fetchReplay: any;
 }
 
-class ReplayPage extends PureComponent<Props, any> {
-  replayTimer: any;
-  typingTimer: any;
-  constructor(props: any) {
+export default class ReplayPage extends React.Component<ReplayPageProps, any> {
+  constructor(props: ReplayPageProps) {
     super(props);
     props.fetchReplay(props.roomId, this.props.myId);
-    this.state = {
-      currentStep: 0,
-      index: 0,
-      input: []
-    };
-  }
-  componentDidMount() {
-    this.replayTimer = setInterval(() => {
-      this.setState({
-        currentStep: this.state.currentStep + 1
-      });
-    }, 1100);
-  }
-  componentDidUpdate() {
-    if (this.state.currentStep === this.props.replay.length - 1) {
-      console.log('finished animation')
-      clearInterval(this.replayTimer);
-    }
   }
   get avatars(): PlayerAvatar[] | null {
     if (this.props.gameHistory) {
@@ -51,23 +31,10 @@ class ReplayPage extends PureComponent<Props, any> {
     }
     return null;
   }
-  render() {
-    if (this.props.replay && this.avatars) {
-      return (
-        <div id="game-page">
-          <CompetitorList
-            players={this.props.replay[this.state.currentStep].results}
-            avatars={this.avatars}
-            roomSize={this.props.replay[0].results.length}
-            myId={this.props.myId}
-            history={this.props.history}
-          />
-          {this.props.typingData && <GameTyper typingData={this.props.typingData} />}
-        </div>
-      );
+  public render() {
+    if (this.props.replay && this.avatars && this.props.typingData) {
+      return <ReplayManager {...this.props} avatars={this.avatars} />;
     }
-    return <div>wait for it</div>;
+    return <div>Waiting ...</div>;
   }
 }
-
-export default ReplayPage;
