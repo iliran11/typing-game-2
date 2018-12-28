@@ -11,8 +11,16 @@ import Home from './pages/HomePage/HomePageContainer';
 import ReplayPage from './pages/Replay/ReplayContainer';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBarContainer';
+import AuthenticationManager from './AuthenticationManager';
 
 class App extends React.Component {
+  authenticationManager: AuthenticationManager;
+  constructor(props: any) {
+    super(props);
+    props.initAuthenticationManager();
+    this.authenticationManager = AuthenticationManager.getInstance();
+    this.authenticationManager.initialAuthentication();
+  }
   render() {
     return (
       <div className="gradient-6" id="app-container">
