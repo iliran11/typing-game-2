@@ -23,10 +23,12 @@ class inputSimulator {
         this.inputIndex++;
       } else {
         this.input[this.inputIndex] = typingModel.typedLetter;
+        this.input = [...this.input];
         this.inputIndex++;
       }
     } else {
       this.input[this.inputIndex] = typingModel.typedLetter;
+      this.input = [...this.input];
       this.lastTypingFailed = true;
     }
   }
@@ -34,11 +36,13 @@ class inputSimulator {
     typingModel: TypingModelI
   ): {
     input: string[];
+    inputIndex: number;
   } {
     this.calculateNextState(typingModel);
     {
       return {
-        input: this.input
+        input: this.input,
+        inputIndex: this.inputIndex
       };
     }
   }

@@ -4,6 +4,7 @@ import { ReplayPageProps } from './ReplayPage';
 import { PlayerAvatar } from '../../types';
 import GameView from '../../components/game-manager/GameView';
 import TypingInputSimulator from './TypingInputSimulator';
+import ToolTip from '../../components/tooltip';
 
 export interface ReplayManagerProps extends ReplayPageProps {
   avatars: PlayerAvatar[];
@@ -23,6 +24,7 @@ export default class ReplayManager extends React.Component<
   ReplayManagerProps,
   any
 > {
+  tooltipTimer: any;
   allReplayDocuments: any;
   typingInputSimulator: TypingInputSimulator;
   timelineMap: TimelineMapI[];
@@ -42,13 +44,16 @@ export default class ReplayManager extends React.Component<
       .sort((a, b) => {
         return a.timeStamp - b.timeStamp;
       });
-    console.log(this.timelineMap);
     this.state = {
       stepIndex: 0,
-      [DOCUMENT_TYPE.COMPETITOR]: this.props.replay[0],
+      competitorReplayInstance: this.props.replay[0].results,
       input: [],
       letters: [],
-      lettersIndex: 0
+      lettersIndex: 0,
+      toolTipX: 0,
+      toolTipY: 0,
+      tooltipInput: '',
+      isOpen: false
     };
     this.typingInputSimulator = new TypingInputSimulator(
       this.props.gameInfo.letters
@@ -56,7 +61,9 @@ export default class ReplayManager extends React.Component<
     this.replayTick = this.replayTick.bind(this);
     this.handleTypingDocument = this.handleTypingDocument.bind(this);
     this.handleCompetitorReplay = this.handleCompetitorReplay.bind(this);
-    // console.log('timelineMap has constructed: ', this.timelineMap);
+    this.closeTooltip = this.closeTooltip.bind(this);
+    this.scheduleTooltipClosure = this.scheduleTooltipClosure.bind(this);
+    this.changeToolTipPosition = this.changeToolTipPosition.bind(this);
   }
   componentDidMount() {
     this.setState(
@@ -128,8 +135,32 @@ export default class ReplayManager extends React.Component<
       }
     );
   }
-
+  // TODO: MOVE TO HOC
+  changeToolTipPosition(toolTipX: number, toolTipY: number, input: string) {
+    // we want that the arrow (not the most left border of the tooltip) will point exactly on the coordinate supplied
+    const arrowOffset = 22 / 2;
+    clearTimeout(this.tooltipTimer);
+    this.setState(
+      {
+        toolTipX: toolTipX - arrowOffset,
+        toolTipY,
+        isOpen: true,
+        tooltipInput: input
+      },
+      this.scheduleTooltipClosure
+    );
+  }
+  scheduleTooltipClosure() {
+    this.tooltipTimer = setTimeout(this.closeTooltip, 1000);
+  }
+  closeTooltip() {
+    this.setState({
+      isOpen: false
+    });
+  }
+  // END OF MOVE TO HOC
   render() {
+    console.log(this.state.competitorReplayInstance);
     return (
       <div id="game-page">
         <CompetitorList
@@ -143,9 +174,16 @@ export default class ReplayManager extends React.Component<
           letters={this.state.letters}
           input={this.state.input}
           gameActive={true}
-          changeToolTipPosition={() => {}}
-          closeTooltip={() => {}}
+          changeToolTipPosition={this.changeToolTipPosition}
+          closeTooltip={this.scheduleTooltipClosure}
+          index={this.state.inputIndex}
           gameIsFinished={() => {}}
+        />
+        <ToolTip
+          x={this.state.toolTipX}
+          y={this.state.toolTipY}
+          isOpen={this.state.isOpen}
+          input={this.state.tooltipInput}
         />
       </div>
     );
