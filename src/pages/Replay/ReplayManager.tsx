@@ -55,6 +55,7 @@ export default class ReplayManager extends React.Component<
     );
     this.replayTick = this.replayTick.bind(this);
     this.handleTypingDocument = this.handleTypingDocument.bind(this);
+    this.handleCompetitorReplay = this.handleCompetitorReplay.bind(this);
     // console.log('timelineMap has constructed: ', this.timelineMap);
   }
   componentDidMount() {
@@ -100,13 +101,18 @@ export default class ReplayManager extends React.Component<
       ...nextTypingState
     };
   }
+  handleCompetitorReplay() {
+    return {
+      competitorReplayInstance: this.currentDocument.document.results
+    };
+  }
   replayTick() {
     let nextState = { ...this.state };
     if (this.currentDocument.documentType === DOCUMENT_TYPE.TYPING) {
       nextState = { ...nextState, ...this.handleTypingDocument() };
-      console.log('next state typing', nextState);
     }
     if (this.currentDocument.documentType === DOCUMENT_TYPE.COMPETITOR) {
+      nextState = { ...nextState, ...this.handleCompetitorReplay() };
     }
     this.setState(
       {
@@ -127,7 +133,7 @@ export default class ReplayManager extends React.Component<
     return (
       <div id="game-page">
         <CompetitorList
-          players={this.state[DOCUMENT_TYPE.COMPETITOR].results}
+          players={this.state.competitorReplayInstance}
           avatars={this.props.avatars}
           roomSize={this.props.replay[0].results.length}
           myId={this.props.myId}
