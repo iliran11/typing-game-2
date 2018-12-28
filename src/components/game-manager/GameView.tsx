@@ -9,7 +9,6 @@ const scrollIntoView = require('scroll-into-view');
 
 interface Props {
   letters: string[];
-  dispatch: any;
   currentLetter: string;
   gameActive: boolean;
   changeToolTipPosition: (x: number, y: number, input: string) => void;
@@ -60,14 +59,16 @@ export default class GameView extends React.Component<any, State> {
         return;
       } else {
         this.showLetterTooltip(this.props.input[this.props.index]);
-        console.log('show tooltip ');
       }
     }
   }
   memoizeDomRects(refArray: HTMLDivElement) {
     // build the letter nodes.
     this.letterNodes.push(refArray);
-    if (this.letterNodes.length === this.props.letters.length) {
+    if (
+      this.letterNodes.length === this.props.letters.length &&
+      this.wordBox.current
+    ) {
       // here we memoize the rects dimensions so we don't have to recalculate them every render.
       this.lettersRect = this.letterNodes.map((ref: HTMLElement) => {
         return ref.getBoundingClientRect();
@@ -141,7 +142,7 @@ export default class GameView extends React.Component<any, State> {
        * in purpose of letting our people know that u are finished.
        */
 
-      socketManager.emitFinishedGame();
+      // socketManager.emitFinishedGame();
     }
   }
 

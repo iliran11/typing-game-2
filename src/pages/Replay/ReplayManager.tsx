@@ -2,14 +2,21 @@ import * as React from 'react';
 import CompetitorList from '../../components/Scoreboard/CompetitorList';
 import { ReplayPageProps } from './ReplayPage';
 import { PlayerAvatar } from '../../types';
+import GameView from '../../components/game-manager/GameView';
+import TypingInputSimulator from './TypingInputSimulator';
 
 export interface ReplayManagerProps extends ReplayPageProps {
   avatars: PlayerAvatar[];
 }
 
-enum documentType {
+enum DOCUMENT_TYPE {
   TYPING = 'typing',
   COMPETITOR = 'competitor'
+}
+interface TimelineMapI {
+  document: any;
+  documentType: DOCUMENT_TYPE;
+  timeStamp: number;
 }
 
 export default class ReplayManager extends React.Component<
@@ -17,11 +24,8 @@ export default class ReplayManager extends React.Component<
   any
 > {
   allReplayDocuments: any;
-  timelineMap: {
-    document: any;
-    documentType: any;
-    timeStamp: number;
-  }[];
+  typingInputSimulator: TypingInputSimulator;
+  timelineMap: TimelineMapI[];
   constructor(props: ReplayManagerProps) {
     super(props);
     this.timelineMap = [...this.props.typingData, ...this.props.replay]
@@ -29,8 +33,8 @@ export default class ReplayManager extends React.Component<
         return {
           document,
           documentType: document.gameTimeStamp
-            ? documentType.TYPING
-            : documentType.COMPETITOR,
+            ? DOCUMENT_TYPE.TYPING
+            : DOCUMENT_TYPE.COMPETITOR,
           timeStamp:
             document.gameTimeStamp || document.gameTickSequenceId * 1000
         };
@@ -38,57 +42,104 @@ export default class ReplayManager extends React.Component<
       .sort((a, b) => {
         return a.timeStamp - b.timeStamp;
       });
-    // console.log(this.timelineMap);
+    console.log(this.timelineMap);
     this.state = {
       stepIndex: 0,
-      [documentType.COMPETITOR]: this.props.replay[0]
+      [DOCUMENT_TYPE.COMPETITOR]: this.props.replay[0],
+      input: [],
+      letters: [],
+      lettersIndex: 0
     };
-    this.performOperation = this.performOperation.bind(this);
+    this.typingInputSimulator = new TypingInputSimulator(
+      this.props.gameInfo.letters
+    );
+    this.replayTick = this.replayTick.bind(this);
+    this.handleTypingDocument = this.handleTypingDocument.bind(this);
+    // console.log('timelineMap has constructed: ', this.timelineMap);
   }
   componentDidMount() {
-    this.performOperation();
+    this.setState(
+      {
+        letters: this.props.gameInfo.letters
+      },
+      this.replayTick
+    );
   }
-  performOperation() {
-    const currentDocument = this.timelineMap[this.state.stepIndex];
-
-    const currentIndex = this.state.stepIndex;
-    const previousDocument =
-      currentIndex > 0 ? this.timelineMap[currentIndex - 1] : null;
-    const nextCommandTime = previousDocument
-      ? currentDocument.timeStamp - previousDocument.timeStamp
-      : currentDocument.timeStamp;
-    const isCompetitorType =
-      currentDocument.documentType === documentType.COMPETITOR;
-    const textToConsole = isCompetitorType
-      ? 'competitor!'
-      : currentDocument.document.typedLetter;
-    const shouldContinue = this.state.stepIndex < this.timelineMap.length - 1;
-    if (!isCompetitorType) {
-      console.log(currentDocument.document.typedLetter);
+  get currentDocument(): TimelineMapI {
+    return this.timelineMap[this.state.stepIndex];
+  }
+  get previousDocument(): TimelineMapI | null {
+    const previousIndex = this.state.stepIndex - 1;
+    if (previousIndex < 0) {
+      return null;
+    }
+    return this.timelineMap[this.state.stepIndex - 1];
+  }
+  get nextDocument(): TimelineMapI | null {
+    const nextIndex = this.state.stepIndex + 1;
+    if (this.state.stepIndex < this.timelineMap.length) {
+      return this.timelineMap[nextIndex];
+    } else {
+      return null;
+    }
+  }
+  get shouldContinueReplayLoop(): boolean {
+    return this.state.stepIndex <= this.timelineMap.length - 1;
+  }
+  get nextTickTime(): number {
+    if (this.nextDocument) {
+      return this.nextDocument.timeStamp - this.currentDocument.timeStamp;
+    }
+    return -1;
+  }
+  handleTypingDocument() {
+    const nextTypingState = this.typingInputSimulator.nexTypingState(
+      this.currentDocument.document
+    );
+    return {
+      ...nextTypingState
+    };
+  }
+  replayTick() {
+    let nextState = { ...this.state };
+    if (this.currentDocument.documentType === DOCUMENT_TYPE.TYPING) {
+      nextState = { ...nextState, ...this.handleTypingDocument() };
+      console.log('next state typing', nextState);
+    }
+    if (this.currentDocument.documentType === DOCUMENT_TYPE.COMPETITOR) {
     }
     this.setState(
       {
-        stepIndex: this.state.stepIndex + 1,
-        [isCompetitorType
-          ? documentType.COMPETITOR
-          : documentType.TYPING]: currentDocument.document
+        ...nextState,
+        stepIndex: this.shouldContinueReplayLoop
+          ? this.state.stepIndex + 1
+          : this.state.stepIndex
       },
       () => {
-        if (shouldContinue) {
-          setTimeout(this.performOperation, nextCommandTime);
+        if (this.shouldContinueReplayLoop) {
+          setTimeout(this.replayTick, this.nextTickTime);
         }
       }
     );
   }
+
   render() {
     return (
       <div id="game-page">
         <CompetitorList
-          players={this.state[documentType.COMPETITOR].results}
+          players={this.state[DOCUMENT_TYPE.COMPETITOR].results}
           avatars={this.props.avatars}
           roomSize={this.props.replay[0].results.length}
           myId={this.props.myId}
           history={this.props.history}
+        />
+        <GameView
+          letters={this.state.letters}
+          input={this.state.input}
+          gameActive={true}
+          changeToolTipPosition={() => {}}
+          closeTooltip={() => {}}
+          gameIsFinished={() => {}}
         />
       </div>
     );
