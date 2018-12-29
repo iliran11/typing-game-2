@@ -4,6 +4,7 @@ import { LoginStatus } from '../../types';
 
 interface Props {
   isLogged: LoginStatus;
+  history: any;
 }
 class LoginButton extends PureComponent<Props, {}> {
   authenticationManager: AuthenticationManager;
@@ -13,6 +14,7 @@ class LoginButton extends PureComponent<Props, {}> {
     this.authenticationManager = AuthenticationManager.getInstance();
     this.logout = this.logout.bind(this);
     this.facebookLogin = this.facebookLogin.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
   facebookLogin() {
     this.authenticationManager.login();
@@ -20,29 +22,17 @@ class LoginButton extends PureComponent<Props, {}> {
   logout() {
     this.authenticationManager.logout();
   }
-  get buttonContent() {
-    switch (this.props.isLogged) {
-      case LoginStatus.loggedIn:
-        return 'Log Out';
-      case LoginStatus.loggedOut:
-        return 'Log In';
-      case LoginStatus.connecting:
-        return 'Connecting ...';
-    }
-  }
-  get onClick() {
-    return this.props.isLogged === LoginStatus.loggedIn
-      ? this.logout
-      : this.facebookLogin;
+  onClick() {
+    this.props.history.push('/login');
   }
   render() {
     return (
       <button
-        id="compete-now"
-        className="button-large gradient-2"
+        className="button-flat"
         onClick={this.onClick}
+        style={{ fontSize: 16 }}
       >
-        {this.buttonContent}
+        Sign Up
       </button>
     );
   }

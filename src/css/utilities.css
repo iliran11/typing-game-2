@@ -1,10 +1,20 @@
 .larger-text {
-  font-size:150%;
+  font-size: 150%;
 }
 .button-large {
   padding: 15px 0px;
   border-radius: 10px;
-  width:100%;
+  width: 100%;
   color: white;
   font-size: 20px;
+}
+.bold {
+  font-weight: bold;
+}
+
+.button-flat {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0px;
 }

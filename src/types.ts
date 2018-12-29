@@ -224,3 +224,7 @@ export interface ReplayEndPointResponseI {
   gameInfo: GameModelInterface;
   gameTyping: TypingModelI[];
 }
+
+export interface PageProps {
+  history: any;
+}

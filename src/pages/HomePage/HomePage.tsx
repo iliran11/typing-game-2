@@ -1,9 +1,6 @@
 import React from 'react';
 import './homepage.css';
 import Keyboard from '../../components/keyboard/keyboard';
-import AuthenticationManager from '../../AuthenticationManager';
-import LoginButtonContainer from '../../components/login-button/LoginButtonContainer';
-
 const baseSteps = [
   {
     text: 'y',
@@ -49,7 +46,6 @@ export default class Home extends React.Component<Props, State> {
       step: 0
     };
 
-
     this.incrementStep = this.incrementStep.bind(this);
   }
   componentDidMount() {
@@ -87,7 +83,6 @@ export default class Home extends React.Component<Props, State> {
         >
           Compete Now
         </button>
-        <LoginButtonContainer />
       </div>
     );
   }

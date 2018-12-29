@@ -3,9 +3,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import DebugDialog from './DebugDialog/DebugDialog';
+import LoginButton from '../login-button/LoginButtonContainer';
+import { LoginStatus, PageProps } from '../../types';
 
-export default class AppToolBar extends React.Component<any, any> {
-  constructor(props: {}) {
+export interface AppToolBarProps extends PageProps {
+  firstName: string;
+  lastName: string;
+  picture: string;
+  loggedIn: LoginStatus;
+}
+
+export default class AppToolBar extends React.Component<AppToolBarProps, any> {
+  constructor(props: AppToolBarProps) {
     super(props);
 
     this.state = {
@@ -21,6 +30,9 @@ export default class AppToolBar extends React.Component<any, any> {
   navigateToProfile() {
     this.props.history.push('/my-profile');
   }
+  get shouldShowPicutre() {
+    return this.props.picture && this.props.loggedIn === LoginStatus.loggedIn;
+  }
   render() {
     return (
       <div id="app-toolbar">
@@ -31,8 +43,14 @@ export default class AppToolBar extends React.Component<any, any> {
               <Typography variant="h6" color="inherit">
                 Typing Coacher
               </Typography>
-              {this.props.picture && (
-                <img src={this.props.picture} onClick={this.navigateToProfile} />
+              {this.shouldShowPicutre && (
+                <img
+                  src={this.props.picture}
+                  onClick={this.navigateToProfile}
+                />
+              )}
+              {this.props.loggedIn === LoginStatus.loggedOut && (
+                <LoginButton history={this.props.history} />
               )}
             </div>
           </Toolbar>

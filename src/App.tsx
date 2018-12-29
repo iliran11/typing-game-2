@@ -12,6 +12,7 @@ import ReplayPage from './pages/Replay/ReplayContainer';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBarContainer';
 import AuthenticationManager from './AuthenticationManager';
+import LoginPage from './pages/loginPage/LoginPageContainer';
 
 class App extends React.Component {
   authenticationManager: AuthenticationManager;
@@ -32,6 +33,7 @@ class App extends React.Component {
             <Route exact={true} path="/result" component={ResultPage} />
             <Route exact={true} path="/my-profile" component={MyProfilePage} />
             <Route exact={true} path="/replay" component={ReplayPage} />
+            <Route exact={true} path="/login" component={LoginPage} />
             <Route
               exact={true}
               path="/games-history"

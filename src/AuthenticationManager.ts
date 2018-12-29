@@ -49,33 +49,36 @@ class AuthenticationManager {
         }
       });
   }
-  login() {
-    this.dispatch({
-      type: LOGGING_IN_ACTION
-    });
-    this.facebookLogin().then((result: any) => {
-      if (this.state.authentication.facebookLoggedIn) {
-        axios
-          .post('login', {
-            [AUTH_FACEBOOK_HEADER]: this.state.authentication.facebookToken
-          })
-          .then((result: any) => {
-            const loginResponse: LoginResponse = result.data;
-            localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
-            this.setAxiosAuth();
-            this.dispatch({
-              type: LOGGED_IN
+  login(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.dispatch({
+        type: LOGGING_IN_ACTION
+      });
+      this.facebookLogin().then((result: any) => {
+        if (this.state.authentication.facebookLoggedIn) {
+          axios
+            .post('login', {
+              [AUTH_FACEBOOK_HEADER]: this.state.authentication.facebookToken
+            })
+            .then((result: any) => {
+              const loginResponse: LoginResponse = result.data;
+              localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
+              this.setAxiosAuth();
+              this.dispatch({
+                type: LOGGED_IN
+              });
+              const handshakeData: HandShakeData = loginResponse.data;
+              this.dispatch({
+                type: SERVER_HANDSHAKE_RECIEVED,
+                payload: handshakeData
+              });
+              resolve('success-login');
+            })
+            .catch(() => {
+              reject('error in login');
             });
-            const handshakeData: HandShakeData = loginResponse.data;
-            this.dispatch({
-              type: SERVER_HANDSHAKE_RECIEVED,
-              payload: handshakeData
-            });
-          })
-          .catch(() => {
-            console.log('error in login');
-          });
-      }
+        }
+      });
     });
   }
   logout() {
