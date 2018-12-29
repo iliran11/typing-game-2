@@ -40,6 +40,7 @@ interface State {
 }
 
 export default class Home extends React.Component<Props, State> {
+  virtualKeyboardTimer: any;
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -49,7 +50,10 @@ export default class Home extends React.Component<Props, State> {
     this.incrementStep = this.incrementStep.bind(this);
   }
   componentDidMount() {
-    setTimeout(this.incrementStep);
+    this.virtualKeyboardTimer = setTimeout(this.incrementStep);
+  }
+  componentWillUnmount() {
+    window.clearTimeout(this.virtualKeyboardTimer);
   }
   incrementStep() {
     this.setState(
@@ -58,7 +62,7 @@ export default class Home extends React.Component<Props, State> {
       },
       () => {
         if (this.state.step < baseSteps.length - 1) {
-          setTimeout(this.incrementStep, 300);
+          this.virtualKeyboardTimer = setTimeout(this.incrementStep, 300);
         }
       }
     );

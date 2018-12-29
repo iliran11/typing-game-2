@@ -5,7 +5,7 @@ import './css/gradients.css';
 import './css/utilities.css';
 import GamePage from './pages/GamePage';
 import ResultPage from './pages/ResultPage/ResultPageContainer';
-import MyProfilePage from './pages/MyProfile/MyProfile';
+import MyProfilePage from './pages/MyProfile/MyProfileContainer';
 import GamesHistory from './pages/GamesHistory/GamesHistoryContainer';
 import Home from './pages/HomePage/HomePageContainer';
 import ReplayPage from './pages/Replay/ReplayContainer';
