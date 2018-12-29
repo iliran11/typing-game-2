@@ -9,7 +9,7 @@ import MyProfilePage from './pages/MyProfile/MyProfile';
 import GamesHistory from './pages/GamesHistory/GamesHistoryContainer';
 import Home from './pages/HomePage/HomePageContainer';
 import ReplayPage from './pages/Replay/ReplayContainer';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBarContainer';
 import AuthenticationManager from './AuthenticationManager';
 import LoginPage from './pages/loginPage/LoginPageContainer';
