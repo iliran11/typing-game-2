@@ -7,6 +7,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 500px;
   h1 {
     margin: 0px;
     color: $color1;
@@ -17,7 +18,8 @@
     border-radius: 50%;
   }
   .big-header {
-    font-size: 20px;
+    font-size: 30px;
+    font-weight:bold;
     color: $color1;
   }
   .info-footer {
@@ -25,10 +27,14 @@
     color: $color7;
   }
 }
+#profile-tabs {
+  margin-top: 25px;
+}
 #ranking {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin-top: 15px;
 }
 .ranking-section {
   display: flex;
@@ -36,7 +42,6 @@
   align-items: center;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
 }
 #progress-bar-section {
   width: 100%;
@@ -60,4 +65,103 @@
   background: linear-gradient(to right, $color2, $color2 85%, white 95%);
   width: 50%;
   height: 100%;
+}
+
+#profile-stats {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  .profile-stats-section:first-child {
+    position: relative;
+    padding-right: 15px;
+    &:after {
+      content: '';
+      background: -webkit-linear-gradient(
+        bottom,
+        #365902 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      display: block;
+      height: 100%;
+      width: 2px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+  .profile-stats-section.align-right {
+    padding-left: 10px;
+  }
+}
+.stats-section-header {
+  position: relative;
+  display: flex;
+  &.align-left {
+    h3 {
+      margin-left: 20px;
+    }
+  }
+  &.align-right {
+    justify-content: flex-end;
+    h3 {
+      margin-right: 20px;
+    }
+  }
+  &:after {
+    content: '';
+    background: -webkit-linear-gradient(left, $color1 0%, rgba(0, 0, 0, 0) 70%);
+    display: block;
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+  &.align-right:after {
+    background-image: -webkit-linear-gradient(
+      right,
+      rgb(54, 89, 2) 0%,
+      rgba(0, 0, 0, 0) 70%
+    );
+  }
+  h3 {
+    position: relative;
+    font-size: 12px;
+    color: $color1;
+  }
+}
+
+.stats-goals-list {
+  margin-top: 15px;
+  color: $color1;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  span {
+    display: inline-block;
+  }
+  .stats-list-item:not(:first-child) {
+    margin-top: 15px;
+  }
+  .checked {
+    height: 10px;
+    width: 10px;
+  }
+}
+.stats-list-item {
+  display: flex;
+  .list-item-completed {
+    margin-left: 8px;
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .img {
+      height: 100%;
+      height: 15px;
+      width: 15px;
+    }
+  }
 }

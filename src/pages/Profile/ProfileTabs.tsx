@@ -3,7 +3,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Progress from './Tabs/Progress';
 import Settings from './Tabs/Settings';
-import Stats from './Tabs/Stats';
+import Stats from './Tabs/Stats/StatsContainer';
 import Videos from './Tabs/Videos';
 
 export interface ProfileTabsProps {}
