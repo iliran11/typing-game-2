@@ -7,6 +7,12 @@ export interface UserAvatarProps {
 
 export default class UserAvatar extends React.Component<UserAvatarProps, any> {
   public render() {
-    return <img src={this.props.picture} onClick={this.props.onClick} />;
+    return (
+      <img
+        className="active-user-avatar"
+        src={this.props.picture}
+        onClick={this.props.onClick}
+      />
+    );
   }
 }

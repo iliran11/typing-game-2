@@ -5,7 +5,7 @@ import './css/gradients.css';
 import './css/utilities.css';
 import GamePage from './pages/GamePage';
 import ResultPage from './pages/ResultPage/ResultPageContainer';
-import MyProfilePage from './pages/MyProfile/MyProfileContainer';
+import ProfilePage from './pages/Profile/ProfilePageContainer';
 import GamesHistory from './pages/GamesHistory/GamesHistoryContainer';
 import Home from './pages/HomePage/HomePageContainer';
 import ReplayPage from './pages/Replay/ReplayContainer';
@@ -31,7 +31,7 @@ class App extends React.Component {
             <Route exact={true} path="/" component={Home} />
             <Route exact={true} path="/game" component={GamePage} />
             <Route exact={true} path="/result" component={ResultPage} />
-            <Route exact={true} path="/my-profile" component={MyProfilePage} />
+            <Route exact={true} path="/my-profile" component={ProfilePage} />
             <Route exact={true} path="/replay" component={ReplayPage} />
             <Route exact={true} path="/login" component={LoginPage} />
             <Route

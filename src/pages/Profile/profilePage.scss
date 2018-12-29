@@ -1,0 +1,38 @@
+@import '../../css/colors.scss';
+
+#profile-page {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    margin: 0px;
+    color: $color1;
+  }
+  .active-user-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+  }
+  .big-header {
+    font-size: 20px;
+    color: $color1;
+  }
+  .info-footer {
+    font-size: 10px;
+    color: $color7;
+  }
+}
+#ranking {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.ranking-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

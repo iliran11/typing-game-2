@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
-import MyProfilePage from './MyProfilePage';
+import MyProfilePage from './ProfilePage';
 import { RootState } from '../../types';
 
 const mapStateToProps = (state: RootState) => {
   const fullName = `${state.myData.firstName} ${state.myData.lastName}`;
-  const myLevel = 1;
+  const level = 2;
+  const rank = 2103;
   return {
     fullName,
-    myLevel
+    level,
+    rank
   };
 };
 
