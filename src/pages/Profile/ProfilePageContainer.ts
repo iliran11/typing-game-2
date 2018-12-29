@@ -6,10 +6,12 @@ const mapStateToProps = (state: RootState) => {
   const fullName = `${state.myData.firstName} ${state.myData.lastName}`;
   const level = 2;
   const rank = 2103;
+  const progressToNextLevel = 0.78;
   return {
     fullName,
     level,
-    rank
+    rank,
+    progressToNextLevel
   };
 };
 

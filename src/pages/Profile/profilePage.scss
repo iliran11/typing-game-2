@@ -35,4 +35,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+#progress-bar-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $color7;
+  font-size: 12px;
+  margin-top: 30px;
+}
+#progress-bar {
+  width: 95%;
+  border: 1px solid $color8;
+  height: 15px;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#completed-area {
+  background: linear-gradient(to right, $color2, $color2 85%, white 95%);
+  width: 50%;
+  height: 100%;
 }
