@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import DebugDialog from './DebugDialog/DebugDialog';
 import LoginButton from '../login-button/LoginButtonContainer';
 import { LoginStatus, PageProps } from '../../types';
+import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContainer';
 
 export interface AppToolBarProps extends PageProps {
   firstName: string;
@@ -44,10 +45,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
                 Typing Coacher
               </Typography>
               {this.shouldShowPicutre && (
-                <img
-                  src={this.props.picture}
-                  onClick={this.navigateToProfile}
-                />
+                <ActiveUserAvatar onClick={this.navigateToProfile} />
               )}
               {this.props.loggedIn === LoginStatus.loggedOut && (
                 <LoginButton history={this.props.history} />
