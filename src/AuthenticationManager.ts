@@ -32,6 +32,17 @@ class AuthenticationManager {
     this.getState = getState;
   }
   initialAuthentication() {
+    // @ts-ignore
+    facebookConnectPlugin.login(
+      [],
+      () => {
+        console.log('success');
+      },
+      () => {
+        console.log('failure');
+      }
+    );
+    return;
     loadFbSdk('653846344985974')
       .then((result: any) => {
         this.onSdkLoadedSuccess();

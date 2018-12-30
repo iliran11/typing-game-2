@@ -20,7 +20,13 @@ class App extends React.Component {
     super(props);
     props.initAuthenticationManager();
     this.authenticationManager = AuthenticationManager.getInstance();
-    this.authenticationManager.initialAuthentication();
+    document.addEventListener(
+      'deviceready',
+      () => {
+        this.authenticationManager.initialAuthentication();
+      },
+      false
+    );
   }
   render() {
     return (
