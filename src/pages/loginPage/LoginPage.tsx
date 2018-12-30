@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './loginPage.scss';
 import AuthenticationManager from '../../AuthenticationManager';
+import { changeHistory } from '../../utilities';
 
 export interface LoginPageProps {
   history: any;
@@ -15,7 +16,7 @@ export default class LoginPage extends React.Component<LoginPageProps, any> {
   }
   login() {
     this.authenticationManager.login().then(() => {
-      this.props.history.push('/');
+      changeHistory('');
     });
   }
   public render() {

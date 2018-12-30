@@ -95,7 +95,7 @@ class GamePage extends PureComponent<Props, State> {
           changeToolTipPosition={this.changeToolTipPosition}
           closeTooltip={this.closeTooltip}
         />
-        <ScoreBoardContainer history={this.props.history} />
+        <ScoreBoardContainer/>
       </div>
     );
   }

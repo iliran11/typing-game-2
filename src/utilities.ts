@@ -23,7 +23,7 @@ export function loadFbSdk(appId: string) {
       const js = d.createElement(s);
       js.id = id;
       // @ts-ignore
-      js.src = '//connect.facebook.net/en_US/sdk.js';
+      js.src = 'https://connect.facebook.net/en_US/sdk.js';
       // @ts-ignore
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
@@ -51,4 +51,8 @@ export function pictureByFacebookId(facebookId: string) {
     return undefined;
   }
   return `https://res.cloudinary.com/dujbozubz/image/facebook/${facebookId}.jpg`;
+}
+
+export function changeHistory(location: string) {
+  window.location.hash = location;
 }

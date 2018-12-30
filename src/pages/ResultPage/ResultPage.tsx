@@ -16,7 +16,7 @@ interface Props {
 
 export default function ResultPage(props: any) {
   const competeAgain = () => {
-    props.restartGame(props.history);
+    // props.restartGame(props.history);
   };
   return (
     <div id="result-page">

@@ -2,12 +2,12 @@ import * as React from 'react';
 import Competitor from './competitorContainer';
 import { PlayerGameStatus, PlayerAvatar } from '../../types';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
+import {changeHistory} from '../../utilities'
 
 interface Props {
   players: PlayerGameStatus[];
   roomSize: number;
   myId: string;
-  history: any;
   avatars?: PlayerAvatar[];
 }
 
@@ -69,7 +69,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
     );
   }
   navigateToResult() {
-    // this.props.history.push('result');
+    changeHistory('result');
   }
   render() {
     if (Array.isArray(this.props.players)) {

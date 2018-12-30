@@ -1,6 +1,7 @@
 import React from 'react';
 import './homepage.css';
 import Keyboard from '../../components/keyboard/keyboard';
+import { changeHistory } from '../../utilities';
 const baseSteps = [
   {
     text: 'y',
@@ -64,7 +65,7 @@ export default class Home extends React.Component<Props, State> {
     );
   }
   navigateToGame() {
-    this.props.history.push('/game');
+    changeHistory('/game');
   }
   render() {
     const text = 'text';

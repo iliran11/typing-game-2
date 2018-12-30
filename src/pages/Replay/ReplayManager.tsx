@@ -168,7 +168,6 @@ export default class ReplayManager extends React.Component<
           avatars={this.props.avatars}
           roomSize={this.props.replay[0].results.length}
           myId={this.props.myId}
-          history={this.props.history}
         />
         <GameView
           letters={this.state.letters}

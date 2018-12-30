@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import AuthenticationManager from '../../AuthenticationManager';
 import { LoginStatus } from '../../types';
+import { changeHistory } from '../../utilities';
 
 interface Props {
   isLogged: LoginStatus;
-  history: any;
 }
 class LoginButton extends PureComponent<Props, {}> {
   authenticationManager: AuthenticationManager;
@@ -23,7 +23,7 @@ class LoginButton extends PureComponent<Props, {}> {
     this.authenticationManager.logout();
   }
   onClick() {
-    this.props.history.push('/login');
+    changeHistory('login');
   }
   render() {
     return (

@@ -6,6 +6,7 @@ import DebugDialog from './DebugDialog/DebugDialog';
 import LoginButton from '../login-button/LoginButtonContainer';
 import { LoginStatus, PageProps } from '../../types';
 import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContainer';
+import {changeHistory} from '../../utilities'
 
 export interface AppToolBarProps extends PageProps {
   firstName: string;
@@ -29,7 +30,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
     });
   }
   navigateToProfile() {
-    this.props.history.push('/my-profile');
+    changeHistory('my-profile');
   }
   get shouldShowPicutre() {
     return this.props.picture && this.props.loggedIn === LoginStatus.loggedIn;
@@ -47,9 +48,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
               {this.shouldShowPicutre && (
                 <ActiveUserAvatar onClick={this.navigateToProfile} />
               )}
-              {this.props.loggedIn === LoginStatus.loggedOut && (
-                <LoginButton history={this.props.history} />
-              )}
+              {this.props.loggedIn === LoginStatus.loggedOut && <LoginButton />}
             </div>
           </Toolbar>
         </AppBar>
