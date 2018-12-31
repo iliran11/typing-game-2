@@ -5,6 +5,8 @@
   "proxy": "http://localhost:4001",
   "dependencies": {
     "@material-ui/core": "^3.3.1",
+    "@material-ui/icons": "^3.0.1",
+    "@types/chart.js": "^2.7.42",
     "@types/classnames": "^2.2.6",
     "@types/lodash.random": "^3.2.4",
     "@types/query-string": "^6.1.1",
@@ -15,6 +17,7 @@
     "@types/socket.io-client": "^1.4.32",
     "animate.css": "^3.7.0",
     "axios": "^0.18.0",
+    "chart.js": "^2.7.3",
     "classnames": "^2.2.6",
     "create-react-app": "^2.0.4",
     "facebook-sdk-loader": "git+https://github.com/iliran11/facebook-sdk-loader.git",
