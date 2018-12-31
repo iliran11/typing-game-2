@@ -18,3 +18,11 @@
   box-shadow: none;
   border-radius: 0px;
 }
+
+.bold {
+  font-weight: bold;
+  font-size: 120%;
+}
+.green {
+  color: green;
+}

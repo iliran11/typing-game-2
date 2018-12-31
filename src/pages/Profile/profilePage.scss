@@ -3,14 +3,11 @@
 #profile-page {
   width: 100%;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   max-width: 500px;
-  h1 {
+  h1:first-child {
     margin: 0px;
     color: $color1;
+    text-align: center;
   }
   .active-user-avatar {
     width: 90px;
@@ -19,7 +16,7 @@
   }
   .big-header {
     font-size: 30px;
-    font-weight:bold;
+    font-weight: bold;
     color: $color1;
   }
   .info-footer {

@@ -46,7 +46,7 @@ export default class Home extends React.Component<Props, State> {
     this.state = {
       step: 0
     };
-
+    this.navigateToGame = this.navigateToGame.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
   }
   componentDidMount() {
