@@ -55,8 +55,9 @@ export interface PlayerGameStatus {
   accuracy?: number;
   avatar: PlayerAvatar;
   name: string;
-  wordsTyped?: number;
-  charsTyped?: number;
+  numberOfTypings?: number;
+  numberOfLetters?: number;
+  numberOfWords?: number;
 }
 export class PlayerGameStatusFactory implements PlayerGameStatus {
   id: string;
@@ -70,8 +71,10 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
   accuracy?: number;
   avatar: PlayerAvatar;
   name: string;
-  wordsTyped: number;
-  charsTyped: number;
+  numberOfTypings?: number;
+  numberOfLetters?: number;
+  numberOfWords?: number;
+
   constructor(options: any) {
     const {
       id,
@@ -85,8 +88,9 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       accuracy,
       avatar,
       name,
-      wordsTyped,
-      charsTyped
+      numberOfTypings,
+      numberOfLetters,
+      numberOfWords
     } = options;
     this.id = id;
     this.score = score;
@@ -99,8 +103,9 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
     this.accuracy = accuracy;
     this.avatar = avatar;
     this.name = name;
-    this.wordsTyped = wordsTyped;
-    this.charsTyped = charsTyped;
+    this.numberOfTypings = numberOfTypings;
+    this.numberOfWords = numberOfWords;
+    this.numberOfLetters = numberOfLetters;
   }
   get serialize(): PlayerGameStatus {
     return {
@@ -115,8 +120,9 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       accuracy: this.accuracy,
       avatar: this.avatar,
       name: this.name,
-      wordsTyped: this.wordsTyped,
-      charsTyped: this.charsTyped
+      numberOfTypings: this.numberOfTypings,
+      numberOfWords: this.numberOfWords,
+      numberOfLetters: this.numberOfLetters
     };
   }
 }
@@ -235,7 +241,6 @@ export interface TypingModelI {
   playerId: string;
   gameId: string;
   gameTimeStamp: number;
-  _id: string;
 }
 
 export interface ReplayEndPointResponseI {

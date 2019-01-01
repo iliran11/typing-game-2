@@ -36,6 +36,18 @@ export default class Game {
   public get getRawLetters() {
     return GAME_WORDS.split('');
   }
+  public get numberOfWords() {
+    let numberOfWords = 0;
+    this.getRawLetters
+      .join('')
+      .split(' ')
+      .forEach((groupOfLetters: string) => {
+        if (groupOfLetters.length > 1) {
+          numberOfWords++;
+        }
+      });
+    return numberOfWords;
+  }
   public getWpmScore(minutesPassed: number) {
     return this.index / minutesPassed / 5;
   }

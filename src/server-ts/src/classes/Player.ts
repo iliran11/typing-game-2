@@ -79,12 +79,16 @@ export default class Player {
   setAvatar(avatarIndex: number) {
     this.anonymousAvatar = avatarIndex;
   }
-  playerGameStatus(
-    timePassedMinutes: number,
-    finishedTimeStamp?: number,
-    gameDuration?: number,
-    accuracy?: number
-  ): PlayerGameStatusFactory {
+  playerGameStatus(options: PlayerGameStatusI): PlayerGameStatusFactory {
+    const {
+      timePassedMinutes,
+      finishedTimeStamp,
+      gameDuration,
+      accuracy,
+      numberOfTypings,
+      numberOfLetters,
+      numberOfWords
+    } = options;
     return new PlayerGameStatusFactory({
       id: this.id,
       score: this.playerGame.getWpmScore(timePassedMinutes),
@@ -95,7 +99,20 @@ export default class Player {
       finishedTimeStamp,
       accuracy,
       gameDuration,
-      name: this.serializable.name
+      name: this.serializable.name,
+      numberOfTypings,
+      numberOfLetters,
+      numberOfWords
     });
   }
+}
+
+interface PlayerGameStatusI {
+  timePassedMinutes: number;
+  finishedTimeStamp?: number;
+  gameDuration?: number;
+  accuracy?: number;
+  numberOfTypings?: number;
+  numberOfLetters?: number;
+  numberOfWords?: number;
 }

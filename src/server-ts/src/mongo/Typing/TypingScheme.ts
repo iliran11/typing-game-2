@@ -1,5 +1,3 @@
-import liran from 'fff';
-
 const mongoose = require('mongoose');
 
 const TypingScheme = mongoose.Schema({

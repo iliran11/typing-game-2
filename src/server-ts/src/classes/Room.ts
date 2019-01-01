@@ -127,14 +127,19 @@ export default class Room {
     });
     const timestampNow = Date.now();
     //TODO: Unite with game status function.
-    const gameResultRecord = finishedPlayer.playerGameStatus(
-      this.timePassedMinutes,
-      timestampNow,
-      timestampNow - this.roomStartTimestamp,
-      finishedPlayer.playerGame.getRawLetters.length /
-        finishedPlayer.playerGame.numberOfTypings
-    );
-    this.finalScores[playerIndex] = gameResultRecord
+    const {
+      playerGame: { getRawLetters, numberOfTypings, numberOfWords }
+    } = finishedPlayer;
+    const gameResultRecord = finishedPlayer.playerGameStatus({
+      timePassedMinutes: this.timePassedMinutes,
+      finishedTimeStamp: this.roomStartTimestamp,
+      gameDuration: timestampNow - this.roomStartTimestamp,
+      accuracy: getRawLetters.length / numberOfTypings,
+      numberOfTypings: numberOfTypings,
+      numberOfLetters: getRawLetters.length,
+      numberOfWords: numberOfWords
+    });
+    this.finalScores[playerIndex] = gameResultRecord;
     createGameRecord(gameResultRecord.serialize).save();
   }
   get isGameActive() {
@@ -161,9 +166,9 @@ export default class Room {
     });
   }
   private getPlayerScore(player: Player): PlayerGameStatus {
-    const currentPlayerStatus: PlayerGameStatus = player.playerGameStatus(
-      this.timePassedMinutes
-    ).serialize;
+    const currentPlayerStatus: PlayerGameStatus = player.playerGameStatus({
+      timePassedMinutes: this.timePassedMinutes
+    }).serialize;
     return currentPlayerStatus;
   }
   private get roomStatus(): PlayerGameStatus[] {

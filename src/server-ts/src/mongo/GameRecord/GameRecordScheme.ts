@@ -12,7 +12,10 @@ export const GameRecordSchema = mongoose.Schema({
   id: String,
   isFinished: Boolean,
   type: String,
-  name:String
+  name: String,
+  numberOfTypings: Number,
+  numberOfWords: Number,
+  numberOfLetters: Number
 });
 
 const GameRecordsSchema = mongoose.Schema({
