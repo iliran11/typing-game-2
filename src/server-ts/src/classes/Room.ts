@@ -127,13 +127,15 @@ export default class Room {
     });
     const timestampNow = Date.now();
     //TODO: Unite with game status function.
-    this.finalScores[playerIndex] = finishedPlayer.playerGameStatus(
+    const gameResultRecord = finishedPlayer.playerGameStatus(
       this.timePassedMinutes,
       timestampNow,
       timestampNow - this.roomStartTimestamp,
       finishedPlayer.playerGame.getRawLetters.length /
         finishedPlayer.playerGame.numberOfTypings
     );
+    this.finalScores[playerIndex] = gameResultRecord
+    createGameRecord(gameResultRecord.serialize).save();
   }
   get isGameActive() {
     return this.players.length === MAX_PLAYERS_PER_ROOM;

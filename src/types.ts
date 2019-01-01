@@ -55,6 +55,8 @@ export interface PlayerGameStatus {
   accuracy?: number;
   avatar: PlayerAvatar;
   name: string;
+  wordsTyped?: number;
+  charsTyped?: number;
 }
 export class PlayerGameStatusFactory implements PlayerGameStatus {
   id: string;
@@ -68,6 +70,8 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
   accuracy?: number;
   avatar: PlayerAvatar;
   name: string;
+  wordsTyped: number;
+  charsTyped: number;
   constructor(options: any) {
     const {
       id,
@@ -80,7 +84,9 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       gameDuration,
       accuracy,
       avatar,
-      name
+      name,
+      wordsTyped,
+      charsTyped
     } = options;
     this.id = id;
     this.score = score;
@@ -93,6 +99,8 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
     this.accuracy = accuracy;
     this.avatar = avatar;
     this.name = name;
+    this.wordsTyped = wordsTyped;
+    this.charsTyped = charsTyped;
   }
   get serialize(): PlayerGameStatus {
     return {
@@ -106,7 +114,9 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       gameDuration: this.gameDuration,
       accuracy: this.accuracy,
       avatar: this.avatar,
-      name: this.name
+      name: this.name,
+      wordsTyped: this.wordsTyped,
+      charsTyped: this.charsTyped
     };
   }
 }

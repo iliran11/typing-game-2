@@ -142,7 +142,7 @@ export default class GameView extends React.Component<any, State> {
        * in purpose of letting our people know that u are finished.
        */
 
-      // socketManager.emitFinishedGame();
+      socketManager.emitFinishedGame();
     }
   }
 

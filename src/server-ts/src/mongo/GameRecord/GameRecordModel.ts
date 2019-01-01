@@ -2,7 +2,7 @@ import { GameRecordsSchema, GameRecordSchema } from './GameRecordScheme';
 import { PlayerGameStatus } from '../../../../types';
 const mongoose = require('mongoose');
 
-export const GameRecord = mongoose.model('GameRecord', GameRecordSchema);
+export const GameRecord = mongoose.model('RecordsPerPlayer', GameRecordSchema);
 export const GameRecords = mongoose.model('GameRecords', GameRecordsSchema);
 export function createGameRecords(
   models: PlayerGameStatus[],
@@ -19,6 +19,6 @@ export function createGameRecords(
   });
 }
 
-export function createGameRecord(model: PlayerGameStatus[]) {
+export function createGameRecord(model: PlayerGameStatus) {
   return new GameRecord(model);
 }

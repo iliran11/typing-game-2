@@ -4,7 +4,8 @@ const UserScheme = mongoose.Schema({
   firstName: String,
   lastName: String,
   id: String,
-  picture: String
+  picture: String,
+  level: { type: Number, default: 1 }
 });
 UserScheme.statics.findById = function(id: String) {
   return new Promise(resolve => {
@@ -13,20 +14,6 @@ UserScheme.statics.findById = function(id: String) {
     });
   });
 };
-// UserScheme.statics.getPictureById = function(id: string) {
-//   return new Promise((resolve, reject) => {
-//     this.findOne({ id })
-//       .then(user => {
-//         return user.getPicture();
-//       })
-//       .then(picture => {
-//         resolve(picture);
-//       })
-//       .catch(err => {
-//         reject(err);
-//       });
-//   });
-// };
 UserScheme.methods.isAlreadyExist = function() {
   return new Promise(resolve => {
     const queryId = this.id;
