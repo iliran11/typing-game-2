@@ -197,7 +197,7 @@ export interface FacebookUserType {
   firstName: string;
   lastName: string;
   picture: string;
-  level:number;
+  level: number;
 }
 export interface GameModelInterface {
   letters: string[];
@@ -253,4 +253,11 @@ export interface ReplayEndPointResponseI {
 
 export interface PageProps {
   history: any;
+}
+
+export interface UserAchievements {
+  level: number;
+  maxWpm: number;
+  totalWords: number;
+  totalChars: number;
 }

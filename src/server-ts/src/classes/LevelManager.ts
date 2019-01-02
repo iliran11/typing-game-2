@@ -40,7 +40,16 @@ class LevelManager {
       playerId,
       'numberOfWords'
     );
-    return Promise.all([playerModel, playerMaxWpm, totalWordsTyped]);
+    const totalCharsTyped: Promise<number> = GameRecord.totalWords(
+      playerId,
+      'numberOfLetters'
+    );
+    return Promise.all([
+      playerModel,
+      playerMaxWpm,
+      totalWordsTyped,
+      totalCharsTyped
+    ]);
   }
 
   processNewResult(playerId: string) {
