@@ -31,10 +31,14 @@ class LevelManager {
   private static instance: LevelManager;
   private constructor() {}
   retrievePlayerStats(playerId: string) {
-    const playerModel: Promise<FacebookUserType> = User.findById(playerId);
-    const playerMaxWpm: Promise<number> = GameRecord.maxWpmOfPlayer(
+    const playerModel: Promise<any> = User.findById(playerId);
+    const playerMaxWpm: Promise<number> = GameRecord.maxWpmOfField(
       playerId,
-      'numberOfWords'
+      'score'
+    );
+    const playerAccuracy: Promise<number> = GameRecord.maxWpmOfField(
+      playerId,
+      'accuracy'
     );
     const totalWordsTyped: Promise<number> = GameRecord.totalWords(
       playerId,
@@ -48,7 +52,8 @@ class LevelManager {
       playerModel,
       playerMaxWpm,
       totalWordsTyped,
-      totalCharsTyped
+      totalCharsTyped,
+      playerAccuracy
     ]);
   }
 

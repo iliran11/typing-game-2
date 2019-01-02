@@ -12,7 +12,7 @@ export default function loginController(req, res) {
   request(path, (error, response, body) => {
     const data = JSON.parse(body);
     const { id, first_name: firstName, last_name: lastName } = data;
-    const userData: FacebookUserType = {
+    const userData = {
       id,
       firstName,
       lastName

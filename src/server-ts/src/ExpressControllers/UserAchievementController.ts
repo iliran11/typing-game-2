@@ -16,7 +16,8 @@ export default function(req, res) {
       level: result[0].level,
       maxWpm: result[1],
       totalWords: result[2],
-      totalChars: result[3]
+      totalChars: result[3],
+      maxAccuracy: result[4]
     };
     res.send(response);
   });

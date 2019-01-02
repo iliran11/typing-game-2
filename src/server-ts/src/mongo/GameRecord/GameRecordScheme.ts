@@ -27,15 +27,16 @@ const GameRecordsSchema = mongoose.Schema({
   gameTickSequenceId: Number
 });
 
-GameRecordSchema.statics.maxWpmOfPlayer = function(
-  playerId: string
+GameRecordSchema.statics.maxWpmOfField = function(
+  playerId: string,
+  field: string
 ): Promise<number> {
   return new Promise((resolve, reject) => {
     this.find({ id: playerId })
-      .sort({ score: -1 })
+      .sort({ [field]: -1 })
       .limit(1)
       .then((result: PlayerGameStatus) => {
-        resolve(result[0].score);
+        resolve(result[0][field]);
       })
       .catch(err => reject(err));
   });
