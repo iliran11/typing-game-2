@@ -1,4 +1,7 @@
-import { GameRecordsModel } from '../../../../types';
+import { GameRecordsModel, PlayerGameStatus } from '../../../../types';
+import { GameRecord } from './GameRecordModel';
+import { resolve } from 'url';
+import { rejects } from 'assert';
 
 //TODO: change name to game record schema;
 const mongoose = require('mongoose');
@@ -23,6 +26,47 @@ const GameRecordsSchema = mongoose.Schema({
   gameInstanceId: String,
   gameTickSequenceId: Number
 });
+
+GameRecordSchema.statics.maxWpmOfPlayer = function(
+  playerId: string
+): Promise<number> {
+  return new Promise((resolve, reject) => {
+    this.find({ id: playerId })
+      .sort({ score: -1 })
+      .limit(1)
+      .then((result: PlayerGameStatus) => {
+        resolve(result[0].score);
+      })
+      .catch(err => reject(err));
+  });
+};
+
+GameRecordSchema.statics.totalWords = function(
+  playerId: string,
+  field: string
+): Promise<number> {
+  return new Promise((resolve, reject) => {
+    this.aggregate([
+      {
+        $match: { id: playerId }
+      },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: `$${field}`
+          }
+        }
+      }
+    ])
+      .then(result => {
+        resolve(result[0].total);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
 
 GameRecordsSchema.statics.getRecordsByRoomId = function(
   roomId: string

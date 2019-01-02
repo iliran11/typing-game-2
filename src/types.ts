@@ -196,6 +196,8 @@ export interface FacebookUserType {
   id: string;
   firstName: string;
   lastName: string;
+  picture: string;
+  level:number;
 }
 export interface GameModelInterface {
   letters: string[];

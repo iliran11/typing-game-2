@@ -25,6 +25,7 @@ import {
   createGameRecord
 } from '../mongo/GameRecord/GameRecordModel';
 import { Game } from '../mongo/Game/GameModel';
+import LevelManager from '../classes/LevelManager';
 const random = require('lodash.random');
 const uuid = require('uuid/v4');
 
@@ -140,7 +141,11 @@ export default class Room {
       numberOfWords: numberOfWords
     });
     this.finalScores[playerIndex] = gameResultRecord;
-    createGameRecord(gameResultRecord.serialize).save();
+    createGameRecord(gameResultRecord.serialize)
+      .save()
+      .then(() => {
+        LevelManager.getInstance().processNewResult(finishedPlayer.playerId);
+      });
   }
   get isGameActive() {
     return this.players.length === MAX_PLAYERS_PER_ROOM;

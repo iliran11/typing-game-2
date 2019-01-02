@@ -7,6 +7,7 @@ import loginController from './ExpressControllers/loginController';
 import verifyLoginController from './ExpressControllers/verifyLoginController';
 import gamesHistoryController from './ExpressControllers/gamesHistoryController';
 import GamesHistoryController from './ExpressControllers/gameReplayController';
+import UserAchievement from './ExpressControllers/UserAchievementController';
 import {
   FacebookUserType,
   HandShakeData,
@@ -35,6 +36,7 @@ app.post('/login', loginController);
 app.get('/verify-login', verifyLoginController);
 app.get('/games-history', gamesHistoryController);
 app.get('/game-replay', GamesHistoryController);
+app.get('/user-achievement', UserAchievement);
 
 const serverManager = ServerManager.getInstance(server);
 console.log('server started.');
