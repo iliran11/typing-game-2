@@ -1,6 +1,7 @@
 import LevelManager from '../classes/LevelManager';
 import { PLAYER_ID_PARAM } from '../../../constants';
 import { UserAchievementsI } from '../../../types';
+import { levelsMap } from '../classes/LevelManager';
 
 export default function(req, res) {
   const levelManager = LevelManager.getInstance();
@@ -12,12 +13,15 @@ export default function(req, res) {
   levelManager.retrievePlayerStats(playerIdParam).then(result => {
     const computedResult = [...result];
     computedResult[0] = result[0].level;
+    const level = result[0].level;
+    const currentLevelRules = levelsMap[`level${level}`];
     const response: UserAchievementsI = {
       level: result[0].level,
       maxWpm: result[1],
       totalWords: result[2],
       totalChars: result[3],
-      maxAccuracy: result[4]
+      maxAccuracy: result[4],
+      currentLevelRules
     };
     res.send(response);
   });

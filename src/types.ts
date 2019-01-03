@@ -260,11 +260,18 @@ export interface ReplayEndPointResponseI {
 export interface PageProps {
   history: any;
 }
-
+export interface LevelRulesI {
+  level: number;
+  wpm: number;
+  accuracy: number;
+  totalWordsTyped: number;
+  totalCharsTyped: number;
+}
 export interface UserAchievementsI {
   level: number;
   maxWpm: number;
   totalWords: number;
   totalChars: number;
   maxAccuracy: number;
+  currentLevelRules: LevelRulesI;
 }
