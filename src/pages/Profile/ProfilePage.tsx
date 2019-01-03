@@ -8,13 +8,26 @@ export interface ProfilePageProps {
   rank: number;
   level: number;
   progressToNextLevel: number;
+  profileMainLoad: any;
+  playerId: string;
 }
 
 export default class ProfilePage extends React.Component<
   ProfilePageProps,
   any
 > {
+  constructor(props: ProfilePageProps) {
+    super(props);
+  }
+  componentDidUpdate(prevProps: ProfilePageProps) {
+    if (!prevProps.playerId && this.props.playerId) {
+      this.props.profileMainLoad(this.props.playerId);
+    }
+  }
   public render() {
+    if (!this.props.playerId) {
+      return <h1>logging in ... </h1>;
+    }
     return (
       <div id="profile-page">
         <h1>{this.props.fullName}</h1>

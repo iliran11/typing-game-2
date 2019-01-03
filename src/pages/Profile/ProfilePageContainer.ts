@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import MyProfilePage from './ProfilePage';
 import { RootState } from '../../types';
+import { profileMainLoad } from '../../store/profileActions';
 
 const mapStateToProps = (state: RootState) => {
   const fullName = `${state.myData.firstName} ${state.myData.lastName}`;
@@ -11,11 +12,15 @@ const mapStateToProps = (state: RootState) => {
     fullName,
     level,
     rank,
-    progressToNextLevel
+    progressToNextLevel,
+    playerId: state.myData.facebookId
   };
 };
 
+const mapDispatchToProps = {
+  profileMainLoad
+};
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(MyProfilePage);

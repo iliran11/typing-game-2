@@ -221,6 +221,10 @@ export interface IGamesHistoryReducer {
   readonly [gameId: string]: GameModelInterface;
 }
 
+export interface UserAchievmentsReducerI {
+  readonly [userId: string]: UserAchievementsI;
+}
+
 export interface GameRecordsModel {
   results: PlayerGameStatus[];
   gameInstanceId: string;
@@ -253,7 +257,7 @@ export interface PageProps {
   history: any;
 }
 
-export interface UserAchievements {
+export interface UserAchievementsI {
   level: number;
   maxWpm: number;
   totalWords: number;

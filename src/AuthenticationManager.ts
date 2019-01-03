@@ -27,7 +27,6 @@ class AuthenticationManager {
   getState: any;
   private static instance: AuthenticationManager;
   private constructor(dispatch: any, getState: RootState) {
-    console.log('hello manager');
     this.dispatch = dispatch;
     this.getState = getState;
   }
