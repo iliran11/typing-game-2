@@ -29,7 +29,7 @@ export default function loginController(req, res) {
       });
       const loginResponse: LoginResponse = {
         token,
-        data: { firstName, lastName, facebookId: id }
+        data: { firstName, lastName, facebookId: id, appToken: token }
       };
       res.send(loginResponse);
       user.isAlreadyExist().then(isAlreadyExist => {

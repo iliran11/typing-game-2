@@ -17,7 +17,8 @@ export default function verifyLoginController(req, res) {
       const handshakeData: HandShakeData = {
         facebookId: decoded.id,
         firstName: decoded.firstName,
-        lastName: decoded.lastName
+        lastName: decoded.lastName,
+        appToken
       };
       const response: LoginVerificationStatus = {
         loginStatus: true,
