@@ -9,7 +9,7 @@ export interface StatsProps {
   targetWpm: number;
   targetAccuracy: number;
   targetTotalWordsTyped: number;
-  totalCharsTyped: number;
+  targetCharsTyped: number;
 }
 
 export interface StatsState {}
@@ -21,18 +21,37 @@ export default class Stats extends React.Component<StatsProps, StatsState> {
     this.state = {};
   }
   get currentStatsProps(): StatsListI {
+    const {
+      currentWpm,
+      targetWpm,
+      currentAccuracy,
+      targetAccuracy,
+      currentTotalWordsTyped,
+      targetTotalWordsTyped,
+      currentTotalTyped,
+      targetCharsTyped
+    } = this.props;
     return {
-      wpm: { value: this.props.currentWpm, label: 'Word per minute: ' },
-      accuracy: { value: this.props.currentAccuracy, label: 'accuracy: ' },
+      wpm: {
+        value: currentWpm,
+        label: 'Word per minute: ',
+        isCompleted: currentWpm > targetWpm
+      },
+      accuracy: {
+        value: currentAccuracy,
+        label: 'accuracy: ',
+        isCompleted: currentAccuracy > targetAccuracy
+      },
       totalWordsTyped: {
-        value: this.props.currentTotalWordsTyped,
+        value: currentTotalWordsTyped,
         label: 'Total words typed: ',
-        isCompleted: true
+        isCompleted:
+          currentTotalWordsTyped > targetTotalWordsTyped
       },
       totalChars: {
-        value: this.props.currentTotalTyped,
+        value: currentTotalTyped,
         label: 'Total chars Typed: ',
-        isCompleted: true
+        isCompleted: currentTotalTyped > targetCharsTyped
       }
     };
   }
@@ -45,7 +64,7 @@ export default class Stats extends React.Component<StatsProps, StatsState> {
         label: 'Total words typed: '
       },
       totalChars: {
-        value: this.props.targetTotalWordsTyped,
+        value: this.props.targetCharsTyped,
         label: 'Total chars typed'
       }
     };

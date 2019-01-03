@@ -5,15 +5,21 @@ const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
   const playerId = state.authentication.playerId;
   const userAchievments = state.userAchievments[playerId];
+  const {
+    wpm: targetWpm,
+    totalWordsTyped: targetTotalWordsTyped,
+    totalCharsTyped: targetCharsTyped,
+    accuracy: targetAccuracy
+  } = userAchievments.currentLevelRules;
   return {
     currentWpm: userAchievments.maxWpm,
     currentAccuracy: userAchievments.maxAccuracy,
     currentTotalWordsTyped: userAchievments.totalWords,
     currentTotalTyped: userAchievments.totalChars,
-    targetWpm: -2,
-    targetAccuracy: -2,
-    targetTotalWordsTyped: -2,
-    totalCharsTyped: -2
+    targetWpm,
+    targetAccuracy,
+    targetTotalWordsTyped,
+    targetCharsTyped
   };
 };
 export default connect(
