@@ -35,7 +35,10 @@ GameRecordSchema.statics.maxWpmOfField = function(
     this.find({ id: playerId })
       .sort({ [field]: -1 })
       .limit(1)
-      .then((result: PlayerGameStatus) => {
+      .then((result: PlayerGameStatus[]) => {
+        if (result.length === 0) {
+          resolve(-1);
+        }
         resolve(result[0][field]);
       })
       .catch(err => reject(err));
@@ -61,6 +64,9 @@ GameRecordSchema.statics.totalWords = function(
       }
     ])
       .then(result => {
+        if (result.length === 0) {
+          resolve(-1);
+        }
         resolve(result[0].total);
       })
       .catch(err => {

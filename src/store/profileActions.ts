@@ -4,7 +4,7 @@ import axios from 'axios';
 export function profileMainLoad(playerId: string) {
   return function(dispatch: any, getState: any) {
     const state: RootState = getState();
-    axios
+    return axios
       .get('/user-achievement', {
         params: {
           [PLAYER_ID_PARAM]: playerId

@@ -8,12 +8,14 @@ const mapStateToProps = (state: RootState) => {
   const level = 2;
   const rank = 2103;
   const progressToNextLevel = 0.78;
+  const maxWpm = -1;
   return {
     fullName,
     level,
     rank,
     progressToNextLevel,
-    playerId: state.myData.facebookId
+    maxWpm,
+    playerId: state.authentication.playerId
   };
 };
 
