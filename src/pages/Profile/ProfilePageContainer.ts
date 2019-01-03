@@ -4,18 +4,12 @@ import { RootState } from '../../types';
 import { profileMainLoad } from '../../store/profileActions';
 
 const mapStateToProps = (state: RootState) => {
-  const fullName = `${state.myData.firstName} ${state.myData.lastName}`;
-  const level = 2;
-  const rank = 2103;
-  const progressToNextLevel = 0.78;
-  const maxWpm = -1;
+  const playerId = state.authentication.playerId;
+  const userAchievements = state.userAchievments[playerId];
   return {
-    fullName,
-    level,
-    rank,
-    progressToNextLevel,
-    maxWpm,
-    playerId: state.authentication.playerId
+    isDataPopulated: Boolean(userAchievements),
+    playerId,
+    fullName: `${state.myData.firstName} ${state.myData.lastName}`
   };
 };
 

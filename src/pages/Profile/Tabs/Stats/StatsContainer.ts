@@ -1,16 +1,19 @@
 import { connect } from 'react-redux';
 import Stats from './Stats';
+import { RootState } from '../../../../types';
 const mapDispatchToProps = {};
-const mapStateToProps = (state: any, props: any) => {
+const mapStateToProps = (state: RootState, props: any) => {
+  const playerId = state.authentication.playerId;
+  const userAchievments = state.userAchievments[playerId];
   return {
-    currentWpm: 42,
-    currentAccuracy: 0.54,
-    currentTotalWordsTyped: 160,
-    currentTotalTyped: 426,
-    targetWpm: 60,
-    targetAccuracy: 0.8,
-    targetTotalWordsTyped: 140,
-    totalCharsTyped: 326
+    currentWpm: userAchievments.maxWpm,
+    currentAccuracy: userAchievments.maxAccuracy,
+    currentTotalWordsTyped: userAchievments.totalWords,
+    currentTotalTyped: userAchievments.totalChars,
+    targetWpm: -2,
+    targetAccuracy: -2,
+    targetTotalWordsTyped: -2,
+    totalCharsTyped: -2
   };
 };
 export default connect(

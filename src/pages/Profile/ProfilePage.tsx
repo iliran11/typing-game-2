@@ -1,18 +1,14 @@
 import * as React from 'react';
 import './profilePage.scss';
-import ProfileHeader from './ProfileHeader';
-import { ProgressBar } from './ProgressBar';
+import ProfileHeader from './ProfileHeaderContainer';
+import ProgressBar from './ProgressBarContainer';
 import ProfileTabs from './ProfileTabs';
 export interface ProfilePageProps {
-  fullName: string;
-  rank: number;
-  level: number;
-  progressToNextLevel: number;
   profileMainLoad: any;
+  isDataPopulated: boolean;
   playerId: string;
-  maxWpm: number;
+  fullName: string;
 }
-
 
 export default class ProfilePage extends React.Component<
   ProfilePageProps,
@@ -36,14 +32,14 @@ export default class ProfilePage extends React.Component<
     if (this.state.isLoading) {
       return <h1>LOADING !! </h1>;
     }
-    if (this.props.maxWpm === -1) {
+    if (this.props.isDataPopulated === false) {
       return <h1> EMPTY STATE </h1>;
     }
     return (
       <div id="profile-page">
         <h1>{this.props.fullName}</h1>
-        <ProfileHeader rank={this.props.rank} level={this.props.level} />
-        <ProgressBar progressToNextLevel={this.props.progressToNextLevel} />
+        <ProfileHeader />
+        <ProgressBar />
         <ProfileTabs />
       </div>
     );

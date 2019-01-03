@@ -150,6 +150,7 @@ export interface RootState {
   readonly gamesHistory: IGamesHistoryReducer;
   readonly replays: ReplayReducer;
   readonly typing: TypingReducerI;
+  readonly userAchievments: UserAchievmentsReducerI;
 }
 export interface PlayerJoiningAction {
   type: string;
@@ -217,7 +218,7 @@ export interface HandShakeData {
   facebookId: string;
   firstName: string;
   lastName: string;
-  appToken:string;
+  appToken: string;
 }
 
 export interface IGamesHistoryReducer {

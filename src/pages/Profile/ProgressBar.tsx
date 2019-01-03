@@ -4,7 +4,7 @@ export interface ProgressBarProps {
   progressToNextLevel: number;
 }
 
-export function ProgressBar(props: ProgressBarProps) {
+export default function ProgressBar(props: ProgressBarProps) {
   return (
     <section id="progress-bar-section">
       <span>Your progress bar</span>
