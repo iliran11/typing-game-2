@@ -3,13 +3,15 @@ import {
   SDK_LOAD_SUCESS,
   LOGGED_IN,
   FACEBOOK_LOGGED_IN,
-  LOGGING_IN_ACTION
+  LOGGING_IN_ACTION,
+  SERVER_HANDSHAKE_RECIEVED
 } from '../../constants';
 import {
   AuthReducer,
   SdkLoadedSuccessAction,
   FacebookStatusAction,
-  LoginStatus
+  LoginStatus,
+  HandShakeData
 } from '../../types';
 import AuthenticationManager from '../../AuthenticationManager';
 
@@ -19,7 +21,9 @@ const initialState: AuthReducer = {
     ? LoginStatus.loggedIn
     : LoginStatus.loggedOut,
   facebookLoggedIn: false,
-  facebookToken: null
+  facebookToken: null,
+  appToken: AuthenticationManager.appToken || '',
+  playerId: AuthenticationManager.PlayerId || ''
 };
 
 export default function GameReducer(
@@ -46,6 +50,8 @@ export default function GameReducer(
       };
     case FACEBOOK_LOGGED_IN:
       return facebookStatusCheck(state, action.payload);
+    case SERVER_HANDSHAKE_RECIEVED:
+      return handleHandshake(state, action.payload);
     default:
       return state;
   }
@@ -66,5 +72,20 @@ function facebookStatusCheck(
     ...state,
     facebookLoggedIn: payload.loggedIn,
     facebookToken: payload.token
+  };
+}
+
+function handleHandshake(state: AuthReducer, payload: HandShakeData) {
+  console.log(state.appToken, payload.appToken);
+  // if there is no token - it means we are coming from login verification.
+  // in this case - we get the token from the local storage.
+  // TODO: seperate between SERVER_HANDSHAKE_RECIEVED of login and login-verification.
+  if(!payload.appToken) {
+    return state;
+  }
+  return {
+    ...state,
+    playerId: payload.facebookId,
+    appToken: payload.appToken
   };
 }

@@ -27,6 +27,7 @@ export const LOGGED_OUT = 'logged-out';
 export const LOGGING_IN_ACTION = 'logging-in-action';
 export const FACEBOOK_LOGGED_IN = 'facebook-logged-in';
 export const AUTH_HEADER_NAME = 'app-token';
+export const PLAYER_ID_KEY = 'player-id';
 export const AUTH_FACEBOOK_HEADER = 'facebookToken';
 export const SERVER_HANDSHAKE_RECIEVED = 'server-handshake-recieved';
 
@@ -36,8 +37,8 @@ export const USER_ID_PARAM = 'user-id-parm';
 export const ROOM_ID_PARM = 'room-id';
 export const PLAYER_ID_PARAM = 'player-id-parm';
 export const LOAD_GAME_HISTORY_DATA = 'load-game-history-data';
-export const LOAD_TYPING = 'load-typing'
-export const LOAD_PROFILE_ACHIEVEMENTS = 'load-profile-achievements'
+export const LOAD_TYPING = 'load-typing';
+export const LOAD_PROFILE_ACHIEVEMENTS = 'load-profile-achievements';
 
 /**
  * CONFIG

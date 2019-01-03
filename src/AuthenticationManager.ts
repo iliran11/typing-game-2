@@ -17,7 +17,8 @@ import {
   AUTH_FACEBOOK_HEADER,
   AUTH_HEADER_NAME,
   LOGGING_IN_ACTION,
-  SERVER_HANDSHAKE_RECIEVED
+  SERVER_HANDSHAKE_RECIEVED,
+  PLAYER_ID_KEY
 } from './constants';
 
 const appId = '653846344985974';
@@ -62,11 +63,18 @@ class AuthenticationManager {
             .then((result: any) => {
               const loginResponse: LoginResponse = result.data;
               localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
+              localStorage.setItem(
+                PLAYER_ID_KEY,
+                loginResponse.data.facebookId
+              );
               this.setAxiosAuth();
               this.dispatch({
                 type: LOGGED_IN
               });
-              const handshakeData: HandShakeData = loginResponse.data;
+              const handshakeData: HandShakeData = {
+                ...loginResponse.data,
+                appToken: loginResponse.token
+              };
               this.dispatch({
                 type: SERVER_HANDSHAKE_RECIEVED,
                 payload: handshakeData
@@ -165,6 +173,9 @@ class AuthenticationManager {
   }
   static get appToken() {
     return localStorage.getItem(AUTH_HEADER_NAME);
+  }
+  static get PlayerId() {
+    return localStorage.getItem(PLAYER_ID_KEY);
   }
   static get isThereAppToken() {
     return Boolean(this.appToken);

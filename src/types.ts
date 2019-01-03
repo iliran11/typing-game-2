@@ -168,6 +168,8 @@ export interface AuthReducer {
   loggedIn: LoginStatus;
   facebookLoggedIn: boolean;
   facebookToken: string | null;
+  appToken: string;
+  playerId: string;
 }
 export interface MyDataReducer {
   facebookId: string;
@@ -215,6 +217,7 @@ export interface HandShakeData {
   facebookId: string;
   firstName: string;
   lastName: string;
+  appToken:string;
 }
 
 export interface IGamesHistoryReducer {
