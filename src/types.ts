@@ -285,3 +285,12 @@ export interface UserAchievementsI {
   maxAccuracy: number;
   currentLevelRules: LevelRulesI;
 }
+
+export interface HightLightItemI {
+  roomId: string;
+  data: PlayerGameStatus;
+}
+
+export interface HighlightsI {
+  [highlightName: string]: HightLightItemI;
+}

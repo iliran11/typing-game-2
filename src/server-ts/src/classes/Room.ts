@@ -149,7 +149,7 @@ export default class Room {
       numberOfTypings: numberOfTypings,
       numberOfLetters: getRawLetters.length,
       numberOfWords: numberOfWords,
-      rankAtFinish: this.currentRankOfFinishedPlayer
+      rankAtFinish: this.currentRankOfFinishedPlayer,
       roomId:this.instanceId
     });
     this.finalScores[playerIndex] = gameResultRecord;

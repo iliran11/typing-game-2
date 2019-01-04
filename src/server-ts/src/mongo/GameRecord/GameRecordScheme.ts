@@ -19,7 +19,8 @@ export const GameRecordSchema = mongoose.Schema({
   numberOfTypings: Number,
   numberOfWords: Number,
   numberOfLetters: Number,
-  rankAtFinish:Number
+  rankAtFinish: Number,
+  roomId: String
 });
 
 const GameRecordsSchema = mongoose.Schema({
@@ -69,6 +70,24 @@ GameRecordSchema.statics.totalWords = function(
           resolve(-1);
         }
         resolve(result[0].total);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+GameRecordSchema.statics.getMaxOneDocumentByQuery = function(
+  queryObject,
+  sortObject
+): Promise<PlayerGameStatus | null> {
+  return new Promise((resolve, reject) => {
+    this.find(queryObject)
+      .sort(sortObject)
+      .then((result: PlayerGameStatus[]) => {
+        if (result.length === 0) {
+          resolve(null);
+        }
+        resolve(result[0]);
       })
       .catch(err => {
         reject(err);
