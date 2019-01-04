@@ -87,7 +87,8 @@ export default class Player {
       accuracy,
       numberOfTypings,
       numberOfLetters,
-      numberOfWords
+      numberOfWords,
+      rankAtFinish
     } = options;
     return new PlayerGameStatusFactory({
       id: this.id,
@@ -102,7 +103,8 @@ export default class Player {
       name: this.serializable.name,
       numberOfTypings,
       numberOfLetters,
-      numberOfWords
+      numberOfWords,
+      rankAtFinish
     });
   }
 }
@@ -115,4 +117,5 @@ interface PlayerGameStatusI {
   numberOfTypings?: number;
   numberOfLetters?: number;
   numberOfWords?: number;
+  rankAtFinish?: number;
 }

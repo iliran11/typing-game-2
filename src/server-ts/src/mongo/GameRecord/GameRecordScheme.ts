@@ -18,7 +18,8 @@ export const GameRecordSchema = mongoose.Schema({
   name: String,
   numberOfTypings: Number,
   numberOfWords: Number,
-  numberOfLetters: Number
+  numberOfLetters: Number,
+  rankAtFinish:Number
 });
 
 const GameRecordsSchema = mongoose.Schema({

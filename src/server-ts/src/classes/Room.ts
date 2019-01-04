@@ -26,6 +26,8 @@ import {
 } from '../mongo/GameRecord/GameRecordModel';
 import { Game } from '../mongo/Game/GameModel';
 import LevelManager from '../classes/LevelManager';
+var countBy = require('lodash.countby');
+var isNil = require('lodash.isnil');
 const random = require('lodash.random');
 const uuid = require('uuid/v4');
 
@@ -122,6 +124,14 @@ export default class Room {
       return this.finalScores[index] || this.getPlayerScore(player);
     });
   }
+  get currentRankOfFinishedPlayer(): number {
+    const map = countBy(this.finalScores, value => {
+      return isNil(value);
+    });
+    // false property represents the number of non-null values in finalcores.
+    // if there is 1 non-null value in the array, it means one player already finished. so we are number 2 (hench the +1)
+    return (map.false || 0) + 1;
+  }
   playerHasFinished(finishedPlayer: Player) {
     const playerIndex = this.players.findIndex((gamePlayer: Player) => {
       return gamePlayer.getName === finishedPlayer.getName;
@@ -138,7 +148,8 @@ export default class Room {
       accuracy: getRawLetters.length / numberOfTypings,
       numberOfTypings: numberOfTypings,
       numberOfLetters: getRawLetters.length,
-      numberOfWords: numberOfWords
+      numberOfWords: numberOfWords,
+      rankAtFinish: this.currentRankOfFinishedPlayer
     });
     this.finalScores[playerIndex] = gameResultRecord;
     createGameRecord(gameResultRecord.serialize)
