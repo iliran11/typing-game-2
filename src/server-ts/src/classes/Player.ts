@@ -88,7 +88,8 @@ export default class Player {
       numberOfTypings,
       numberOfLetters,
       numberOfWords,
-      rankAtFinish
+      rankAtFinish,
+      roomId
     } = options;
     return new PlayerGameStatusFactory({
       id: this.id,
@@ -104,7 +105,8 @@ export default class Player {
       numberOfTypings,
       numberOfLetters,
       numberOfWords,
-      rankAtFinish
+      rankAtFinish,
+      roomId
     });
   }
 }
@@ -118,4 +120,5 @@ interface PlayerGameStatusI {
   numberOfLetters?: number;
   numberOfWords?: number;
   rankAtFinish?: number;
+  roomId?: string;
 }

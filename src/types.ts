@@ -59,6 +59,7 @@ export interface PlayerGameStatus {
   numberOfLetters?: number;
   numberOfWords?: number;
   rankAtFinish?: number;
+  roomId: string;
 }
 export class PlayerGameStatusFactory implements PlayerGameStatus {
   id: string;
@@ -76,6 +77,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
   numberOfLetters?: number;
   numberOfWords?: number;
   rankAtFinish: number;
+  roomId: string;
 
   constructor(options: any) {
     const {
@@ -93,7 +95,8 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       numberOfTypings,
       numberOfLetters,
       numberOfWords,
-      rankAtFinish
+      rankAtFinish,
+      roomId
     } = options;
     this.id = id;
     this.score = score;
@@ -110,6 +113,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
     this.numberOfWords = numberOfWords;
     this.numberOfLetters = numberOfLetters;
     this.rankAtFinish = rankAtFinish;
+    this.roomId = roomId;
   }
   get serialize(): PlayerGameStatus {
     return {
@@ -127,7 +131,8 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       numberOfTypings: this.numberOfTypings,
       numberOfWords: this.numberOfWords,
       numberOfLetters: this.numberOfLetters,
-      rankAtFinish: this.rankAtFinish
+      rankAtFinish: this.rankAtFinish,
+      roomId: this.roomId
     };
   }
 }

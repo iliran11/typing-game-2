@@ -150,6 +150,7 @@ export default class Room {
       numberOfLetters: getRawLetters.length,
       numberOfWords: numberOfWords,
       rankAtFinish: this.currentRankOfFinishedPlayer
+      roomId:this.instanceId
     });
     this.finalScores[playerIndex] = gameResultRecord;
     createGameRecord(gameResultRecord.serialize)
