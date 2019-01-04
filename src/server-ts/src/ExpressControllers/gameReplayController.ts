@@ -15,13 +15,6 @@ export default function GamesHistoryController(req, res) {
     return;
   }
   const gameRecords = GameRecords.getRecordsByRoomId(roomIdParam);
-  // .then((result: GameRecordsModel[]) => {
-  //   res.send(result);
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  //   res.send(500);
-  // });
   const gameInfo = Game.getGameInfoByGameId(roomIdParam);
   const gameTyping = TypingModel.getTypingsOfPlayerInGame(
     roomIdParam,
