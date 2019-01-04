@@ -1,4 +1,4 @@
-import { GameRecords } from '../mongo/GameRecord/GameRecordModel';
+import { GameRecords } from '../mongo/GameRecord/GameSnapshotModel';
 import { Game } from '../mongo/Game/GameModel';
 import { TypingModel } from '../mongo/Typing/TypingModel';
 import { ROOM_ID_PARM, PLAYER_ID_PARAM } from '../../../constants';

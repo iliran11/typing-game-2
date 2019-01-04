@@ -20,12 +20,10 @@ import {
 } from '../../../types';
 import { emitToRoom } from '../utilities';
 import { createGameDocument } from '../mongo/Game/GameModel';
-import {
-  createGameRecords,
-  createGameRecord
-} from '../mongo/GameRecord/GameRecordModel';
+import { SnapshotGameModel } from '../mongo/GameRecord/GameSnapshotModel';
+import {PlayerScoreModel} from '../mongo/PlayerScore/PlayerStoreModel'
 import { Game } from '../mongo/Game/GameModel';
-import LevelManager from '../classes/LevelManager';
+import LevelManager from './LevelManager';
 var countBy = require('lodash.countby');
 var isNil = require('lodash.isnil');
 const random = require('lodash.random');
@@ -275,6 +273,9 @@ export default class Room {
     this.isClosed = true;
     console.log(`${this.roomName} has finished!`);
     //TODO: if there is no final result - delete or update accordingly this game on db.
+
+    //TODO: possible bug. might mix-up with snapshot of games that are used for replay.
+    //we need to declare its final and in level manager to query for finalized results.
     if (finalResult) {
       const finalResultDocument = createGameRecords(
         finalResult,

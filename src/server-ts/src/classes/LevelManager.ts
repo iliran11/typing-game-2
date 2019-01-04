@@ -1,5 +1,5 @@
 import { User } from '../mongo/User/UserModel';
-import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
+import { GameRecord } from '../mongo/GameRecord/GameSnapshotModel';
 import { LevelRulesI } from '../../../types';
 import { resolve } from 'url';
 
