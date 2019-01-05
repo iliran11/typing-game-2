@@ -4,7 +4,7 @@ import Tab from '@material-ui/core/Tab';
 import Progress from './Tabs/Progress';
 import Settings from './Tabs/Settings/Settings';
 import Stats from './Tabs/Stats/StatsContainer';
-import Videos from './Tabs/Videos';
+import Highlights from './Tabs/Highlights/HighlightsContainer';
 
 export interface ProfileTabsProps {}
 
@@ -35,12 +35,12 @@ export default class ProfileTabs extends React.PureComponent<
         <Tabs value={tabValue} onChange={this.onTabChange}>
           <Tab label="Stats" />
           <Tab label="Progress" />
-          <Tab label="Videos" />
+          <Tab label="Highlights" />
           <Tab label="Settings" />
         </Tabs>
         {tabValue === 0 && <Stats />}
         {tabValue === 1 && <Progress />}
-        {tabValue === 2 && <Videos />}
+        {tabValue === 2 && <Highlights />}
         {tabValue === 3 && <Settings />}
       </div>
     );

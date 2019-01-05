@@ -161,6 +161,7 @@ export interface RootState {
   readonly replays: ReplayReducer;
   readonly typing: TypingReducerI;
   readonly userAchievments: UserAchievmentsReducerI;
+  readonly highlights: HighlightsMapping;
 }
 export interface PlayerJoiningAction {
   type: string;
@@ -293,4 +294,9 @@ export interface HightLightItemI {
 
 export interface HighlightsI {
   [highlightName: string]: HightLightItemI;
+}
+
+
+export interface HighlightsMapping {
+  [playerId: string]: HighlightsI;
 }

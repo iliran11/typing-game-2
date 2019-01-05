@@ -7,6 +7,7 @@ import gameHistoriesReducer from '../../pages/GamesHistory/redux/GamesHistoryRed
 import replaysReducer from '../../store/reducers/replaysReducer';
 import typingReducer from '../../store/reducers/TypingsReducer';
 import userAchievments from '../../store/reducers/UserAchievmentsReducer';
+import HighlightsReducer from '../../store/reducers/HighlightsReducer';
 
 export default combineReducers({
   gameData,
@@ -16,5 +17,6 @@ export default combineReducers({
   gamesHistory: gameHistoriesReducer,
   replays: replaysReducer,
   typing: typingReducer,
-  userAchievments
+  userAchievments,
+  highlights: HighlightsReducer
 });

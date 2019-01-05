@@ -25,7 +25,7 @@ import {
   createGameRecord
 } from '../mongo/GameRecord/GameRecordModel';
 import { Game } from '../mongo/Game/GameModel';
-import LevelManager from '../classes/LevelManager';
+import LevelManager from './LevelManager';
 var countBy = require('lodash.countby');
 var isNil = require('lodash.isnil');
 const random = require('lodash.random');

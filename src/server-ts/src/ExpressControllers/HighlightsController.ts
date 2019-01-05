@@ -1,6 +1,6 @@
 import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
 import { PLAYER_ID_PARAM } from '../../../constants';
-import { PlayerGameStatus, HighlightsI } from '../../../types';
+import { PlayerGameStatus, HighlightsMapping } from '../../../types';
 
 export default function GameHighlights(req, res) {
   const highlights: HighlightsI = {};
@@ -71,6 +71,10 @@ export default function GameHighlights(req, res) {
     });
   });
   Promise.all([maxSpeed, firstPlace, fastestGame]).then(values => {
-    res.send(highlights);
+    // we are sending a map to be prepared for sending highlights of multiple players.
+    const response: HighlightsMapping = {
+      [playerId]: highlights
+    };
+    res.send(response);
   });
 }
