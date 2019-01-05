@@ -6,11 +6,16 @@ export interface HighlightItemProps {
   secondRow: string;
   thirdRow: string;
   createdDate: string;
+  roomId: string;
+  onClick: any;
 }
 
 export function HighlightItem(props: HighlightItemProps) {
+  const onClick = function() {
+    props.onClick(props.roomId);
+  };
   return (
-    <section className="highlight-item">
+    <section className="highlight-item" onClick={onClick}>
       <div className="highlight-image-container shadow-4dp">
         <img src={videoPlayer} />
       </div>

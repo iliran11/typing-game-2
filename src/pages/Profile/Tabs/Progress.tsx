@@ -1,7 +1,9 @@
 import * as React from 'react';
 import Chart from 'chart.js';
 
-export interface ProgressProps {}
+export interface ProgressProps {
+  history:any;
+}
 
 export interface ProgressState {}
 

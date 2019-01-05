@@ -5,7 +5,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import SetupLevelPanel from './SetupLevelPanel';
 
-export interface SettingsProps {}
+export interface SettingsProps {
+  history: any;
+}
 
 export interface SettingsState {}
 

@@ -12,7 +12,7 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
   const replay = state.replays[roomId];
   const myId = '10155286331682924';
   const typingData = state.typing[`${roomId}-${myId}`];
-
+  console.log('container')
   // const myId = state.myData.facebookId;
   // TODO: gameData should be available anywhere.
   return {

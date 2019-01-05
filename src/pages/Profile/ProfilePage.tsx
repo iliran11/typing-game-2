@@ -8,6 +8,7 @@ export interface ProfilePageProps {
   isDataPopulated: boolean;
   playerId: string;
   fullName: string;
+  history: any;
 }
 
 export default class ProfilePage extends React.Component<
@@ -42,7 +43,7 @@ export default class ProfilePage extends React.Component<
           <ProfileHeader />
           <ProgressBar />
         </section>
-        <ProfileTabs />
+        <ProfileTabs history={this.props.history} />
       </div>
     );
   }

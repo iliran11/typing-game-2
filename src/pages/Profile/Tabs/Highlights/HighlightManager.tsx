@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { HighlightsTab } from './HighlightsTab';
+import { HighlightsList } from './HighlightsList';
 import { HighlightsI } from '../../../../types';
+import { ROOM_ID_PARM } from '../../../../constants';
 
 export interface HighlightsManagerProps {
   fetchHighlights: any;
   highlights: HighlightsI;
+  history: any;
 }
 
 export interface HighlightsManagerState {}
@@ -17,15 +19,22 @@ export default class HighlightsManager extends React.Component<
     super(props);
     this.state = {};
     props.fetchHighlights();
+    this.onHighlightItemClick = this.onHighlightItemClick.bind(this);
   }
-
+  onHighlightItemClick(roomId: string) {
+    this.props.history.push(`/replay?${ROOM_ID_PARM}=${roomId}`);
+  }
   public render() {
+    console.log(this.props.history);
     if (!this.props.highlights) {
       return <h1>Loading...</h1>;
     }
     return (
       <div id="highlights-tab">
-        <HighlightsTab highlights={this.props.highlights} />
+        <HighlightsList
+          highlights={this.props.highlights}
+          onItemClick={this.onHighlightItemClick}
+        />
       </div>
     );
   }

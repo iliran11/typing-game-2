@@ -21,6 +21,7 @@ export interface ReplayPageProps {
 export default class ReplayPage extends React.Component<ReplayPageProps, any> {
   constructor(props: ReplayPageProps) {
     super(props);
+    console.log('hi')
     props.fetchReplay(props.roomId, this.props.myId);
   }
   get avatars(): PlayerAvatar[] | null {

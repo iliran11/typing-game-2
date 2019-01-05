@@ -3,8 +3,9 @@ import { HighlightItem } from './HighlightItem';
 import { HighlightsI, HightLightItemI } from '../../../../types';
 import { format } from 'date-fns';
 
-export interface HighlightsTabProps {
+export interface HighlightsListProps {
   highlights: HighlightsI;
+  onItemClick: any;
 }
 
 const data = [
@@ -28,7 +29,7 @@ const data = [
   }
 ];
 
-export function HighlightsTab(props: HighlightsTabProps) {
+export function HighlightsList(props: HighlightsListProps) {
   console.log(props.highlights);
   return (
     <React.Fragment>
@@ -36,14 +37,21 @@ export function HighlightsTab(props: HighlightsTabProps) {
       <div className="highlights-list-container">
         <HighlightItem
           {...processHighestSpeed(props.highlights.highestSpeed)}
+          onClick={props.onItemClick}
         />
-        <HighlightItem {...processFirstPlace(props.highlights.firstPlace)} />;
-        <HighlightItem {...processTypedTheMost(props.highlights.fastestGame)} />
+        <HighlightItem
+          {...processFirstPlace(props.highlights.firstPlace)}
+          onClick={props.onItemClick}
+        />
+        ;
+        <HighlightItem
+          {...processTypedTheMost(props.highlights.fastestGame)}
+          onClick={props.onItemClick}
+        />
       </div>
     </React.Fragment>
   );
 }
-
 function processHighestSpeed(item: HightLightItemI) {
   const firstRow = `Your highest speed: ${Math.floor(item.data.score)}Wpm`;
   const secondRow = `You took ${numberSuffix(item.data.rankAtFinish)} place`;
@@ -58,7 +66,8 @@ function processHighestSpeed(item: HightLightItemI) {
     firstRow,
     secondRow,
     thirdRow,
-    createdDate
+    createdDate,
+    roomId: item.data.roomId
   };
 }
 
@@ -71,7 +80,13 @@ function processFirstPlace(item: HightLightItemI) {
     item.data.gameDuration / 1000
   )}secs`;
   const createdDate = 'Invalid Date';
-  return { firstRow, secondRow, thirdRow, createdDate };
+  return {
+    firstRow,
+    secondRow,
+    thirdRow,
+    createdDate,
+    roomId: item.data.roomId
+  };
 }
 function processTypedTheMost(item: HightLightItemI) {
   const firstRow = `You typed ${item.data.numberOfWords} in ${Math.floor(
@@ -85,7 +100,8 @@ function processTypedTheMost(item: HightLightItemI) {
     firstRow,
     secondRow,
     thirdRow,
-    createdDate
+    createdDate,
+    roomId: item.data.roomId
   };
 }
 

@@ -6,7 +6,9 @@ import Settings from './Tabs/Settings/Settings';
 import Stats from './Tabs/Stats/StatsContainer';
 import Highlights from './Tabs/Highlights/HighlightManagerContainer';
 
-export interface ProfileTabsProps {}
+export interface ProfileTabsProps {
+  history: any;
+}
 
 export interface ProfileTabsState {
   tabValue: number;
@@ -38,10 +40,10 @@ export default class ProfileTabs extends React.PureComponent<
           <Tab label="Highlights" />
           <Tab label="Settings" />
         </Tabs>
-        {tabValue === 0 && <Stats />}
-        {tabValue === 1 && <Progress />}
-        {tabValue === 2 && <Highlights />}
-        {tabValue === 3 && <Settings />}
+        {tabValue === 0 && <Stats history={this.props.history} />}
+        {tabValue === 1 && <Progress history={this.props.history} />}
+        {tabValue === 2 && <Highlights history={this.props.history} />}
+        {tabValue === 3 && <Settings history={this.props.history} />}
       </div>
     );
   }
