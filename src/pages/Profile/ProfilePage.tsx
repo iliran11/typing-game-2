@@ -37,9 +37,11 @@ export default class ProfilePage extends React.Component<
     }
     return (
       <div id="profile-page">
-        <h1>{this.props.fullName}</h1>
-        <ProfileHeader />
-        <ProgressBar />
+        <section id="profile-info-section">
+          <h1>{this.props.fullName}</h1>
+          <ProfileHeader />
+          <ProgressBar />
+        </section>
         <ProfileTabs />
       </div>
     );

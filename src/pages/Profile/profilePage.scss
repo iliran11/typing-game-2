@@ -4,6 +4,9 @@
   width: 100%;
   padding: 10px;
   max-width: 500px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   h1:first-child {
     margin: 0px;
     color: $color1;
@@ -26,6 +29,8 @@
 }
 #profile-tabs {
   margin-top: 25px;
+  display: flex;
+  flex-direction: column;
 }
 #ranking {
   display: flex;
@@ -161,4 +166,39 @@
       width: 15px;
     }
   }
+}
+#highlights-tab {
+  display: flex;
+  flex-direction: column;
+}
+.highlight-item {
+  display: flex;
+  align-items: center;
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+  p {
+    margin: 0;
+  }
+  h3 {
+    margin: 0;
+  }
+}
+.highlight-info {
+  padding-left: 15px;
+}
+.highlight-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  padding: 0px 15px;
+  img {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.highlights-list-container {
+  overflow: scroll;
 }
