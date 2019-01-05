@@ -61,6 +61,7 @@ export interface PlayerGameStatus {
   rankAtFinish?: number;
   roomId: string;
 }
+// TODO: create a new type of object - finalizedGameStatus - where no optionals fields.
 export class PlayerGameStatusFactory implements PlayerGameStatus {
   id: string;
   score: number;
@@ -295,7 +296,6 @@ export interface HightLightItemI {
 export interface HighlightsI {
   [highlightName: string]: HightLightItemI;
 }
-
 
 export interface HighlightsMapping {
   [playerId: string]: HighlightsI;

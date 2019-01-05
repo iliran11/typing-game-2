@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { HighlightItem } from './HighlightItem';
+import { HighlightsI, HightLightItemI } from '../../../../types';
+import { format } from 'date-fns';
 
-export interface HighlightsTabProps {}
+export interface HighlightsTabProps {
+  highlights: HighlightsI;
+}
 
 const data = [
   {
@@ -25,14 +29,78 @@ const data = [
 ];
 
 export function HighlightsTab(props: HighlightsTabProps) {
+  console.log(props.highlights);
   return (
     <React.Fragment>
       <h3>We collected some highlights from your history</h3>
       <div className="highlights-list-container">
-        {data.map(dataItem => {
-          return <HighlightItem {...dataItem} />;
-        })}
+        <HighlightItem
+          {...processHighestSpeed(props.highlights.highestSpeed)}
+        />
+        <HighlightItem {...processFirstPlace(props.highlights.firstPlace)} />;
+        <HighlightItem {...processTypedTheMost(props.highlights.fastestGame)} />
       </div>
     </React.Fragment>
   );
+}
+
+function processHighestSpeed(item: HightLightItemI) {
+  const firstRow = `Your highest speed: ${Math.floor(item.data.score)}Wpm`;
+  const secondRow = `You took ${numberSuffix(item.data.rankAtFinish)} place`;
+  // @ts-ignore
+  const thirdRow = `Typed ${item.data.numberOfWords} in ${Math.floor(
+    // @ts-ignore
+    item.data.gameDuration / 1000
+  )} secs`;
+  // @ts-ignore
+  const createdDate = format(item.data.finishedTimeStamp);
+  return {
+    firstRow,
+    secondRow,
+    thirdRow,
+    createdDate
+  };
+}
+
+function processFirstPlace(item: HightLightItemI) {
+  const firstRow = `You took the ${numberSuffix(item.data.rankAtFinish)} place`;
+  const secondRow = `Your speed: ${Math.floor(item.data.score)} WPM`;
+  // @ts-ignore
+  const thirdRow = `Typed ${item.data.numberOfWords} in ${Math.floor(
+    // @ts-ignore
+    item.data.gameDuration / 1000
+  )}secs`;
+  const createdDate = 'Invalid Date';
+  return { firstRow, secondRow, thirdRow, createdDate };
+}
+function processTypedTheMost(item: HightLightItemI) {
+  const firstRow = `You typed ${item.data.numberOfWords} in ${Math.floor(
+    // @ts-ignore
+    item.data.gameDuration / 1000
+  )} Seconds`;
+  const secondRow = `Your Speed: ${Math.floor(item.data.score)} WPM`;
+  const thirdRow = `You took ${numberSuffix(item.data.rankAtFinish)} Place`;
+  const createdDate = `Invalid Date`;
+  return {
+    firstRow,
+    secondRow,
+    thirdRow,
+    createdDate
+  };
+}
+
+// https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number
+function numberSuffix(i: any) {
+  var j = i % 10,
+    k = i % 100;
+  if (j == 1 && k != 11) {
+    return i + 'st';
+  }
+  if (j == 2 && k != 12) {
+    return i + 'nd';
+  }
+  if (j == 3 && k != 13) {
+    return i + 'rd';
+  }
+  return i + 'th';
 }
