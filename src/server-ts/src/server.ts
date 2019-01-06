@@ -10,7 +10,7 @@ import GamesHistoryController from './ExpressControllers/gameReplayController';
 import UserAchievement from './ExpressControllers/UserAchievementController';
 import HighlightsController from './ExpressControllers/HighlightsController';
 import testController from './ExpressControllers/testController';
-import ChangeUserLevel from './ExpressControllers/ChangeUserLevel'
+import ChangeUserLevel from './ExpressControllers/ChangeUserLevelController'
 
 import {
   FacebookUserType,

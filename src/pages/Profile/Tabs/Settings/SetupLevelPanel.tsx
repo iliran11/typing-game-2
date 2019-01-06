@@ -6,7 +6,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import { GameLevel } from '../../../../types';
 
-export interface SetupLevelProps {}
+export interface SetupLevelProps {
+  updateCustomLevel: any;
+}
 
 export interface SetupLevelState {
   value: string;
@@ -103,6 +105,7 @@ export default class SetupLevel extends React.Component<
   }
   handleChange(event: any) {
     this.setState({ value: event.target.value });
+    this.props.updateCustomLevel(event.target.value);
   }
   public render() {
     console.log(getIndexByLevel(this.state.value).example);
@@ -123,10 +126,10 @@ export default class SetupLevel extends React.Component<
             value={this.state.value}
             onChange={this.handleChange}
           >
-            {config.map(levelConfig => {
+            {config.map((levelConfig, index) => {
               return (
                 <FormControlLabel
-                  value={levelConfig.value}
+                  value={`${index + 1}`}
                   control={<Radio />}
                   label={levelConfig.label}
                   key={levelConfig.value}

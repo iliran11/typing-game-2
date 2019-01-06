@@ -3,7 +3,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import SetupLevelPanel from './SetupLevelPanel';
+import SetupLevelPanel from './SetupLevelPanelContainer';
 
 const panels = [
   { header: <h3>Setup Your Level</h3>, body: <SetupLevelPanel /> },

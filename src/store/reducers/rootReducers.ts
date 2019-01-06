@@ -8,6 +8,7 @@ import replaysReducer from '../../store/reducers/replaysReducer';
 import typingReducer from '../../store/reducers/TypingsReducer';
 import userAchievments from '../../store/reducers/UserAchievmentsReducer';
 import HighlightsReducer from '../../store/reducers/HighlightsReducer';
+import NotificationsReducer from '../../store/reducers/NotificationsReducer';
 
 export default combineReducers({
   gameData,
@@ -18,5 +19,6 @@ export default combineReducers({
   replays: replaysReducer,
   typing: typingReducer,
   userAchievments,
-  highlights: HighlightsReducer
+  highlights: HighlightsReducer,
+  notificationsManager: NotificationsReducer
 });

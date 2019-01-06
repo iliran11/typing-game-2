@@ -142,6 +142,10 @@ export interface GameDataReducer {
   readonly letters: Letter[];
   readonly isGameFinished: boolean;
 }
+export interface NotificationsReducerI {
+  toastType: string;
+  toastMessage: string;
+}
 
 export interface ServerStatusReducer {
   readonly roomId: number;
@@ -311,4 +315,14 @@ export interface PROMOTION_DATA {
 export interface ChangeLevelPayload {
   playerId: string;
   level: number;
+}
+
+export interface SnackbarPayloadI {
+  toastMessage: string;
+  toastType: SnackbarTypeEnum;
+}
+export enum SnackbarTypeEnum {
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  ERROR = 'error'
 }
