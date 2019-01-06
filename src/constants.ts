@@ -47,7 +47,4 @@ export const LOAD_HIGHLIGHTS = 'load-highlights';
  */
 export const MAX_WPM_GAUGE = 80;
 export const MAX_PLAYERS_PER_ROOM = 1;
-export const GAME_WORDS: string =
-  'I went to the park and saw a tree it was a big tree and it was very green';
-// export const GAME_WORDS: string = "I went to the park and saw a tree";
 // const words: string = "I went to the park and saw a tree";

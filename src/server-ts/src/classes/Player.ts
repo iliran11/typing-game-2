@@ -16,14 +16,15 @@ export default class Player {
   protected name: string;
   private id: string;
   private socket: io.Socket;
-  private game: Game = new Game();
+  private game: Game;
   private roomId: number = 0;
   private anonymousAvatar: number = -1;
   private isAuthenticated: boolean = false;
   private userDbModel: any;
+  private currentLevel: number;
 
   // private game: Game;
-  constructor(socket: io.Socket, userData?: FacebookUserType) {
+  constructor(socket: io.Socket, userData: FacebookUserType, level: number) {
     this.socket = socket;
     this.name =
       (userData && `${userData.firstName} ${userData.lastName}`) ||
@@ -37,9 +38,11 @@ export default class Player {
       this.userDbModel = createUserInstance(userData);
     }
     Player.playerCounter++;
+    this.currentLevel = level;
+    this.game = new Game(level);
   }
-  createGame() {
-    this.game = new Game();
+  createGame(level: number) {
+    this.game = new Game(this.currentLevel);
   }
   public get playerType() {
     return PlayerType.human;
@@ -78,6 +81,9 @@ export default class Player {
   }
   setAvatar(avatarIndex: number) {
     this.anonymousAvatar = avatarIndex;
+  }
+  public setLevel(level: number) {
+    this.currentLevel = level;
   }
   playerGameStatus(options: PlayerGameStatusI): PlayerGameStatusFactory {
     const {

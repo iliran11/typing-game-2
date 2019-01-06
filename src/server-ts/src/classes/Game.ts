@@ -1,24 +1,24 @@
 import LetterData from '../../../store/classes/lettterData';
-import { GAME_WORDS } from '../../../constants';
 const uuid = require('uuid/v4');
-
-const lettersSample = GAME_WORDS.split('').map(word => new LetterData(word));
-
+import LevelManager from './LevelManager';
 export default class Game {
   private index: number;
   private letters: LetterData[];
   numberOfTypings: number;
   gameId: number;
   instanceId: string;
+  rawLetters: string;
   static gameCounter: number = 1;
 
-  constructor() {
-    this.letters = lettersSample;
+  constructor(level: number) {
+    this.rawLetters = LevelManager.getText(level);
+    this.letters = LevelManager.getText(level)
+      .split('')
+      .map(word => new LetterData(word));
     this.index = 0;
     this.gameId = Game.gameCounter;
     this.numberOfTypings = 0;
     Game.gameCounter++;
-    this.letters = lettersSample;
     this.instanceId = `GAME-${uuid()}`;
   }
   public processNewTyping(input: string) {
@@ -34,7 +34,7 @@ export default class Game {
     }
   }
   public get getRawLetters() {
-    return GAME_WORDS.split('');
+    return this.rawLetters.split('');
   }
   public get numberOfWords() {
     let numberOfWords = 0;

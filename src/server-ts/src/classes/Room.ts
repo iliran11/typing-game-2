@@ -158,7 +158,7 @@ export default class Room {
       .then(() => {
         LevelManager.processNewResult(
           finishedPlayer.playerId,
-          finishedPlayer.getSocket
+          finishedPlayer.getSocket()
         );
       });
     LevelManager;

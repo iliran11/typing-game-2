@@ -278,6 +278,7 @@ export interface LevelRulesI {
   accuracy: number;
   totalWordsTyped: number;
   totalCharsTyped: number;
+  text: string;
 }
 export interface UserAchievementsI {
   level: number;

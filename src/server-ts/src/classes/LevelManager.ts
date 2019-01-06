@@ -1,8 +1,8 @@
 import { User } from '../mongo/User/UserModel';
 import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
-import { LevelRulesI } from '../../../types';
-import { PROMOTION_DATA, PROMOTION_EVENT } from '../../../constants';
-import { resolve } from 'url';
+import { PROMOTION_DATA, LevelRulesI } from '../../../types';
+import { PROMOTION_EVENT } from '../../../constants';
+import { resolve } from 'dns';
 
 interface LevelsMap {
   [level: string]: LevelRulesI;
@@ -11,23 +11,34 @@ export const levelsMap: LevelsMap = {
   level1: {
     level: 1,
     wpm: 1,
-    accuracy: 1,
+    accuracy: 0.1,
     totalWordsTyped: 1,
-    totalCharsTyped: 1
+    totalCharsTyped: 1,
+    text: 'level 1 green fields'
   },
   level2: {
+    level: 10,
+    wpm: 20,
+    accuracy: 0.2,
+    totalWordsTyped: 10,
+    totalCharsTyped: 20,
+    text: 'level 2 yellow fields'
+  },
+  level3: {
     level: 2,
     wpm: 42,
     accuracy: 0.2,
     totalWordsTyped: 50,
-    totalCharsTyped: 100
+    totalCharsTyped: 100,
+    text: 'level 3 blue fields'
   },
-  level3: {
+  level4: {
     level: 3,
     wpm: 50,
     accuracy: 0.4,
     totalWordsTyped: 100,
-    totalCharsTyped: 150
+    totalCharsTyped: 150,
+    text: 'level 4 pink fields'
   }
 };
 
@@ -70,9 +81,13 @@ class LevelManager {
       const userModel = userAchievments[0];
       const isPromoted = LevelManager.shouldPlayerLevelUp(userAchievments);
       if (isPromoted) {
-        userModel.setLevel(userModel.level + 1);
-        // const emitData: PROMOTION_DATA;
-        // socket.emit(PROMOTION_EVENT);
+        const newLevel = userModel.level + 1;
+        userModel.setLevel(newLevel);
+        const data: PROMOTION_DATA = {
+          nextObjectives: levelsMap[`level${newLevel}`],
+          newLevel
+        };
+        socket.emit(PROMOTION_EVENT, data);
       }
     });
   }
@@ -101,6 +116,16 @@ class LevelManager {
       LevelManager.instance = new LevelManager();
     }
     return LevelManager.instance;
+  }
+  static getPlayerLevel(playerId: string): Promise<number> {
+    return new Promise((resolve, reject) => {
+      return User.findById(playerId).then(userModel => {
+        resolve(userModel.level);
+      });
+    });
+  }
+  static getText(level: number): string {
+    return levelsMap[`level${level}`].text;
   }
 }
 
