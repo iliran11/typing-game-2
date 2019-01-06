@@ -41,7 +41,7 @@ export default class Player {
     this.currentLevel = level;
     this.game = new Game(level);
   }
-  createGame(level: number) {
+  createGame() {
     this.game = new Game(this.currentLevel);
   }
   public get playerType() {
