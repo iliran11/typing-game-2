@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface ProgressBarProps {
-  progressToNextLevel: number;
+  progress: number;
 }
 
 export default function ProgressBar(props: ProgressBarProps) {
@@ -9,7 +9,10 @@ export default function ProgressBar(props: ProgressBarProps) {
     <section id="progress-bar-section">
       <span>Your progress bar</span>
       <div id="progress-bar">
-        <div id="completed-area" />
+        <div
+          id="completed-area"
+          style={{ width: `${props.progress * 100}%` }}
+        />
       </div>
       <div />
     </section>

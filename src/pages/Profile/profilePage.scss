@@ -44,6 +44,7 @@
   align-items: center;
   justify-content: center;
   align-items: center;
+  width: calc(100% / 3);
 }
 #progress-bar-section {
   width: 100%;
@@ -65,7 +66,6 @@
 
 #completed-area {
   background: linear-gradient(to right, $color2, $color2 85%, white 95%);
-  width: 50%;
   height: 100%;
 }
 
