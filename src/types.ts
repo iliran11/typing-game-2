@@ -167,6 +167,7 @@ export interface RootState {
   readonly typing: TypingReducerI;
   readonly userAchievments: UserAchievmentsReducerI;
   readonly highlights: HighlightsMapping;
+  readonly notificationsManager: NotificationsReducerI;
 }
 export interface PlayerJoiningAction {
   type: string;

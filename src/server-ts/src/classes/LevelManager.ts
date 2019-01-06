@@ -50,8 +50,8 @@ class LevelManager {
   }
   setUserCustomLevel(playerId: string, customLevel): Promise<string> {
     return new Promise((resolve, reject) => {
-      this.getPlayerLevel(playerId).then(currentLevel => {
-        if (currentLevel >= customLevel) {
+      this.getPlayerRealLevel(playerId).then(result => {
+        if (result >= customLevel) {
           this.userCustomLevel.set(playerId, customLevel);
           resolve('OK');
         } else {
@@ -135,6 +135,7 @@ class LevelManager {
   getPlayerRealLevel(playerId: string): Promise<number> {
     return new Promise((resolve, reject) => {
       User.findById(playerId).then(userModel => {
+        console.log('real level');
         resolve(userModel.level);
       });
     });
@@ -145,6 +146,7 @@ class LevelManager {
         const customLevel = this.userCustomLevel.get(playerId);
         // return custom level. if nothing, return the "real level";
         resolve(customLevel || realLevel);
+        return;
       });
     });
   }

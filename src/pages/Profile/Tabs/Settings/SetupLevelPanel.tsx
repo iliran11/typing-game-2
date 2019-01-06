@@ -108,7 +108,6 @@ export default class SetupLevel extends React.Component<
     this.props.updateCustomLevel(event.target.value);
   }
   public render() {
-    console.log(getIndexByLevel(this.state.value).example);
     return (
       <div>
         <FormControl>

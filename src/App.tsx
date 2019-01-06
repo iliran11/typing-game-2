@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBarContainer';
 import AuthenticationManager from './AuthenticationManager';
 import LoginPage from './pages/loginPage/LoginPageContainer';
+import NotificationManager from './components/NotificationManager/NotificationManagerContainer';
 
 class App extends React.Component {
   authenticationManager: AuthenticationManager;
@@ -41,6 +42,7 @@ class App extends React.Component {
             />
           </Fragment>
         </Router>
+        <NotificationManager />
       </div>
     );
   }
