@@ -160,7 +160,6 @@ export default class ReplayManager extends React.Component<
   }
   // END OF MOVE TO HOC
   render() {
-    console.log(this.state.competitorReplayInstance);
     return (
       <div id="game-page">
         <CompetitorList
@@ -178,6 +177,7 @@ export default class ReplayManager extends React.Component<
           closeTooltip={this.scheduleTooltipClosure}
           index={this.state.inputIndex}
           gameIsFinished={() => {}}
+          notifyServerOnFinish={false}
         />
         <ToolTip
           x={this.state.toolTipX}

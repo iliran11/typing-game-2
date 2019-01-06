@@ -76,7 +76,6 @@ function facebookStatusCheck(
 }
 
 function handleHandshake(state: AuthReducer, payload: HandShakeData) {
-  console.log(state.appToken, payload.appToken);
   // if there is no token - it means we are coming from login verification.
   // in this case - we get the token from the local storage.
   // TODO: seperate between SERVER_HANDSHAKE_RECIEVED of login and login-verification.

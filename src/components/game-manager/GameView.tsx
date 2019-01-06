@@ -11,6 +11,7 @@ interface Props {
   letters: string[];
   currentLetter: string;
   gameActive: boolean;
+  notifyServerOnFinish: boolean;
   changeToolTipPosition: (x: number, y: number, input: string) => void;
   closeTooltip: () => void;
   gameIsFinished: () => void;
@@ -141,8 +142,9 @@ export default class GameView extends React.Component<any, State> {
        * update the server that our local game is finished.
        * in purpose of letting our people know that u are finished.
        */
-
-      socketManager.emitFinishedGame();
+      if (this.props.notifyServerOnFinish) {
+        socketManager.emitFinishedGame();
+      }
     }
   }
 
@@ -202,3 +204,8 @@ export default class GameView extends React.Component<any, State> {
     );
   }
 }
+
+//@ts-ignore
+GameView.defaultProps = {
+  notifyServerOnFinish: true
+};

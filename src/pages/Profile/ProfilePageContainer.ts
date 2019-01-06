@@ -7,7 +7,7 @@ const mapStateToProps = (state: RootState) => {
   const playerId = state.authentication.playerId;
   const userAchievements = state.userAchievments[playerId];
   return {
-    isDataPopulated: Boolean(userAchievements),
+    isDataPopulated: userAchievements && userAchievements.maxWpm > -1,
     playerId,
     fullName: `${state.myData.firstName} ${state.myData.lastName}`
   };

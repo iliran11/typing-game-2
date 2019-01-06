@@ -35,19 +35,24 @@ export function HighlightsList(props: HighlightsListProps) {
     <React.Fragment>
       <h3>We collected some highlights from your history</h3>
       <div className="highlights-list-container">
-        <HighlightItem
-          {...processHighestSpeed(props.highlights.highestSpeed)}
-          onClick={props.onItemClick}
-        />
-        <HighlightItem
-          {...processFirstPlace(props.highlights.firstPlace)}
-          onClick={props.onItemClick}
-        />
-        ;
-        <HighlightItem
-          {...processTypedTheMost(props.highlights.fastestGame)}
-          onClick={props.onItemClick}
-        />
+        {props.highlights.highestSpeed && (
+          <HighlightItem
+            {...processHighestSpeed(props.highlights.highestSpeed)}
+            onClick={props.onItemClick}
+          />
+        )}
+        {props.highlights.firstPlace && (
+          <HighlightItem
+            {...processFirstPlace(props.highlights.firstPlace)}
+            onClick={props.onItemClick}
+          />
+        )}
+        {props.highlights.fastestGame && (
+          <HighlightItem
+            {...processTypedTheMost(props.highlights.fastestGame)}
+            onClick={props.onItemClick}
+          />
+        )}
       </div>
     </React.Fragment>
   );

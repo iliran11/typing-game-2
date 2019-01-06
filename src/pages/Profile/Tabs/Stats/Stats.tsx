@@ -45,8 +45,7 @@ export default class Stats extends React.Component<StatsProps, StatsState> {
       totalWordsTyped: {
         value: currentTotalWordsTyped,
         label: 'Total words typed: ',
-        isCompleted:
-          currentTotalWordsTyped > targetTotalWordsTyped
+        isCompleted: currentTotalWordsTyped > targetTotalWordsTyped
       },
       totalChars: {
         value: currentTotalTyped,
@@ -105,12 +104,13 @@ function StatsList(props: StatsListI) {
     <div className="stats-goals-list">
       <StatsItem
         label={props.wpm.label}
-        value={props.wpm.value}
+        value={Math.floor(props.wpm.value)}
         isCompleted={props.wpm.isCompleted}
       />
       <StatsItem
         label={props.accuracy.label}
-        value={props.accuracy.value}
+        // @ts-ignore
+        value={props.accuracy.value.toFixed(2)}
         isCompleted={props.accuracy.isCompleted}
       />
       <StatsItem
