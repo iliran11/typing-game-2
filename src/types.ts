@@ -188,6 +188,7 @@ export interface MyDataReducer {
   facebookId: string;
   firstName: string;
   lastName: string;
+  level: number;
 }
 export interface SdkLoadedSuccessAction {
   type: string;
@@ -305,4 +306,9 @@ export interface HighlightsMapping {
 export interface PROMOTION_DATA {
   newLevel: number;
   nextObjectives: LevelRulesI;
+}
+
+export interface ChangeLevelPayload {
+  playerId: string;
+  level: number;
 }

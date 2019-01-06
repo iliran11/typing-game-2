@@ -22,7 +22,8 @@ const playerManager = PlayerManager.getInstance();
 export default function onConnect(socket: io.Socket): void {
   // console.log(`connect- ${socket.client.id}`);
   const userData: FacebookUserType = getSocketAuthentication(socket);
-  LevelManager.getPlayerLevel(userData.id).then(level => {
+  const levelManager = LevelManager.getInstance();
+  levelManager.getPlayerLevel(userData.id).then(level => {
     const player = new Player(socket, userData, level);
     playerManager.addPlayer(player);
     allocateHumanToRoom(socket, player);

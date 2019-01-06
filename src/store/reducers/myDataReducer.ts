@@ -4,7 +4,8 @@ import { MyDataReducer, HandShakeData } from '../../types';
 const initialState: MyDataReducer = {
   firstName: '',
   lastName: '',
-  facebookId: ''
+  facebookId: '',
+  level: -1
 };
 
 export default function myDataReducer(

@@ -44,7 +44,22 @@ export const levelsMap: LevelsMap = {
 
 class LevelManager {
   private static instance: LevelManager;
-  private constructor() {}
+  private userCustomLevel: Map<string, number>;
+  private constructor() {
+    this.userCustomLevel = new Map();
+  }
+  setUserCustomLevel(playerId: string, customLevel): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.getPlayerLevel(playerId).then(currentLevel => {
+        if (currentLevel >= customLevel) {
+          this.userCustomLevel.set(playerId, customLevel);
+          resolve('OK');
+        } else {
+          reject(`Can't set level Higher than current level`);
+        }
+      });
+    });
+  }
   // TODO: create a type for this function.
   /**
    * return array of promises: [maxWpm,playerAccuracy,totalWordsTyped,totalCharsTyped]
@@ -117,10 +132,19 @@ class LevelManager {
     }
     return LevelManager.instance;
   }
-  static getPlayerLevel(playerId: string): Promise<number> {
+  getPlayerRealLevel(playerId: string): Promise<number> {
     return new Promise((resolve, reject) => {
-      return User.findById(playerId).then(userModel => {
+      User.findById(playerId).then(userModel => {
         resolve(userModel.level);
+      });
+    });
+  }
+  getPlayerLevel(playerId: string): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this.getPlayerRealLevel(playerId).then(realLevel => {
+        const customLevel = this.userCustomLevel.get(playerId);
+        // return custom level. if nothing, return the "real level";
+        resolve(customLevel || realLevel);
       });
     });
   }
