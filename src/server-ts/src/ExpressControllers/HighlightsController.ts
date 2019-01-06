@@ -1,14 +1,20 @@
 import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
 import { PLAYER_ID_PARAM } from '../../../constants';
-import { PlayerGameStatus, HighlightsMapping } from '../../../types';
+import {
+  PlayerGameStatus,
+  HighlightsMapping,
+  HighlightsI
+} from '../../../types';
 
 export default function GameHighlights(req, res) {
   const highlights: HighlightsI = {};
   function getUsedRoomIds() {
     // @ts-ignore
     let roomIds = [];
+    // @ts-ignore
     const values = Object.values(highlights).forEach(value => {
       if (value.roomId) {
+        // @ts-ignore
         roomIds.push(value.roomId);
       }
     });

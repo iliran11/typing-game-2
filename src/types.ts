@@ -300,3 +300,8 @@ export interface HighlightsI {
 export interface HighlightsMapping {
   [playerId: string]: HighlightsI;
 }
+
+export interface PROMOTION_DATA {
+  newLevel: number;
+  nextObjectives: LevelRulesI;
+}

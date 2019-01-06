@@ -150,14 +150,18 @@ export default class Room {
       numberOfLetters: getRawLetters.length,
       numberOfWords: numberOfWords,
       rankAtFinish: this.currentRankOfFinishedPlayer,
-      roomId:this.instanceId
+      roomId: this.instanceId
     });
     this.finalScores[playerIndex] = gameResultRecord;
     createGameRecord(gameResultRecord.serialize)
       .save()
       .then(() => {
-        LevelManager.getInstance().processNewResult(finishedPlayer.playerId);
+        LevelManager.processNewResult(
+          finishedPlayer.playerId,
+          finishedPlayer.getSocket
+        );
       });
+    LevelManager;
   }
   get isGameActive() {
     return this.players.length === MAX_PLAYERS_PER_ROOM;

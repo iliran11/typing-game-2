@@ -4,6 +4,7 @@ export const COMPETITOR_LEFT = 'competitor-left';
 export const COMPETITOR_JOINED_ROOM = 'competitor-joined-room';
 export const BOT_JOINED_ROOM = 'bot-joined-room';
 export const COMPETITOR_DELETION = 'competitor-deletion';
+export const PROMOTION_EVENT = 'promotion-event';
 export const PLAYER_TYPING = 'player-typing';
 export const CONNECT_SERVER_SUCCESS = 'connect_server';
 export const SET_GAME_LETTERS = 'set-game-letters';

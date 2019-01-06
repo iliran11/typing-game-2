@@ -10,7 +10,7 @@ export default function(req, res) {
     res.send(400);
     return;
   }
-  levelManager.retrievePlayerStats(playerIdParam).then(result => {
+  LevelManager.retrievePlayerStats(playerIdParam).then(result => {
     const computedResult = [...result];
     computedResult[0] = result[0].level;
     const level = result[0].level;

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 import { User } from './UserModel';
+import { resolve } from 'url';
 const UserScheme = mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -41,5 +42,12 @@ UserScheme.methods.getPicture = function() {
       });
   });
 };
-
+UserScheme.methods.setLevel = function setLevel(newLevel: number) {
+  return new Promise((resolve, reject) => {
+    this.level = newLevel;
+    this.save()
+      .then(resolve())
+      .catch();
+  });
+};
 export default UserScheme;

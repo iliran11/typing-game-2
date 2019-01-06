@@ -9,6 +9,7 @@ import gamesHistoryController from './ExpressControllers/gamesHistoryController'
 import GamesHistoryController from './ExpressControllers/gameReplayController';
 import UserAchievement from './ExpressControllers/UserAchievementController';
 import HighlightsController from './ExpressControllers/HighlightsController';
+import testController from './ExpressControllers/testController'
 
 import {
   FacebookUserType,
@@ -42,6 +43,7 @@ app.get('/games-history', gamesHistoryController);
 app.get('/game-replay', GamesHistoryController);
 app.get('/user-achievement', UserAchievement);
 app.get('/games-highlights', HighlightsController);
+app.get('/test', testController);
 
 const serverManager = ServerManager.getInstance(server);
 console.log('server started.');
