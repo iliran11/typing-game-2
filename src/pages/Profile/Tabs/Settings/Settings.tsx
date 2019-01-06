@@ -5,6 +5,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import SetupLevelPanel from './SetupLevelPanel';
 
+const panels = [
+  { header: <h3>Setup Your Level</h3>, body: <SetupLevelPanel /> },
+  { header: <span>Training Program</span>, body: null },
+  { header: <span>About us</span>, body: null },
+  { header: <span>log out</span>, body: null }
+];
 export interface SettingsProps {
   history: any;
 }
@@ -24,30 +30,25 @@ export default class Settings extends React.Component<
   public render() {
     return (
       <div style={{ marginTop: 15 }}>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <h3>Setup Your Level</h3>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <SetupLevelPanel />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            Training Program
-          </ExpansionPanelSummary>
-        </ExpansionPanel>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            About Us
-          </ExpansionPanelSummary>
-        </ExpansionPanel>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            Log Out
-          </ExpansionPanelSummary>
-        </ExpansionPanel>
+        {panels.map((data, index) => {
+          return (
+            <SettingsPanel header={data.header} body={data.body} key={index} />
+          );
+        })}
       </div>
     );
   }
+}
+
+function SettingsPanel(props: any) {
+  return (
+    <ExpansionPanel>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+        {props.header}
+      </ExpansionPanelSummary>
+      {props.body && (
+        <ExpansionPanelDetails>{props.body}</ExpansionPanelDetails>
+      )}
+    </ExpansionPanel>
+  );
 }
