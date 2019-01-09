@@ -6,12 +6,14 @@ import DebugDialog from './DebugDialog/DebugDialog';
 import LoginButton from '../login-button/LoginButtonContainer';
 import { LoginStatus, PageProps } from '../../types';
 import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContainer';
+import backbutton from '../../assets/backbutton.svg';
 
 export interface AppToolBarProps extends PageProps {
   firstName: string;
   lastName: string;
   picture: string;
   loggedIn: LoginStatus;
+  location: any;
 }
 
 export default class AppToolBar extends React.Component<AppToolBarProps, any> {
@@ -22,6 +24,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
       isDebugOpen: false
     };
     this.navigateToProfile = this.navigateToProfile.bind(this);
+    this.onBack = this.onBack.bind(this);
   }
   handleDebug() {
     this.setState({
@@ -34,12 +37,22 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
   get shouldShowPicutre() {
     return this.props.picture && this.props.loggedIn === LoginStatus.loggedIn;
   }
+  get shouldShowBackbutton() {
+    return this.props.location.pathname !== '/';
+  }
+  onBack() {
+    this.props.history.push('/');
+  }
   render() {
     return (
       <div id="app-toolbar">
         <AppBar position="static" color="default">
           <Toolbar>
-            <DebugDialog />
+            {/* <DebugDialog /> */}
+
+            {this.shouldShowBackbutton && (
+              <img src={backbutton} onClick={this.onBack} />
+            )}
             <div id="toolbar-layout">
               <Typography variant="h6" color="inherit">
                 Typing Coacher
