@@ -3,6 +3,7 @@ import './profilePage.scss';
 import ProfileHeader from './ProfileHeaderContainer';
 import ProgressBar from './ProgressBarContainer';
 import ProfileTabs from './ProfileTabs';
+import {BoxLoader} from '../../components/boxLoader/boxLoader';
 export interface ProfilePageProps {
   profileMainLoad: any;
   isDataPopulated: boolean;
@@ -31,7 +32,7 @@ export default class ProfilePage extends React.Component<
       return <h1>You are not logged in! </h1>;
     }
     if (this.state.isLoading) {
-      return <h1>LOADING !! </h1>;
+      return <BoxLoader />;
     }
     if (this.props.isDataPopulated === false) {
       return <h1> EMPTY STATE </h1>;

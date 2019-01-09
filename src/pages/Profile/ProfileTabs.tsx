@@ -36,14 +36,14 @@ export default class ProfileTabs extends React.PureComponent<
       <div id="profile-tabs">
         <Tabs value={tabValue} onChange={this.onTabChange}>
           <Tab label="Stats" />
-          <Tab label="Progress" />
+          {/* <Tab label="Progress" /> */}
           <Tab label="Highlights" />
           <Tab label="Settings" />
         </Tabs>
         {tabValue === 0 && <Stats history={this.props.history} />}
-        {tabValue === 1 && <Progress history={this.props.history} />}
-        {tabValue === 2 && <Highlights history={this.props.history} />}
-        {tabValue === 3 && <Settings history={this.props.history} />}
+        {/* {tabValue === 1 && <Progress history={this.props.history} />} */}
+        {tabValue === 1 && <Highlights history={this.props.history} />}
+        {tabValue === 2 && <Settings history={this.props.history} />}
       </div>
     );
   }
