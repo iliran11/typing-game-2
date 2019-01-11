@@ -6,6 +6,7 @@ import ScoreBoardContainer from '../../components/Scoreboard/ScoreBoardContainer
 import CountDown from '../../components/CountDown/CountDown';
 import ToolTip from '../../components/tooltip';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
+import SocketDisconnect from '../../components/SocketDisconnect/SocketDisconnectedContainer';
 
 interface Props {
   isGameActive: boolean;
@@ -99,6 +100,7 @@ class GamePage extends PureComponent<Props, State> {
           closeTooltip={this.closeTooltip}
         />
         <ScoreBoardContainer history={this.props.history} />
+        <SocketDisconnect />
       </div>
     );
   }

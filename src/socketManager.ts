@@ -20,7 +20,10 @@ import {
   COMPETITOR_DELETION,
   GAME_HAS_FINISHED,
   COMPETITOR_HAS_FINISHED,
-  RESTART_GAME
+  RESTART_GAME,
+  SHOW_NOTIFICATION,
+  SOCKET_HAS_CONNECTED,
+  SOCKET_HAS_DISCONNECTED
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
 
@@ -40,13 +43,17 @@ const socketManager: any = {
     this.socket.on('error', () => {
       console.log('error!!!');
     });
-    this.dispatch = dispatch;
-    this.socket.on(CONNECT_SERVER_SUCCESS, () => {
+    this.socket.on('connect', () => {
       this.dispatch({
-        type: CONNECT_SERVER_SUCCESS
+        type: SOCKET_HAS_CONNECTED
       });
     });
-
+    this.socket.on('disconnect', () => {
+      this.dispatch({
+        type: SOCKET_HAS_DISCONNECTED
+      });
+    });
+    this.dispatch = dispatch;
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
       const { roomId, players, roomSize, isGameActive, myId } = data;
       this.dispatch({
