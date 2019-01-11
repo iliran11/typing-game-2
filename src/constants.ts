@@ -19,7 +19,7 @@ export const GAME_START_DELAY = 5;
 export const BOT_SPAWN_RATE = 5000;
 export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot';
 export const RANDOM_AVATAR_MAX_INDEX = 10;
-export const SHOW_SNACKBAR = 'show-snackbar';
+export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
 
 // ------ AUTH ------- //
 

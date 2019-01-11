@@ -1,11 +1,16 @@
-import { SHOW_SNACKBAR } from '../../constants';
-import { NotificationsReducerI, SnackbarPayloadI } from '../../types';
+import { SHOW_NOTIFICATION } from '../../constants';
+import {
+  NotificationSeverityEnum,
+  NotificationTypeEnum,
+  NotificationsReducerI
+} from '../../types';
 
 // const letters : Letter[] = [new ]
 
 const initialState: NotificationsReducerI = {
-  toastType: '',
-  toastMessage: ''
+  notificationType: NotificationTypeEnum.NONE,
+  notificationMessage: '',
+  notificationSeverity: NotificationSeverityEnum.NONE
 };
 
 export default function NotificationsReducer(
@@ -13,7 +18,7 @@ export default function NotificationsReducer(
   action: any
 ): NotificationsReducerI {
   switch (action.type) {
-    case SHOW_SNACKBAR:
+    case SHOW_NOTIFICATION:
       return handleShowSnackbar(state, action.payload);
     default:
       return state;
@@ -22,10 +27,9 @@ export default function NotificationsReducer(
 
 function handleShowSnackbar(
   state: NotificationsReducerI,
-  payload: SnackbarPayloadI
+  payload: NotificationsReducerI
 ): NotificationsReducerI {
   return {
-    toastType: payload.toastType,
-    toastMessage: payload.toastMessage
+    ...payload
   };
 }

@@ -1,14 +1,15 @@
 import {
-  SnackbarTypeEnum,
+  NotificationSeverityEnum,
   RootState,
   UserAchievementsI,
-  SnackbarPayloadI
+  NotificationsReducerI,
+  NotificationTypeEnum
 } from '../types';
 import {
   PLAYER_ID_PARAM,
   LOAD_PROFILE_ACHIEVEMENTS,
   LOAD_HIGHLIGHTS,
-  SHOW_SNACKBAR
+  SHOW_NOTIFICATION
 } from '../constants';
 import axios from 'axios';
 
@@ -57,22 +58,24 @@ export function updateCustomLevel(level: number) {
         level
       })
       .then(result => {
-        const payload: SnackbarPayloadI = {
-          toastMessage: `Your level was changed to ${level}`,
-          toastType: SnackbarTypeEnum.SUCCESS
+        const payload: NotificationsReducerI = {
+          notificationMessage: `Your level was changed to ${level}`,
+          notificationType: NotificationTypeEnum.toast,
+          notificationSeverity: NotificationSeverityEnum.SUCCESS
         };
         dispatch({
-          type: SHOW_SNACKBAR,
+          type: SHOW_NOTIFICATION,
           payload
         });
       })
       .catch(err => {
-        const payload: SnackbarPayloadI = {
-          toastMessage: `There was a problem ...`,
-          toastType: SnackbarTypeEnum.WARNING
+        const payload: NotificationsReducerI = {
+          notificationMessage: `There was a problem ...`,
+          notificationSeverity: NotificationSeverityEnum.WARNING,
+          notificationType: NotificationTypeEnum.toast
         };
         dispatch({
-          type: SHOW_SNACKBAR,
+          type: SHOW_NOTIFICATION,
           payload
         });
       });

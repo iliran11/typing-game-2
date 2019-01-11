@@ -143,8 +143,9 @@ export interface GameDataReducer {
   readonly isGameFinished: boolean;
 }
 export interface NotificationsReducerI {
-  toastType: string;
-  toastMessage: string;
+  notificationType: NotificationTypeEnum;
+  notificationSeverity: NotificationSeverityEnum;
+  notificationMessage: string;
 }
 
 export interface ServerStatusReducer {
@@ -293,7 +294,7 @@ export interface UserAchievementsI {
   totalChars: number;
   maxAccuracy: number;
   currentLevelRules: LevelRulesI;
-  ranking:number;
+  ranking: number;
 }
 
 export interface HightLightItemI {
@@ -319,12 +320,16 @@ export interface ChangeLevelPayload {
   level: number;
 }
 
-export interface SnackbarPayloadI {
-  toastMessage: string;
-  toastType: SnackbarTypeEnum;
-}
-export enum SnackbarTypeEnum {
+export enum NotificationSeverityEnum {
   SUCCESS = 'success',
   WARNING = 'warning',
-  ERROR = 'error'
+  ERROR = 'error',
+  BLOCK = 'block',
+  NONE = 'none'
+}
+
+export enum NotificationTypeEnum {
+  toast = 'toast',
+  block = 'block',
+  NONE = 'none'
 }

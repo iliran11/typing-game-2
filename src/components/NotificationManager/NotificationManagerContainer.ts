@@ -4,7 +4,7 @@ import NotificationsManager from './NotificationManager';
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
   return {
-    toast: state.notificationsManager
+    notification: state.notificationsManager
   };
 };
 export default connect(
