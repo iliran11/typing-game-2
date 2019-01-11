@@ -1,14 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import socketManager from '../socketManager';
-import GameManagerContainer from '../components/game-manager/gameManagerContainer';
-import ScoreBoardContainer from '../components/Scoreboard/ScoreBoardContainer';
-import CountDown from '../components/CountDown/CountDown';
-import ToolTip from '../components/tooltip';
+import socketManager from '../../socketManager';
+import GameManagerContainer from '../../components/game-manager/gameManagerContainer';
+import ScoreBoardContainer from '../../components/Scoreboard/ScoreBoardContainer';
+import CountDown from '../../components/CountDown/CountDown';
+import ToolTip from '../../components/tooltip';
+import { BoxLoader } from '../../components/boxLoader/boxLoader';
 
 interface Props {
   isGameActive: boolean;
   history: any;
+  gameIsLoaded: boolean;
 }
 interface State {
   toolTipX: number;
@@ -81,6 +83,7 @@ class GamePage extends PureComponent<Props, State> {
   render() {
     return (
       <div id="game-page">
+        {!this.props.gameIsLoaded && <BoxLoader />}
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}

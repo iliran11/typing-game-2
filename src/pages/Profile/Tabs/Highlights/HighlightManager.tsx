@@ -2,7 +2,7 @@ import * as React from 'react';
 import { HighlightsList } from './HighlightsList';
 import { HighlightsI } from '../../../../types';
 import { ROOM_ID_PARM } from '../../../../constants';
-
+import { InlineLoader } from '../../../../components/inlineLoader/InlineLoader';
 export interface HighlightsManagerProps {
   fetchHighlights: any;
   highlights: HighlightsI;
@@ -27,7 +27,11 @@ export default class HighlightsManager extends React.Component<
   public render() {
     console.log(this.props.history);
     if (!this.props.highlights) {
-      return <h1>Loading...</h1>;
+      return (
+        <div className="highlights-progress">
+          <InlineLoader />
+        </div>
+      );
     }
     return (
       <div id="highlights-tab">

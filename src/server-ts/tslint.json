@@ -5,5 +5,10 @@
   "rules": {
     "trailing-comma": false
   },
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "linterOptions": {
+    "exclude": [
+      "src/**/*.js"
+    ]
+  } 
 }
