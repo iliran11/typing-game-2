@@ -237,7 +237,6 @@ export default class Room {
     })
       .save()
       .then(result => {
-        console.log(result);
       })
       .catch(err => {
         console.log('game save error', err);
