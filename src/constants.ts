@@ -1,5 +1,6 @@
 export const SCORE_BROADCAST = 'score-broadcast';
 export const YOU_JOINED_ROOM = 'you-joined-room';
+export const REQUEST_TO_PLAY = 'request-to-play'
 export const SOCKET_HAS_CONNECTED = 'socket-has-connected';
 export const SOCKET_HAS_DISCONNECTED = 'socket-has-disconnected';
 export const COMPETITOR_LEFT = 'competitor-left';

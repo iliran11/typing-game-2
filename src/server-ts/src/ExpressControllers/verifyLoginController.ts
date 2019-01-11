@@ -5,6 +5,7 @@ import { User } from '../mongo/User/UserModel';
 
 //TODO: change name to check-login-status
 
+// TODO: when there is no user, and verification success, there is no create of a user.
 export default function verifyLoginController(req, res) {
   const appToken = req.headers[AUTH_HEADER_NAME];
   jwt.verify(appToken, process.env.SERVER_AUTH_SECRET, function(err, decoded) {

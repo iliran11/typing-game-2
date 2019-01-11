@@ -23,7 +23,8 @@ import {
   RESTART_GAME,
   SHOW_NOTIFICATION,
   SOCKET_HAS_CONNECTED,
-  SOCKET_HAS_DISCONNECTED
+  SOCKET_HAS_DISCONNECTED,
+  REQUEST_TO_PLAY
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
 
@@ -37,7 +38,8 @@ const socketManager: any = {
     this.socket = socketIo.connect(
       url,
       {
-        query: { token: AuthenticationManager.appToken }
+        query: { token: AuthenticationManager.appToken },
+        reconnection: false
       }
     );
     this.socket.on('error', () => {
@@ -117,6 +119,9 @@ const socketManager: any = {
   },
   emitFinishedGame() {
     this.socket.emit(GAME_HAS_FINISHED);
+  },
+  emitRequestToPlay() {
+    this.socket.emit(REQUEST_TO_PLAY);
   },
   emitGameRestart() {
     this.socket.emit(RESTART_GAME);

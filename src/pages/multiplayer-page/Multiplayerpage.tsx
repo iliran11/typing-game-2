@@ -31,6 +31,7 @@ class GamePage extends PureComponent<Props, State> {
     const isSocketConnected = socketManager.isSocketConnected();
     if (!isSocketConnected) {
       socketManager.initSocket(props.dispatch);
+      socketManager.emitRequestToPlay();
     }
     this.state = {
       timerActive: false,
