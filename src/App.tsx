@@ -3,7 +3,7 @@ import './css/App.css';
 import './css/shadows.css';
 import './css/gradients.css';
 import './css/utilities.css';
-import GamePage from './pages/GamePage';
+import MultiplayerPage from './pages/multiplayer-page/MultiplayerPageContainer';
 import ResultPage from './pages/ResultPage/ResultPageContainer';
 import ProfilePage from './pages/Profile/ProfilePageContainer';
 import GamesHistory from './pages/GamesHistory/GamesHistoryContainer';
@@ -29,7 +29,7 @@ class App extends React.Component {
           <Fragment>
             <Route path="/" component={AppToolbar} />
             <Route exact={true} path="/" component={Home} />
-            <Route exact={true} path="/game" component={GamePage} />
+            <Route xact={true} path="/game" component={MultiplayerPage} />
             <Route exact={true} path="/result" component={ResultPage} />
             <Route exact={true} path="/my-profile" component={ProfilePage} />
             <Route exact={true} path="/replay" component={ReplayPage} />
