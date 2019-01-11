@@ -7,7 +7,7 @@ const mapStateToProps = (state: RootState) => {
   const userAchievments = state.userAchievments[playerId];
   return {
     level: userAchievments.level,
-    rank: -20
+    rank: userAchievments.ranking
   };
 };
 

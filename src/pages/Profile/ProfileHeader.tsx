@@ -1,12 +1,12 @@
 import * as React from 'react';
 import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContainer';
 
-interface ProgressSummaryProps {
+interface ProfileHeaderProps {
   level: number;
   rank: number;
 }
 
-const ProgressSummary: React.SFC<ProgressSummaryProps> = props => {
+const ProfileHeader: React.SFC<ProfileHeaderProps> = props => {
   return (
     <div id="ranking">
       <div className="ranking-section">
@@ -22,4 +22,4 @@ const ProgressSummary: React.SFC<ProgressSummaryProps> = props => {
   );
 };
 
-export default ProgressSummary;
+export default ProfileHeader;

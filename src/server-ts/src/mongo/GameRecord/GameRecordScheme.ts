@@ -94,6 +94,25 @@ GameRecordSchema.statics.getMaxOneDocumentByQuery = function(
       });
   });
 };
+GameRecordSchema.statics.getRankings = function() {
+  return new Promise((resolve, reject) => {
+    this.aggregate([
+      {
+        $group: {
+          _id: '$id',
+          maxWpm: { $max: '$score' }
+        }
+      },
+      {
+        $sort: {
+          maxWpm: -1
+        }
+      }
+    ]).then(result => {
+      resolve(result);
+    });
+  });
+};
 
 GameRecordsSchema.statics.getRecordsByRoomId = function(
   roomId: string

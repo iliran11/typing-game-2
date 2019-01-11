@@ -288,6 +288,7 @@ export interface UserAchievementsI {
   totalChars: number;
   maxAccuracy: number;
   currentLevelRules: LevelRulesI;
+  ranking:number;
 }
 
 export interface HightLightItemI {
