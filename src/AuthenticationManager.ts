@@ -18,8 +18,11 @@ import {
   AUTH_HEADER_NAME,
   LOGGING_IN_ACTION,
   SERVER_HANDSHAKE_RECIEVED,
-  PLAYER_ID_KEY
+  PLAYER_ID_KEY,
+  FACEBOOK_LOGIN_FAILURE
 } from './constants';
+import get from 'lodash.get';
+import { rejects } from 'assert';
 
 const appId = '653846344985974';
 
@@ -41,11 +44,13 @@ class AuthenticationManager {
         // TODO: handle not logged in case.
         switch (result.status) {
           case FbLoginStatus.connected:
-            this.handleFacebookSuccessLogin(result);
-            if (AuthenticationManager.isThereAppToken) {
-              this.setAxiosAuth();
+            const isResponseSuccess = this.handleFacebookResponse(result);
+            if (isResponseSuccess) {
+              if (AuthenticationManager.isThereAppToken) {
+                this.setAxiosAuth();
+              }
+              this.verifyAppLogin().then(result => {});
             }
-            this.verifyAppLogin().then(result => {});
         }
       });
   }
@@ -96,7 +101,7 @@ class AuthenticationManager {
   }
 
   private facebookLogin() {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       if (this.state.authentication.facebookLoggedIn) {
         // @ts-ignore
         return resolve(this.state.authentication.facebookToken);
@@ -104,26 +109,35 @@ class AuthenticationManager {
       fbLogin({
         scope: 'email'
       }).then((result: any) => {
-        this.handleFacebookSuccessLogin(result);
-        return resolve(result.authResponse && result.authResponse.accessToken);
+        const isLoginSuccess = this.handleFacebookResponse(result);
+        if (isLoginSuccess) {
+          return resolve(
+            result.authResponse && result.authResponse.accessToken
+          );
+        } else {
+          return reject();
+        }
       });
     });
   }
-  private handleFacebookSuccessLogin(result: any) {
-    let FacebookToken;
-    try {
-      FacebookToken = result.authResponse.accessToken;
-    } catch {
-      console.error(result);
+  private handleFacebookResponse(result: any): boolean {
+    const facebookToken = get(result, ['authResponse', 'accessToken']);
+    if (facebookToken) {
+      const payload: FacebookStatusAction = {
+        loggedIn: true,
+        token: facebookToken
+      };
+      this.dispatch({
+        type: FACEBOOK_LOGGED_IN,
+        payload
+      });
+      return true;
+    } else {
+      this.dispatch({
+        type: FACEBOOK_LOGIN_FAILURE
+      });
+      return false;
     }
-    const payload: FacebookStatusAction = {
-      loggedIn: true,
-      token: FacebookToken
-    };
-    this.dispatch({
-      type: FACEBOOK_LOGGED_IN,
-      payload
-    });
   }
   verifyAppLogin(): Promise<LoginVerificationStatus> {
     return new Promise(resolve => {

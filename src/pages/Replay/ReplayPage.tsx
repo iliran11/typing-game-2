@@ -6,6 +6,7 @@ import {
   GameRecordsModel,
   TypingModelI
 } from '../../types';
+import { BoxLoader } from '../../components/boxLoader/boxLoader';
 
 export interface ReplayPageProps {
   roomId: number;
@@ -35,6 +36,6 @@ export default class ReplayPage extends React.Component<ReplayPageProps, any> {
     if (this.props.replay && this.avatars && this.props.typingData) {
       return <ReplayManager {...this.props} avatars={this.avatars} />;
     }
-    return <div>Waiting ...</div>;
+    return <BoxLoader />;
   }
 }

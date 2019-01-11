@@ -4,7 +4,8 @@ import {
   LOGGED_IN,
   FACEBOOK_LOGGED_IN,
   LOGGING_IN_ACTION,
-  SERVER_HANDSHAKE_RECIEVED
+  SERVER_HANDSHAKE_RECIEVED,
+  FACEBOOK_LOGIN_FAILURE
 } from '../../constants';
 import {
   AuthReducer,
@@ -52,6 +53,8 @@ export default function GameReducer(
       return facebookStatusCheck(state, action.payload);
     case SERVER_HANDSHAKE_RECIEVED:
       return handleHandshake(state, action.payload);
+    case FACEBOOK_LOGIN_FAILURE:
+      return initialState;
     default:
       return state;
   }
@@ -79,7 +82,7 @@ function handleHandshake(state: AuthReducer, payload: HandShakeData) {
   // if there is no token - it means we are coming from login verification.
   // in this case - we get the token from the local storage.
   // TODO: seperate between SERVER_HANDSHAKE_RECIEVED of login and login-verification.
-  if(!payload.appToken) {
+  if (!payload.appToken) {
     return state;
   }
   return {
