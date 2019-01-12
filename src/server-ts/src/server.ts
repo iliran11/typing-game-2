@@ -9,8 +9,8 @@ import gamesHistoryController from './ExpressControllers/gamesHistoryController'
 import GamesHistoryController from './ExpressControllers/gameReplayController';
 import UserAchievement from './ExpressControllers/UserAchievementController';
 import HighlightsController from './ExpressControllers/HighlightsController';
-import testController from './ExpressControllers/testController';
-import ChangeUserLevel from './ExpressControllers/ChangeUserLevelController'
+import versionController from './ExpressControllers/versionController';
+import ChangeUserLevel from './ExpressControllers/ChangeUserLevelController';
 
 import {
   FacebookUserType,
@@ -31,7 +31,7 @@ initMongo();
 var app = require('express')();
 var server = require('http').Server(app);
 const port = 4001;
-server.listen(port);
+server.listen(process.env.PORT || 5000);
 // WARNING: app.listen(80) will NOT work here!
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
@@ -45,7 +45,7 @@ app.get('/game-replay', GamesHistoryController);
 app.get('/user-achievement', UserAchievement);
 app.get('/games-highlights', HighlightsController);
 app.post('/change-level', ChangeUserLevel);
-app.get('/test', testController);
+app.get('/version', versionController);
 
 const serverManager = ServerManager.getInstance(server);
 console.log('server started.');

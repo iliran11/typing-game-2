@@ -1,6 +1,6 @@
 {
   "name": "typing-game",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "proxy": "http://localhost:4001",
   "dependencies": {

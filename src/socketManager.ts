@@ -168,7 +168,7 @@ function getServerUrl() {
     return 'http://localhost:4001';
   }
   if (process.env.REACT_APP_ENV === Enviroments.DEV) {
-    return 'https://typing-game-dev.herokuapp.com/';
+    return 'https://typing-dev-2.herokuapp.com/';
   }
   return '';
 }
