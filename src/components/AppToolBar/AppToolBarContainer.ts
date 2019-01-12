@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import AppToolBar, { AppToolBarProps } from './AppToolBar';
 import { RootState } from '../../types';
 import { pictureByFacebookId } from '../../utilities';
+import { leaveGame } from '../../store/gameAction';
 
 const mapStateToProps = (state: RootState, ownProps: any) => {
   const appToolbarProps: AppToolBarProps = {
@@ -14,7 +15,10 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
   return appToolbarProps;
 };
 
+const mapDispatchToProps = {
+  leaveGame
+};
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(AppToolBar);

@@ -30,9 +30,6 @@ import {
 import AuthenticationManager from './AuthenticationManager';
 
 const socketManager: any = {
-  isSocketConnected(): boolean {
-    return Boolean(this.socket);
-  },
   initSocket(dispatch: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
     const url = getServerUrl();
@@ -137,6 +134,10 @@ const socketManager: any = {
   },
   emitGameRestart() {
     this.socket.emit(RESTART_GAME);
+  },
+  close() {
+    console.log(this.socket.close);
+    this.socket.close();
   }
 };
 

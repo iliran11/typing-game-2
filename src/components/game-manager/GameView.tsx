@@ -20,6 +20,7 @@ interface Props {
 interface State {
   input: string[];
   allRefsMounted: boolean;
+  componentIsMounted: boolean;
 }
 
 export default class GameView extends React.Component<any, State> {
@@ -33,7 +34,8 @@ export default class GameView extends React.Component<any, State> {
     super(props);
     this.state = {
       input: [],
-      allRefsMounted: false
+      allRefsMounted: false,
+      componentIsMounted: false
     };
 
     this.letterNodes = [];
@@ -48,7 +50,20 @@ export default class GameView extends React.Component<any, State> {
     this.scrollIntoView = this.scrollIntoView.bind(this);
     this.checkIfFinished = this.checkIfFinished.bind(this);
   }
+  componentWillUnmount() {
+    console.log('unmount');
+  }
+  componentDidMount() {
+    this.setState({
+      componentIsMounted: true
+    });
+  }
   componentDidUpdate(prevProps: any) {
+    for (const index in prevProps) {
+      if (prevProps[index] !== this.props[index]) {
+        console.log(index, this.props[index], '-->', prevProps[index]);
+      }
+    }
     if (prevProps.index !== this.props.index) {
       this.scrollIntoView();
       this.checkIfFinished();

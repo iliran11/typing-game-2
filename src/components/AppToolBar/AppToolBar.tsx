@@ -7,6 +7,7 @@ import LoginButton from '../login-button/LoginButtonContainer';
 import { LoginStatus, PageProps } from '../../types';
 import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContainer';
 import backbutton from '../../assets/backbutton.svg';
+import socketManager from '../../socketManager';
 
 export interface AppToolBarProps extends PageProps {
   firstName: string;
@@ -14,6 +15,7 @@ export interface AppToolBarProps extends PageProps {
   picture: string;
   loggedIn: LoginStatus;
   location: any;
+  leaveGame: any;
 }
 
 export default class AppToolBar extends React.Component<AppToolBarProps, any> {
@@ -40,7 +42,14 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
   get shouldShowBackbutton() {
     return this.props.location.pathname !== '/';
   }
+  get currentPath() {
+    return this.props.location.pathname;
+  }
   onBack() {
+    if (this.currentPath === '/game') {
+      this.props.leaveGame();
+      socketManager.close();
+    }
     this.props.history.push('/');
   }
   render() {

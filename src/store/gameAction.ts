@@ -4,7 +4,8 @@ import {
   ROOM_ID_PARM,
   LOAD_REPLAY,
   LOAD_GAME_HISTORY_DATA,
-  LOAD_TYPING
+  LOAD_TYPING,
+  LEAVE_GAME
 } from '../constants';
 import { GameRecordsModel, ReplayEndPointResponseI } from '../types';
 
@@ -56,5 +57,13 @@ export function fetchReplay(roomInstanceId: string, playerId: string) {
           payload: replayEndPointResponse.gameTyping
         });
       });
+  };
+}
+
+export function leaveGame() {
+  return function(dispatch: any) {
+    dispatch({
+      type: LEAVE_GAME
+    });
   };
 }

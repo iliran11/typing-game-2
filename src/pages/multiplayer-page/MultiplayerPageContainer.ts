@@ -5,7 +5,8 @@ const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
   const letters = state.gameData.letters;
   return {
-    gameIsLoaded: letters.length > 0
+    gameIsLoaded: letters.length > 0,
+    isSocketConnected: state.serverStatus.socketConnected
   };
 };
 export default connect(

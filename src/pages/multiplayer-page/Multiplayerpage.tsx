@@ -12,6 +12,7 @@ interface Props {
   isGameActive: boolean;
   history: any;
   gameIsLoaded: boolean;
+  isSocketConnected: boolean;
 }
 interface State {
   toolTipX: number;
@@ -28,8 +29,7 @@ class GamePage extends PureComponent<Props, State> {
 
   constructor(props: any) {
     super(props);
-    const isSocketConnected = socketManager.isSocketConnected();
-    if (!isSocketConnected) {
+    if (!this.props.isSocketConnected) {
       socketManager.initSocket(props.dispatch);
       socketManager.emitRequestToPlay();
     }

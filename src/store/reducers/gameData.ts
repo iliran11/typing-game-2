@@ -1,5 +1,10 @@
-import { SET_GAME_LETTERS,GAME_HAS_FINISHED,RESTART_GAME } from "../../constants";
-import {GameDataReducer} from '../../types'
+import {
+  LEAVE_GAME,
+  SET_GAME_LETTERS,
+  GAME_HAS_FINISHED,
+  RESTART_GAME
+} from '../../constants';
+import { GameDataReducer } from '../../types';
 
 // const letters : Letter[] = [new ]
 
@@ -8,7 +13,6 @@ const initialState: GameDataReducer = {
   // indicated if the game is over for the current local player.
   isGameFinished: false
 };
-
 
 export default function GameReducer(
   state: GameDataReducer = initialState,
@@ -23,10 +27,15 @@ export default function GameReducer(
     case GAME_HAS_FINISHED:
       return {
         ...state,
-        isGameFinished:true
-      }
-    case RESTART_GAME: 
-    return initialState;
+        isGameFinished: true
+      };
+    case RESTART_GAME:
+      return initialState;
+    case LEAVE_GAME:
+      return {
+        ...state,
+        letters: []
+      };
   }
 
   return state;

@@ -11,7 +11,8 @@ import {
   RESTART_GAME,
   SOCKET_HAS_CONNECTED,
   SOCKET_HAS_DISCONNECTED,
-  GAME_HAS_TIMEOUT
+  GAME_HAS_TIMEOUT,
+  LEAVE_GAME
 } from '../../constants';
 import connectServerSuccess from './serverStatusHandlers/connectServerSuccess';
 import youJoinedRoom from './serverStatusHandlers/youJoinedRoom';
@@ -51,6 +52,9 @@ export default function ServerStatus(
       return scoreBroadCast(state, action);
     case RESTART_GAME:
       return gameRestart(state, action);
+    case LEAVE_GAME:
+      return gameRestart(state, action);
+
     case GAME_HAS_STARTED:
       return {
         ...state,
