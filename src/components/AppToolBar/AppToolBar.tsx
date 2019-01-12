@@ -63,8 +63,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
       <div id="app-toolbar">
         <AppBar position="static" color="default">
           <Toolbar>
-            {/* <DebugDialog /> */}
-
+            <DebugDialog />
             {this.shouldShowBackbutton && (
               <img src={backbutton} onClick={this.onBack} />
             )}
