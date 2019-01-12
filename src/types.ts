@@ -158,6 +158,7 @@ export interface ServerStatusReducer {
   readonly roomSize: number;
   readonly gameStartTimestamp: number;
   readonly socketConnected: boolean;
+  readonly gameHasTimeout: boolean;
 }
 export interface RootState {
   readonly gameData: GameDataReducer;

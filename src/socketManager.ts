@@ -24,7 +24,8 @@ import {
   SHOW_NOTIFICATION,
   SOCKET_HAS_CONNECTED,
   SOCKET_HAS_DISCONNECTED,
-  REQUEST_TO_PLAY
+  REQUEST_TO_PLAY,
+  GAME_HAS_TIMEOUT
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
 
@@ -113,7 +114,13 @@ const socketManager: any = {
         payload: data
       });
     });
+    this.socket.on(GAME_HAS_TIMEOUT, () => {
+      this.dispatch({
+        type: GAME_HAS_TIMEOUT
+      });
+    });
   },
+
   emitTyping(typingInput: string) {
     this.socket.emit(PLAYER_TYPING, { typingInput });
   },

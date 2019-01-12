@@ -6,7 +6,7 @@ import ScoreBoardContainer from '../../components/Scoreboard/ScoreBoardContainer
 import CountDown from '../../components/CountDown/CountDown';
 import ToolTip from '../../components/tooltip';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
-import SocketDisconnect from '../../components/SocketDisconnect/SocketDisconnectedContainer';
+import ServerAlertManager from './ServerAlertsManager/ServerAlertManagerContainer';
 
 interface Props {
   isGameActive: boolean;
@@ -85,7 +85,9 @@ class GamePage extends PureComponent<Props, State> {
   render() {
     return (
       <div id="game-page">
-        {!this.props.gameIsLoaded && <BoxLoader message="Thinking about your challenge ..." />}
+        {!this.props.gameIsLoaded && (
+          <BoxLoader message="Thinking about your challenge ..." />
+        )}
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}
@@ -101,7 +103,7 @@ class GamePage extends PureComponent<Props, State> {
           closeTooltip={this.closeTooltip}
         />
         <ScoreBoardContainer history={this.props.history} />
-        <SocketDisconnect />
+        <ServerAlertManager />
       </div>
     );
   }

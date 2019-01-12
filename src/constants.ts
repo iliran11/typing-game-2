@@ -1,6 +1,6 @@
 export const SCORE_BROADCAST = 'score-broadcast';
 export const YOU_JOINED_ROOM = 'you-joined-room';
-export const REQUEST_TO_PLAY = 'request-to-play'
+export const REQUEST_TO_PLAY = 'request-to-play';
 export const SOCKET_HAS_CONNECTED = 'socket-has-connected';
 export const SOCKET_HAS_DISCONNECTED = 'socket-has-disconnected';
 export const COMPETITOR_LEFT = 'competitor-left';
@@ -10,8 +10,8 @@ export const COMPETITOR_DELETION = 'competitor-deletion';
 export const PROMOTION_EVENT = 'promotion-event';
 export const PLAYER_TYPING = 'player-typing';
 export const CONNECT_SERVER_SUCCESS = 'connect_server';
-export const FACEBOOK_LOGIN_IN_PROGRESS = 'facebook-login-in-progress'
-export const FACEBOOK_LOGIN_FAILURE = 'facebook-login-failure'
+export const FACEBOOK_LOGIN_IN_PROGRESS = 'facebook-login-in-progress';
+export const FACEBOOK_LOGIN_FAILURE = 'facebook-login-failure';
 export const SET_GAME_LETTERS = 'set-game-letters';
 export const GAME_HAS_STARTED = 'game-has-started';
 export const GAME_HAS_FINISHED = 'game-has-finished';
@@ -37,6 +37,7 @@ export const AUTH_HEADER_NAME = 'app-token';
 export const PLAYER_ID_KEY = 'player-id';
 export const AUTH_FACEBOOK_HEADER = 'facebookToken';
 export const SERVER_HANDSHAKE_RECIEVED = 'server-handshake-recieved';
+export const GAME_HAS_TIMEOUT = 'game-has-timeout';
 
 // ------ GAME HISTORIES ------- //
 

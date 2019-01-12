@@ -10,7 +10,8 @@ import {
   COMPETITOR_HAS_FINISHED,
   RESTART_GAME,
   SOCKET_HAS_CONNECTED,
-  SOCKET_HAS_DISCONNECTED
+  SOCKET_HAS_DISCONNECTED,
+  GAME_HAS_TIMEOUT
 } from '../../constants';
 import connectServerSuccess from './serverStatusHandlers/connectServerSuccess';
 import youJoinedRoom from './serverStatusHandlers/youJoinedRoom';
@@ -29,7 +30,8 @@ export const initialState: ServerStatusReducer = {
   isGameActive: false,
   roomSize: 0,
   gameStartTimestamp: 0,
-  socketConnected: false
+  socketConnected: false,
+  gameHasTimeout: false
 };
 
 export default function ServerStatus(
@@ -63,6 +65,12 @@ export default function ServerStatus(
       return {
         ...state,
         socketConnected: false
+      };
+    case GAME_HAS_TIMEOUT:
+      return {
+        ...state,
+        isGameActive: false,
+        gameHasTimeout: true
       };
     case COMPETITOR_DELETION:
       return state;
