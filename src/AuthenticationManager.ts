@@ -171,7 +171,7 @@ class AuthenticationManager {
           this.dispatch({
             type: LOGGED_OUT
           });
-          console.log('verify error');
+          AuthenticationManager.deleteToken();
           resolve(err);
         });
     });
