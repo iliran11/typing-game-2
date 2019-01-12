@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 export interface ServerAlertsManagerProps {
   isSocketConnected: boolean;
   gameHasTimeout: boolean;
+  initialSocketConnection: boolean;
 }
 
 export interface ServerAlertsManagerState {}
@@ -22,7 +23,8 @@ export default class ServerAlertsManager extends React.Component<
   get isSocketDisconnectIsOpen(): boolean {
     return (
       this.props.isSocketConnected === false &&
-      this.props.gameHasTimeout === false
+      this.props.gameHasTimeout === false &&
+      this.props.initialSocketConnection === true
     );
   }
   // show this modal anyway if there is a timeout message from server;

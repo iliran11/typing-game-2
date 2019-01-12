@@ -36,10 +36,12 @@ const socketManager: any = {
   initSocket(dispatch: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
     const url = getServerUrl();
+    const token = AuthenticationManager.appToken || null;
+    const query = token ? { token } : {};
     this.socket = socketIo.connect(
       url,
       {
-        query: { token: AuthenticationManager.appToken },
+        query,
         reconnection: false
       }
     );
@@ -50,6 +52,9 @@ const socketManager: any = {
       this.dispatch({
         type: SOCKET_HAS_CONNECTED
       });
+    });
+    this.socket.on('connect_timeout', () => {
+      console.log('connect timeout!');
     });
     this.socket.on('disconnect', () => {
       this.dispatch({

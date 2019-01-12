@@ -196,6 +196,7 @@ class AuthenticationManager {
   }
   static deleteToken() {
     localStorage.removeItem(AUTH_HEADER_NAME);
+    localStorage.removeItem(AUTH_FACEBOOK_HEADER);
   }
   static initManager(dispatch: any, state: RootState) {
     if (!AuthenticationManager.instance) {

@@ -31,7 +31,8 @@ export const initialState: ServerStatusReducer = {
   roomSize: 0,
   gameStartTimestamp: 0,
   socketConnected: false,
-  gameHasTimeout: false
+  gameHasTimeout: false,
+  initialSocketConnection: false
 };
 
 export default function ServerStatus(
@@ -59,7 +60,8 @@ export default function ServerStatus(
     case SOCKET_HAS_CONNECTED:
       return {
         ...state,
-        socketConnected: true
+        socketConnected: true,
+        initialSocketConnection: true
       };
     case SOCKET_HAS_DISCONNECTED:
       return {

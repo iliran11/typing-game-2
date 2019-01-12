@@ -5,7 +5,8 @@ const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
   return {
     isSocketConnected: state.serverStatus.socketConnected,
-    gameHasTimeout: state.serverStatus.gameHasTimeout
+    gameHasTimeout: state.serverStatus.gameHasTimeout,
+    initialSocketConnection: state.serverStatus.initialSocketConnection
   };
 };
 export default connect(

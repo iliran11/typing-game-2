@@ -8,7 +8,8 @@ import {
   GAME_START_DELAY,
   BOT_SPAWN_RATE,
   GAME_HAS_STARTED,
-  GAME_HAS_TIMEOUT
+  GAME_HAS_TIMEOUT,
+  GAME_TIMEOUT_DURATION
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
@@ -208,9 +209,9 @@ export default class Room {
     if (this.isAnyoneStillPlaying === false) {
       this.stopGame(gameRecords);
     }
-    if (this.timePassed > 5000) {
+    if (this.timePassed > GAME_TIMEOUT_DURATION) {
       this.stopGame();
-      emitToRoom(this.roomName,GAME_HAS_TIMEOUT);
+      emitToRoom(this.roomName, GAME_HAS_TIMEOUT);
     }
     createGameRecords(
       gameRecords,
