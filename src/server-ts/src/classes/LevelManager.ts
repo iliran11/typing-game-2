@@ -142,12 +142,17 @@ class LevelManager {
   }
   getPlayerLevel(playerId: string): Promise<number> {
     return new Promise((resolve, reject) => {
-      this.getPlayerRealLevel(playerId).then(realLevel => {
-        const customLevel = this.userCustomLevel.get(playerId);
-        // return custom level. if nothing, return the "real level";
-        resolve(customLevel || realLevel);
-        return;
-      });
+      if (playerId) {
+        this.getPlayerRealLevel(playerId).then(realLevel => {
+          const customLevel = this.userCustomLevel.get(playerId);
+          // return custom level. if nothing, return the "real level";
+          resolve(customLevel || realLevel);
+          return;
+        });
+      } else {
+        // if there is no player Id - it means a guest. a guest level is always 1.
+        resolve(1);
+      }
     });
   }
   static getText(level: number): string {

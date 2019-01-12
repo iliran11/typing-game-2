@@ -11,10 +11,12 @@ export default function playerTyping(socket: io.Socket, data) {
   const roomManager = RoomManager.getInstance();
   const room = roomManager.getRoom(player.getRoomId);
   const game = player.playerGame.processNewTyping(typingInput);
-  createTypingRecord({
-    typedLetter: typingInput,
-    playerId: player.playerId,
-    gameId: room.roomInstanceId,
-    gameTimeStamp: Date.now() - room.roomStartTimestamp
-  }).save();
+  if (player.isAuthenticated) {
+    createTypingRecord({
+      typedLetter: typingInput,
+      playerId: player.playerId,
+      gameId: room.roomInstanceId,
+      gameTimeStamp: Date.now() - room.roomStartTimestamp
+    }).save();
+  }
 }

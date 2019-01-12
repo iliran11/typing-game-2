@@ -19,7 +19,7 @@ export default class Player {
   private game: Game;
   private roomId: number = 0;
   private anonymousAvatar: number = -1;
-  private isAuthenticated: boolean = false;
+  public isAuthenticated: boolean = false;
   private userDbModel: any;
   private currentLevel: number;
 

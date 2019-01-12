@@ -17,6 +17,7 @@ import {
 import { FacebookUserType } from '../../../types';
 import { getSocketAuthentication } from '../utilities';
 import LevelManager from '../classes/LevelManager';
+const get = require('lodash.get');
 
 const roomManager = RoomManager.getInstance();
 const playerManager = PlayerManager.getInstance();
@@ -28,7 +29,8 @@ export default function onConnect(socket: io.Socket): void {
   socket.on(REQUEST_TO_PLAY, () => {
     const userData: FacebookUserType = getSocketAuthentication(socket);
     const levelManager = LevelManager.getInstance();
-    levelManager.getPlayerLevel(userData.id).then(level => {
+    const playerId = get(userData, ['id']);
+    levelManager.getPlayerLevel(playerId).then(level => {
       const player = new Player(socket, userData, level);
       playerManager.addPlayer(player);
       allocateHumanToRoom(socket, player);

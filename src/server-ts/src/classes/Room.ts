@@ -153,15 +153,16 @@ export default class Room {
       roomId: this.instanceId
     });
     this.finalScores[playerIndex] = gameResultRecord;
-    createGameRecord(gameResultRecord.serialize)
-      .save()
-      .then(() => {
-        LevelManager.processNewResult(
-          finishedPlayer.playerId,
-          finishedPlayer.getSocket()
-        );
-      });
-    LevelManager;
+    if (finishedPlayer.isAuthenticated) {
+      createGameRecord(gameResultRecord.serialize)
+        .save()
+        .then(() => {
+          LevelManager.processNewResult(
+            finishedPlayer.playerId,
+            finishedPlayer.getSocket()
+          );
+        });
+    }
   }
   get isGameActive() {
     return this.players.length === MAX_PLAYERS_PER_ROOM;
@@ -236,8 +237,7 @@ export default class Room {
       }
     })
       .save()
-      .then(result => {
-      })
+      .then(result => {})
       .catch(err => {
         console.log('game save error', err);
       });
