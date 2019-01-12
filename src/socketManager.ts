@@ -136,7 +136,6 @@ const socketManager: any = {
     this.socket.emit(RESTART_GAME);
   },
   close() {
-    console.log(this.socket.close);
     this.socket.close();
   }
 };

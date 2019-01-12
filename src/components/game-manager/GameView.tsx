@@ -50,20 +50,13 @@ export default class GameView extends React.Component<any, State> {
     this.scrollIntoView = this.scrollIntoView.bind(this);
     this.checkIfFinished = this.checkIfFinished.bind(this);
   }
-  componentWillUnmount() {
-    console.log('unmount');
-  }
+  componentWillUnmount() {}
   componentDidMount() {
     this.setState({
       componentIsMounted: true
     });
   }
   componentDidUpdate(prevProps: any) {
-    for (const index in prevProps) {
-      if (prevProps[index] !== this.props[index]) {
-        console.log(index, this.props[index], '-->', prevProps[index]);
-      }
-    }
     if (prevProps.index !== this.props.index) {
       this.scrollIntoView();
       this.checkIfFinished();

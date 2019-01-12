@@ -21,12 +21,18 @@ export interface AppToolBarProps extends PageProps {
 export default class AppToolBar extends React.Component<AppToolBarProps, any> {
   constructor(props: AppToolBarProps) {
     super(props);
-
+    this.onLeaveGame = this.onLeaveGame.bind(this);
     this.state = {
       isDebugOpen: false
     };
     this.navigateToProfile = this.navigateToProfile.bind(this);
     this.onBack = this.onBack.bind(this);
+    props.history.listen((location: any, action: any) => {
+      console.log(this.currentPath, location);
+      if (this.currentPath === '/game' && location.pathname !== '/game') {
+        this.onLeaveGame();
+      }
+    });
   }
   handleDebug() {
     this.setState({
@@ -35,6 +41,10 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
   }
   navigateToProfile() {
     this.props.history.push('/my-profile');
+  }
+  onLeaveGame() {
+    this.props.leaveGame();
+    socketManager.close();
   }
   get shouldShowPicutre() {
     return this.props.picture && this.props.loggedIn === LoginStatus.loggedIn;
@@ -46,10 +56,6 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
     return this.props.location.pathname;
   }
   onBack() {
-    if (this.currentPath === '/game') {
-      this.props.leaveGame();
-      socketManager.close();
-    }
     this.props.history.push('/');
   }
   render() {
