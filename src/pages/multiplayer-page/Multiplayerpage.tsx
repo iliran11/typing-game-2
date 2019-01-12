@@ -85,7 +85,7 @@ class GamePage extends PureComponent<Props, State> {
   render() {
     return (
       <div id="game-page">
-        {!this.props.gameIsLoaded && <BoxLoader />}
+        {!this.props.gameIsLoaded && <BoxLoader message="Thinking about your challenge ..." />}
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}

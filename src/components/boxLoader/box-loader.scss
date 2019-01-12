@@ -117,3 +117,10 @@ body {
     transform: translate3d(-50%, -50%, 0) scaleX(1);
   }
 }
+.words-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  margin-top: 80px;
+}

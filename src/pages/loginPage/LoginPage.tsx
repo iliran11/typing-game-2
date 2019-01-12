@@ -27,7 +27,7 @@ export default class LoginPage extends React.Component<LoginPageProps, any> {
     return (
       <div id="login-page">
         {this.props.connectionStatus === LoginStatus.connecting && (
-          <BoxLoader />
+          <BoxLoader message="Connecting to Facebook" />
         )}
         {this.props.connectionStatus !== LoginStatus.connecting && (
           <Fragment>

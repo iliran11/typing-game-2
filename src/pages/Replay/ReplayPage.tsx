@@ -36,6 +36,6 @@ export default class ReplayPage extends React.Component<ReplayPageProps, any> {
     if (this.props.replay && this.avatars && this.props.typingData) {
       return <ReplayManager {...this.props} avatars={this.avatars} />;
     }
-    return <BoxLoader />;
+    return <BoxLoader message="Rewinding back the time" />;
   }
 }
