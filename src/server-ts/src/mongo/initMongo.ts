@@ -10,7 +10,6 @@ function initMongoProcedure(url) {
   });
   mongoose.connect(url);
   mongoose.Promise = global.Promise;
-
 }
 
 function initMongoDev() {
@@ -23,7 +22,7 @@ function initMongoDev() {
 function initMongoStaging() {
   const dbPassword = process.env.SERVER_DB_STAGING_PASSWORD;
   const dbUser = process.env.SERVER_DB_STAGING_USER;
-  let url = `mongodb://${dbUser}:${dbPassword}@ds131784.mlab.com:31784/typing-game`;
+  let url = `mongodb://${dbUser}:${dbPassword}@ds255924.mlab.com:55924/typing-game-staging`;
   initMongoProcedure(url);
 }
 

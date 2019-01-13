@@ -37,7 +37,7 @@ export function fetchHighlights(playerId: string) {
     const state = getState();
     const playerId = state.authentication.playerId;
     axios
-      .get(networkManager.prefixedPath('/games-highlights'), {
+      .get(networkManager.prefixedPath('games-highlights'), {
         params: { [PLAYER_ID_PARAM]: playerId }
       })
       .then(result => {
