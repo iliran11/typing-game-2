@@ -167,7 +167,7 @@ function getServerUrl() {
   if (process.env.REACT_APP_ENV === Enviroments.LOCAL) {
     return 'http://localhost:4001';
   }
-  if (process.env.REACT_APP_ENV === Enviroments.DEV) {
+  if (process.env.REACT_APP_ENV === Enviroments.STAGING) {
     return 'https://typing-dev-2.herokuapp.com/';
   }
   return '';

@@ -12,11 +12,12 @@ import {
   SHOW_NOTIFICATION
 } from '../constants';
 import axios from 'axios';
+import { networkManager } from '../NetworkManager';
 
 export function profileMainLoad(playerId: string) {
   return function(dispatch: any, getState: () => RootState) {
     return axios
-      .get('/user-achievement', {
+      .get(networkManager.prefixedPath('/user-achievement'), {
         params: {
           [PLAYER_ID_PARAM]: playerId
         }
@@ -36,7 +37,7 @@ export function fetchHighlights(playerId: string) {
     const state = getState();
     const playerId = state.authentication.playerId;
     axios
-      .get('/games-highlights', {
+      .get(networkManager.prefixedPath('/games-highlights'), {
         params: { [PLAYER_ID_PARAM]: playerId }
       })
       .then(result => {
@@ -53,7 +54,7 @@ export function updateCustomLevel(level: number) {
     const state = getState();
     const playerId = state.authentication.playerId;
     axios
-      .post('/change-level', {
+      .post(networkManager.prefixedPath('change-level'), {
         playerId,
         level
       })

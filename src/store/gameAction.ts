@@ -8,6 +8,7 @@ import {
   LEAVE_GAME
 } from '../constants';
 import { GameRecordsModel, ReplayEndPointResponseI } from '../types';
+import { networkManager } from '../NetworkManager';
 
 import { GAME_HAS_FINISHED, RESTART_GAME, PLAYER_ID_PARAM } from '../constants';
 export function gameIsFinished() {
@@ -36,7 +37,7 @@ export function navigateToReplay(roomInstanceId: string, pushPage: any) {
 export function fetchReplay(roomInstanceId: string, playerId: string) {
   return function(dispatch: any) {
     axios
-      .get('./game-replay', {
+      .get(networkManager.prefixedPath('game-replay'), {
         params: {
           [ROOM_ID_PARM]: roomInstanceId,
           [PLAYER_ID_PARAM]: playerId

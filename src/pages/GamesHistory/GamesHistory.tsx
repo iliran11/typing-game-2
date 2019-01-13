@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import GamesHistoryItem from './GamesHistoryItem';
 import { GameModelInterface } from '../../types';
-import { ROOM_ID_PARM } from '../../constants';
-import axios from 'axios';
 import '../../css/game-history.scss';
 
 interface Props {

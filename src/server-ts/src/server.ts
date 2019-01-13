@@ -32,7 +32,7 @@ var app = require('express')();
 app.use(cors());
 var server = require('http').Server(app);
 const port = 4001;
-server.listen(process.env.PORT || 5000);
+server.listen(process.env.PORT || 4001);
 // WARNING: app.listen(80) will NOT work here!
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json

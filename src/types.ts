@@ -29,7 +29,7 @@ export enum GameLevel {
 
 export enum Enviroments {
   LOCAL = 'LOCAL',
-  DEV = 'DEV'
+  STAGING = 'STAGING'
 }
 export enum LoginStatus {
   loggedIn = 'connected',

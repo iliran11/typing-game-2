@@ -22,7 +22,7 @@ import {
   FACEBOOK_LOGIN_FAILURE
 } from './constants';
 import get from 'lodash.get';
-import { rejects } from 'assert';
+import { networkManager } from './NetworkManager';
 
 const appId = '653846344985974';
 
@@ -62,7 +62,7 @@ class AuthenticationManager {
       this.facebookLogin().then((result: any) => {
         if (this.state.authentication.facebookLoggedIn) {
           axios
-            .post('login', {
+            .post(networkManager.prefixedPath('login'), {
               [AUTH_FACEBOOK_HEADER]: this.state.authentication.facebookToken
             })
             .then((result: any) => {
@@ -143,7 +143,7 @@ class AuthenticationManager {
     return new Promise(resolve => {
       const appToken = AuthenticationManager.appToken;
       axios
-        .get('/verify-login')
+        .get(networkManager.prefixedPath('verify-login'))
         .then(result => {
           const data: LoginVerificationStatus = result.data;
           if (!data.loginStatus) {
