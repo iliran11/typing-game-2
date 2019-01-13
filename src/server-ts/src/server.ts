@@ -20,7 +20,7 @@ import {
 import { createUserInstance, User } from './mongo/User/UserModel';
 import ServerManager from './classes/ServerManager';
 import { getBase64FacebookPic } from './utilities';
-
+const cors = require('cors');
 // var packageJs = require('../package.json');
 const result = require('dotenv').config();
 if (result.error) {
@@ -29,6 +29,7 @@ if (result.error) {
 const SECRET = process.env.SERVER_AUTH_SECRET;
 initMongo();
 var app = require('express')();
+app.use(cors());
 var server = require('http').Server(app);
 const port = 4001;
 server.listen(process.env.PORT || 5000);

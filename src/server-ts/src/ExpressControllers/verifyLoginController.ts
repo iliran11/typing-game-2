@@ -2,7 +2,6 @@ import { AUTH_HEADER_NAME } from '../../../constants';
 import { HandShakeData, LoginVerificationStatus } from '../../../types';
 import { User } from '../mongo/User/UserModel';
 const jwt = require('jsonwebtoken');
-import { User } from '../mongo/User/UserModel';
 
 //TODO: change name to check-login-status
 
