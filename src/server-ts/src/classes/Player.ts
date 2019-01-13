@@ -34,8 +34,10 @@ export default class Player {
       `${this.serializable.type} ${Player.playerCounter}`;
     if (userData) {
       this.isAuthenticated = true;
-      //@ts-ignore
-      this.userDbModel = createUserInstance(userData);
+      if (this.playerType !== 'BOT') {
+        //@ts-ignore
+        this.userDbModel = createUserInstance(userData);
+      }
     }
     Player.playerCounter++;
     this.currentLevel = level;

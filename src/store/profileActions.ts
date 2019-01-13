@@ -17,7 +17,7 @@ import { networkManager } from '../NetworkManager';
 export function profileMainLoad(playerId: string) {
   return function(dispatch: any, getState: () => RootState) {
     return axios
-      .get(networkManager.prefixedPath('/user-achievement'), {
+      .get(networkManager.prefixedPath('user-achievement'), {
         params: {
           [PLAYER_ID_PARAM]: playerId
         }

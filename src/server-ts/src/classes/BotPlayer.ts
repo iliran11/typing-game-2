@@ -15,7 +15,7 @@ export default class BotPlayer extends Player {
   slope: number;
   startingPoint: number;
 
-  constructor(socket: any, name?: any, level?) {
+  constructor(socket: any, name?: any, level = 1) {
     super(socket, name, level);
     this.type = this.type.bind(this);
     this.typingScheduler = this.typingScheduler.bind(this);
