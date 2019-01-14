@@ -5,7 +5,7 @@ import { RootState } from '../../types';
 const mapStateToProps = (state: RootState) => {
   return {
     // @ts-ignore
-    players: Object.values(state.serverStatus.playersGameStatus),
+    players: Object.values(state.serverStatus.players),
     myId: state.serverStatus.myId,
     roomId: state.serverStatus.roomId,
     roomSize: state.serverStatus.roomSize
