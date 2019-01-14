@@ -4,9 +4,8 @@ import { pictureByFacebookId } from '../../utilities';
 import { RootState } from '../../types';
 
 const mapStateToProps = (state: RootState) => {
-  return {
-    picture: pictureByFacebookId(state.myData.facebookId)
-  };
+  const picture = pictureByFacebookId(state.authentication.playerId);
+  return { picture };
 };
 
 export default connect(

@@ -46,7 +46,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
     this.props.leaveGame();
     socketManager.close();
   }
-  get shouldShowPicutre() {
+  get isLogged() {
     return this.props.picture && this.props.loggedIn === LoginStatus.loggedIn;
   }
   get shouldShowBackbutton() {
@@ -71,8 +71,10 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
               <Typography variant="h6" color="inherit">
                 Typing Coacher
               </Typography>
-              {this.shouldShowPicutre && (
-                <ActiveUserAvatar onClick={this.navigateToProfile} />
+              {this.props.loggedIn === LoginStatus.loggedIn && (
+                <ActiveUserAvatar
+                  onClick={this.isLogged ? this.navigateToProfile : () => {}}
+                />
               )}
               {this.props.loggedIn === LoginStatus.loggedOut && (
                 <LoginButton history={this.props.history} />

@@ -46,9 +46,13 @@ export function fbLogin(options) {
   });
 }
 
-export function pictureByFacebookId(facebookId: string) {
+export function pictureByFacebookId(
+  facebookId: string,
+  height: number = 30,
+  width: number = 30
+) {
   if (!facebookId) {
     return undefined;
   }
-  return `https://res.cloudinary.com/dujbozubz/image/facebook/${facebookId}.jpg`;
+  return `https://res.cloudinary.com/dujbozubz/image/facebook/w_${width},h_${height}/${facebookId}.jpg`;
 }
