@@ -3,6 +3,7 @@ import './profilePage.scss';
 import ProfileHeader from './ProfileHeaderContainer';
 import ProgressBar from './ProgressBarContainer';
 import ProfileTabs from './ProfileTabs';
+import { ProfileEmptyState } from './ProfileEmptyState';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
 export interface ProfilePageProps {
   profileMainLoad: any;
@@ -26,6 +27,10 @@ export default class ProfilePage extends React.Component<
         isLoading: false
       });
     });
+    this.navigateToGame = this.navigateToGame.bind(this);
+  }
+  navigateToGame() {
+    this.props.history.push('/game');
   }
   public render() {
     if (!this.props.playerId) {
@@ -35,7 +40,7 @@ export default class ProfilePage extends React.Component<
       return <BoxLoader message="Calculating your achievments so far" />;
     }
     if (this.props.isDataPopulated === false) {
-      return <h1> EMPTY STATE </h1>;
+      return <ProfileEmptyState navigateToGame={this.navigateToGame} />;
     }
     return (
       <div id="profile-page">
