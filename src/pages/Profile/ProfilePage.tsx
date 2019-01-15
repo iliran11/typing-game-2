@@ -39,9 +39,6 @@ export default class ProfilePage extends React.Component<
     if (this.state.isLoading) {
       return <BoxLoader message="Calculating your achievments so far" />;
     }
-    if (this.props.isDataPopulated === false) {
-      return <ProfileEmptyState navigateToGame={this.navigateToGame} />;
-    }
     return (
       <div id="profile-page">
         <section id="profile-info-section">
@@ -49,7 +46,12 @@ export default class ProfilePage extends React.Component<
           <ProfileHeader />
           <ProgressBar />
         </section>
-        <ProfileTabs history={this.props.history} />
+        {this.props.isDataPopulated && (
+          <ProfileTabs history={this.props.history} />
+        )}
+        {this.props.isDataPopulated === false && (
+          <ProfileEmptyState navigateToGame={this.navigateToGame} />
+        )}
       </div>
     );
   }
