@@ -8,6 +8,7 @@ import { GameLevel } from '../../../../types';
 
 export interface SetupLevelProps {
   updateCustomLevel: any;
+  level: number;
 }
 
 export interface SetupLevelState {
@@ -126,10 +127,13 @@ export default class SetupLevel extends React.Component<
             onChange={this.handleChange}
           >
             {config.map((levelConfig, index) => {
+              const currentLevel = parseInt(getLastChar(levelConfig.value));
               return (
                 <FormControlLabel
                   value={`${index + 1}`}
-                  control={<Radio />}
+                  control={
+                    <Radio checked={currentLevel === this.props.level} />
+                  }
                   label={levelConfig.label}
                   key={levelConfig.value}
                 />
@@ -141,4 +145,8 @@ export default class SetupLevel extends React.Component<
       </div>
     );
   }
+}
+
+function getLastChar(str: string) {
+  return str.slice(-1);
 }
