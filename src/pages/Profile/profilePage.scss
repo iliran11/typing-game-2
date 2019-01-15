@@ -169,6 +169,9 @@
     }
   }
 }
+#highlights-list {
+  margin-top:15px;
+}
 #highlights-tab {
   display: flex;
   flex-direction: column;
@@ -176,6 +179,7 @@
 .highlight-item {
   display: flex;
   align-items: center;
+  cursor: pointer;
   &:not(:first-child) {
     margin-top: 10px;
   }
@@ -202,7 +206,7 @@
 }
 
 .highlights-list-container {
-  overflow: scroll;
+  overflow: auto;
 }
 .highlights-progress {
   position: absolute;

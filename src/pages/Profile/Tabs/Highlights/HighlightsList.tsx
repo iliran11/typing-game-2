@@ -32,8 +32,7 @@ const data = [
 export function HighlightsList(props: HighlightsListProps) {
   console.log(props.highlights);
   return (
-    <React.Fragment>
-      <h3>We collected some highlights from your history</h3>
+    <div id="highlights-list">
       <div className="highlights-list-container">
         {props.highlights.highestSpeed && (
           <HighlightItem
@@ -54,7 +53,7 @@ export function HighlightsList(props: HighlightsListProps) {
           />
         )}
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 function processHighestSpeed(item: HightLightItemI) {
