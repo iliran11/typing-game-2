@@ -1,10 +1,4 @@
-import {
-  NotificationSeverityEnum,
-  RootState,
-  UserAchievementsI,
-  NotificationsReducerI,
-  NotificationTypeEnum
-} from '../types';
+import { RootState, UserAchievementsI, NotificationsReducerI } from '../types';
 import {
   PLAYER_ID_PARAM,
   LOAD_PROFILE_ACHIEVEMENTS,
@@ -58,27 +52,7 @@ export function updateCustomLevel(level: number) {
         playerId,
         level
       })
-      .then(result => {
-        const payload: NotificationsReducerI = {
-          notificationMessage: `Your level was changed to ${level}`,
-          notificationType: NotificationTypeEnum.toast,
-          notificationSeverity: NotificationSeverityEnum.SUCCESS
-        };
-        dispatch({
-          type: SHOW_NOTIFICATION,
-          payload
-        });
-      })
-      .catch(err => {
-        const payload: NotificationsReducerI = {
-          notificationMessage: `There was a problem ...`,
-          notificationSeverity: NotificationSeverityEnum.WARNING,
-          notificationType: NotificationTypeEnum.toast
-        };
-        dispatch({
-          type: SHOW_NOTIFICATION,
-          payload
-        });
-      });
+      .then(result => {})
+      .catch(err => {});
   };
 }

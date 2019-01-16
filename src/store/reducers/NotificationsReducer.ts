@@ -1,16 +1,10 @@
-import { SHOW_NOTIFICATION } from '../../constants';
-import {
-  NotificationSeverityEnum,
-  NotificationTypeEnum,
-  NotificationsReducerI
-} from '../../types';
+import { SHOW_NOTIFICATION, HIDE_NOTIFICATION } from '../../constants';
+import { NotificationsReducerI, NotificationTypes } from '../../types';
 
 // const letters : Letter[] = [new ]
 
 const initialState: NotificationsReducerI = {
-  notificationType: NotificationTypeEnum.NONE,
-  notificationMessage: '',
-  notificationSeverity: NotificationSeverityEnum.NONE
+  notificationType: NotificationTypes.NONE
 };
 
 export default function NotificationsReducer(
@@ -20,6 +14,10 @@ export default function NotificationsReducer(
   switch (action.type) {
     case SHOW_NOTIFICATION:
       return handleShowSnackbar(state, action.payload);
+    case HIDE_NOTIFICATION:
+      return {
+        notificationType: NotificationTypes.NONE
+      };
     default:
       return state;
   }

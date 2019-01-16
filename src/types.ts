@@ -143,9 +143,7 @@ export interface GameDataReducer {
   readonly isGameFinished: boolean;
 }
 export interface NotificationsReducerI {
-  notificationType: NotificationTypeEnum;
-  notificationSeverity: NotificationSeverityEnum;
-  notificationMessage: string;
+  notificationType: NotificationTypes;
 }
 
 export interface ServerStatusReducer {
@@ -323,16 +321,7 @@ export interface ChangeLevelPayload {
   level: number;
 }
 
-export enum NotificationSeverityEnum {
-  SUCCESS = 'success',
-  WARNING = 'warning',
-  ERROR = 'error',
-  BLOCK = 'block',
-  NONE = 'none'
-}
-
-export enum NotificationTypeEnum {
-  toast = 'toast',
-  block = 'block',
-  NONE = 'none'
+export enum NotificationTypes {
+  NONE = 'none',
+  LOGOUT_NOTIFICATION = 'logout-notification'
 }

@@ -51,7 +51,6 @@ export function fbLogout() {
   return new Promise(resolve => {
     // @ts-ignore
     window.FB.logout((response: any) => {
-      console.log(response);
       resolve(response);
     });
   });

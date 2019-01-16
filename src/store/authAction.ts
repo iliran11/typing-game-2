@@ -1,5 +1,11 @@
 import AuthenticationManager from '../AuthenticationManager';
-import { FACEBOOK_LOGIN_IN_PROGRESS, LOGOUT } from '../constants';
+import {
+  FACEBOOK_LOGIN_IN_PROGRESS,
+  LOGOUT,
+  SHOW_NOTIFICATION,
+  HIDE_NOTIFICATION
+} from '../constants';
+import { NotificationTypes } from '../types';
 import { fbLogout } from '../utilities';
 
 export function initAuthenticationManager() {
@@ -16,11 +22,20 @@ export function loginInProgress() {
 
 export function logout(history: any) {
   return function(dispatch: any) {
-    fbLogout();
     dispatch({
-      type: LOGOUT
+      type: SHOW_NOTIFICATION,
+      payload: { notificationType: NotificationTypes.LOGOUT_NOTIFICATION }
     });
-    AuthenticationManager.deleteToken();
-    history.push('/');
+    fbLogout().then(result => {
+      dispatch({
+        type: LOGOUT
+      });
+      console.log(result);
+      AuthenticationManager.deleteToken();
+      history.push('/');
+      dispatch({
+        type: HIDE_NOTIFICATION
+      });
+    });
   };
 }
