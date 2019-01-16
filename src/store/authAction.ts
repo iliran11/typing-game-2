@@ -14,11 +14,13 @@ export function loginInProgress() {
   };
 }
 
-export function logout() {
+export function logout(history: any) {
   return function(dispatch: any) {
     fbLogout();
     dispatch({
       type: LOGOUT
     });
+    AuthenticationManager.deleteToken();
+    history.push('/');
   };
 }
