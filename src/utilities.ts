@@ -8,9 +8,9 @@ export function loadFbSdk(appId: string) {
       // @ts-ignore
       FB.init({
         appId,
-        xfbml: false,
-        version: 'v3.2',
-        cookie: true
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v3.2'
       });
       // @ts-ignore
       FB.AppEvents.logPageView();

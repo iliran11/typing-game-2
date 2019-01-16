@@ -7,7 +7,8 @@ import {
   FacebookStatusAction,
   RootState,
   FbLoginStatus,
-  LoginResponse
+  LoginResponse,
+  Enviroments
 } from './types';
 import {
   SDK_LOAD_SUCESS,
@@ -24,8 +25,6 @@ import {
 import get from 'lodash.get';
 import { networkManager } from './NetworkManager';
 
-const appId = '653846344985974';
-
 class AuthenticationManager {
   dispatch: any;
   getState: any;
@@ -35,7 +34,9 @@ class AuthenticationManager {
     this.getState = getState;
   }
   initialAuthentication() {
-    loadFbSdk('653846344985974')
+    const appId = getAppId();
+    console.log('[Authentication] ', `FacebookAppId: ${appId}`);
+    loadFbSdk(appId)
       .then((result: any) => {
         this.onSdkLoadedSuccess();
         return getFbLoginStatus();
@@ -214,6 +215,17 @@ class AuthenticationManager {
       throw Error('authenication manager not initialized!');
     }
     return AuthenticationManager.instance;
+  }
+}
+
+function getAppId(): string {
+  switch (process.env.REACT_APP_ENV) {
+    case Enviroments.LOCAL:
+      return '544172982736878';
+    case Enviroments.STAGING:
+      return '653846344985974';
+    default:
+      return '';
   }
 }
 
