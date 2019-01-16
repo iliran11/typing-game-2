@@ -1,7 +1,16 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import { BlockingAlert } from './BlockingAlert';
 import { NotificationTypes } from '../../types';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const styles = {
+  logoutSpinner: {
+    display: 'flex',
+    justifyContent: 'center'
+  }
+};
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
   const notificationType = state.notificationsManager.notificationType;
@@ -20,8 +29,12 @@ function getAlertProps(notificationType: NotificationTypes) {
     case NotificationTypes.LOGOUT_NOTIFICATION:
       return {
         open: true,
-        title: 'LOGOUT title',
-        dialogContentText: 'logout dialog ...',
+        title: 'Logging Out ...',
+        dialogContentText: (
+          <div style={styles.logoutSpinner}>
+            <CircularProgress />
+          </div>
+        ),
         actions: null
       };
     default:

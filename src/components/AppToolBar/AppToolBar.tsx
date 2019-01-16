@@ -90,8 +90,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
   }
   onLogout() {
     AuthenticationManager.deleteToken();
-    this.props.logout();
-    this.props.history.push('/');
+    this.props.logout(this.props.history);
   }
   render() {
     return (
