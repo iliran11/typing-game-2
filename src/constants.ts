@@ -40,6 +40,7 @@ export const AUTH_FACEBOOK_HEADER = 'facebookToken';
 export const SERVER_HANDSHAKE_RECIEVED = 'server-handshake-recieved';
 export const GAME_HAS_TIMEOUT = 'game-has-timeout';
 export const GAME_TIMEOUT_DURATION = 180000; // 3 minutes
+export const LOGOUT = 'log-out';
 
 // ------ GAME HISTORIES ------- //
 

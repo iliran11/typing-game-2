@@ -1,3 +1,5 @@
+import { RootState } from './types';
+
 export function loadFbSdk(appId: string) {
   return new Promise(resolve => {
     // @ts-ignore
@@ -45,14 +47,25 @@ export function fbLogin(options) {
     window.FB.login(response => resolve(response), options);
   });
 }
+export function fbLogout() {
+  return new Promise(resolve => {
+    // @ts-ignore
+    window.FB.logout((response: any) => {
+      console.log(response);
+      resolve(response);
+    });
+  });
+}
 
-export function pictureByFacebookId(
-  facebookId: string,
-  height: number = 30,
-  width: number = 30
-) {
+export function pictureByFacebookId(facebookId: string, height: number = 30) {
   if (!facebookId) {
     return undefined;
   }
-  return `https://res.cloudinary.com/dujbozubz/image/facebook/w_${width},h_${height}/${facebookId}.jpg`;
+  return `https://res.cloudinary.com/dujbozubz/image/facebook/w_${height},h_${height}/${facebookId}.jpg`;
+}
+
+export function userHasAchievements(state: RootState) {
+  const playerId = state.authentication.playerId;
+  const userAchievements = state.userAchievments[playerId];
+  return userAchievements && userAchievements.maxWpm > -1;
 }

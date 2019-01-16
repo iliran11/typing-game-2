@@ -5,7 +5,8 @@ import {
   FACEBOOK_LOGGED_IN,
   LOGGING_IN_ACTION,
   SERVER_HANDSHAKE_RECIEVED,
-  FACEBOOK_LOGIN_FAILURE
+  FACEBOOK_LOGIN_FAILURE,
+  LOGOUT
 } from '../../constants';
 import {
   AuthReducer,
@@ -54,6 +55,8 @@ export default function GameReducer(
     case SERVER_HANDSHAKE_RECIEVED:
       return handleHandshake(state, action.payload);
     case FACEBOOK_LOGIN_FAILURE:
+      return initialState;
+    case LOGOUT:
       return initialState;
     default:
       return state;
