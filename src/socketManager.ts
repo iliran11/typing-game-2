@@ -5,7 +5,8 @@ import {
   PlayerType,
   PlayerJoiningAction,
   ScoreBroadcastAction,
-  Enviroments
+  Enviroments,
+  PlayerGameStatus
 } from './types';
 import {
   YOU_JOINED_ROOM,
@@ -60,12 +61,12 @@ const socketManager: any = {
     });
     this.dispatch = dispatch;
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
-      const { roomId, players, roomSize, isGameActive, myId } = data;
+      const { roomId, playersGameStatus, roomSize, isGameActive, myId } = data;
       this.dispatch({
         type: YOU_JOINED_ROOM,
         payload: {
           roomId,
-          players,
+          playersGameStatus,
           roomSize,
           isGameActive,
           myId
@@ -78,7 +79,7 @@ const socketManager: any = {
         }
       });
     });
-    this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerSerialize) => {
+    this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerGameStatus) => {
       const type =
         playerObject.type === PlayerType.human
           ? COMPETITOR_JOINED_ROOM

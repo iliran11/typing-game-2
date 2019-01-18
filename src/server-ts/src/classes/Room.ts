@@ -108,7 +108,9 @@ export default class Room {
   }
   get playersInRoom() {
     return this.players.map((player: Player) => {
-      return player.serializable;
+      return player.playerGameStatus({
+        timePassedMinutes: this.timePassedMinutes
+      }).serialize;
     });
   }
   get isRoomFull(): boolean {

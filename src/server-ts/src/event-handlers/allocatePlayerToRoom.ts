@@ -23,7 +23,7 @@ function sendPlayerRoomInfo(socket: io.Socket, room: Room, player: Player) {
   socket.join(room.roomName);
   const response: JoiningRoomResponse = {
     roomId: room.roomId,
-    players: room.playersInRoom,
+    playersGameStatus: room.playersInRoom,
     letters: player.playerGame.getRawLetters,
     roomSize: room.maxPlayersInRoom,
     isGameActive: room.isGameActive,
@@ -35,9 +35,17 @@ function sendPlayerRoomInfo(socket: io.Socket, room: Room, player: Player) {
 
 function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
   if (socket) {
-    socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, player.serializable);
+    socket.to(room.roomName).emit(
+      COMPETITOR_JOINED_ROOM,
+      player.playerGameStatus({
+        timePassedMinutes: 0
+      })
+    );
   } else {
-    emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, player.serializable);
+    const playerGameStatus = player.playerGameStatus({
+      timePassedMinutes: 0
+    }).serialize;
+    emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
   }
 }
 

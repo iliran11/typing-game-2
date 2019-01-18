@@ -1,7 +1,7 @@
 import Letter from './store/classes/lettterData';
 export interface JoiningRoomResponse {
   roomId: number;
-  players: PlayerSerialize[];
+  playersGameStatus: PlayerGameStatus[];
   letters: string[];
   roomSize: number;
   isGameActive: boolean;
@@ -150,7 +150,6 @@ export interface ServerStatusReducer {
   readonly roomId: number;
   readonly isConnected: boolean;
   readonly myId: string;
-  readonly players: PlayerSerialize[];
   readonly playersGameStatus: { [playerId: string]: PlayerGameStatus };
   readonly isGameActive: boolean;
   readonly roomSize: number;
@@ -173,7 +172,7 @@ export interface RootState {
 }
 export interface PlayerJoiningAction {
   type: string;
-  payload: PlayerSerialize;
+  payload: PlayerGameStatus;
 }
 
 export interface ScoreBroadcastAction {

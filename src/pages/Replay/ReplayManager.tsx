@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CompetitorList from '../../components/Scoreboard/CompetitorList';
+import CompetitorList from '../../components/CompetitorList/CompetitorList';
 import { ReplayPageProps } from './ReplayPage';
 import { PlayerAvatar } from '../../types';
 import GameView from '../../components/game-manager/GameView';

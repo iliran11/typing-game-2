@@ -4,17 +4,10 @@ import { RootState } from '../../types';
 
 const mapStateToProps = (state: RootState) => {
   // @ts-ignore
-  const playerGameStatus = Object.values(state.serverStatus.playersGameStatus);
-  const {
-    players,
-    playersGameStatus,
-    myId,
-    roomId,
-    roomSize
-  } = state.serverStatus;
+  const playersGameStatus = Object.values(state.serverStatus.playersGameStatus);
+  const { myId, roomId, roomSize } = state.serverStatus;
   return {
-    players,
-    playersGameStatus,
+    players: playersGameStatus,
     myId,
     roomId,
     roomSize

@@ -26,7 +26,6 @@ export const initialState: ServerStatusReducer = {
   roomId: -1,
   isConnected: false,
   myId: '',
-  players: [],
   playersGameStatus: {},
   isGameActive: false,
   roomSize: 0,
@@ -106,7 +105,11 @@ function otherPlayerJoining(
 ): ServerStatusReducer {
   return {
     ...state,
-    players: state.players.concat(action.payload)
+    // playersGameStatus: state.playersGameStatus.concat(action.payload)
+    playersGameStatus: {
+      ...state.playersGameStatus,
+      [action.payload.id]: action.payload
+    }
   };
 }
 
@@ -115,10 +118,18 @@ function youJoinedRoom(
   action: any
 ): ServerStatusReducer {
   const { roomId = -1, players = {} } = action.payload;
+  // transform array of players into mapped object.
+  const playersGameStatus = action.payload.playersGameStatus.reduce(
+    (accumulator: any, currentPlayerStatus: PlayerGameStatus) => {
+      accumulator[currentPlayerStatus.id] = currentPlayerStatus;
+      return accumulator;
+    },
+    {}
+  );
   return {
     ...state,
     roomId,
-    players,
+    playersGameStatus,
     roomSize: action.payload.roomSize,
     isGameActive: action.payload.isGameActive,
     myId: action.payload.myId

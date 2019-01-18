@@ -44,7 +44,7 @@ const mapStateToProps = (state: RootState) => {
     myRanking,
     accuracy: myPlayerData.accuracy,
     competitors: graphData,
-    players: state.serverStatus.players
+    players: state.serverStatus.playersGameStatus
   };
 };
 

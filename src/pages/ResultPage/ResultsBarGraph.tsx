@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '../../components/Scoreboard/Avatar';
+import Avatar from '../../components/CompetitorList/Avatar';
 import star from '../../assets/star.svg';
 import checkedIcon from '../../assets/checked.svg';
 export default function ResultsBarGraph(props: any) {
