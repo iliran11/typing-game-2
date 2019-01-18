@@ -7,6 +7,7 @@ import {
 } from '../constants';
 import axios from 'axios';
 import { networkManager } from '../NetworkManager';
+import { resolve } from 'url';
 
 export function profileMainLoad(playerId: string) {
   return function(dispatch: any, getState: () => RootState) {
@@ -47,12 +48,18 @@ export function updateCustomLevel(level: number) {
   return function(dispatch: any, getState: () => RootState) {
     const state = getState();
     const playerId = state.authentication.playerId;
-    axios
-      .post(networkManager.prefixedPath('change-level'), {
-        playerId,
-        level
-      })
-      .then(result => {})
-      .catch(err => {});
+    return new Promise((resolve, reject) => {
+      axios
+        .post(networkManager.prefixedPath('change-level'), {
+          playerId,
+          level
+        })
+        .then(result => {
+          resolve(true);
+        })
+        .catch(err => {
+          reject(false);
+        });
+    });
   };
 }

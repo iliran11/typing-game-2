@@ -15,6 +15,7 @@ export interface SetupLevelProps {
 
 export interface SetupLevelState {
   customLevel: number;
+  isSnackbarOpen: boolean;
 }
 
 export default class SetupLevel extends React.Component<
@@ -25,14 +26,31 @@ export default class SetupLevel extends React.Component<
     super(props);
 
     this.state = {
-      customLevel: props.level
+      customLevel: props.level,
+      isSnackbarOpen: false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.onSnackbarClose = this.onSnackbarClose.bind(this);
   }
   handleChange(event: any) {
     const newLevel = parseInt(event.target.value);
     this.setState({ customLevel: newLevel });
-    this.props.updateCustomLevel(newLevel);
+    this.props
+      .updateCustomLevel(newLevel)
+      .then(() => {
+        this.setState({
+          isSnackbarOpen: true
+        });
+      })
+      .catch(() => {
+        // TODO: show error snackbar ...
+        alert('there was a server error ... ');
+      });
+  }
+  onSnackbarClose(event: object) {
+    this.setState({
+      isSnackbarOpen: false
+    });
   }
   public render() {
     return (
@@ -74,12 +92,13 @@ export default class SetupLevel extends React.Component<
             vertical: 'bottom',
             horizontal: 'left'
           }}
-          open={true}
-          autoHideDuration={6000}
+          open={this.state.isSnackbarOpen}
+          autoHideDuration={2000}
+          onClose={this.onSnackbarClose}
         >
           <SnackbarContent
             className="success"
-            message="hello world"
+            message={`Level changed to ${this.state.customLevel} ✅`}
             classes={{ root: 'snackbar-success' }}
           />
         </Snackbar>
