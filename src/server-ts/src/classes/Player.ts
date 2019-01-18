@@ -114,7 +114,8 @@ export default class Player {
       numberOfLetters,
       numberOfWords,
       rankAtFinish,
-      roomId
+      roomId,
+      isAuthenticated: this.isAuthenticated
     });
   }
 }
