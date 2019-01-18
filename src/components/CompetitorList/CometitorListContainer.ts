@@ -7,11 +7,8 @@ const mapStateToProps = (state: RootState) => {
   const playersGameStatus: PlayerGameStatus[] = Object.values(
     state.serverStatus.playersGameStatus
   );
-  const avatars: PlayerAvatar[] = playersGameStatus.map(playersGameStatus => {
-    return {
-      isAnonymous: true,
-      picture: 2
-    };
+  const avatars: PlayerAvatar[] = playersGameStatus.map(playerGameStatus => {
+    return playerGameStatus.avatar;
   });
   const { myId, roomId, roomSize } = state.serverStatus;
 
