@@ -20,11 +20,11 @@ export enum PlayerType {
 }
 
 export enum GameLevel {
-  LEVEL1 = 'level-1',
-  LEVEL2 = 'level-2',
-  LEVEL3 = 'level-3',
-  LEVEL4 = 'level-4',
-  LEVEL5 = 'level-5'
+  LEVEL1 = 1,
+  LEVEL2,
+  LEVEL3,
+  LEVEL4,
+  LEVEL5
 }
 
 export enum Enviroments {
