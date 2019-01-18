@@ -5,8 +5,11 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import { levelConfig, getExampleByLevel } from './LevelConfig';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import {
+  SimpleSnackbarWrapper,
+  SimpleSnackbarWrapperProps
+} from '../../../../components/SimpleSnackbarWrapper/SimpleSnackbarWrapper';
+import classes from '*.module.css';
 
 export interface SetupLevelProps {
   updateCustomLevel: any;
@@ -16,6 +19,13 @@ export interface SetupLevelProps {
 export interface SetupLevelState {
   customLevel: number;
   isSnackbarOpen: boolean;
+  serverResponse: ServerResponse;
+}
+
+enum ServerResponse {
+  SUCCESS = 'success',
+  FAILURE = 'failure',
+  NONE = 'NONE'
 }
 
 export default class SetupLevel extends React.Component<
@@ -27,7 +37,8 @@ export default class SetupLevel extends React.Component<
 
     this.state = {
       customLevel: props.level,
-      isSnackbarOpen: false
+      isSnackbarOpen: false,
+      serverResponse: ServerResponse.NONE
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSnackbarClose = this.onSnackbarClose.bind(this);
@@ -39,18 +50,44 @@ export default class SetupLevel extends React.Component<
       .updateCustomLevel(newLevel)
       .then(() => {
         this.setState({
-          isSnackbarOpen: true
+          isSnackbarOpen: true,
+          serverResponse: ServerResponse.SUCCESS
         });
       })
       .catch(() => {
-        // TODO: show error snackbar ...
-        alert('there was a server error ... ');
+        this.setState({
+          isSnackbarOpen: true,
+          serverResponse: ServerResponse.FAILURE
+        });
       });
   }
-  onSnackbarClose(event: object) {
+  onSnackbarClose() {
     this.setState({
       isSnackbarOpen: false
     });
+  }
+  get snackbarClasses(): object {
+    if (this.state.serverResponse === ServerResponse.SUCCESS) {
+      return { root: 'snackbar-success' };
+    } else {
+      return { root: 'snackbar-failure' };
+    }
+  }
+  get snackbarMessage(): string {
+    if (this.state.serverResponse === ServerResponse.SUCCESS) {
+      return `Level changed to ${this.state.customLevel} ✅`;
+    } else {
+      // TODO: this should be handled globally ...
+      return 'something went wrong ... ';
+    }
+  }
+  get snackbarProps(): SimpleSnackbarWrapperProps {
+    return {
+      open: this.state.isSnackbarOpen,
+      onClose: this.onSnackbarClose,
+      classes: this.snackbarClasses,
+      message: this.snackbarMessage
+    };
   }
   public render() {
     return (
@@ -87,21 +124,7 @@ export default class SetupLevel extends React.Component<
           </RadioGroup>
         </FormControl>
         {getExampleByLevel(this.state.customLevel)}
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left'
-          }}
-          open={this.state.isSnackbarOpen}
-          autoHideDuration={2000}
-          onClose={this.onSnackbarClose}
-        >
-          <SnackbarContent
-            className="success"
-            message={`Level changed to ${this.state.customLevel} ✅`}
-            classes={{ root: 'snackbar-success' }}
-          />
-        </Snackbar>
+        <SimpleSnackbarWrapper {...this.snackbarProps} />
       </div>
     );
   }
