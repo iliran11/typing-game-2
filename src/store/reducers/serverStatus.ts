@@ -14,13 +14,13 @@ import {
   GAME_HAS_TIMEOUT,
   LEAVE_GAME
 } from '../../constants';
-import connectServerSuccess from './serverStatusHandlers/connectServerSuccess';
-import youJoinedRoom from './serverStatusHandlers/youJoinedRoom';
-import otherPlayerJoining from './serverStatusHandlers/otherPlayerJoining';
-import scoreBroadCast from './serverStatusHandlers/scoreBroadCast';
-import gameRestart from './serverStatusHandlers/gameRestart';
-
-import { PlayerSerialize, ServerStatusReducer } from '../../types';
+import {
+  PlayerSerialize,
+  ServerStatusReducer,
+  ScoreBroadcastAction,
+  PlayerGameStatus,
+  PlayerJoiningAction
+} from '../../types';
 
 export const initialState: ServerStatusReducer = {
   roomId: -1,
@@ -85,4 +85,53 @@ export default function ServerStatus(
     default:
       return state;
   }
+}
+
+function connectServerSuccess(state: ServerStatusReducer): ServerStatusReducer {
+  return {
+    ...state,
+    isConnected: true
+  };
+}
+function gameRestart(
+  state: ServerStatusReducer,
+  action: any
+): ServerStatusReducer {
+  return initialState;
+}
+
+function otherPlayerJoining(
+  state: ServerStatusReducer,
+  action: PlayerJoiningAction
+): ServerStatusReducer {
+  return {
+    ...state,
+    players: state.players.concat(action.payload)
+  };
+}
+
+function youJoinedRoom(
+  state: ServerStatusReducer,
+  action: any
+): ServerStatusReducer {
+  const { roomId = -1, players = {} } = action.payload;
+  return {
+    ...state,
+    roomId,
+    players,
+    roomSize: action.payload.roomSize,
+    isGameActive: action.payload.isGameActive,
+    myId: action.payload.myId
+  };
+}
+
+function scoreBroadCast(
+  state: ServerStatusReducer,
+  action: ScoreBroadcastAction
+): ServerStatusReducer {
+  const nextState = { ...state };
+  action.payload.players.forEach((player: PlayerGameStatus) => {
+    nextState.playersGameStatus[player.id] = player;
+  });
+  return nextState;
 }

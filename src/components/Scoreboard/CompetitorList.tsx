@@ -72,6 +72,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
     this.props.history.push('result');
   }
   render() {
+    console.log(Array.isArray(this.props.players))
     if (Array.isArray(this.props.players)) {
       return (
         <div id="competitor-list">
