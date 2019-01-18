@@ -7,6 +7,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
   h1:first-child {
     margin: 0px;
     color: $color1;
@@ -216,12 +217,12 @@
 }
 
 #profile-empty-page {
-  margin-top:30px;
+  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  text-align:center;
+  text-align: center;
   img {
     width: 200px;
   }
