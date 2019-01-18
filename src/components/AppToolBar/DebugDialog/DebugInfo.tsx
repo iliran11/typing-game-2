@@ -6,10 +6,10 @@ export default function DebugInfo(props: any) {
   return (
     <div style={{ padding: 50 }}>
       <h2>Debug Info</h2>
-      <InfoLine title="My Id" value={myId || 'non yet'} />
+      {/* <InfoLine title="My Id" value={myId || 'non yet'} />
       <InfoLine title="Room Number" value={roomId} />
       <InfoLine title="Total Players In Room" value={players.length} />
-      <InfoLine title="Max Players In Room" value={players.length} />
+      <InfoLine title="Max Players In Room" value={players.length} /> */}
       <InfoLine title="Client Version" value={packageJson.version} />
     </div>
   );
