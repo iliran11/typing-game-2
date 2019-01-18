@@ -15,6 +15,8 @@ interface Props {
 }
 
 export default function ResultPage(props: any) {
+  // @ts-ignore
+  const players = Object.values(props.players);
   const competeAgain = () => {
     props.restartGame(props.history);
   };
@@ -28,7 +30,7 @@ export default function ResultPage(props: any) {
         accuracy={props.accuracy}
       />
       <div className="graph-bar-container">
-        <ResultsBarGraph competitors={props.competitors} players={props.players} />
+        <ResultsBarGraph competitors={props.competitors} players={players} />
       </div>
       <div id="result-page-buttons">
         <button
