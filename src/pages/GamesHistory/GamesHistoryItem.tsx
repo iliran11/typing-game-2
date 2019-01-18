@@ -1,7 +1,7 @@
 import React from 'react';
 import { GameModelInterface, PlayerSerialize } from '../../types';
 import { MAX_WPM_GAUGE } from '../../constants';
-import Avatar from '../../components/Scoreboard/Avatar';
+import Avatar from '../../components/CompetitorList/Avatar';
 import CircularProgress from '../../components/CircularProgress';
 
 interface Props {

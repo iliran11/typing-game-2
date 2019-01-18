@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import socketManager from '../../socketManager';
 import GameManagerContainer from '../../components/game-manager/gameManagerContainer';
-import ScoreBoardContainer from '../../components/Scoreboard/ScoreBoardContainer';
+import ScoreBoardContainer from '../../components/CompetitorList/competitorContainer';
 import CountDown from '../../components/CountDown/CountDown';
 import ToolTip from '../../components/tooltip';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
