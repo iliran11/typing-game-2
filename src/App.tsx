@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import './css/App.css';
 import './css/shadows.css';
 import './css/gradients.css';
-import './css/utilities.css';
+import './css/utilities.scss';
 import MultiplayerPage from './pages/multiplayer-page/MultiplayerPageContainer';
 import ResultPage from './pages/ResultPage/ResultPageContainer';
 import ProfilePage from './pages/Profile/ProfilePageContainer';

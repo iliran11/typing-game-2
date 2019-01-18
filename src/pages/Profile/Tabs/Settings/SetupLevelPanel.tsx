@@ -4,7 +4,9 @@ import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-import { LevelConfigI, levelConfig, getExampleByLevel } from './LevelConfig';
+import { levelConfig, getExampleByLevel } from './LevelConfig';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 export interface SetupLevelProps {
   updateCustomLevel: any;
@@ -46,20 +48,17 @@ export default class SetupLevel extends React.Component<
           <RadioGroup
             aria-label="Level"
             name="Level"
-            // @ts-ignore
             value={this.state.customLevel.toString()}
             onChange={this.handleChange}
           >
             {levelConfig.map((levelConfigItem, index) => {
               return (
                 <FormControlLabel
-                  // @ts-ignore
                   value={levelConfigItem.value.toString()}
                   control={
                     <Radio
                       checked={levelConfigItem.value == this.state.customLevel}
-                      // disabled={this.props.level < currentLevel}
-                      disabled={false}
+                      disabled={this.props.level < levelConfigItem.value}
                     />
                   }
                   label={levelConfigItem.label}
@@ -70,6 +69,20 @@ export default class SetupLevel extends React.Component<
           </RadioGroup>
         </FormControl>
         {getExampleByLevel(this.state.customLevel)}
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left'
+          }}
+          open={true}
+          autoHideDuration={6000}
+        >
+          <SnackbarContent
+            className="success"
+            message="hello world"
+            classes={{ root: 'snackbar-success' }}
+          />
+        </Snackbar>
       </div>
     );
   }
