@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sentry/node": "^4.5.2",
     "@types/lodash.get": "^4.4.4",
     "@types/request": "^2.48.1",
     "body-parser": "^1.18.3",
