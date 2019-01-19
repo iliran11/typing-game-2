@@ -23,7 +23,7 @@ interface State {
   tooltipInput: string;
 }
 
-class GamePage extends PureComponent<Props, State> {
+class MultiplayerPage extends PureComponent<Props, State> {
   currentInput: string = '';
   tooltipTimer: any;
 
@@ -114,4 +114,4 @@ const mapStateToProps = (state: any) => {
     isGameActive: state.serverStatus.isGameActive
   };
 };
-export default connect(mapStateToProps)(GamePage);
+export default connect(mapStateToProps)(MultiplayerPage);
