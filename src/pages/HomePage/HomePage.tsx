@@ -1,5 +1,5 @@
 import React from 'react';
-import './homepage.css';
+import './homepage.scss';
 import Keyboard from '../../components/keyboard/keyboard';
 const baseSteps = [
   {
@@ -24,7 +24,6 @@ const BaseTitle = (props: any) => {
   return (
     <p>
       <span>Improve your typing skills,</span>
-      <br />
       <span>by racing with&nbsp;</span>
       <span>{props.text}</span>
     </p>
@@ -74,15 +73,18 @@ export default class Home extends React.Component<Props, State> {
     const text = 'text';
     const currentStep = baseSteps[this.state.step];
     return (
-      <div id="home-page">
+      <div id="home-page" className="page">
         <BaseTitle text={currentStep[text]} />
         <Keyboard
           row={currentStep.keyboard[0]}
           letter={currentStep.keyboard[1]}
         />
+        <button className="button-large home-page-buttons" id="typing-test">
+          Multiplayer
+        </button>
         <button
           id="compete-now"
-          className="button-large gradient-5"
+          className="button-large home-page-buttons"
           onClick={this.navigateToGame}
         >
           Compete Now
