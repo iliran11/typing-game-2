@@ -6,15 +6,20 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  .home-page-buttons {
+    max-width: 600px;
+    background-color: #f5f5f5;
+    color: $color1;
+  }
 }
 
 #home-page p {
   font-size: 22px;
   color: $color1;
   max-width: 320px;
-  margin-top:48px;
-  font-weight:900;
-  margin-bottom:0px;
+  margin-top: 48px;
+  font-weight: 900;
+  margin-bottom: 0px;
 }
 #keyboard {
   width: 300px;
@@ -24,16 +29,11 @@
   margin-top: 24px;
 }
 #typing-test {
-  margin-top:48px;
+  margin-top: 48px;
 }
 
 #keyboard .keyboard-row:not(:first-child) {
   margin-top: 10px;
-}
-.home-page-buttons  {
-  max-width: 600px;
-  background-color: #f5f5f5;
-  color: $color1;
 }
 .keyboard-row {
   display: flex;
@@ -64,7 +64,7 @@
   #home-page p {
     font-size: 44px;
     max-width: initial;
-    margin-top:60px;
+    margin-top: 60px;
   }
   #keyboard {
     width: 600px;

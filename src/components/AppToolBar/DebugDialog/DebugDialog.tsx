@@ -32,7 +32,7 @@ export default class DebugDialog extends React.Component<Props, State> {
   render() {
     return (
       <React.Fragment>
-        <img src={infoMenu} onClick={this.handleClick} />
+        <img src={infoMenu} onClick={this.handleClick} className="toolbar-icons" />
         <Dialog open={this.state.open} onClose={this.handleClose}>
           <DebugInfo />
         </Dialog>
