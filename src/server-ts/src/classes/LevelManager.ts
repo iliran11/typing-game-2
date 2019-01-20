@@ -14,7 +14,7 @@ export const levelsMap: LevelsMap = {
     accuracy: 0.1,
     totalWordsTyped: 1,
     totalCharsTyped: 1,
-    text: 'level 1 green fields level 1 green fields level 1 green fields'
+    text: 'people who succeed have momentum the more they succeed the more they want to succeed the more they find a way to succeed'
   },
   level2: {
     level: 10,
@@ -22,7 +22,7 @@ export const levelsMap: LevelsMap = {
     accuracy: 0.2,
     totalWordsTyped: 10,
     totalCharsTyped: 20,
-    text: 'level 2 yellow fields level 2 yellow fields level 2 yellow fields'
+    text: 'people who succeed have momentum the more they succeed the more they want to succeed the more they find a way to succeed'
   },
   level3: {
     level: 2,
@@ -30,7 +30,7 @@ export const levelsMap: LevelsMap = {
     accuracy: 0.2,
     totalWordsTyped: 50,
     totalCharsTyped: 100,
-    text: 'level 3 blue fields level 3 blue fields level 3 blue fields'
+    text: 'people who succeed have momentum the more they succeed the more they want to succeed the more they find a way to succeed'
   },
   level4: {
     level: 3,
@@ -38,7 +38,7 @@ export const levelsMap: LevelsMap = {
     accuracy: 0.4,
     totalWordsTyped: 100,
     totalCharsTyped: 150,
-    text: 'level 4 pink fields level 4 pink fields level 4 pink fields'
+    text: 'people who succeed have momentum the more they succeed the more they want to succeed the more they find a way to succeed'
   }
 };
 
