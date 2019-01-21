@@ -17,19 +17,20 @@
   font-size: 22px;
   color: $color1;
   max-width: 320px;
-  margin-top: 48px;
+  margin-top: 15px;
   font-weight: 900;
   margin-bottom: 0px;
+  min-height:66px;
 }
 #keyboard {
   width: 300px;
-  margin-top: 24px;
+  margin-top: 12px;
 }
 #compete-now {
   margin-top: 24px;
 }
 #typing-test {
-  margin-top: 48px;
+  margin-top: 20px;
 }
 
 #keyboard .keyboard-row:not(:first-child) {
