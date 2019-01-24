@@ -47,3 +47,5 @@ function initMongo() {
 }
 
 export default initMongo;
+
+//mongo ds131784.mlab.com:31784/typing-game -u admin -p bEKqgqW38Ts5Naek

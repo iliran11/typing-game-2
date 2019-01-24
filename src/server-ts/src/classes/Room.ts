@@ -1,4 +1,5 @@
 import Player from './Player';
+
 import BotPlayer from './BotPlayer';
 import * as io from 'socket.io';
 import ServerManager from './ServerManager';
@@ -27,6 +28,7 @@ import {
 } from '../mongo/GameRecord/GameRecordModel';
 import { Game } from '../mongo/Game/GameModel';
 import LevelManager from './LevelManager';
+import { userPorgressDb } from '../mongo/UserProgressDb/UserProgressDb';
 var countBy = require('lodash.countby');
 var isNil = require('lodash.isnil');
 const random = require('lodash.random');
@@ -135,7 +137,7 @@ export default class Room {
     // if there is 1 non-null value in the array, it means one player already finished. so we are number 2 (hench the +1)
     return (map.false || 0) + 1;
   }
-  playerHasFinished(finishedPlayer: Player) {
+  async playerHasFinished(finishedPlayer: Player) {
     const playerIndex = this.players.findIndex((gamePlayer: Player) => {
       return gamePlayer.getName === finishedPlayer.getName;
     });
@@ -157,14 +159,23 @@ export default class Room {
     });
     this.finalScores[playerIndex] = gameResultRecord;
     if (finishedPlayer.isAuthenticated) {
-      createGameRecord(gameResultRecord.serialize)
-        .save()
-        .then(() => {
-          LevelManager.processNewResult(
-            finishedPlayer.playerId,
-            finishedPlayer.getSocket()
-          );
-        });
+      const stats = await LevelManager.getPlayerStats(finishedPlayer.playerId);
+      const nextStats = LevelManager.calculateNextStats(
+        stats,
+        gameResultRecord
+      );
+      userPorgressDb.createResult({
+        prevAchievement: stats,
+        nextachievement: nextStats,
+        roomId: this.roomInstanceId,
+        timestamp: Date.now()
+      });
+      const gameRecord = await createGameRecord(gameResultRecord.serialize);
+      await gameRecord.save();
+      await LevelManager.processNewResult(
+        finishedPlayer.playerId,
+        finishedPlayer.getSocket()
+      );
     }
   }
   get isGameActive() {

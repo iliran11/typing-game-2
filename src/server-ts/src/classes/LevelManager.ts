@@ -1,12 +1,21 @@
 import { User } from '../mongo/User/UserModel';
 import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
-import { PROMOTION_DATA, LevelRulesI } from '../../../types';
+import {
+  UserAchievementsI,
+  PROMOTION_DATA,
+  LevelRulesI,
+  PlayerGameStatus
+} from '../../../types';
 import { PROMOTION_EVENT } from '../../../constants';
-import { resolve } from 'dns';
 
 interface LevelsMap {
   [level: string]: LevelRulesI;
 }
+
+interface UserAchievmentsWithModel extends UserAchievementsI {
+  playerModel: any;
+}
+
 export const levelsMap: LevelsMap = {
   level1: {
     level: 1,
@@ -14,7 +23,7 @@ export const levelsMap: LevelsMap = {
     accuracy: 0.1,
     totalWordsTyped: 1,
     totalCharsTyped: 1,
-    text: 'people who succeed have momentum the more they succeed the more they want to succeed the more they find a way to succeed'
+    text: 'level 1'
   },
   level2: {
     level: 10,
@@ -22,7 +31,7 @@ export const levelsMap: LevelsMap = {
     accuracy: 0.2,
     totalWordsTyped: 10,
     totalCharsTyped: 20,
-    text: 'people who succeed have momentum the more they succeed the more they want to succeed the more they find a way to succeed'
+    text: 'level 1'
   },
   level3: {
     level: 2,
@@ -30,7 +39,7 @@ export const levelsMap: LevelsMap = {
     accuracy: 0.2,
     totalWordsTyped: 50,
     totalCharsTyped: 100,
-    text: 'people who succeed have momentum the more they succeed the more they want to succeed the more they find a way to succeed'
+    text: 'level 2'
   },
   level4: {
     level: 3,
@@ -38,12 +47,12 @@ export const levelsMap: LevelsMap = {
     accuracy: 0.4,
     totalWordsTyped: 100,
     totalCharsTyped: 150,
-    text: 'people who succeed have momentum the more they succeed the more they want to succeed the more they find a way to succeed'
+    text: 'level 2'
   }
 };
 
 class LevelManager {
-  private static instance: LevelManager;
+  static instance: LevelManager;
   private userCustomLevel: Map<string, number>;
   private constructor() {
     this.userCustomLevel = new Map();
@@ -64,7 +73,7 @@ class LevelManager {
   /**
    * return array of promises: [maxWpm,playerAccuracy,totalWordsTyped,totalCharsTyped]
    */
-  static retrievePlayerStats(playerId: string) {
+  static retrievePlayerStats(playerId: string): any {
     // TODO: assign here a type instead of facebookuserType
     const playerModel: Promise<any> = User.findById(playerId);
     const playerMaxWpm: Promise<number> = GameRecord.maxWpmOfField(
@@ -91,31 +100,85 @@ class LevelManager {
       playerAccuracy
     ]);
   }
-  static processNewResult(playerId: string, socket) {
-    LevelManager.retrievePlayerStats(playerId).then(userAchievments => {
-      const userModel = userAchievments[0];
-      const isPromoted = LevelManager.shouldPlayerLevelUp(userAchievments);
-      if (isPromoted) {
-        const newLevel = userModel.level + 1;
-        userModel.setLevel(newLevel);
-        const data: PROMOTION_DATA = {
-          nextObjectives: levelsMap[`level${newLevel}`],
-          newLevel
-        };
-        socket.emit(PROMOTION_EVENT, data);
-      }
-    });
+  private static async getPlayerStatsWithModel(
+    playerId: string
+  ): Promise<UserAchievmentsWithModel> {
+    const result = await LevelManager.retrievePlayerStats(playerId);
+    const playerModel = result[0];
+    return {
+      playerModel: result[0],
+      maxWpm: result[1],
+      totalWords: result[2],
+      totalChars: result[3],
+      maxAccuracy: result[4],
+      currentLevelRules: levelsMap[`level${playerModel.level}`],
+      level: playerModel.level,
+      ranking: -11111
+    };
   }
-  static shouldPlayerLevelUp(userAchievments): boolean {
-    const currentLevel = userAchievments[0].level;
+  public static async getPlayerStats(
+    playerId: string
+  ): Promise<UserAchievementsI> {
+    const result = await LevelManager.getPlayerStatsWithModel(playerId);
+    delete result.playerModel;
+    return result;
+  }
+  static calculateNextStats(
+    currentStats: UserAchievementsI,
+    playerGameStatus: PlayerGameStatus
+  ): UserAchievementsI {
+    const maxWpm = Math.max(currentStats.maxWpm, playerGameStatus.score);
+    const totalWords =
+      currentStats.totalWords + (playerGameStatus.numberOfWords || 0);
+    const totalChars =
+      currentStats.totalChars + (playerGameStatus.numberOfLetters || 0);
+
+    const maxAccuracy = Math.max(
+      currentStats.maxAccuracy,
+      playerGameStatus.accuracy || 0
+    );
+    const nextUserAchievements: UserAchievementsI = {
+      maxWpm,
+      totalWords,
+      totalChars,
+      maxAccuracy,
+      level: currentStats.level,
+      currentLevelRules: currentStats.currentLevelRules,
+      ranking: -11111
+    };
+    const hasPromoted = LevelManager.shouldPlayerLevelUp(nextUserAchievements);
+    if (hasPromoted) {
+      nextUserAchievements.level = nextUserAchievements.level + 1;
+    }
+    return nextUserAchievements;
+  }
+  static async processNewResult(playerId: string, socket) {
+    const userAchievements = await LevelManager.getPlayerStatsWithModel(
+      playerId
+    );
+    const isPromoted = LevelManager.shouldPlayerLevelUp(userAchievements);
+    if (isPromoted) {
+      const newLevel = userAchievements.playerModel.level + 1;
+      userAchievements.playerModel.setLevel(newLevel);
+      const data: PROMOTION_DATA = {
+        nextObjectives: levelsMap[`level${newLevel}`],
+        newLevel
+      };
+      socket.emit(PROMOTION_EVENT, data);
+    }
+  }
+
+  static shouldPlayerLevelUp(userAchievments: UserAchievementsI): boolean {
+    const currentLevel = userAchievments.level;
     const currentRulesSet = levelsMap[`level${currentLevel}`];
     if (currentRulesSet) {
-      const didPassWpm = currentRulesSet.wpm < userAchievments[1];
+      const didPassWpm = currentRulesSet.wpm <= userAchievments.maxWpm;
       const didPassTotalWordsTyped =
-        currentRulesSet.totalWordsTyped < userAchievments[2];
+        currentRulesSet.totalWordsTyped <= userAchievments.totalWords;
       const didPassCharsTyped =
-        currentRulesSet.totalCharsTyped < userAchievments[3];
-      const didPssAccuracy = currentRulesSet.accuracy < userAchievments[4];
+        currentRulesSet.totalCharsTyped <= userAchievments.totalChars;
+      const didPssAccuracy =
+        currentRulesSet.accuracy <= userAchievments.maxAccuracy;
       return (
         didPassWpm &&
         didPassTotalWordsTyped &&

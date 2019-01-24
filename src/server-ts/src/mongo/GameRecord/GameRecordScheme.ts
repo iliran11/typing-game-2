@@ -67,7 +67,7 @@ GameRecordSchema.statics.totalWords = function(
     ])
       .then(result => {
         if (result.length === 0) {
-          resolve(-1);
+          resolve(0);
         }
         resolve(result[0].total);
       })
