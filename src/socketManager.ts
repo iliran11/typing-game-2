@@ -34,8 +34,10 @@ import {
 import AuthenticationManager from './AuthenticationManager';
 
 const socketManager: any = {
-  initSocket(dispatch: any) {
+  initSocket(dispatch: any, history: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
+    this.dispatch = dispatch;
+    this.history = history;
     const url = getServerUrl();
     const token = AuthenticationManager.appToken || null;
     const query = token ? { token } : {};
@@ -62,7 +64,6 @@ const socketManager: any = {
         type: SOCKET_HAS_DISCONNECTED
       });
     });
-    this.dispatch = dispatch;
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
       const { roomId, playersGameStatus, roomSize, isGameActive, myId } = data;
       this.dispatch({
@@ -130,6 +131,9 @@ const socketManager: any = {
         type: LOAD_ACHIEVEMENT_PROGRESS,
         payload: data
       });
+      window.setTimeout(() => {
+        this.history.push(`/game-finished/${data.roomId}`);
+      }, 2000);
     });
   },
 

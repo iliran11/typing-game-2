@@ -69,7 +69,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
     );
   }
   navigateToResult() {
-    this.props.history.push('result');
+    // this.props.history.push('result');
   }
   render() {
     if (Array.isArray(this.props.players)) {
