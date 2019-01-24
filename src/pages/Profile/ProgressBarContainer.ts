@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import ProgressBar from './ProgressBar';
-import { RootState, UserAchievementsI } from '../../types';
+import { RootState } from '../../types';
+import { UserAchievementsI } from '../../types/AchievementsTypes';
 
 const mapStateToProps = (state: RootState) => {
   // const playerId = state.authentication.playerId;

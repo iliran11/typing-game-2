@@ -8,7 +8,9 @@ import {
   Enviroments,
   PlayerGameStatus
 } from './types';
+import { AchievementsProgressI } from './types/AchievementsTypes';
 import {
+  LOAD_ACHIEVEMENT_PROGRESS,
   YOU_JOINED_ROOM,
   CONNECT_SERVER_SUCCESS,
   COMPETITOR_JOINED_ROOM,
@@ -26,7 +28,8 @@ import {
   SOCKET_HAS_CONNECTED,
   SOCKET_HAS_DISCONNECTED,
   REQUEST_TO_PLAY,
-  GAME_HAS_TIMEOUT
+  GAME_HAS_TIMEOUT,
+  NAVIGATE_RESULT
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
 
@@ -120,6 +123,12 @@ const socketManager: any = {
     this.socket.on(GAME_HAS_TIMEOUT, () => {
       this.dispatch({
         type: GAME_HAS_TIMEOUT
+      });
+    });
+    this.socket.on(NAVIGATE_RESULT, (data: AchievementsProgressI) => {
+      this.dispatch({
+        type: LOAD_ACHIEVEMENT_PROGRESS,
+        payload: data
       });
     });
   },

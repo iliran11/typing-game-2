@@ -1,4 +1,5 @@
-import { RootState, UserAchievementsI, NotificationsReducerI } from '../types';
+import { RootState } from '../types';
+import { UserAchievementsI } from '../types/AchievementsTypes';
 import {
   PLAYER_ID_PARAM,
   LOAD_PROFILE_ACHIEVEMENTS,

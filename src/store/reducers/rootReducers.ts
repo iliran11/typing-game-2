@@ -9,6 +9,7 @@ import typingReducer from '../../store/reducers/TypingsReducer';
 import userAchievments from '../../store/reducers/UserAchievmentsReducer';
 import HighlightsReducer from '../../store/reducers/HighlightsReducer';
 import NotificationsReducer from '../../store/reducers/NotificationsReducer';
+import AchievementsProgressReducer from '../../store/reducers/AchievementsProgressReducer';
 
 export default combineReducers({
   gameData,
@@ -20,5 +21,6 @@ export default combineReducers({
   typing: typingReducer,
   userAchievments,
   highlights: HighlightsReducer,
-  notificationsManager: NotificationsReducer
+  notificationsManager: NotificationsReducer,
+  achievementsProgress: AchievementsProgressReducer
 });

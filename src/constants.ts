@@ -53,6 +53,7 @@ export const LOAD_GAME_HISTORY_DATA = 'load-game-history-data';
 export const LOAD_TYPING = 'load-typing';
 export const LOAD_PROFILE_ACHIEVEMENTS = 'load-profile-achievements';
 export const LOAD_HIGHLIGHTS = 'load-highlights';
+export const LOAD_ACHIEVEMENT_PROGRESS = 'load-achievment-progress';
 
 /**
  * CONFIG

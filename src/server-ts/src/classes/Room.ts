@@ -1,5 +1,4 @@
 import Player from './Player';
-
 import BotPlayer from './BotPlayer';
 import * as io from 'socket.io';
 import ServerManager from './ServerManager';
@@ -16,11 +15,8 @@ import {
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
-import {
-  PlayerType,
-  PlayerGameStatus,
-  PlayerGameStatusFactory
-} from '../../../types';
+import { PlayerType, PlayerGameStatus } from '../../../types';
+import { AchievementsProgressI } from '../../../types/AchievementsTypes';
 import { emitToRoom } from '../utilities';
 import { createGameDocument } from '../mongo/Game/GameModel';
 import {
@@ -29,7 +25,7 @@ import {
 } from '../mongo/GameRecord/GameRecordModel';
 import { Game } from '../mongo/Game/GameModel';
 import LevelManager from './LevelManager';
-import { userPorgressDb } from '../mongo/UserProgressDb/UserProgressDb';
+import { userPorgressDb } from '../mongo/AchievementsProgress/AchievementsProgress';
 var countBy = require('lodash.countby');
 var isNil = require('lodash.isnil');
 const random = require('lodash.random');
@@ -165,7 +161,7 @@ export default class Room {
         stats,
         gameResultRecord
       );
-      const playerProgress = {
+      const playerProgress: AchievementsProgressI = {
         prevAchievement: stats,
         nextachievement: nextStats,
         roomId: this.roomInstanceId,

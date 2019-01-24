@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
-import { UserAchievementsI } from '../../../../types';
-export interface AchievementsProgressI {
-  prevAchievement: UserAchievementsI;
-  nextachievement: UserAchievementsI;
-  roomId: string;
-  timestamp: any;
-}
+import { AchievementsProgressI } from '../../../../types/AchievementsTypes';
+
 class UserProgressDb {
   private static instance: UserProgressDb;
   private scheme: any;
