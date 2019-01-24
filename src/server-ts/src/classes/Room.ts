@@ -10,7 +10,8 @@ import {
   BOT_SPAWN_RATE,
   GAME_HAS_STARTED,
   GAME_HAS_TIMEOUT,
-  GAME_TIMEOUT_DURATION
+  GAME_TIMEOUT_DURATION,
+  NAVIGATE_RESULT
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
@@ -164,12 +165,14 @@ export default class Room {
         stats,
         gameResultRecord
       );
-      userPorgressDb.createResult({
+      const playerProgress = {
         prevAchievement: stats,
         nextachievement: nextStats,
         roomId: this.roomInstanceId,
         timestamp: Date.now()
-      });
+      };
+      finishedPlayer.getSocket().emit(NAVIGATE_RESULT, playerProgress);
+      userPorgressDb.createResult(playerProgress);
       const gameRecord = await createGameRecord(gameResultRecord.serialize);
       await gameRecord.save();
       await LevelManager.processNewResult(

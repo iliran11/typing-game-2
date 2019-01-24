@@ -19,6 +19,7 @@ export const COMPETITOR_HAS_FINISHED = 'competitor-has-finished';
 export const RESTART_GAME = 'restart-game';
 export const LEAVE_GAME = 'leave-game';
 export const LOAD_REPLAY = 'load-replay';
+export const NAVIGATE_RESULT = 'navigate-to-result';
 
 export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;
