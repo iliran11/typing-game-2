@@ -175,6 +175,8 @@ export default class Room {
         finishedPlayer.playerId,
         finishedPlayer.getSocket()
       );
+    } else {
+      finishedPlayer.getSocket().emit(NAVIGATE_RESULT);
     }
   }
   get isGameActive() {

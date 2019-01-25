@@ -41,11 +41,14 @@ class App extends React.Component {
               path="/result"
               component={ResultPageContainer}
             />
-            <Route exact={true} path="/my-profile" component={MyProfilePageContainer} />
+            <Route
+              exact={true}
+              path="/my-profile"
+              component={MyProfilePageContainer}
+            />
             <Route exact={true} path="/replay" component={ReplayContainer} />
             <Route exact={true} path="/login" component={LoginPageContainer} />
             <Route
-              exact={true}
               path="/achievements-progress"
               component={AchievementProgressPageContainer}
             />

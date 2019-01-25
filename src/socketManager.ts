@@ -132,7 +132,7 @@ const socketManager: any = {
         payload: data
       });
       window.setTimeout(() => {
-        this.history.push(`/game-finished/${data.roomId}`);
+        this.history.push(`/achievements-progress/?room-id=${data.roomId}`);
       }, 2000);
     });
   },
