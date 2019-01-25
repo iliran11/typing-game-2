@@ -28,7 +28,7 @@ const mapDispatchToProps = {
   fetchReplay
 };
 
-export default connect(
+export const ReplayContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ReplayPage);

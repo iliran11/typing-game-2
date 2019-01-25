@@ -16,7 +16,7 @@ const mapStateToProps = (state: RootState) => {
 const mapDispatchToProps = {
   profileMainLoad
 };
-export default connect(
+export const MyProfilePageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(MyProfilePage);

@@ -52,7 +52,7 @@ const mapDispatchToProps = {
   restartGame
 };
 
-export default connect(
+export const ResultPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ResultPage);

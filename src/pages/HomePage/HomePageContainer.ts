@@ -7,7 +7,7 @@ const mapStateToProps = (state: any, props: any) => {
   return {};
 };
 
-export default connect(
+export const HomePageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Home);
