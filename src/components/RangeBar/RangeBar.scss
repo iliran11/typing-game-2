@@ -1,26 +1,49 @@
 @import '../../css/colors.scss';
 
+$indicator-width: 14px;
+
 .rangebar-container {
+  display: flex;
+  align-items: center;
+}
+.rangebar-label-left {
+  margin-right: 15px;
+}
+.rangebar-label-right {
+  margin-left: 15px;
+}
+.rangebar-label {
+  font-size: 13px;
+  flex: none;
+  width: 20px;
+}
+.rangebar {
   height: 8px;
   background-color: $color3;
   width: 100%;
   position: relative;
 }
 .rangebar-arrow {
-  width: 14px;
+  width: $indicator-width;
   height: 14px;
   svg {
     fill: $color1;
   }
 }
+.list-of-rangebars {
+  .rangebar-container:not(:first-child) {
+    margin-top: 30px;
+  }
+}
 .rangebar-indicator-container {
-  font-size: 10px;
+  font-size: 13px;
+  position: absolute;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 2s;
   transform: translateX(-7px);
+  width: $indicator-width;
   span {
-    margin-top:2px;
+    margin-top: 2px;
   }
 }

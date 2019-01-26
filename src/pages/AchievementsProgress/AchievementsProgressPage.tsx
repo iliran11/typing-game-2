@@ -11,7 +11,7 @@ export default class AchievementsProgressPage extends React.Component<
 > {
   public render() {
     return (
-      <div style={{ height: 400, width: '50%', marginTop: 20 }}>
+      <div className="page" style={{ marginTop: 20 }}>
         <AchievementsStats />
       </div>
     );
