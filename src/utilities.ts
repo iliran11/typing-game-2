@@ -66,5 +66,5 @@ export function pictureByFacebookId(facebookId: string, height: number = 30) {
 export function userHasAchievements(state: RootState) {
   const playerId = state.authentication.playerId;
   const userAchievements = state.userAchievments[playerId];
-  return userAchievements && userAchievements.maxWpm > -1;
+  return userAchievements && userAchievements.wpm > -1;
 }

@@ -103,10 +103,10 @@ class LevelManager {
     const playerModel = result[0];
     return {
       playerModel: result[0],
-      maxWpm: result[1],
-      totalWords: result[2],
-      totalChars: result[3],
-      maxAccuracy: result[4],
+      wpm: result[1],
+      totalWordsTyped: result[2],
+      totalCharsTyped: result[3],
+      accuracy: result[4],
       currentLevelRules: levelsMap[`level${playerModel.level}`],
       level: playerModel.level,
       ranking: -11111
@@ -123,21 +123,21 @@ class LevelManager {
     currentStats: UserAchievementsI,
     playerGameStatus: PlayerGameStatus
   ): UserAchievementsI {
-    const maxWpm = Math.max(currentStats.maxWpm, playerGameStatus.score);
-    const totalWords =
-      currentStats.totalWords + (playerGameStatus.numberOfWords || 0);
-    const totalChars =
-      currentStats.totalChars + (playerGameStatus.numberOfLetters || 0);
+    const wpm = Math.max(currentStats.wpm, playerGameStatus.score);
+    const totalWordsTyped =
+      currentStats.totalWordsTyped + (playerGameStatus.numberOfWords || 0);
+    const totalCharsTyped =
+      currentStats.totalCharsTyped + (playerGameStatus.numberOfLetters || 0);
 
-    const maxAccuracy = Math.max(
-      currentStats.maxAccuracy,
+    const accuracy = Math.max(
+      currentStats.accuracy,
       playerGameStatus.accuracy || 0
     );
     const nextUserAchievements: UserAchievementsI = {
-      maxWpm,
-      totalWords,
-      totalChars,
-      maxAccuracy,
+      wpm,
+      accuracy,
+      totalWordsTyped,
+      totalCharsTyped,
       level: currentStats.level,
       currentLevelRules: currentStats.currentLevelRules,
       ranking: -11111
@@ -168,13 +168,13 @@ class LevelManager {
     const currentLevel = userAchievments.level;
     const currentRulesSet = levelsMap[`level${currentLevel}`];
     if (currentRulesSet) {
-      const didPassWpm = currentRulesSet.wpm <= userAchievments.maxWpm;
+      const didPassWpm = currentRulesSet.wpm <= userAchievments.wpm;
       const didPassTotalWordsTyped =
-        currentRulesSet.totalWordsTyped <= userAchievments.totalWords;
+        currentRulesSet.totalWordsTyped <= userAchievments.totalWordsTyped;
       const didPassCharsTyped =
-        currentRulesSet.totalCharsTyped <= userAchievments.totalChars;
+        currentRulesSet.totalCharsTyped <= userAchievments.totalCharsTyped;
       const didPssAccuracy =
-        currentRulesSet.accuracy <= userAchievments.maxAccuracy;
+        currentRulesSet.accuracy <= userAchievments.accuracy;
       return (
         didPassWpm &&
         didPassTotalWordsTyped &&

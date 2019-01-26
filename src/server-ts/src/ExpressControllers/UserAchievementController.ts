@@ -26,17 +26,18 @@ export default function(req, res) {
   });
 }
 
-function handlePlayerStatsResponse(result) {
+function handlePlayerStatsResponse(result): UserAchievementsI {
   const computedResult = [...result];
   computedResult[0] = result[0].level;
   const level = result[0].level;
   const currentLevelRules = levelsMap[`level${level}`];
   return {
     level: result[0].level,
-    maxWpm: result[1],
-    totalWords: result[2],
-    totalChars: result[3],
-    maxAccuracy: result[4],
-    currentLevelRules
+    wpm: result[1],
+    totalWordsTyped: result[2],
+    totalCharsTyped: result[3],
+    accuracy: result[4],
+    currentLevelRules,
+    ranking: -1
   };
 }

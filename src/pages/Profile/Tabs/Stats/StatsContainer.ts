@@ -12,10 +12,10 @@ const mapStateToProps = (state: RootState, props: any) => {
     accuracy: targetAccuracy
   } = userAchievments.currentLevelRules;
   return {
-    currentWpm: userAchievments.maxWpm,
-    currentAccuracy: userAchievments.maxAccuracy,
-    currentTotalWordsTyped: userAchievments.totalWords,
-    currentTotalTyped: userAchievments.totalChars,
+    currentWpm: userAchievments.wpm,
+    currentAccuracy: userAchievments.accuracy,
+    currentTotalWordsTyped: userAchievments.totalWordsTyped,
+    currentTotalTyped: userAchievments.totalCharsTyped,
     targetWpm,
     targetAccuracy,
     targetTotalWordsTyped,

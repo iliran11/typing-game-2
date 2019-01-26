@@ -14,11 +14,11 @@ export interface AchievementsProgressI {
 }
 
 export interface UserAchievementsI {
+  wpm: number;
+  accuracy: number;
+  totalWordsTyped: number;
+  totalCharsTyped: number;
   level: number;
-  maxWpm: number;
-  totalWords: number;
-  totalChars: number;
-  maxAccuracy: number;
   currentLevelRules: LevelRulesI;
   ranking: number;
 }

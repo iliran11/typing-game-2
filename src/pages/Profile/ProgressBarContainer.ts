@@ -21,22 +21,22 @@ export default connect(
 function calculateUserProgress(userAchievments: UserAchievementsI): number {
   let completedTasks = 0;
   const {
-    maxAccuracy,
-    totalChars,
-    totalWords,
-    maxWpm,
+    accuracy,
+    totalCharsTyped,
+    totalWordsTyped,
+    wpm,
     currentLevelRules
   } = userAchievments;
-  if (maxAccuracy > currentLevelRules.accuracy) {
+  if (accuracy > currentLevelRules.accuracy) {
     completedTasks++;
   }
-  if (totalChars > currentLevelRules.totalCharsTyped) {
+  if (totalCharsTyped > currentLevelRules.totalCharsTyped) {
     completedTasks++;
   }
-  if (totalWords > currentLevelRules.totalWordsTyped) {
+  if (totalWordsTyped > currentLevelRules.totalWordsTyped) {
     completedTasks++;
   }
-  if (maxWpm > currentLevelRules.wpm) {
+  if (wpm > currentLevelRules.wpm) {
     completedTasks++;
   }
   return completedTasks / 4;
