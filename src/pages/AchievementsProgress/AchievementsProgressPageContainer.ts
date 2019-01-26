@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import AchievementProgress from './AchievementsProgressPage';
-import { RangeBarProps } from '../../components/RangeBar/RangeBar';
+import AchievementProgress, {
+  ProgressSectionI
+} from './AchievementsProgressPage';
 import { ROOM_ID_PARM } from '../../constants';
 import { RootState } from '../../types';
 import {
@@ -12,30 +13,31 @@ const queryString = require('query-string');
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, ownProps: any) => {
   const roomId = queryString.parse(ownProps.location.search)[ROOM_ID_PARM];
-  const achievementProgress = getRangeBarProps(
+  const achievementsProgress = getRangeBarProps(
     state.achievementsProgress[roomId]
   );
-  return { roomId, achievementProgress };
+  return { roomId, achievementsProgress };
 };
 export const AchievementProgressPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(AchievementProgress);
 
-function getRangeBarProps(data: AchievementsProgressI): RangeBarProps[] {
+function getRangeBarProps(data: AchievementsProgressI): ProgressSectionI[] {
   const prevAchievements = data.prevAchievement;
   const nextAchievements = data.nextachievement;
-  let result: RangeBarProps[] = [];
+  let result: ProgressSectionI[] = [];
   for (var key in nextAchievements) {
     if (rangeAbleProperties[key]) {
-      const prevValue = nextAchievements[key];
-      const nextValue = prevAchievements[key];
+      const nextValue = nextAchievements[key];
+      const prevValue = prevAchievements[key];
       console.log(prevAchievements, prevValue, key);
       result.push({
         initialValue: prevValue,
         currentValue: nextValue,
-        barStartValue: 0,
-        barEndValue: 10000,
+        barStartValue: prevAchievements.currentLevelRules[key],
+        barEndValue: nextAchievements.currentLevelRules[key],
+        title: key,
         duration: 5000
       });
     }

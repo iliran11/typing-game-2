@@ -5,7 +5,10 @@ import { RangeBar, RangeBarProps } from '../../components/RangeBar/RangeBar';
 
 export interface AchievementsProgressPageProps {
   roomId: string;
-  achievementsProgress: RangeBarProps[];
+  achievementsProgress: ProgressSectionI[];
+}
+export interface ProgressSectionI extends RangeBarProps {
+  title: string;
 }
 
 export default class AchievementsProgressPage extends React.Component<
@@ -15,7 +18,27 @@ export default class AchievementsProgressPage extends React.Component<
   public render() {
     return (
       <div className="page" style={{ marginTop: 20 }}>
-        <AchievementsStats />
+        {this.props.achievementsProgress.map(progress => {
+          const {
+            initialValue,
+            currentValue,
+            barStartValue,
+            barEndValue,
+            duration
+          } = progress;
+          return (
+            <div>
+              <h5>{progress.title}</h5>
+              <RangeBar
+                initialValue={Math.min(initialValue, barEndValue)}
+                currentValue={Math.min(currentValue, barEndValue)}
+                barStartValue={barStartValue}
+                barEndValue={barEndValue}
+                duration={duration}
+              />
+            </div>
+          );
+        })}
       </div>
     );
   }

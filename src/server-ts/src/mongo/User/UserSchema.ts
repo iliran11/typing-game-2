@@ -6,7 +6,7 @@ const UserScheme = mongoose.Schema({
   lastName: String,
   id: String,
   picture: String,
-  level: { type: Number, default: 1 }
+  level: { type: Number, default: 0 }
 });
 UserScheme.statics.findById = function(id: String) {
   return new Promise(resolve => {

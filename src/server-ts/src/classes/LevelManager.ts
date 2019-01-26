@@ -13,12 +13,20 @@ interface UserAchievmentsWithModel extends UserAchievementsI {
 }
 
 export const levelsMap: LevelsMap = {
+  level0: {
+    level: 0,
+    wpm: 0,
+    accuracy: 0,
+    totalWordsTyped: 0,
+    totalCharsTyped: 0,
+    text: 'level 0'
+  },
   level1: {
     level: 1,
-    wpm: 1,
-    accuracy: 0.1,
-    totalWordsTyped: 1,
-    totalCharsTyped: 1,
+    wpm: 20,
+    accuracy: 60,
+    totalWordsTyped: 5,
+    totalCharsTyped: 15,
     text: 'level 1'
   },
   level2: {
@@ -133,13 +141,18 @@ class LevelManager {
       currentStats.accuracy,
       playerGameStatus.accuracy || 0
     );
+    const nextLevel = currentStats.level + 1;
+    // TODO: find more intuitive solution ...
+    // can be hard to figure out that the updated stats contains the next level rules.
+    const nextLevelRules = levelsMap[`level${nextLevel}`];
+
     const nextUserAchievements: UserAchievementsI = {
       wpm,
       accuracy,
       totalWordsTyped,
       totalCharsTyped,
       level: currentStats.level,
-      currentLevelRules: currentStats.currentLevelRules,
+      currentLevelRules: nextLevelRules,
       ranking: -11111
     };
     const hasPromoted = LevelManager.shouldPlayerLevelUp(nextUserAchievements);

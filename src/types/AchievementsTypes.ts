@@ -22,11 +22,17 @@ export interface UserAchievementsI {
   currentLevelRules: LevelRulesI;
   ranking: number;
 }
+// export interface AchievementsI {
+//   wpm: number;
+//   accuracy: number;
+//   totalWordsTyped: number;
+//   totalCharsTyped: number;
+// }
 
 // properties in UserAchievementsI that can be displayed as a range/progress
 export const rangeAbleProperties = {
-  maxWpm: true,
-  totalWords: true,
-  totalChars: true,
-  maxAccuracy: true
+  wpm: true,
+  totalWordsTyped: true,
+  totalCharsTyped: true,
+  accuracy: true
 };
