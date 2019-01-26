@@ -8,15 +8,22 @@ import {
   AchievementsProgressI,
   rangeAbleProperties
 } from '../../types/AchievementsTypes';
+import get from 'lodash.get';
 const queryString = require('query-string');
 
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, ownProps: any) => {
   const roomId = queryString.parse(ownProps.location.search)[ROOM_ID_PARM];
-  const achievementsProgress = getRangeBarProps(
-    state.achievementsProgress[roomId]
-  );
-  return { roomId, achievementsProgress };
+  const achievementsProgress = state.achievementsProgress[roomId];
+  const results = achievementsProgress
+    ? getRangeBarProps(achievementsProgress)
+    : [];
+  return {
+    roomId,
+    achievementsProgress: results,
+    prevLevel: get(achievementsProgress, ['prevAchievement', 'level']),
+    nextLevel: get(achievementsProgress, ['nextachievement', 'level'])
+  };
 };
 export const AchievementProgressPageContainer = connect(
   mapStateToProps,

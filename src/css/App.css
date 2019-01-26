@@ -12,7 +12,12 @@
   background-color: #fdffff;
 }
 #logo-toolbar {
-  width:120px;
+  width: 120px;
   margin: auto;
   transform: translateX(16px);
+}
+.conffeti-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }

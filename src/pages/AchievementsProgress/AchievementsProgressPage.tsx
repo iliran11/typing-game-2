@@ -2,6 +2,7 @@ import * as React from 'react';
 import { AchievementsStats } from '../../components/AchievementStats/AchievementsStats';
 import { AchievementsProgressI } from '../../types/AchievementsTypes';
 import { RangeBar, RangeBarProps } from '../../components/RangeBar/RangeBar';
+import Confetti from 'react-dom-confetti';
 
 export interface AchievementsProgressPageProps {
   roomId: string;
@@ -10,11 +11,33 @@ export interface AchievementsProgressPageProps {
 export interface ProgressSectionI extends RangeBarProps {
   title: string;
 }
+interface AchievementsProgressPageState {
+  confetti: boolean;
+}
+
+const config = {
+  angle: 90,
+  spread: 45,
+  startVelocity: 45,
+  elementCount: 50,
+  decay: 0.9
+};
 
 export default class AchievementsProgressPage extends React.Component<
   AchievementsProgressPageProps,
-  any
+  AchievementsProgressPageState
 > {
+  constructor(props: AchievementsProgressPageProps) {
+    super(props);
+    this.state = {
+      confetti: false
+    };
+  }
+  componentDidMount() {
+    window.setTimeout(() => {
+      this.setState({ confetti: true });
+    }, 2000);
+  }
   public render() {
     return (
       <div className="page" style={{ marginTop: 20 }}>
@@ -39,6 +62,9 @@ export default class AchievementsProgressPage extends React.Component<
             </div>
           );
         })}
+        <div className="conffeti-container">
+          <Confetti active={this.state.confetti} config={config} />
+        </div>
       </div>
     );
   }
