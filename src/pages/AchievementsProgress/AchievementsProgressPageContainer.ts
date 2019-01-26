@@ -38,7 +38,7 @@ function getRangeBarProps(data: AchievementsProgressI): ProgressSectionI[] {
         barStartValue: prevAchievements.currentLevelRules[key],
         barEndValue: nextAchievements.currentLevelRules[key],
         title: key,
-        duration: 5000
+        duration: 2000
       });
     }
   }

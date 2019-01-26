@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './RangeBar.scss';
 import { Arrow } from './Arrow';
+import checkedIcon from '../../assets/checked.svg';
 
 export interface RangeBarProps {
   initialValue: number;
@@ -14,6 +15,7 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
   arrowRef: any;
   rangebarRef: any;
   indicatorValueRef: any;
+  checkedRef: any;
   rangeTravel: number;
   startTime: number;
   fractionDuration: number;
@@ -27,6 +29,7 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
     this.arrowRef = React.createRef();
     this.rangebarRef = React.createRef();
     this.indicatorValueRef = React.createRef();
+    this.checkedRef = React.createRef();
     this.animate = this.animate.bind(this);
   }
   // gets the fraction of time that passed (0 at start, 1 at the end) and returns the animation completion.
@@ -57,6 +60,10 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
     this.valueDraw(valueProgress);
     if (timeFraction < 1) {
       requestAnimationFrame(this.animate);
+    } else {
+      if (this.props.currentValue >= this.props.barEndValue) {
+        this.checkedRef.current.classList.add('visible');
+      }
     }
   }
   componentDidMount() {
@@ -71,9 +78,11 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
     const fractionPath = (currentValue - initialValue) / this.totalRange;
     this.rangeTravel = rangebarWidth * fractionPath;
     this.fractionDuration = this.props.duration * fractionPath;
-    window.setTimeout(() => {
-      requestAnimationFrame(this.animate);
-    }, 0);
+    if (currentValue != initialValue) {
+      window.setTimeout(() => {
+        requestAnimationFrame(this.animate);
+      }, 0);
+    }
   }
   get totalRange() {
     return this.props.barEndValue - this.props.barStartValue;
@@ -88,10 +97,15 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
       left: `${leftPercent * 100}%`
     };
   }
+  get showChecked() {
+    return this.props.initialValue >= this.props.barEndValue ? 'visible' : '';
+  }
   public render() {
     return (
       <div className="rangebar-container">
-        <span className="rangebar-label rangebar-label-left">{this.props.barStartValue}</span>
+        <span className="rangebar-label rangebar-label-left">
+          {this.props.barStartValue}
+        </span>
         <div className="rangebar" ref={this.rangebarRef}>
           <div
             className="rangebar-indicator-container"
@@ -99,10 +113,21 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
             style={this.arrowStyle}
           >
             <Arrow />
-            <span ref={this.indicatorValueRef} />
+            <span className="rangebar-moving-result">
+              <span ref={this.indicatorValueRef}>
+                {this.props.initialValue}
+              </span>
+              <img
+                className={`rangebar-checked-img ${this.showChecked}`}
+                src={checkedIcon}
+                ref={this.checkedRef}
+              />
+            </span>
           </div>
         </div>
-        <span className="rangebar-label rangebar-label-right">{this.props.barEndValue}</span>
+        <span className="rangebar-label rangebar-label-right">
+          {this.props.barEndValue}
+        </span>
       </div>
     );
   }

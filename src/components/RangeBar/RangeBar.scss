@@ -47,3 +47,18 @@ $indicator-width: 14px;
     margin-top: 2px;
   }
 }
+.rangebar-moving-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: $indicator-width;
+  }
+}
+
+.rangebar-checked-img {
+  display: none;
+  &.visible {
+    display: initial;
+  }
+}

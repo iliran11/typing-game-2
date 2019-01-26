@@ -147,7 +147,7 @@ export default class Room {
       timePassedMinutes: this.timePassedMinutes,
       finishedTimeStamp: this.roomStartTimestamp,
       gameDuration: timestampNow - this.roomStartTimestamp,
-      accuracy: getRawLetters.length / numberOfTypings,
+      accuracy: (getRawLetters.length / numberOfTypings) * 100,
       numberOfTypings: numberOfTypings,
       numberOfLetters: getRawLetters.length,
       numberOfWords: numberOfWords,

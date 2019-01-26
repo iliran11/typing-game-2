@@ -24,34 +24,34 @@ export const levelsMap: LevelsMap = {
   level1: {
     level: 1,
     wpm: 20,
-    accuracy: 60,
-    totalWordsTyped: 5,
-    totalCharsTyped: 15,
+    accuracy: 10,
+    totalWordsTyped: 2,
+    totalCharsTyped: 2,
     text: 'level 1'
   },
   level2: {
     level: 10,
-    wpm: 20,
-    accuracy: 0.2,
+    wpm: 40,
+    accuracy: 20,
     totalWordsTyped: 10,
     totalCharsTyped: 20,
-    text: 'level 1'
+    text: 'level 2'
   },
   level3: {
     level: 2,
-    wpm: 42,
-    accuracy: 0.2,
+    wpm: 50,
+    accuracy: 30,
     totalWordsTyped: 50,
     totalCharsTyped: 100,
-    text: 'level 2'
+    text: 'level 3'
   },
   level4: {
     level: 3,
-    wpm: 50,
-    accuracy: 0.4,
+    wpm: 60,
+    accuracy: 40,
     totalWordsTyped: 100,
     totalCharsTyped: 150,
-    text: 'level 2'
+    text: 'level 4'
   }
 };
 
@@ -115,7 +115,8 @@ class LevelManager {
       totalWordsTyped: result[2],
       totalCharsTyped: result[3],
       accuracy: result[4],
-      currentLevelRules: levelsMap[`level${playerModel.level}`],
+      // sending the prev ruleset is needed for progress view
+      currentLevelRules: levelsMap[`level${playerModel.level - 1}`],
       level: playerModel.level,
       ranking: -11111
     };
@@ -141,10 +142,9 @@ class LevelManager {
       currentStats.accuracy,
       playerGameStatus.accuracy || 0
     );
-    const nextLevel = currentStats.level + 1;
     // TODO: find more intuitive solution ...
     // can be hard to figure out that the updated stats contains the next level rules.
-    const nextLevelRules = levelsMap[`level${nextLevel}`];
+    const nextLevelRules = levelsMap[`level${currentStats.level}`];
 
     const nextUserAchievements: UserAchievementsI = {
       wpm,
