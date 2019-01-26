@@ -1,5 +1,6 @@
 import { UserAchievmentsReducerI } from './types/AchievementsTypes';
 import Letter from './store/classes/lettterData';
+import { AchievementsProgressReducer } from './types/AchievementsTypes';
 export interface JoiningRoomResponse {
   roomId: number;
   playersGameStatus: PlayerGameStatus[];
@@ -173,6 +174,7 @@ export interface RootState {
   readonly replays: ReplayReducer;
   readonly typing: TypingReducerI;
   readonly userAchievments: UserAchievmentsReducerI;
+  readonly achievementsProgress: AchievementsProgressReducer;
   readonly highlights: HighlightsMapping;
   readonly notificationsManager: NotificationsReducerI;
 }

@@ -71,7 +71,6 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
     const fractionPath = (currentValue - initialValue) / this.totalRange;
     this.rangeTravel = rangebarWidth * fractionPath;
     this.fractionDuration = this.props.duration * fractionPath;
-    console.log(this.fractionDuration);
     window.setTimeout(() => {
       requestAnimationFrame(this.animate);
     }, 0);
@@ -83,7 +82,6 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
     return this.props.currentValue - this.props.initialValue;
   }
   get arrowStyle() {
-    console.log(this.props.initialValue, this.totalRange);
     const leftPercent =
       (this.props.initialValue - this.props.barStartValue) / this.totalRange;
     return {
