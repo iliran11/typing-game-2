@@ -9,6 +9,7 @@ export interface RangeBarProps {
   barStartValue: number;
   barEndValue: number;
   duration: number;
+  onCompletion: any;
 }
 
 export class RangeBar extends React.PureComponent<RangeBarProps, any> {
@@ -64,6 +65,7 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
       if (this.props.currentValue >= this.props.barEndValue) {
         this.checkedRef.current.classList.add('visible');
       }
+      this.props.onCompletion();
     }
   }
   componentDidMount() {
@@ -82,6 +84,8 @@ export class RangeBar extends React.PureComponent<RangeBarProps, any> {
       window.setTimeout(() => {
         requestAnimationFrame(this.animate);
       }, 0);
+    } else {
+      this.props.onCompletion();
     }
   }
   get totalRange() {

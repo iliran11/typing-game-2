@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { AchievementsStats } from '../../components/AchievementStats/AchievementsStats';
 import { AchievementsProgressI } from '../../types/AchievementsTypes';
 import { RangeBar, RangeBarProps } from '../../components/RangeBar/RangeBar';
 import Confetti from 'react-dom-confetti';
@@ -27,16 +26,22 @@ export default class AchievementsProgressPage extends React.Component<
   AchievementsProgressPageProps,
   AchievementsProgressPageState
 > {
+  completedBars: number;
   constructor(props: AchievementsProgressPageProps) {
     super(props);
     this.state = {
       confetti: false
     };
+    this.onBarCompletion = this.onBarCompletion.bind(this);
+    this.completedBars = 0;
   }
-  componentDidMount() {
-    window.setTimeout(() => {
-      this.setState({ confetti: true });
-    }, 2000);
+  onBarCompletion() {
+    this.completedBars++;
+    if (this.completedBars === this.props.achievementsProgress.length) {
+      this.setState({
+        confetti: true
+      });
+    }
   }
   public render() {
     return (
@@ -58,6 +63,7 @@ export default class AchievementsProgressPage extends React.Component<
                 barStartValue={barStartValue}
                 barEndValue={barEndValue}
                 duration={duration}
+                onCompletion={this.onBarCompletion}
               />
             </div>
           );

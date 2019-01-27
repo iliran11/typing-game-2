@@ -38,14 +38,14 @@ function getRangeBarProps(data: AchievementsProgressI): ProgressSectionI[] {
     if (rangeAbleProperties[key]) {
       const nextValue = nextAchievements[key];
       const prevValue = prevAchievements[key];
-      console.log(prevAchievements, prevValue, key);
       result.push({
         initialValue: prevValue,
         currentValue: nextValue,
         barStartValue: prevAchievements.currentLevelRules[key],
         barEndValue: nextAchievements.currentLevelRules[key],
         title: key,
-        duration: 2000
+        duration: 2000,
+        onCompletion: null
       });
     }
   }
