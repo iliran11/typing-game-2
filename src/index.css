@@ -20,7 +20,7 @@ html {
 *:after {
   box-sizing: inherit;
 }
-#app-toolbar img {
+.toolbar-icons {
   height: 25px;
   width: 25px;
 }

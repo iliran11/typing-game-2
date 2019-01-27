@@ -30,7 +30,7 @@ class LoginButton extends PureComponent<Props, {}> {
       <button
         className="button-flat"
         onClick={this.onClick}
-        style={{ fontSize: 16 }}
+        style={{ fontSize: 14 }}
       >
         Sign Up
       </button>

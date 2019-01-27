@@ -9,16 +9,14 @@ import {
   BOT_SPAWN_RATE,
   GAME_HAS_STARTED,
   GAME_HAS_TIMEOUT,
-  GAME_TIMEOUT_DURATION
+  GAME_TIMEOUT_DURATION,
+  NAVIGATE_RESULT
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
-import {
-  PlayerType,
-  PlayerGameStatus,
-  PlayerGameStatusFactory
-} from '../../../types';
+import { PlayerType, PlayerGameStatus } from '../../../types';
+import { AchievementsProgressI } from '../../../types/AchievementsTypes';
 import { emitToRoom } from '../utilities';
 import { createGameDocument } from '../mongo/Game/GameModel';
 import {
@@ -27,6 +25,7 @@ import {
 } from '../mongo/GameRecord/GameRecordModel';
 import { Game } from '../mongo/Game/GameModel';
 import LevelManager from './LevelManager';
+import { userPorgressDb } from '../mongo/AchievementsProgress/AchievementsProgress';
 var countBy = require('lodash.countby');
 var isNil = require('lodash.isnil');
 const random = require('lodash.random');
@@ -135,7 +134,7 @@ export default class Room {
     // if there is 1 non-null value in the array, it means one player already finished. so we are number 2 (hench the +1)
     return (map.false || 0) + 1;
   }
-  playerHasFinished(finishedPlayer: Player) {
+  async playerHasFinished(finishedPlayer: Player) {
     const playerIndex = this.players.findIndex((gamePlayer: Player) => {
       return gamePlayer.getName === finishedPlayer.getName;
     });
@@ -148,7 +147,7 @@ export default class Room {
       timePassedMinutes: this.timePassedMinutes,
       finishedTimeStamp: this.roomStartTimestamp,
       gameDuration: timestampNow - this.roomStartTimestamp,
-      accuracy: getRawLetters.length / numberOfTypings,
+      accuracy: (getRawLetters.length / numberOfTypings) * 100,
       numberOfTypings: numberOfTypings,
       numberOfLetters: getRawLetters.length,
       numberOfWords: numberOfWords,
@@ -157,14 +156,27 @@ export default class Room {
     });
     this.finalScores[playerIndex] = gameResultRecord;
     if (finishedPlayer.isAuthenticated) {
-      createGameRecord(gameResultRecord.serialize)
-        .save()
-        .then(() => {
-          LevelManager.processNewResult(
-            finishedPlayer.playerId,
-            finishedPlayer.getSocket()
-          );
-        });
+      const stats = await LevelManager.getPlayerStats(finishedPlayer.playerId);
+      const nextStats = LevelManager.calculateNextStats(
+        stats,
+        gameResultRecord
+      );
+      const playerProgress: AchievementsProgressI = {
+        prevAchievement: stats,
+        nextachievement: nextStats,
+        roomId: this.roomInstanceId,
+        timestamp: Date.now()
+      };
+      finishedPlayer.getSocket().emit(NAVIGATE_RESULT, playerProgress);
+      userPorgressDb.createResult(playerProgress);
+      const gameRecord = await createGameRecord(gameResultRecord.serialize);
+      await gameRecord.save();
+      await LevelManager.processNewResult(
+        finishedPlayer.playerId,
+        finishedPlayer.getSocket()
+      );
+    } else {
+      finishedPlayer.getSocket().emit(NAVIGATE_RESULT);
     }
   }
   get isGameActive() {

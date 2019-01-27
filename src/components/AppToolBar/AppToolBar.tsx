@@ -9,7 +9,7 @@ import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContai
 import backbutton from '../../assets/backbutton.svg';
 import socketManager from '../../socketManager';
 import AuthenticationManager from '../../AuthenticationManager';
-
+import tcLogo from '../../assets/TClogo.svg';
 export interface AppToolBarProps extends PageProps {
   firstName: string;
   lastName: string;
@@ -95,16 +95,18 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
   render() {
     return (
       <div id="app-toolbar">
-        <AppBar position="static" color="default">
+        <AppBar
+          position="static"
+          color="default"
+          classes={{ colorDefault: 'toolbar-default-color' }}
+        >
           <Toolbar>
             <DebugDialog />
             {this.shouldShowBackbutton && (
-              <img src={backbutton} onClick={this.onBack} />
+              <img className="toolbar-icons" src={backbutton} onClick={this.onBack} />
             )}
             <div id="toolbar-layout">
-              <Typography variant="h6" color="inherit">
-                Typing Coacher
-              </Typography>
+              <img src={tcLogo} id="logo-toolbar" />
               {this.props.loggedIn === LoginStatus.loggedIn &&
                 this.shouldShowAvatar && (
                   <ActiveUserAvatar

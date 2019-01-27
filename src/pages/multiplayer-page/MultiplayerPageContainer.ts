@@ -9,7 +9,7 @@ const mapStateToProps = (state: RootState, props: any) => {
     isSocketConnected: state.serverStatus.socketConnected
   };
 };
-export default connect(
+export const MultiplayerPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(MultiplayerPage);

@@ -3,18 +3,19 @@ import './css/App.css';
 import './css/shadows.css';
 import './css/gradients.css';
 import './css/utilities.scss';
-import MultiplayerPage from './pages/multiplayer-page/MultiplayerPageContainer';
-import ResultPage from './pages/ResultPage/ResultPageContainer';
-import ProfilePage from './pages/Profile/ProfilePageContainer';
-import GamesHistory from './pages/GamesHistory/GamesHistoryContainer';
-import Home from './pages/HomePage/HomePageContainer';
-import ReplayPage from './pages/Replay/ReplayContainer';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBarContainer';
 import AuthenticationManager from './AuthenticationManager';
-import LoginPage from './pages/loginPage/LoginPageContainer';
 import GlobalBlockingAlerts from './components/BlockingAlert/GlobalBlockingAlertsContainer';
-
+import {
+  MultiplayerPageContainer,
+  ResultPageContainer,
+  MyProfilePageContainer,
+  HomePageContainer,
+  ReplayContainer,
+  LoginPageContainer,
+  AchievementProgressPageContainer
+} from './pages';
 class App extends React.Component {
   authenticationManager: AuthenticationManager;
   constructor(props: any) {
@@ -29,16 +30,27 @@ class App extends React.Component {
         <Router>
           <Fragment>
             <Route path="/" component={AppToolbar} />
-            <Route exact={true} path="/" component={Home} />
-            <Route xact={true} path="/game" component={MultiplayerPage} />
-            <Route exact={true} path="/result" component={ResultPage} />
-            <Route exact={true} path="/my-profile" component={ProfilePage} />
-            <Route exact={true} path="/replay" component={ReplayPage} />
-            <Route exact={true} path="/login" component={LoginPage} />
+            <Route exact={true} path="/" component={HomePageContainer} />
+            <Route
+              xact={true}
+              path="/game"
+              component={MultiplayerPageContainer}
+            />
             <Route
               exact={true}
-              path="/games-history"
-              component={GamesHistory}
+              path="/result"
+              component={ResultPageContainer}
+            />
+            <Route
+              exact={true}
+              path="/my-profile"
+              component={MyProfilePageContainer}
+            />
+            <Route exact={true} path="/replay" component={ReplayContainer} />
+            <Route exact={true} path="/login" component={LoginPageContainer} />
+            <Route
+              path="/achievements-progress"
+              component={AchievementProgressPageContainer}
             />
           </Fragment>
         </Router>

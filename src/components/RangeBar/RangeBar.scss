@@ -1,0 +1,64 @@
+@import '../../css/colors.scss';
+
+$indicator-width: 14px;
+
+.rangebar-container {
+  display: flex;
+  align-items: center;
+}
+.rangebar-label-left {
+  margin-right: 15px;
+}
+.rangebar-label-right {
+  margin-left: 15px;
+}
+.rangebar-label {
+  font-size: 13px;
+  flex: none;
+  width: 20px;
+}
+.rangebar {
+  height: 8px;
+  background-color: $color3;
+  width: 100%;
+  position: relative;
+}
+.rangebar-arrow {
+  width: $indicator-width;
+  height: 14px;
+  svg {
+    fill: $color1;
+  }
+}
+.list-of-rangebars {
+  .rangebar-container:not(:first-child) {
+    margin-top: 30px;
+  }
+}
+.rangebar-indicator-container {
+  font-size: 13px;
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-7px);
+  width: $indicator-width;
+  span {
+    margin-top: 2px;
+  }
+}
+.rangebar-moving-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: $indicator-width;
+  }
+}
+
+.rangebar-checked-img {
+  display: none;
+  &.visible {
+    display: initial;
+  }
+}

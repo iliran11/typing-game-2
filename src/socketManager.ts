@@ -8,7 +8,9 @@ import {
   Enviroments,
   PlayerGameStatus
 } from './types';
+import { AchievementsProgressI } from './types/AchievementsTypes';
 import {
+  LOAD_ACHIEVEMENT_PROGRESS,
   YOU_JOINED_ROOM,
   CONNECT_SERVER_SUCCESS,
   COMPETITOR_JOINED_ROOM,
@@ -26,13 +28,16 @@ import {
   SOCKET_HAS_CONNECTED,
   SOCKET_HAS_DISCONNECTED,
   REQUEST_TO_PLAY,
-  GAME_HAS_TIMEOUT
+  GAME_HAS_TIMEOUT,
+  NAVIGATE_RESULT
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
 
 const socketManager: any = {
-  initSocket(dispatch: any) {
+  initSocket(dispatch: any, history: any) {
     // this.socket = socketIo.connect('http://localhost:4001');
+    this.dispatch = dispatch;
+    this.history = history;
     const url = getServerUrl();
     const token = AuthenticationManager.appToken || null;
     const query = token ? { token } : {};
@@ -59,7 +64,6 @@ const socketManager: any = {
         type: SOCKET_HAS_DISCONNECTED
       });
     });
-    this.dispatch = dispatch;
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
       const { roomId, playersGameStatus, roomSize, isGameActive, myId } = data;
       this.dispatch({
@@ -121,6 +125,15 @@ const socketManager: any = {
       this.dispatch({
         type: GAME_HAS_TIMEOUT
       });
+    });
+    this.socket.on(NAVIGATE_RESULT, (data: AchievementsProgressI) => {
+      this.dispatch({
+        type: LOAD_ACHIEVEMENT_PROGRESS,
+        payload: data
+      });
+      window.setTimeout(() => {
+        this.history.push(`/achievements-progress/?room-id=${data.roomId}`);
+      }, 2000);
     });
   },
 

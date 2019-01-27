@@ -1,4 +1,6 @@
+import { UserAchievmentsReducerI } from './types/AchievementsTypes';
 import Letter from './store/classes/lettterData';
+import { AchievementsProgressReducer } from './types/AchievementsTypes';
 export interface JoiningRoomResponse {
   roomId: number;
   playersGameStatus: PlayerGameStatus[];
@@ -172,6 +174,7 @@ export interface RootState {
   readonly replays: ReplayReducer;
   readonly typing: TypingReducerI;
   readonly userAchievments: UserAchievmentsReducerI;
+  readonly achievementsProgress: AchievementsProgressReducer;
   readonly highlights: HighlightsMapping;
   readonly notificationsManager: NotificationsReducerI;
 }
@@ -249,10 +252,6 @@ export interface IGamesHistoryReducer {
   readonly [gameId: string]: GameModelInterface;
 }
 
-export interface UserAchievmentsReducerI {
-  readonly [userId: string]: UserAchievementsI;
-}
-
 export interface GameRecordsModel {
   results: PlayerGameStatus[];
   gameInstanceId: string;
@@ -291,15 +290,6 @@ export interface LevelRulesI {
   totalWordsTyped: number;
   totalCharsTyped: number;
   text: string;
-}
-export interface UserAchievementsI {
-  level: number;
-  maxWpm: number;
-  totalWords: number;
-  totalChars: number;
-  maxAccuracy: number;
-  currentLevelRules: LevelRulesI;
-  ranking: number;
 }
 
 export interface HightLightItemI {

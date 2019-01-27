@@ -11,13 +11,13 @@
   },
   "rules": {
     "ordered-imports": false,
-    "object-literal-sort-keys":false,
+    "object-literal-sort-keys": false,
     "interface-name": false,
     "member-access": [true, "no-public"],
-    "array-type":false,
-    "class-name":false,
-    "only-arrow-functions":false,
-    "no-var-requires": false
-    
+    "array-type": false,
+    "class-name": false,
+    "only-arrow-functions": false,
+    "no-var-requires": false,
+    "suppressImplicitAnyIndexErrors": true
   }
 }

@@ -15,7 +15,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-export default connect(
+export const GamesHistoryContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(GamesHistory);

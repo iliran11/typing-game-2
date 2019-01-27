@@ -1,19 +1,35 @@
+@import '../../css/colors.scss';
+
 #home-page {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  .home-page-buttons {
+    max-width: 600px;
+    background-color: #f5f5f5;
+    color: $color1;
+  }
 }
 
 #home-page p {
   font-size: 22px;
-  color: #618648;
+  color: $color1;
+  max-width: 320px;
+  margin-top: 15px;
+  font-weight: 900;
+  margin-bottom: 0px;
+  min-height:66px;
 }
 #keyboard {
   width: 300px;
-  margin-top: 20px;
+  margin-top: 12px;
 }
 #compete-now {
+  margin-top: 24px;
+}
+#typing-test {
   margin-top: 20px;
 }
 
@@ -46,6 +62,11 @@
   flex: 15 1 auto;
 }
 @media (min-width: 992px) {
+  #home-page p {
+    font-size: 44px;
+    max-width: initial;
+    margin-top: 60px;
+  }
   #keyboard {
     width: 600px;
   }

@@ -1,5 +1,5 @@
 import { LOAD_PROFILE_ACHIEVEMENTS } from '../../constants';
-import { UserAchievmentsReducerI } from '../../types';
+import { UserAchievmentsReducerI } from '../../types/AchievementsTypes';
 
 const initialState: UserAchievmentsReducerI = {};
 

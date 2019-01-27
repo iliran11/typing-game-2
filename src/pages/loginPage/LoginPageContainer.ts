@@ -8,7 +8,7 @@ const mapStateToProps = (state: RootState) => {
     connectionStatus: state.authentication.loggedIn
   };
 };
-export default connect(
+export const LoginPageContainer = connect(
   mapStateToProps,
   { loginInProgress }
 )(LoginPage);

@@ -19,6 +19,7 @@ export const COMPETITOR_HAS_FINISHED = 'competitor-has-finished';
 export const RESTART_GAME = 'restart-game';
 export const LEAVE_GAME = 'leave-game';
 export const LOAD_REPLAY = 'load-replay';
+export const NAVIGATE_RESULT = 'navigate-to-result';
 
 export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;
@@ -52,10 +53,11 @@ export const LOAD_GAME_HISTORY_DATA = 'load-game-history-data';
 export const LOAD_TYPING = 'load-typing';
 export const LOAD_PROFILE_ACHIEVEMENTS = 'load-profile-achievements';
 export const LOAD_HIGHLIGHTS = 'load-highlights';
+export const LOAD_ACHIEVEMENT_PROGRESS = 'load-achievment-progress';
 
 /**
  * CONFIG
  */
 export const MAX_WPM_GAUGE = 80;
-export const MAX_PLAYERS_PER_ROOM = 4;
+export const MAX_PLAYERS_PER_ROOM = 1;
 // const words: string = "I went to the park and saw a tree";

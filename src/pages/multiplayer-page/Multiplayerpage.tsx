@@ -30,7 +30,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
   constructor(props: any) {
     super(props);
     if (!this.props.isSocketConnected) {
-      socketManager.initSocket(props.dispatch);
+      socketManager.initSocket(props.dispatch, props.history);
       socketManager.emitRequestToPlay();
     }
     this.state = {
