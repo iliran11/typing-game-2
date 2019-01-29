@@ -8,12 +8,6 @@ import {
 import { NotificationTypes } from '../types';
 import { fbLogout } from '../utilities';
 
-export function initAuthenticationManager() {
-  return function(dispatch: any, getState: any) {
-    AuthenticationManager.initManager(dispatch, getState);
-  };
-}
-
 export function loginInProgress() {
   return {
     type: FACEBOOK_LOGIN_IN_PROGRESS

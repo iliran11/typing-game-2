@@ -5,7 +5,6 @@ import './css/gradients.css';
 import './css/utilities.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBarContainer';
-import AuthenticationManager from './AuthenticationManager';
 import GlobalBlockingAlerts from './components/BlockingAlert/GlobalBlockingAlertsContainer';
 import {
   MultiplayerPageContainer,
@@ -14,21 +13,21 @@ import {
   HomePageContainer,
   ReplayContainer,
   LoginPageContainer,
-  AchievementProgressPageContainer
+  AchievementProgressPageContainer,
+  RenderlessInitiatorContainer
 } from './pages';
+import socketManager from './socketManager';
+
 class App extends React.Component {
-  authenticationManager: AuthenticationManager;
   constructor(props: any) {
     super(props);
-    props.initAuthenticationManager();
-    this.authenticationManager = AuthenticationManager.getInstance();
-    this.authenticationManager.initialAuthentication();
   }
   render() {
     return (
       <div className="gradient-6" id="app-container">
         <Router>
           <Fragment>
+            <Route path="/" component={RenderlessInitiatorContainer} />
             <Route path="/" component={AppToolbar} />
             <Route exact={true} path="/" component={HomePageContainer} />
             <Route

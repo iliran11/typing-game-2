@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import Home from './HomePage';
-import { initAuthenticationManager } from '../../store/authAction';
 
-const mapDispatchToProps = { initAuthenticationManager };
+
+// TODO: delete this file. not needed anymore.
+
+const mapDispatchToProps = {};
 const mapStateToProps = (state: any, props: any) => {
   return {};
 };

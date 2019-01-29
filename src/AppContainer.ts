@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import App from './App';
-import { initAuthenticationManager } from './store/authAction';
+import { RootState } from './types';
 
-const mapDispatchToProps = {
-  initAuthenticationManager
+const mapDispatchToProps = {};
+
+const mapStateToProps = (state: RootState) => {
+  return {};
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);
