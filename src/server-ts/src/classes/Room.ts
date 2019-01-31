@@ -18,12 +18,11 @@ import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
 import { PlayerType, PlayerGameStatus } from '../../../types';
 import { AchievementsProgressI } from '../../../types/AchievementsTypes';
 import { emitToRoom } from '../utilities';
-import { createGameDocument } from '../mongo/Game/GameModel';
+import { gameSummaryDb } from '../mongo/GameSummaryDb/GameSummryDb';
 import {
   createGameRecords,
   createGameRecord
 } from '../mongo/GameRecord/GameRecordModel';
-import { Game } from '../mongo/Game/GameModel';
 import LevelManager from './LevelManager';
 import { userPorgressDb } from '../mongo/AchievementsProgress/AchievementsProgress';
 var countBy = require('lodash.countby');
@@ -247,19 +246,14 @@ export default class Room {
       // @ts-ignore
       player.onGameStart();
     });
-    createGameDocument({
+    gameSummaryDb.save({
       letters: this.players[0].playerGame.getRawLetters,
       players: this.playersInRoom,
-      _id: this.instanceId,
+      roomId: this.instanceId,
       finalResult: {
         results: this.finalScores
       }
-    })
-      .save()
-      .then(result => {})
-      .catch(err => {
-        console.log('game save error', err);
-      });
+    });
     console.log(`${this.roomName}-Game started.`);
   }
   private get timePassedMinutes(): number {
@@ -304,15 +298,9 @@ export default class Room {
         this.instanceId,
         this.gameTickSequence
       );
-      Game.findByIdAndUpdate(this.instanceId, {
+      gameSummaryDb.updateById(this.instanceId, {
         finalResult: finalResultDocument
-      })
-        .then(result => {
-          console.log('ok!');
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      });
     }
   }
   private get randomAvatarIndex(): number {

@@ -28,9 +28,10 @@ function initMongoStaging() {
 
 /**
  * gamerecords/GameRecords - every second records the game status.
- * games/Game - every game has one record. when it stop, it updates with final result.
+ * game-summary - every game has one record. when it stop, it updates with final result.
  * recordsperplayers/GameRecord  - every game - save the player final result.
  * typing - every letter the user has typed - has a record.
+ * achievement-progress - snapshot of the achievements for each game - before and after.
  */
 
 function initMongo() {

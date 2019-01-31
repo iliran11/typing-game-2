@@ -1,19 +1,18 @@
-import { Game } from '../mongo/Game/GameModel';
+import { gameSummaryDb } from '../mongo/GameSummaryDb/GameSummryDb';
 import { USER_ID_PARAM } from '../../../constants';
-import { GameModelInterface } from '../../../types';
+import { GameSummryDBI } from '../../../types/schemasTypes';
 
-export default function GamesHistoryController(req, res) {
+export default async function GamesHistoryController(req, res) {
   const searchParamaer = req.query[USER_ID_PARAM];
   if (!searchParamaer) {
     res.send(400);
     return;
   }
-  Game.getGamesByUserId(searchParamaer)
-    .then((result: GameModelInterface[]) => {
-      res.send(result);
-    })
-    .catch(error => {
-      console.log(error);
-      res.send(500);
-    });
+  try {
+    const result = await gameSummaryDb.getGamesByUserId(searchParamaer);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.send(500);
+  }
 }

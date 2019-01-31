@@ -1,6 +1,7 @@
 import { UserAchievmentsReducerI } from './types/AchievementsTypes';
 import Letter from './store/classes/lettterData';
 import { AchievementsProgressReducer } from './types/AchievementsTypes';
+import { GameSummryDBI } from './types/schemasTypes';
 export interface JoiningRoomResponse {
   roomId: number;
   playersGameStatus: PlayerGameStatus[];
@@ -227,15 +228,6 @@ export interface FacebookUserType {
   firstName: string;
   lastName: string;
 }
-export interface GameModelInterface {
-  letters: string[];
-  players: PlayerSerialize[];
-  _id: string;
-  finalResult: {
-    results: PlayerGameStatus[];
-  };
-}
-
 export interface PlayerAvatar {
   isAnonymous: boolean;
   picture: number | string;
@@ -249,7 +241,7 @@ export interface HandShakeData {
 }
 
 export interface IGamesHistoryReducer {
-  readonly [gameId: string]: GameModelInterface;
+  readonly [gameId: string]: GameSummryDBI;
 }
 
 export interface GameRecordsModel {
@@ -276,7 +268,7 @@ export interface TypingModelI {
 
 export interface ReplayEndPointResponseI {
   gameRecords: GameRecordsModel;
-  gameInfo: GameModelInterface;
+  gameInfo: GameSummryDBI;
   gameTyping: TypingModelI[];
 }
 

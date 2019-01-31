@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import GamesHistoryItem from './GamesHistoryItem';
-import { GameModelInterface } from '../../types';
+import { GameSummryDBI } from '../../types/schemasTypes';
 import '../../css/game-history.scss';
 
 interface Props {
   isFetched: boolean;
-  gameHistoryItems: GameModelInterface[];
+  gameHistoryItems: GameSummryDBI[];
   fetchGamesHistory: () => void;
 }
 
@@ -20,9 +20,9 @@ class GamesHistory extends PureComponent<any, {}> {
       this.props.navigateToReplay(roomId, this.props.history.push);
     };
   }
-  renderRow(item: GameModelInterface, index: number) {
+  renderRow(item: GameSummryDBI, index: number) {
     return (
-      <div onClick={this.onItemClick(item._id)} key={item._id}>
+      <div onClick={this.onItemClick(item.roomId)} key={item.roomId}>
         <GamesHistoryItem item={item} />
       </div>
     );

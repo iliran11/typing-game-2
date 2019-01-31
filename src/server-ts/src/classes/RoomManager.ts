@@ -34,6 +34,7 @@ export default class RoomManager {
   }
 
   removePlayer(player: Player): Room | null {
+    return;
     const roomId: number = player.getRoomId;
 
     if (roomId) {

@@ -1,4 +1,5 @@
-import { IGamesHistoryReducer, GameModelInterface } from '../../../types';
+import { IGamesHistoryReducer } from '../../../types';
+import { GameSummryDBI } from '../../../types/schemasTypes';
 import { LOAD_GAME_HISTORY_DATA } from '../../../constants';
 
 const initialState: IGamesHistoryReducer = {};
@@ -17,11 +18,11 @@ export default function GamesHistoryReducer(
 
 function loadGameHistoryData(
   state: IGamesHistoryReducer,
-  data: GameModelInterface[]
+  data: GameSummryDBI[]
 ) {
   const nextState = { ...state };
-  data.forEach((gameHistory: GameModelInterface) => {
-    nextState[gameHistory._id] = gameHistory;
+  data.forEach((gameHistory: GameSummryDBI) => {
+    nextState[gameHistory.roomId] = gameHistory;
   });
   return nextState;
 }
