@@ -1,10 +1,7 @@
 import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
 import { PLAYER_ID_PARAM } from '../../../constants';
-import {
-  PlayerGameStatus,
-  HighlightsMapping,
-  HighlightsI
-} from '../../../types';
+import { HighlightsMapping, HighlightsI } from '../../../types';
+import { PlayerGameStatus } from '../../../types/GameStatusType';
 
 export default function GameHighlights(req, res) {
   const highlights: HighlightsI = {};

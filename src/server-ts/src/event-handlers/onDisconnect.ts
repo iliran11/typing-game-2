@@ -9,6 +9,7 @@ const playerManager = PlayerManager.getInstance();
 const roomManager = RoomManager.getInstance();
 
 export default function onDisconnect(socket: io.Socket): void {
+  return;
   const player = playerManager.getPlayer(socket);
   playerManager.deletePlayer(socket);
   // @ts-ignore

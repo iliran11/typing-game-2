@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import CompetitorList from './CompetitorList';
-import { RootState, PlayerGameStatus, PlayerAvatar } from '../../types';
+import { RootState, PlayerAvatar } from '../../types';
+import { PlayerGameStatus } from '../../types/GameStatusType';
 
 const mapStateToProps = (state: RootState) => {
   // @ts-ignore

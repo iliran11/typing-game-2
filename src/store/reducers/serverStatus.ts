@@ -18,9 +18,9 @@ import {
   PlayerSerialize,
   ServerStatusReducer,
   ScoreBroadcastAction,
-  PlayerGameStatus,
   PlayerJoiningAction
 } from '../../types';
+import { PlayerGameStatus } from '../../types/GameStatusType';
 
 export const initialState: ServerStatusReducer = {
   roomId: -1,

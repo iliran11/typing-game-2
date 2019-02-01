@@ -1,31 +1,31 @@
-import Room from "./Room";
-import * as socketIo from "socket.io";
-import Player from "./Player";
-import { MAX_PLAYERS_PER_ROOM } from "../../../constants";
+import Room from './Room';
+import * as socketIo from 'socket.io';
+import Player from './Player';
+import { MAX_PLAYERS_PER_ROOM } from '../../../constants';
 
 export default class RoomManager {
   private static instance: RoomManager;
-  static words = ["hello", "goodbye"];
+  static words = ['hello', 'goodbye'];
   rooms: Map<number, Room>;
 
   private constructor() {
     this.rooms = new Map();
   }
   addPlayer(player: Player): Room {
-    let room :Room;
+    let room: Room;
     if (this.openRooms > 0) {
-       room  = this.addPlayerToExistingRoom(player);
+      room = this.addPlayerToExistingRoom(player);
     } else {
-       room = this.addPlayerToNewRoom(player);
+      room = this.addPlayerToNewRoom(player);
     }
-    player.setRoomId(room.roomId)
+    player.setRoomId(room.roomId);
     return room;
   }
   private addPlayerToExistingRoom(player: Player): Room {
     // @ts-ignore
     const selectedRoom: Room = this.rooms.get(this.availableRoomNumber);
     selectedRoom.addPlayer(player);
-    return selectedRoom
+    return selectedRoom;
   }
   private addPlayerToNewRoom(player: Player): Room {
     const room = this.createNewRoom();
@@ -34,18 +34,22 @@ export default class RoomManager {
   }
 
   removePlayer(player: Player): Room | null {
-    return;
+    return null;
     const roomId: number = player.getRoomId;
 
     if (roomId) {
       const room = this.getRoom(roomId);
       /** if game is active - do not delete player
        *  TODO: mark the player as non-active.
-       * 
-      */
-       if(room.isGameActive) return room;
+       *
+       */
+      if (room.isGameActive) return room;
       room.deletePlayer(player);
-      console.log(`${player.playerId} has left ${room.roomName}. Capacity: ${room.playersInRoom.length}/${MAX_PLAYERS_PER_ROOM}`)
+      console.log(
+        `${player.playerId} has left ${room.roomName}. Capacity: ${
+          room.playersInRoom.length
+        }/${MAX_PLAYERS_PER_ROOM}`
+      );
       return room;
     }
     return null;

@@ -15,7 +15,8 @@ import {
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
-import { PlayerType, PlayerGameStatus } from '../../../types';
+import { PlayerType } from '../../../types';
+import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { AchievementsProgressI } from '../../../types/AchievementsTypes';
 import { emitToRoom } from '../utilities';
 import { gameSummaryDb } from '../mongo/GameSummaryDb/GameSummryDb';

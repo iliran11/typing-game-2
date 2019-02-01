@@ -4,10 +4,10 @@ import {
   FacebookUserType,
   PlayerSerialize,
   PlayerType,
-  PlayerAvatar,
-  PlayerGameStatus,
-  PlayerGameStatusFactory
+  PlayerAvatar
 } from '../../../types';
+
+import { PlayerGameStatus, PlayerGameStatusFactory } from '../../../types/GameStatusType';
 import { createUserInstance } from '../mongo/User/UserModel';
 // import Game from "./Game ";
 
@@ -116,7 +116,7 @@ export default class Player {
       rankAtFinish,
       roomId,
       isAuthenticated: this.isAuthenticated,
-      avatar:this.avatar
+      avatar: this.avatar
     });
   }
 }

@@ -1,5 +1,5 @@
 import { GameRecordsSchema, GameRecordSchema } from './GameRecordScheme';
-import { PlayerGameStatus } from '../../../../types';
+import { PlayerGameStatus } from '../../../../types/GameStatusType';
 const mongoose = require('mongoose');
 
 export const GameRecord = mongoose.model('RecordsPerPlayer', GameRecordSchema);

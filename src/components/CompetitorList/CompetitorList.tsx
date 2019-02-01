@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Competitor from './competitorContainer';
-import { PlayerGameStatus, PlayerAvatar } from '../../types';
+import { PlayerAvatar } from '../../types';
+import { PlayerGameStatus } from '../../types/GameStatusType';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 
 interface Props {

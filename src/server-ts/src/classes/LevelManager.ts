@@ -1,6 +1,7 @@
 import { User } from '../mongo/User/UserModel';
 import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
-import { PROMOTION_DATA, LevelRulesI, PlayerGameStatus } from '../../../types';
+import { PROMOTION_DATA, LevelRulesI } from '../../../types';
+import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { UserAchievementsI } from '../../../types/AchievementsTypes';
 import { PROMOTION_EVENT } from '../../../constants';
 

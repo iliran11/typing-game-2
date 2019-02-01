@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import ResultPage from './ResultPage';
-import { PlayerGameStatus, RootState } from '../../types';
+import { RootState } from '../../types';
+import { PlayerGameStatus } from '../../types/GameStatusType';
 import { restartGame } from '../../store/gameAction';
 
 const mapStateToProps = (state: RootState) => {

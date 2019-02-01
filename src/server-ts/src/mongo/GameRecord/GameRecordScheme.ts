@@ -1,4 +1,5 @@
-import { GameRecordsModel, PlayerGameStatus } from '../../../../types';
+import { GameRecordsModel } from '../../../../types';
+import { PlayerGameStatus } from '../../../../types/GameStatusType';
 import { GameRecord } from './GameRecordModel';
 import { resolve } from 'url';
 import { rejects } from 'assert';

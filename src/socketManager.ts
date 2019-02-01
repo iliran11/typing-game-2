@@ -5,9 +5,9 @@ import {
   PlayerType,
   PlayerJoiningAction,
   ScoreBroadcastAction,
-  Enviroments,
-  PlayerGameStatus
+  Enviroments
 } from './types';
+import { PlayerGameStatus } from './types/GameStatusType';
 import { AchievementsProgressI } from './types/AchievementsTypes';
 import {
   LOAD_ACHIEVEMENT_PROGRESS,
