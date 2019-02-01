@@ -1,5 +1,5 @@
 import { User } from '../mongo/User/UserModel';
-import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
+import { userGameHistoryDb } from '../mongoIndex';
 import { PROMOTION_DATA, LevelRulesI } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { UserAchievementsI } from '../../../types/AchievementsTypes';
@@ -81,19 +81,19 @@ class LevelManager {
   static retrievePlayerStats(playerId: string): any {
     // TODO: assign here a type instead of facebookuserType
     const playerModel: Promise<any> = User.findById(playerId);
-    const playerMaxWpm: Promise<number> = GameRecord.maxWpmOfField(
+    const playerMaxWpm: Promise<number> = userGameHistoryDb.maxField(
       playerId,
       'score'
     );
-    const playerAccuracy: Promise<number> = GameRecord.maxWpmOfField(
+    const playerAccuracy: Promise<number> = userGameHistoryDb.maxField(
       playerId,
       'accuracy'
     );
-    const totalWordsTyped: Promise<number> = GameRecord.totalWords(
+    const totalWordsTyped: Promise<number> = userGameHistoryDb.totalField(
       playerId,
       'numberOfWords'
     );
-    const totalCharsTyped: Promise<number> = GameRecord.totalWords(
+    const totalCharsTyped: Promise<number> = userGameHistoryDb.totalField(
       playerId,
       'numberOfLetters'
     );

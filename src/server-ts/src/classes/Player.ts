@@ -100,7 +100,7 @@ export default class Player {
       roomId
     } = options;
     return new PlayerGameStatusFactory({
-      id: this.id,
+      playerId: this.id,
       score: this.playerGame.getWpmScore(timePassedMinutes),
       completedPercentage: this.playerGame.getPercentageComplete,
       type: this.playerType,

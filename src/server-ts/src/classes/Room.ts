@@ -19,11 +19,7 @@ import { PlayerType } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { AchievementsProgressI } from '../../../types/AchievementsTypes';
 import { emitToRoom } from '../utilities';
-import { roomSummaryDb } from '../mongo/RoomSummaryDb/RoomSummaryDb';
-import {
-  createGameRecords,
-  createGameRecord
-} from '../mongo/GameRecord/GameRecordModel';
+import { roomLogDb, userGameHistoryDb, roomSummaryDb } from '../mongoIndex';
 import LevelManager from './LevelManager';
 import { userPorgressDb } from '../mongo/AchievementsProgress/AchievementsProgress';
 var countBy = require('lodash.countby');
@@ -169,8 +165,7 @@ export default class Room {
       };
       finishedPlayer.getSocket().emit(NAVIGATE_RESULT, playerProgress);
       userPorgressDb.createResult(playerProgress);
-      const gameRecord = await createGameRecord(gameResultRecord.serialize);
-      await gameRecord.save();
+      userGameHistoryDb.save(gameResultRecord.serialize);
       await LevelManager.processNewResult(
         finishedPlayer.playerId,
         finishedPlayer.getSocket()
@@ -218,20 +213,16 @@ export default class Room {
   }
   private gameTick(): void {
     this.timePassed += this.timeIncrement;
-    const gameRecords: PlayerGameStatus[] = this.roomStatus;
-    this.server.in(this.roomName).emit(SCORE_BROADCAST, gameRecords);
+    const roomLog: PlayerGameStatus[] = this.roomStatus;
+    this.server.in(this.roomName).emit(SCORE_BROADCAST, roomLog);
     if (this.isAnyoneStillPlaying === false) {
-      this.stopGame(gameRecords);
+      this.stopGame(roomLog);
     }
     if (this.timePassed > GAME_TIMEOUT_DURATION) {
       this.stopGame();
       emitToRoom(this.roomName, GAME_HAS_TIMEOUT);
     }
-    createGameRecords(
-      gameRecords,
-      this.instanceId,
-      this.gameTickSequence
-    ).save();
+    roomLogDb.save(roomLog, this.instanceId, this.gameTickSequence);
     this.gameTickSequence++;
   }
   startGame(): void {
@@ -294,7 +285,7 @@ export default class Room {
     console.log(`${this.roomName} has finished!`);
     //TODO: if there is no final result - delete or update accordingly this game on db.
     if (finalResult) {
-      const finalResultDocument = createGameRecords(
+      const finalResultDocument = roomLogDb.save(
         finalResult,
         this.instanceId,
         this.gameTickSequence

@@ -16,7 +16,7 @@ const mapStateToProps = (state: RootState) => {
   let rankings: PlayerGameStatus[] = playersScores;
   rankings = rankings.sort(sortPlayersRanking);
   const myRanking = rankings.findIndex((player: PlayerGameStatus) => {
-    return player.id === myId;
+    return player.playerId === myId;
   });
 
   const normalizedWpm = normalizeNumbers(
@@ -28,7 +28,7 @@ const mapStateToProps = (state: RootState) => {
     (player: PlayerGameStatus, index: number) => {
       const ranking: number = rankings.findIndex(
         (currentPlayer: PlayerGameStatus) => {
-          return currentPlayer.id === player.id;
+          return currentPlayer.playerId === player.playerId;
         }
       );
       return { ...player, normalizedWpm: normalizedWpm[index], ranking };

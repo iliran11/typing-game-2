@@ -1,10 +1,10 @@
-import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
+import { userGameHistoryDb } from '../mongoIndex';
 const get = require('lodash.get');
 
 class RankingsApp {
   static getRanking(playerId): Promise<number> {
     return new Promise((resolve, reject) => {
-      GameRecord.getRankings().then(result => {
+      userGameHistoryDb.getRankings().then(result => {
         const rankingsMap = RankingsApp.transformToRankingMap(result);
         const rankingObject = get(rankingsMap, [playerId]);
         resolve(rankingObject ? rankingObject.rank : -1);

@@ -108,7 +108,7 @@ function otherPlayerJoining(
     // playersGameStatus: state.playersGameStatus.concat(action.payload)
     playersGameStatus: {
       ...state.playersGameStatus,
-      [action.payload.id]: action.payload
+      [action.payload.playerId]: action.payload
     }
   };
 }
@@ -121,7 +121,7 @@ function youJoinedRoom(
   // transform array of players into mapped object.
   const playersGameStatus = action.payload.playersGameStatus.reduce(
     (accumulator: any, currentPlayerStatus: PlayerGameStatus) => {
-      accumulator[currentPlayerStatus.id] = currentPlayerStatus;
+      accumulator[currentPlayerStatus.playerId] = currentPlayerStatus;
       return accumulator;
     },
     {}
@@ -142,7 +142,7 @@ function scoreBroadCast(
 ): ServerStatusReducer {
   const nextState = { ...state };
   action.payload.players.forEach((player: PlayerGameStatus) => {
-    nextState.playersGameStatus[player.id] = player;
+    nextState.playersGameStatus[player.playerId] = player;
   });
   return nextState;
 }

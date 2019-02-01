@@ -168,7 +168,7 @@ export interface TypingModelI {
 }
 
 export interface ReplayEndPointResponseI {
-  gameRecords: GameRecordsModel;
+  gameRecords: GameRecordsModel[];
   gameInfo: GameSummryDBI;
   gameTyping: TypingModelI[];
 }

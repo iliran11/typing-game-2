@@ -27,9 +27,9 @@ function initMongoStaging() {
 }
 
 /**
- * gamerecords/GameRecords - every second records the game status.
- * game-summary - every game has one record. when it stop, it updates with final result.
- * recordsperplayers/GameRecord  - every game - save the player final result.
+ * gamerecords/GameRecords *** RoomLog - every second records the room status.
+ * room-summary - every room has one record. when it stop, it updates with final result.
+ * recordsperplayers/GameRecord *** UserGameHistory  - every game - save the player final result.
  * typing - every letter the user has typed - has a record.
  * achievement-progress - snapshot of the achievements for each game - before and after.
  */

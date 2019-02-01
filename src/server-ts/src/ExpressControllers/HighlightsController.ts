@@ -1,4 +1,4 @@
-import { GameRecord } from '../mongo/GameRecord/GameRecordModel';
+import { userGameHistoryDb } from '../mongoIndex';
 import { PLAYER_ID_PARAM } from '../../../constants';
 import { HighlightsMapping, HighlightsI } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
@@ -23,13 +23,14 @@ export default function GameHighlights(req, res) {
     return;
   }
   const maxSpeed = new Promise((resolve, reject) => {
-    GameRecord.getMaxOneDocumentByQuery(
-      {
-        id: playerId
-      },
-      { score: -1 }
-    )
-      .then((result: PlayerGameStatus) => {
+    userGameHistoryDb
+      .getMaxOneDocumentByQuery(
+        {
+           playerId
+        },
+        { score: -1 }
+      )
+      .then(result => {
         if (result) {
           highlights.highestSpeed = { roomId: result.roomId, data: result };
         }
@@ -41,10 +42,11 @@ export default function GameHighlights(req, res) {
   });
   const firstPlace = new Promise((resolve, reject) => {
     maxSpeed.then(result => {
-      GameRecord.getMaxOneDocumentByQuery(
-        { id: playerId, roomId: { $nin: getUsedRoomIds() }, rankAtFinish: 1 },
-        { rank: -1 }
-      )
+      userGameHistoryDb
+        .getMaxOneDocumentByQuery(
+          { playerId, roomId: { $nin: getUsedRoomIds() }, rankAtFinish: 1 },
+          { rank: -1 }
+        )
         .then(result => {
           if (result) {
             highlights.firstPlace = { roomId: result.roomId, data: result };
@@ -59,18 +61,20 @@ export default function GameHighlights(req, res) {
   const fastestGame = new Promise((resolve, reject) => {
     firstPlace.then(result => {
       const roomsArray = getUsedRoomIds();
-      GameRecord.getMaxOneDocumentByQuery(
-        { id: playerId, roomId: { $nin: roomsArray } },
-        { gameDuration: -1 }
-      ).then(result => {
-        if (result) {
-          highlights.fastestGame = {
-            roomId: result.roomId,
-            data: result
-          };
-        }
-        resolve();
-      });
+      userGameHistoryDb
+        .getMaxOneDocumentByQuery(
+          { playerId, roomId: { $nin: roomsArray } },
+          { gameDuration: -1 }
+        )
+        .then(result => {
+          if (result) {
+            highlights.fastestGame = {
+              roomId: result.roomId,
+              data: result
+            };
+          }
+          resolve();
+        });
     });
   });
   Promise.all([maxSpeed, firstPlace, fastestGame]).then(values => {

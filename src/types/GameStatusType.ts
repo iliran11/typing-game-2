@@ -1,7 +1,7 @@
 import { PlayerType, PlayerAvatar } from '../types';
 
 export interface PlayerGameStatus {
-  id: string;
+  playerId: string;
   score: number;
   completedPercentage: number;
   type: PlayerType;
@@ -21,7 +21,7 @@ export interface PlayerGameStatus {
 }
 // TODO: create a new type of object - finalizedGameStatus - where no optionals fields.
 export class PlayerGameStatusFactory implements PlayerGameStatus {
-  id: string;
+  playerId: string;
   score: number;
   completedPercentage: number;
   type: PlayerType;
@@ -41,7 +41,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
 
   constructor(options: any) {
     const {
-      id,
+      playerId,
       score,
       completedPercentage,
       type,
@@ -59,7 +59,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       roomId,
       isAuthenticated
     } = options;
-    this.id = id;
+    this.playerId = playerId;
     this.score = score;
     this.completedPercentage = completedPercentage;
     this.type = type;
@@ -79,7 +79,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
   }
   get serialize(): PlayerGameStatus {
     return {
-      id: this.id,
+      playerId: this.playerId,
       score: this.score,
       completedPercentage: this.completedPercentage,
       type: this.type,
