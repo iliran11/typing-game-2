@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerSerialize } from '../../types';
+import { PlayerGameStatus } from '../../types/typesIndex';
 import { GameSummryDBI } from '../../types/schemasTypes';
 import { MAX_WPM_GAUGE } from '../../constants';
 import Avatar from '../../components/CompetitorList/Avatar';
@@ -13,7 +13,7 @@ export default function GameHistoryItem(props: Props) {
   if (props.item.finalResult) {
     return (
       <div className="game-history-item">
-        {props.item.players.map((player: PlayerSerialize, index: number) => {
+        {props.item.players.map((player: PlayerGameStatus, index: number) => {
           if (props.item.finalResult.results[index]) {
             const result = Math.floor(
               // @ts-ignore
