@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 import { GameSummryDBI } from '../../../../types/schemasTypes';
 
-class GameSummaryDb {
-  private static instance: GameSummaryDb;
+class RoomSummaryDb {
+  private static instance: RoomSummaryDb;
   private scheme: any;
   private model: any;
   private constructor() {
@@ -50,12 +50,12 @@ class GameSummaryDb {
     return this.model.findOne(opts);
   }
   static getInstance() {
-    if (!GameSummaryDb.instance) {
-      GameSummaryDb.instance = new GameSummaryDb();
+    if (!RoomSummaryDb.instance) {
+      RoomSummaryDb.instance = new RoomSummaryDb();
       // ... any one time initialization goes here ...
     }
-    return GameSummaryDb.instance;
+    return RoomSummaryDb.instance;
   }
 }
 
-export const gameSummaryDb = GameSummaryDb.getInstance();
+export const roomSummaryDb = RoomSummaryDb.getInstance();

@@ -19,7 +19,7 @@ import { PlayerType } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { AchievementsProgressI } from '../../../types/AchievementsTypes';
 import { emitToRoom } from '../utilities';
-import { gameSummaryDb } from '../mongo/GameSummaryDb/GameSummryDb';
+import { roomSummaryDb } from '../mongo/RoomSummaryDb/RoomSummaryDb';
 import {
   createGameRecords,
   createGameRecord
@@ -247,7 +247,7 @@ export default class Room {
       // @ts-ignore
       player.onGameStart();
     });
-    gameSummaryDb.save({
+    roomSummaryDb.save({
       letters: this.players[0].playerGame.getRawLetters,
       players: this.playersInRoom,
       roomId: this.instanceId,
@@ -299,7 +299,7 @@ export default class Room {
         this.instanceId,
         this.gameTickSequence
       );
-      gameSummaryDb.updateById(this.instanceId, {
+      roomSummaryDb.updateById(this.instanceId, {
         finalResult: finalResultDocument
       });
     }

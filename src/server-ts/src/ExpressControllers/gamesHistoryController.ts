@@ -1,4 +1,4 @@
-import { gameSummaryDb } from '../mongo/GameSummaryDb/GameSummryDb';
+import { roomSummaryDb } from '../mongo/RoomSummaryDb/RoomSummaryDb';
 import { USER_ID_PARAM } from '../../../constants';
 import { GameSummryDBI } from '../../../types/schemasTypes';
 
@@ -9,7 +9,7 @@ export default async function GamesHistoryController(req, res) {
     return;
   }
   try {
-    const result = await gameSummaryDb.getGamesByUserId(searchParamaer);
+    const result = await roomSummaryDb.getGamesByUserId(searchParamaer);
     res.send(result);
   } catch (error) {
     console.log(error);

@@ -1,4 +1,4 @@
-import { gameSummaryDb } from '../mongo/GameSummaryDb/GameSummryDb';
+import { roomSummaryDb } from '../mongo/RoomSummaryDb/RoomSummaryDb';
 import { GameRecords } from '../mongo/GameRecord/GameRecordModel';
 import { TypingModel } from '../mongo/Typing/TypingModel';
 import { ROOM_ID_PARM, PLAYER_ID_PARAM } from '../../../constants';
@@ -15,7 +15,7 @@ export default function GamesHistoryController(req, res) {
     return;
   }
   const gameRecords = GameRecords.getRecordsByRoomId(roomIdParam);
-  const gameInfo = gameSummaryDb.getGameInfoByGameId(roomIdParam);
+  const gameInfo = roomSummaryDb.getGameInfoByGameId(roomIdParam);
   const gameTyping = TypingModel.getTypingsOfPlayerInGame(
     roomIdParam,
     playerIdParam
