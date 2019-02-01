@@ -19,13 +19,22 @@ class RoomLogDb {
     models: PlayerGameStatus[],
     instanceId: string,
     gameTickSequenceId: number
-  ): Promise<void> {}
+  ): Promise<void> {
+    // const  = models.map((model: PlayerGameStatus) => {
+    //   return new GameRecord(model);
+    // });
+    // return new GameRecords({
+    //   results: gameRecordModels,
+    //   gameInstanceId: instanceId,
+    //   gameTickSequenceId
+    // });
+  }
   async getRecordsByRoomId(roomId: string): Promise<GameRecordsModel[]> {
     try {
-      return await this.model
+      const result = await this.model
         .find({ gameInstanceId: roomId })
-        .sort({ gameTickSequenceId: 1 })
-        .exec();
+        .sort({ gameTickSequenceId: 1 });
+      return result.toObject();
     } catch (error) {
       throw new Error(error);
     }

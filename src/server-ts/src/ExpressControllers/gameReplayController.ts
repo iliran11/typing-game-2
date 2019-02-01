@@ -1,6 +1,5 @@
-import { roomSummaryDb } from '../mongo/RoomSummaryDb/RoomSummaryDb';
-import { roomLogDb } from '../mongoIndex';
-import { TypingModel } from '../mongo/Typing/TypingModel';
+import { roomSummaryDb, roomLogDb, typingDb } from '../mongoIndex';
+
 import { ROOM_ID_PARM, PLAYER_ID_PARAM } from '../../../constants';
 import { ReplayEndPointResponseI } from '../../../types';
 const isNil = require('lodash.isnil');
@@ -16,7 +15,7 @@ export default function GamesHistoryController(req, res) {
   }
   const gameRecords = roomLogDb.getRecordsByRoomId(roomIdParam);
   const gameInfo = roomSummaryDb.getGameInfoByGameId(roomIdParam);
-  const gameTyping = TypingModel.getTypingsOfPlayerInGame(
+  const gameTyping = typingDb.getTypingsOfPlayerInGame(
     roomIdParam,
     playerIdParam
   );
