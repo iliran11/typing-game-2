@@ -33,66 +33,56 @@ class AuthenticationManager {
     this.dispatch = dispatch;
     this.getState = getState;
   }
-  initialAuthentication() {
+  async initialAuthentication() {
     const appId = getAppId();
     console.log('[Authentication] ', `FacebookAppId: ${appId}`);
-    loadFbSdk(appId)
-      .then((result: any) => {
-        this.onSdkLoadedSuccess();
-        return getFbLoginStatus();
-      })
-      .then((result: any) => {
-        // TODO: handle not logged in case.
-        switch (result.status) {
-          case FbLoginStatus.connected:
-            const isResponseSuccess = this.handleFacebookResponse(result);
-            if (isResponseSuccess) {
-              if (AuthenticationManager.isThereAppToken) {
-                this.setAxiosAuth();
-              }
-              this.verifyAppLogin().then(result => {});
-            }
+    await loadFbSdk(appId);
+    this.onSdkLoadedSuccess();
+    const result: any = await getFbLoginStatus();
+    // TODO: handle not logged in case.
+    switch (result.status) {
+      case FbLoginStatus.connected:
+        const isResponseSuccess = this.handleFacebookResponse(result);
+        if (isResponseSuccess) {
+          if (AuthenticationManager.isThereAppToken) {
+            this.setAxiosAuth();
+          }
+          this.verifyAppLogin();
         }
-      });
+    }
   }
-  login(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.dispatch({
-        type: LOGGING_IN_ACTION
-      });
-      this.facebookLogin().then((result: any) => {
-        if (this.state.authentication.facebookLoggedIn) {
-          axios
-            .post(networkManager.prefixedPath('login'), {
-              [AUTH_FACEBOOK_HEADER]: this.state.authentication.facebookToken
-            })
-            .then((result: any) => {
-              const loginResponse: LoginResponse = result.data;
-              localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
-              localStorage.setItem(
-                PLAYER_ID_KEY,
-                loginResponse.data.facebookId
-              );
-              this.setAxiosAuth();
-              this.dispatch({
-                type: LOGGED_IN
-              });
-              const handshakeData: HandShakeData = {
-                ...loginResponse.data,
-                appToken: loginResponse.token
-              };
-              this.dispatch({
-                type: SERVER_HANDSHAKE_RECIEVED,
-                payload: handshakeData
-              });
-              resolve('success-login');
-            })
-            .catch(() => {
-              reject('error in login');
-            });
-        }
-      });
+  async login(): Promise<string> {
+    this.dispatch({
+      type: LOGGING_IN_ACTION
     });
+    const facebookResult = await this.facebookLogin();
+    try {
+      if (this.state.authentication.facebookLoggedIn) {
+        const result = await axios.post(networkManager.prefixedPath('login'), {
+          [AUTH_FACEBOOK_HEADER]: this.state.authentication.facebookToken
+        });
+        const loginResponse: LoginResponse = result.data;
+        localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
+        localStorage.setItem(PLAYER_ID_KEY, loginResponse.data.facebookId);
+        this.setAxiosAuth();
+        this.dispatch({
+          type: LOGGED_IN
+        });
+        const handshakeData: HandShakeData = {
+          ...loginResponse.data,
+          appToken: loginResponse.token
+        };
+        this.dispatch({
+          type: SERVER_HANDSHAKE_RECIEVED,
+          payload: handshakeData
+        });
+        return 'success-login';
+      } else {
+        return 'failed-login';
+      }
+    } catch (err) {
+      throw new Error('error in login');
+    }
   }
   logout() {
     this.dispatch({
@@ -101,25 +91,18 @@ class AuthenticationManager {
     AuthenticationManager.deleteToken();
   }
 
-  private facebookLogin() {
-    return new Promise((resolve, reject) => {
-      if (this.state.authentication.facebookLoggedIn) {
-        // @ts-ignore
-        return resolve(this.state.authentication.facebookToken);
-      }
-      fbLogin({
-        scope: 'email'
-      }).then((result: any) => {
-        const isLoginSuccess = this.handleFacebookResponse(result);
-        if (isLoginSuccess) {
-          return resolve(
-            result.authResponse && result.authResponse.accessToken
-          );
-        } else {
-          return reject();
-        }
-      });
+  private async facebookLogin() {
+    if (this.state.authentication.facebookLoggedIn) {
+      // @ts-ignore
+      return this.state.authentication.facebookToken;
+    }
+    const result: any = await fbLogin({
+      scope: 'email'
     });
+    const isLoginSuccess = this.handleFacebookResponse(result);
+    if (isLoginSuccess) {
+      return result.authResponse && result.authResponse.accessToken;
+    }
   }
   private handleFacebookResponse(result: any): boolean {
     const facebookToken = get(result, ['authResponse', 'accessToken']);
@@ -140,42 +123,39 @@ class AuthenticationManager {
       return false;
     }
   }
-  verifyAppLogin(): Promise<LoginVerificationStatus> {
-    return new Promise(resolve => {
+  async verifyAppLogin(): Promise<LoginVerificationStatus> {
+    try {
       const appToken = AuthenticationManager.appToken;
-      axios
-        .get(networkManager.prefixedPath('verify-login'))
-        .then(result => {
-          const data: LoginVerificationStatus = result.data;
-          if (!data.loginStatus) {
-            this.dispatch({
-              type: LOGGED_OUT
-            });
-            AuthenticationManager.deleteToken();
-            resolve(data);
-          }
-          if (data.loginStatus === true && appToken) {
-            this.dispatch({
-              type: LOGGED_IN
-            });
-            if (data.handshakeData) {
-              const handshakeData: HandShakeData = data.handshakeData;
-              this.dispatch({
-                type: SERVER_HANDSHAKE_RECIEVED,
-                payload: handshakeData
-              });
-            }
-            resolve(data);
-          }
-        })
-        .catch(err => {
-          this.dispatch({
-            type: LOGGED_OUT
-          });
-          AuthenticationManager.deleteToken();
-          resolve(err);
+      const result = await axios.get(
+        networkManager.prefixedPath('verify-login')
+      );
+      const data: LoginVerificationStatus = result.data;
+      if (!data.loginStatus) {
+        this.dispatch({
+          type: LOGGED_OUT
         });
-    });
+        AuthenticationManager.deleteToken();
+      }
+      if (data.loginStatus === true && appToken) {
+        this.dispatch({
+          type: LOGGED_IN
+        });
+        if (data.handshakeData) {
+          const handshakeData: HandShakeData = data.handshakeData;
+          this.dispatch({
+            type: SERVER_HANDSHAKE_RECIEVED,
+            payload: handshakeData
+          });
+        }
+      }
+      return data;
+    } catch (err) {
+      this.dispatch({
+        type: LOGGED_OUT
+      });
+      AuthenticationManager.deleteToken();
+      throw new Error(err);
+    }
   }
   private onSdkLoadedSuccess(): SdkLoadedSuccessAction {
     return {
