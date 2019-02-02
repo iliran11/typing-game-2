@@ -123,7 +123,7 @@ class AuthenticationManager {
       return false;
     }
   }
-  async verifyAppLogin(): Promise<LoginVerificationStatus> {
+  async verifyAppLogin(): Promise<LoginVerificationStatus | null> {
     try {
       const appToken = AuthenticationManager.appToken;
       const result = await axios.get(
@@ -154,7 +154,7 @@ class AuthenticationManager {
         type: LOGGED_OUT
       });
       AuthenticationManager.deleteToken();
-      throw new Error(err);
+      return null;
     }
   }
   private onSdkLoadedSuccess(): SdkLoadedSuccessAction {

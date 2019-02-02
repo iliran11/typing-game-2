@@ -22,6 +22,7 @@ import { emitToRoom } from '../utilities';
 import { roomLogDb, userGameHistoryDb, roomSummaryDb } from '../mongoIndex';
 import LevelManager from './LevelManager';
 import { userPorgressDb } from '../mongo/AchievementsProgress/AchievementsProgress';
+import { Countdown } from './Countdown';
 var countBy = require('lodash.countby');
 var isNil = require('lodash.isnil');
 const random = require('lodash.random');
@@ -58,7 +59,7 @@ export default class Room {
     this.isClosed = false;
     this.finalScores = new Array(MAX_PLAYERS_PER_ROOM).fill(null);
     // game timer start with negative value. becuase of countdown the clients gets when the game starts.
-    this.timePassed = GAME_START_DELAY * 1000 * -1;
+    this.timePassed = 0;
     this.addBot = this.addBot.bind(this);
     this.instanceId = `Room-${uuid()}`;
     if (MAX_PLAYERS_PER_ROOM > 1) {
@@ -79,7 +80,9 @@ export default class Room {
       this.isClosed = true;
     }
     // bot should wait X time after a human is joined. so if a human has joined - start counting again.
-    this.restartCountdownBot();
+    if(this.isRoomFull===false) {
+      this.restartCountdownBot();
+    }
   }
   deletePlayer(player: Player): void {
     if (this.isThereHuman === false) {
@@ -225,7 +228,10 @@ export default class Room {
     roomLogDb.save(roomLog, this.instanceId, this.gameTickSequence);
     this.gameTickSequence++;
   }
-  startGame(): void {
+  async startGame(): Promise<void> {
+    // client still doesn't use the countdown socket being emmited to it.
+    const countdown = new Countdown(this.roomName);
+    await countdown.initiateCountdown();
     const intervalTime: number = 1000;
     this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
     this.isClosed = true;
