@@ -7,12 +7,12 @@ import * as constants from '../../../constants';
 import { emitToRoom } from '../utilities';
 const playerManager = PlayerManager.getInstance();
 const { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } = constants;
-import { JoiningRoomResponse } from '../../../types';
+import { JoiningRoomResponse, RoomType } from '../../../types';
 import { Socket } from 'dgram';
 
-function allocatePlayerToRoom(socket: io.Socket) {
+function allocatePlayerToRoom(socket: io.Socket, roomType: RoomType) {
   const player = playerManager.getPlayer(socket);
-  const room = RoomManager.getInstance().addPlayer(player);
+  const room = RoomManager.getInstance().addPlayer(player, roomType);
   // if (room.isGameActive) {
   //   startGame(room);
   // }
@@ -49,8 +49,12 @@ function broadcastCompetitorToRoom(player: Player, room: Room, socket) {
   }
 }
 
-export function allocateHumanToRoom(socket: io.Socket, player: Player) {
-  const room = allocatePlayerToRoom(socket);
+export function allocateHumanToRoom(
+  socket: io.Socket,
+  player: Player,
+  roomType: RoomType
+) {
+  const room = allocatePlayerToRoom(socket, roomType);
   sendPlayerRoomInfo(socket, room, player);
   if (room.isGameActive) {
     room.startGame();
@@ -58,6 +62,6 @@ export function allocateHumanToRoom(socket: io.Socket, player: Player) {
 }
 
 export function allocateBotToRoom(socket: string, player: Player, room: Room) {
-  allocatePlayerToRoom(socket);
+  allocatePlayerToRoom(socket, RoomType.MULTIPLAYER);
   broadcastCompetitorToRoom(player, room, null);
 }

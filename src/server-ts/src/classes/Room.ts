@@ -15,7 +15,7 @@ import {
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
 import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
-import { PlayerType } from '../../../types';
+import { PlayerType, RoomType } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { AchievementsProgressI } from '../../../types/AchievementsTypes';
 import { emitToRoom } from '../utilities';
@@ -44,13 +44,14 @@ export default class Room {
   private gameTickSequence: number;
   // store the already given avatar indexes so we can give anonymous player a unique avatar.
   private avatarIndexes: number = 0;
+  public roomType: RoomType;
   isClosed: boolean;
   roomId: number;
   // time it takes for a bot to born
   botInterval = BOT_SPAWN_RATE;
   botRecruitTimer: any;
 
-  constructor(words: string[]) {
+  constructor(words: string[], roomType: RoomType) {
     this.roomId = Room.globalRoomCounter;
     Room.globalRoomCounter++;
     this.players = [];
@@ -66,6 +67,7 @@ export default class Room {
       this.startCountdownBot();
     }
     this.gameTickSequence = 1;
+    this.roomType = roomType;
   }
   addPlayer(player: Player): void {
     player.setAvatar(this.randomAvatarIndex);
@@ -80,7 +82,7 @@ export default class Room {
       this.isClosed = true;
     }
     // bot should wait X time after a human is joined. so if a human has joined - start counting again.
-    if(this.isRoomFull===false) {
+    if (this.isRoomFull === false) {
       this.restartCountdownBot();
     }
   }
@@ -117,14 +119,6 @@ export default class Room {
   get roomName(): string {
     return `room-${this.roomId}`;
   }
-  get gameRecord(): PlayerGameStatus[] {
-    return this.players.map((player: Player, index: number) => {
-      /** if the player has an entry of the final score index - it means he is finished.
-       *  we will not re-calculate it. just retrieve it from the cached array.
-       */
-      return this.finalScores[index] || this.getPlayerScore(player);
-    });
-  }
   get currentRankOfFinishedPlayer(): number {
     const map = countBy(this.finalScores, value => {
       return isNil(value);
@@ -151,7 +145,8 @@ export default class Room {
       numberOfLetters: getRawLetters.length,
       numberOfWords: numberOfWords,
       rankAtFinish: this.currentRankOfFinishedPlayer,
-      roomId: this.instanceId
+      roomId: this.instanceId,
+      roomType: this.roomType
     });
     this.finalScores[playerIndex] = gameResultRecord;
     if (finishedPlayer.isAuthenticated) {
@@ -225,7 +220,12 @@ export default class Room {
       this.stopGame();
       emitToRoom(this.roomName, GAME_HAS_TIMEOUT);
     }
-    roomLogDb.save(roomLog, this.instanceId, this.gameTickSequence);
+    roomLogDb.save(
+      roomLog,
+      this.instanceId,
+      this.gameTickSequence,
+      this.roomType
+    );
     this.gameTickSequence++;
   }
   async startGame(): Promise<void> {
@@ -245,6 +245,7 @@ export default class Room {
       player.onGameStart();
     });
     roomSummaryDb.save({
+      roomType: this.roomType,
       letters: this.players[0].playerGame.getRawLetters,
       players: this.playersInRoom,
       roomId: this.instanceId,
@@ -294,7 +295,8 @@ export default class Room {
       const finalResultDocument = roomLogDb.save(
         finalResult,
         this.instanceId,
-        this.gameTickSequence
+        this.gameTickSequence,
+        this.roomType
       );
       roomSummaryDb.updateById(this.instanceId, {
         finalResult: finalResultDocument

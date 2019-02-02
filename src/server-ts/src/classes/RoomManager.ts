@@ -2,6 +2,7 @@ import Room from './Room';
 import * as socketIo from 'socket.io';
 import Player from './Player';
 import { MAX_PLAYERS_PER_ROOM } from '../../../constants';
+import { RoomType } from '../../../types';
 
 export default class RoomManager {
   private static instance: RoomManager;
@@ -11,12 +12,12 @@ export default class RoomManager {
   private constructor() {
     this.rooms = new Map();
   }
-  addPlayer(player: Player): Room {
+  addPlayer(player: Player, roomType: RoomType): Room {
     let room: Room;
     if (this.openRooms > 0) {
       room = this.addPlayerToExistingRoom(player);
     } else {
-      room = this.addPlayerToNewRoom(player);
+      room = this.addPlayerToNewRoom(player, roomType);
     }
     player.setRoomId(room.roomId);
     return room;
@@ -27,8 +28,8 @@ export default class RoomManager {
     selectedRoom.addPlayer(player);
     return selectedRoom;
   }
-  private addPlayerToNewRoom(player: Player): Room {
-    const room = this.createNewRoom();
+  private addPlayerToNewRoom(player: Player, roomType: RoomType): Room {
+    const room = this.createNewRoom(roomType);
     room.addPlayer(player);
     return room;
   }
@@ -68,8 +69,8 @@ export default class RoomManager {
     return this.openRoomsIds[0];
   }
 
-  private createNewRoom(): Room {
-    const room = new Room(RoomManager.words);
+  private createNewRoom(roomType: RoomType): Room {
+    const room = new Room(RoomManager.words, roomType);
     this.rooms.set(room.roomId, room);
     return room;
   }

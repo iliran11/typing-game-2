@@ -162,8 +162,10 @@ export interface TypingReducerI {
 
 export interface TypingModelI {
   typedLetter: string;
+  challengeLetter: string;
   playerId: string;
   gameId: string;
+  roomType: RoomType;
   gameTimeStamp: number;
 }
 
@@ -211,4 +213,9 @@ export interface ChangeLevelPayload {
 export enum NotificationTypes {
   NONE = 'none',
   LOGOUT_NOTIFICATION = 'logout-notification'
+}
+
+export enum RoomType {
+  MULTIPLAYER = 'multiplayer',
+  TYPING_TEST = 'typing-test'
 }

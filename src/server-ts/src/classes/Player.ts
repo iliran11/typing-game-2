@@ -4,10 +4,14 @@ import {
   FacebookUserType,
   PlayerSerialize,
   PlayerType,
-  PlayerAvatar
+  PlayerAvatar,
+  RoomType
 } from '../../../types';
 
-import { PlayerGameStatus, PlayerGameStatusFactory } from '../../../types/GameStatusType';
+import {
+  PlayerGameStatus,
+  PlayerGameStatusFactory
+} from '../../../types/GameStatusType';
 import { createUserInstance } from '../mongo/User/UserModel';
 // import Game from "./Game ";
 
@@ -97,7 +101,8 @@ export default class Player {
       numberOfLetters,
       numberOfWords,
       rankAtFinish,
-      roomId
+      roomId,
+      roomType
     } = options;
     return new PlayerGameStatusFactory({
       playerId: this.id,
@@ -116,7 +121,8 @@ export default class Player {
       rankAtFinish,
       roomId,
       isAuthenticated: this.isAuthenticated,
-      avatar: this.avatar
+      avatar: this.avatar,
+      roomType
     });
   }
 }
@@ -130,5 +136,6 @@ interface PlayerGameStatusI {
   numberOfLetters?: number;
   numberOfWords?: number;
   rankAtFinish?: number;
+  roomType?: RoomType;
   roomId?: string;
 }

@@ -1,4 +1,4 @@
-import { PlayerType, PlayerAvatar } from '../types';
+import { PlayerType, PlayerAvatar, RoomType } from '../types';
 
 export interface PlayerGameStatus {
   playerId: string;
@@ -18,6 +18,7 @@ export interface PlayerGameStatus {
   rankAtFinish?: number;
   roomId: string;
   isAuthenticated: boolean;
+  roomType: RoomType;
 }
 // TODO: create a new type of object - finalizedGameStatus - where no optionals fields.
 export class PlayerGameStatusFactory implements PlayerGameStatus {
@@ -38,6 +39,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
   rankAtFinish: number;
   roomId: string;
   isAuthenticated: boolean;
+  roomType: RoomType;
 
   constructor(options: any) {
     const {
@@ -57,7 +59,8 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       numberOfWords,
       rankAtFinish,
       roomId,
-      isAuthenticated
+      isAuthenticated,
+      roomType
     } = options;
     this.playerId = playerId;
     this.score = score;
@@ -76,6 +79,7 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
     this.rankAtFinish = rankAtFinish;
     this.roomId = roomId;
     this.isAuthenticated = isAuthenticated;
+    this.roomType = roomType;
   }
   get serialize(): PlayerGameStatus {
     return {
@@ -95,7 +99,8 @@ export class PlayerGameStatusFactory implements PlayerGameStatus {
       numberOfLetters: this.numberOfLetters,
       rankAtFinish: this.rankAtFinish,
       roomId: this.roomId,
-      isAuthenticated: this.isAuthenticated
+      isAuthenticated: this.isAuthenticated,
+      roomType: this.roomType
     };
   }
 }

@@ -54,4 +54,10 @@ export default class Game {
   public get getPercentageComplete() {
     return this.index / this.letters.length;
   }
+  public get currentChallengeLetter() {
+    if (this.index < this.letters.length) {
+      return this.letters[this.index].getValue;
+    }
+    return '';
+  }
 }

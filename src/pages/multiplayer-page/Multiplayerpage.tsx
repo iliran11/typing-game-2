@@ -6,6 +6,7 @@ import ScoreBoardContainer from '../../components/CompetitorList/CometitorListCo
 import CountDown from '../../components/CountDown/CountDown';
 import ToolTip from '../../components/tooltip';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
+import { RoomType } from '../../types';
 import ServerAlertManager from './ServerAlertsManager/ServerAlertManagerContainer';
 
 interface Props {
@@ -29,7 +30,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
 
   constructor(props: any) {
     super(props);
-    socketManager.emitRequestToPlay();
+    socketManager.emitRequestToPlay(RoomType.MULTIPLAYER);
     this.state = {
       timerActive: false,
       gameActive: false,

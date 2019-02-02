@@ -5,7 +5,8 @@ import {
   PlayerType,
   PlayerJoiningAction,
   ScoreBroadcastAction,
-  Enviroments
+  Enviroments,
+  RoomType
 } from './types';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { AchievementsProgressI } from './types/AchievementsTypes';
@@ -143,8 +144,8 @@ const socketManager: any = {
   emitFinishedGame() {
     this.socket.emit(GAME_HAS_FINISHED);
   },
-  emitRequestToPlay() {
-    this.socket.emit(REQUEST_TO_PLAY);
+  emitRequestToPlay(roomType: RoomType) {
+    this.socket.emit(REQUEST_TO_PLAY, roomType);
   },
   emitGameRestart() {
     this.socket.emit(RESTART_GAME);
