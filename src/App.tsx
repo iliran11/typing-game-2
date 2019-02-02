@@ -14,9 +14,9 @@ import {
   ReplayContainer,
   LoginPageContainer,
   AchievementProgressPageContainer,
-  RenderlessInitiatorContainer
-} from './pages';
-import socketManager from './socketManager';
+  RenderlessInitiatorContainer,
+  TypingTestPageContainer
+} from './pages/pagesIndex';
 
 class App extends React.Component {
   constructor(props: any) {
@@ -51,6 +51,7 @@ class App extends React.Component {
               path="/achievements-progress"
               component={AchievementProgressPageContainer}
             />
+            <Route path="/typing-test" component={TypingTestPageContainer} />
           </Fragment>
         </Router>
         <GlobalBlockingAlerts />
