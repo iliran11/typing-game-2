@@ -19,9 +19,7 @@ export default class LoginPage extends React.Component<LoginPageProps, any> {
   }
   login() {
     this.props.loginInProgress();
-    this.authenticationManager.login().then(() => {
-      this.props.history.push('/');
-    });
+    this.authenticationManager.login();
   }
   public render() {
     return (

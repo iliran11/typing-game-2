@@ -137,7 +137,9 @@ const socketManager: any = {
       }, 2000);
     });
   },
-
+  reconnect() {
+    this.initSocket(this.dispatch, this.history);
+  },
   emitTyping(typingInput: string) {
     this.socket.emit(PLAYER_TYPING, { typingInput });
   },

@@ -14,7 +14,9 @@ export default class RenderLessInitiator extends React.Component<
   constructor(props: RenderLessInitiatorProps) {
     super(props);
     props.initSocketManager(props.history);
-    const authenticationManager = props.initAuthenticationManager();
+    const authenticationManager = props.initAuthenticationManager(
+      props.history
+    );
     authenticationManager.initialAuthentication();
   }
   public render() {

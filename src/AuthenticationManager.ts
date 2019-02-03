@@ -24,14 +24,17 @@ import {
 } from './constants';
 import get from 'lodash.get';
 import { networkManager } from './NetworkManager';
+import socketManager from './socketManager';
 
 class AuthenticationManager {
   dispatch: any;
   getState: any;
+  history: any;
   private static instance: AuthenticationManager;
-  private constructor(dispatch: any, getState: RootState) {
+  private constructor(dispatch: any, getState: RootState, history: any) {
     this.dispatch = dispatch;
     this.getState = getState;
+    this.history = history;
   }
   async initialAuthentication() {
     const appId = getAppId();
@@ -65,6 +68,7 @@ class AuthenticationManager {
         localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
         localStorage.setItem(PLAYER_ID_KEY, loginResponse.data.facebookId);
         this.setAxiosAuth();
+        socketManager.reconnect();
         this.dispatch({
           type: LOGGED_IN
         });
@@ -76,6 +80,7 @@ class AuthenticationManager {
           type: SERVER_HANDSHAKE_RECIEVED,
           payload: handshakeData
         });
+        this.history.push('/');
         return 'success-login';
       } else {
         return 'failed-login';
@@ -120,6 +125,7 @@ class AuthenticationManager {
       this.dispatch({
         type: FACEBOOK_LOGIN_FAILURE
       });
+
       return false;
     }
   }
@@ -178,11 +184,12 @@ class AuthenticationManager {
   static deleteToken() {
     localStorage.clear();
   }
-  static initManager(dispatch: any, state: RootState) {
+  static initManager(dispatch: any, state: RootState, history: any) {
     if (!AuthenticationManager.instance) {
       AuthenticationManager.instance = new AuthenticationManager(
         dispatch,
-        state
+        state,
+        history
       );
     }
     return AuthenticationManager.instance;

@@ -2,9 +2,9 @@ import AuthenticationManager from '../AuthenticationManager';
 import socketManager from '../socketManager';
 import { Socket } from 'dgram';
 
-export function initAuthenticationManager() {
+export function initAuthenticationManager(history: any) {
   return function(dispatch: any, getState: any) {
-    return AuthenticationManager.initManager(dispatch, getState);
+    return AuthenticationManager.initManager(dispatch, getState, history);
   };
 }
 
