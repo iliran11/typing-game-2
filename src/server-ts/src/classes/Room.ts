@@ -14,7 +14,7 @@ import {
 } from '../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from './PlayerManager';
-import { allocateBotToRoom } from '../event-handlers/allocatePlayerToRoom';
+import { multiplayerRoomManager } from './MultiplayerRoomManager';
 import { PlayerType, RoomType } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { AchievementsProgressI } from '../../../types/AchievementsTypes';
@@ -168,7 +168,7 @@ export default class Room {
         finishedPlayer.playerId,
         finishedPlayer.getSocket()
       );
-    } else {
+    } else if (finishedPlayer.playerType === PlayerType.human) {
       finishedPlayer.getSocket().emit(NAVIGATE_RESULT);
     }
   }
@@ -276,7 +276,7 @@ export default class Room {
     const botPlayerId = BotPlayer.getNextBotId();
     const player = new BotPlayer(botPlayerId);
     PlayerManager.getInstance().addPlayer(player);
-    allocateBotToRoom(player.playerId, player, this);
+    multiplayerRoomManager.allocateToRoom(player.playerId, player.playerType);
     if (this.isGameActive) {
       this.startGame();
     }

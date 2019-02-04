@@ -20,8 +20,8 @@ export const RESTART_GAME = 'restart-game';
 export const LEAVE_GAME = 'leave-game';
 export const LOAD_REPLAY = 'load-replay';
 export const NAVIGATE_RESULT = 'navigate-to-result';
-export const COUNDOWN_CYCLE = 'countdown-cycle'
-
+export const COUNDOWN_CYCLE = 'countdown-cycle';
+export const GAME_IS_ACTIVE = 'game-is-active';
 export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;
 export const BOT_SPAWN_RATE = 5000;
@@ -60,5 +60,5 @@ export const LOAD_ACHIEVEMENT_PROGRESS = 'load-achievment-progress';
  * CONFIG
  */
 export const MAX_WPM_GAUGE = 80;
-export const MAX_PLAYERS_PER_ROOM = 1;
+export const MAX_PLAYERS_PER_ROOM = 4;
 // const words: string = "I went to the park and saw a tree";

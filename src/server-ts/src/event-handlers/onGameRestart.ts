@@ -1,15 +1,16 @@
 import PlayerManager from '../classes/PlayerManager';
 import RoomManager from '../classes/MultiplayerRoomManager';
 import { RoomType } from '../../../types';
-import { allocateHumanToRoom } from './allocatePlayerToRoom';
 import * as io from 'socket.io';
 
 export default function onGameFinished(socket: io.Socket) {
-  const playerManager = PlayerManager.getInstance();
-  const roomManager = RoomManager.getInstance();
-  const player = playerManager.getPlayer(socket);
-  const room = roomManager.getRoom(player.getRoomId);
-  socket.leave(room.roomName);
-  roomManager.removePlayer(player);
-  allocateHumanToRoom(socket, player, RoomType.MULTIPLAYER);
+  // const playerManager = PlayerManager.getInstance();
+  // const roomManager = RoomManager.getInstance();
+  // const player = playerManager.getPlayer(socket);
+  // const room = roomManager.getRoom(player.getRoomId);
+  // socket.leave(room.roomName);
+  // roomManager.removePlayer(player);
+  // allocateHumanToRoom(socket, player, RoomType.MULTIPLAYER);
+
+  return;
 }

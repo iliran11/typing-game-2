@@ -3,7 +3,7 @@ import RoomManager from '../classes/MultiplayerRoomManager';
 import PlayerManager from '../classes/PlayerManager';
 import Player from '../classes/Player';
 import onDisconnect from './onDisconnect';
-import { allocateHumanToRoom } from './allocatePlayerToRoom';
+import { multiplayerRoomManager } from '../classes/MultiplayerRoomManager';
 import playerTyping from './playerTyping';
 import onGameFinished from './onGameFinished';
 import onGameRestart from './onGameRestart';
@@ -33,7 +33,7 @@ export default function onConnect(socket: io.Socket): void {
     levelManager.getPlayerLevel(playerId).then(level => {
       const player = new Player(socket, userData, level);
       playerManager.addPlayer(player);
-      allocateHumanToRoom(socket, player, roomType);
+      multiplayerRoomManager.allocateToRoom(socket, player.playerType);
       socket.emit(CONNECT_SERVER_SUCCESS);
     });
     socket.on(PLAYER_TYPING, data => {
