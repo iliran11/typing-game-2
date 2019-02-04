@@ -1,4 +1,6 @@
 import * as React from 'react';
+import socketManager from '../../socketManager';
+import { RoomType } from '../../types/typesIndex';
 
 export interface TypingTestPageProps {}
 
@@ -10,7 +12,7 @@ export default class TypingTestPage extends React.Component<
 > {
   constructor(props: TypingTestPageProps) {
     super(props);
-
+    socketManager.emitRequestToPlay(RoomType.TYPING_TEST);
     this.state = {};
   }
 

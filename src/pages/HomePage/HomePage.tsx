@@ -16,14 +16,14 @@ const baseSteps = [
   { text: 'typing sk', keyboard: [0, 2] },
   { text: 'typing skil', keyboard: [2, 6] },
   { text: 'typing skill', keyboard: [1, 2] },
-  { text: 'typing skills', keyboard: [1, 1] },
+  { text: 'typing skills', keyboard: [1, 1] }
 ];
 
 const BaseTitle = (props: any) => {
   return (
     <p>
       <span>improve your &nbsp;</span>
-      <span></span>
+      <span />
       <span>{props.text}</span>
     </p>
   );
@@ -46,6 +46,7 @@ export default class Home extends React.Component<Props, State> {
     };
     this.navigateToGame = this.navigateToGame.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
+    this.navigateToTypingTest = this.navigateToTypingTest.bind(this);
   }
   componentDidMount() {
     this.virtualKeyboardTimer = setTimeout(this.incrementStep);
@@ -68,6 +69,9 @@ export default class Home extends React.Component<Props, State> {
   navigateToGame() {
     this.props.history.push('/game');
   }
+  navigateToTypingTest() {
+    this.props.history.push('/typing-test');
+  }
   render() {
     const text = 'text';
     const currentStep = baseSteps[this.state.step];
@@ -78,15 +82,19 @@ export default class Home extends React.Component<Props, State> {
           row={currentStep.keyboard[0]}
           letter={currentStep.keyboard[1]}
         />
-        <button className="button-large home-page-buttons" id="typing-test">
+        <button
+          className="button-large home-page-buttons"
+          id="typing-test"
+          onClick={this.navigateToGame}
+        >
           Multiplayer
         </button>
         <button
           id="compete-now"
           className="button-large home-page-buttons"
-          onClick={this.navigateToGame}
+          onClick={this.navigateToTypingTest}
         >
-          Compete Now
+          Typing Test
         </button>
       </div>
     );
