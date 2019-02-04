@@ -22,6 +22,7 @@ export const LOAD_REPLAY = 'load-replay';
 export const NAVIGATE_RESULT = 'navigate-to-result';
 export const COUNDOWN_CYCLE = 'countdown-cycle';
 export const GAME_IS_ACTIVE = 'game-is-active';
+export const TYPING_TEST_IS_ACTIVE = 'typing-test-is-active';
 export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;
 export const BOT_SPAWN_RATE = 5000;

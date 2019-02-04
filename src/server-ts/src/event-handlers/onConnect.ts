@@ -1,5 +1,6 @@
 import * as io from 'socket.io';
 import RoomManager from '../classes/MultiplayerRoomManager';
+import { typingTestManager } from '../classes/TypingTestManager';
 import PlayerManager from '../classes/PlayerManager';
 import Player from '../classes/Player';
 import onDisconnect from './onDisconnect';
@@ -33,7 +34,12 @@ export default function onConnect(socket: io.Socket): void {
     levelManager.getPlayerLevel(playerId).then(level => {
       const player = new Player(socket, userData, level);
       playerManager.addPlayer(player);
-      multiplayerRoomManager.allocateToRoom(socket, player.playerType);
+      if (roomType === RoomType.MULTIPLAYER) {
+        multiplayerRoomManager.allocateToRoom(socket, player.playerType);
+      }
+      if (roomType === RoomType.TYPING_TEST) {
+        typingTestManager.initGame(socket);
+      }
       socket.emit(CONNECT_SERVER_SUCCESS);
     });
     socket.on(PLAYER_TYPING, data => {

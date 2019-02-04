@@ -1,6 +1,5 @@
 import Player from './Player';
 import BotPlayer from './BotPlayer';
-import * as io from 'socket.io';
 import ServerManager from './ServerManager';
 import {
   SCORE_BROADCAST,
