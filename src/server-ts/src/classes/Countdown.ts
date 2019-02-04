@@ -1,5 +1,5 @@
 import { emitToRoom } from '../utilities';
-import { COUNDOWN_CYCLE } from '../../../constants';
+import { COUNDOWN_CYCLE, GAME_IS_ACTIVE } from '../../../constants';
 
 class Countdown {
   cycles: number = 5;
@@ -9,6 +9,7 @@ class Countdown {
   constructor(roomName: string) {
     this.intervalId = 0;
     this.roomName = roomName;
+    emitToRoom(this.roomName, GAME_IS_ACTIVE);
   }
   initiateCountdown(): Promise<void> {
     return new Promise((resolve, reject) => {

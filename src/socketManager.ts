@@ -30,7 +30,8 @@ import {
   SOCKET_HAS_DISCONNECTED,
   REQUEST_TO_PLAY,
   GAME_HAS_TIMEOUT,
-  NAVIGATE_RESULT
+  NAVIGATE_RESULT,
+  GAME_IS_ACTIVE
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
 
@@ -112,6 +113,11 @@ const socketManager: any = {
         }
       };
       this.dispatch(action);
+    });
+    this.socket.on(GAME_IS_ACTIVE, () => {
+      this.dispatch({
+        type: GAME_IS_ACTIVE
+      });
     });
     this.socket.on(COMPETITOR_LEFT, (data: PlayerSerialize) => {
       this.dispatch(handleCompetitorleave(data));

@@ -12,7 +12,8 @@ import {
   SOCKET_HAS_CONNECTED,
   SOCKET_HAS_DISCONNECTED,
   GAME_HAS_TIMEOUT,
-  LEAVE_GAME
+  LEAVE_GAME,
+  GAME_IS_ACTIVE
 } from '../../constants';
 import {
   PlayerSerialize,
@@ -81,6 +82,11 @@ export default function ServerStatus(
       return state;
     case COMPETITOR_HAS_FINISHED:
       return state;
+    case GAME_IS_ACTIVE:
+      return {
+        ...state,
+        isGameActive: true
+      };
     default:
       return state;
   }
