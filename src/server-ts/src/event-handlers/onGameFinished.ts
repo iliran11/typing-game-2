@@ -1,6 +1,6 @@
 import * as io from 'socket.io';
 import PlayerManager from '../classes/PlayerManager';
-import RoomManager from '../classes/RoomManager';
+import RoomManager from '../classes/MultiplayerRoomManager';
 import { COMPETITOR_HAS_FINISHED } from '../../../constants';
 import { getServer } from '../utilities';
 export default function onGameFinished(socket: io.Socket) {

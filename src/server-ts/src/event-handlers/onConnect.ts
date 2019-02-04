@@ -1,5 +1,5 @@
 import * as io from 'socket.io';
-import RoomManager from '../classes/RoomManager';
+import RoomManager from '../classes/MultiplayerRoomManager';
 import PlayerManager from '../classes/PlayerManager';
 import Player from '../classes/Player';
 import onDisconnect from './onDisconnect';

@@ -1,7 +1,7 @@
 import * as io from 'socket.io';
 import PlayerManager from '../classes/PlayerManager';
 import { typingDb } from '../mongoIndex';
-import RoomManager from '../classes/RoomManager';
+import RoomManager from '../classes/MultiplayerRoomManager';
 const playerManager = PlayerManager.getInstance();
 
 export default function playerTyping(socket: io.Socket, data) {

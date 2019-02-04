@@ -1,7 +1,7 @@
 import Player from './Player';
 import { PlayerType } from '../../../types';
 import playerTyping from '../event-handlers/playerTyping';
-import RoomManager from './RoomManager';
+import RoomManager from './MultiplayerRoomManager';
 import onGameFinished from '../event-handlers/onGameFinished';
 const random = require('lodash.random');
 export default class BotPlayer extends Player {

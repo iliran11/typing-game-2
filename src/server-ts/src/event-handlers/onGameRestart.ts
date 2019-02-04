@@ -1,5 +1,5 @@
 import PlayerManager from '../classes/PlayerManager';
-import RoomManager from '../classes/RoomManager';
+import RoomManager from '../classes/MultiplayerRoomManager';
 import { RoomType } from '../../../types';
 import { allocateHumanToRoom } from './allocatePlayerToRoom';
 import * as io from 'socket.io';
