@@ -1,23 +1,32 @@
 import React from 'react';
 import socketManager from '../../socketManager';
 import GameView from './GameView';
+import ToolTip from '../../components/tooltip';
 
 interface State {
   index: number;
   input: string[];
+  toolTipX: number;
+  toolTipY: number;
+  isOpen: boolean;
+  tooltipInput: string;
 }
 
 export default class GameController extends React.Component<any, State> {
   private inputRef: any;
   private bodyElement: any;
-
+  tooltipTimer: any;
   constructor(props: any) {
     super(props);
     this.inputRef = React.createRef();
     this.bodyElement = document.querySelector('body');
     this.state = {
       index: 0,
-      input: []
+      input: [],
+      toolTipX: 0,
+      toolTipY: 0,
+      tooltipInput: '',
+      isOpen: false
     };
     this.updateInputArray = this.updateInputArray.bind(this);
     this.onInput = this.onInput.bind(this);
@@ -25,6 +34,9 @@ export default class GameController extends React.Component<any, State> {
     if (this.bodyElement) {
       this.bodyElement.addEventListener('click', this.onBodyClick);
     }
+    this.changeToolTipPosition = this.changeToolTipPosition.bind(this);
+    this.scheduleTooltipClosure = this.scheduleTooltipClosure.bind(this);
+    this.closeTooltip = this.closeTooltip.bind(this);
   }
   updateInputArray(index: number, input: string): string[] {
     const nextInputArray = [...this.state.input];
@@ -70,6 +82,28 @@ export default class GameController extends React.Component<any, State> {
       this.inputRef.current.focus();
     }
   }
+  scheduleTooltipClosure() {
+    this.tooltipTimer = setTimeout(this.closeTooltip, 100000);
+  }
+  closeTooltip() {
+    this.setState({
+      isOpen: false
+    });
+  }
+  changeToolTipPosition(toolTipX: number, toolTipY: number, input: string) {
+    // we want that the arrow (not the most left border of the tooltip) will point exactly on the coordinate supplied
+    const arrowOffset = 22 / 2;
+    clearTimeout(this.tooltipTimer);
+    this.setState(
+      {
+        toolTipX: toolTipX - arrowOffset,
+        toolTipY,
+        isOpen: true,
+        tooltipInput: input
+      },
+      this.scheduleTooltipClosure
+    );
+  }
   render() {
     return (
       <React.Fragment>
@@ -82,8 +116,16 @@ export default class GameController extends React.Component<any, State> {
           // id="game-input"
           ref={this.inputRef}
         />
+        <ToolTip
+          x={this.state.toolTipX}
+          y={this.state.toolTipY}
+          isOpen={this.state.isOpen}
+          input={this.state.tooltipInput}
+        />
         <GameView
           {...this.props}
+          changeToolTipPosition={this.changeToolTipPosition}
+          closeTooltip={this.closeTooltip}
           currentLetter={this.currentLetter}
           index={this.state.index}
           input={this.state.input} // this.scrollIntoView();

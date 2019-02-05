@@ -4,7 +4,6 @@ import socketManager from '../../socketManager';
 import GameManagerContainer from '../../components/game-manager/gameManagerContainer';
 import ScoreBoardContainer from '../../components/CompetitorList/CometitorListContainer';
 import CountDown from '../../components/CountDown/CountDown';
-import ToolTip from '../../components/tooltip';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
 import { RoomType } from '../../types';
 import ServerAlertManager from './ServerAlertsManager/ServerAlertManagerContainer';
@@ -16,33 +15,20 @@ interface Props {
   isSocketConnected: boolean;
 }
 interface State {
-  toolTipX: number;
-  toolTipY: number;
-  timerActive: boolean;
   gameActive: boolean;
-  isOpen: boolean;
-  tooltipInput: string;
+  timerActive: boolean;
 }
 
 class MultiplayerPage extends PureComponent<Props, State> {
   currentInput: string = '';
-  tooltipTimer: any;
-
   constructor(props: any) {
     super(props);
     socketManager.emitRequestToPlay(RoomType.MULTIPLAYER);
     this.state = {
       timerActive: false,
-      gameActive: false,
-      toolTipX: 0,
-      toolTipY: 0,
-      tooltipInput: '',
-      isOpen: false
+      gameActive: false
     };
     this.onTimerFinish = this.onTimerFinish.bind(this);
-    this.changeToolTipPosition = this.changeToolTipPosition.bind(this);
-    this.scheduleTooltipClosure = this.scheduleTooltipClosure.bind(this);
-    this.closeTooltip = this.closeTooltip.bind(this);
   }
   componentDidUpdate(prevProps: Props) {
     // game has become active on server - turn on the timer!;
@@ -58,28 +44,6 @@ class MultiplayerPage extends PureComponent<Props, State> {
       gameActive: true
     });
   }
-  scheduleTooltipClosure() {
-    this.tooltipTimer = setTimeout(this.closeTooltip, 1000);
-  }
-  closeTooltip() {
-    this.setState({
-      isOpen: false
-    });
-  }
-  changeToolTipPosition(toolTipX: number, toolTipY: number, input: string) {
-    // we want that the arrow (not the most left border of the tooltip) will point exactly on the coordinate supplied
-    const arrowOffset = 22 / 2;
-    clearTimeout(this.tooltipTimer);
-    this.setState(
-      {
-        toolTipX: toolTipX - arrowOffset,
-        toolTipY,
-        isOpen: true,
-        tooltipInput: input
-      },
-      this.scheduleTooltipClosure
-    );
-  }
   render() {
     return (
       <div id="game-page">
@@ -89,17 +53,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}
-        <ToolTip
-          x={this.state.toolTipX}
-          y={this.state.toolTipY}
-          isOpen={this.state.isOpen}
-          input={this.state.tooltipInput}
-        />
-        <GameManagerContainer
-          gameActive={this.state.gameActive}
-          changeToolTipPosition={this.changeToolTipPosition}
-          closeTooltip={this.closeTooltip}
-        />
+        <GameManagerContainer gameActive={this.state.gameActive} />
         <ScoreBoardContainer history={this.props.history} />
         <ServerAlertManager />
       </div>
