@@ -52,6 +52,7 @@ export default class GameView extends React.Component<any, State> {
   }
   componentWillUnmount() {}
   componentDidMount() {
+    this.memoizeDomRects();
     this.setState({
       componentIsMounted: true
     });
@@ -71,9 +72,11 @@ export default class GameView extends React.Component<any, State> {
       }
     }
   }
-  memoizeDomRects(refArray: HTMLDivElement) {
+  memoizeDomRects(refArray?: HTMLDivElement) {
     // build the letter nodes.
-    this.letterNodes.push(refArray);
+    if (refArray) {
+      this.letterNodes.push(refArray);
+    }
     if (
       this.letterNodes.length === this.props.letters.length &&
       this.wordBox.current
