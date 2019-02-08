@@ -6,8 +6,9 @@ import {
   PlayerJoiningAction,
   ScoreBroadcastAction,
   Enviroments,
-  RoomType
-} from './types';
+  RoomType,
+  TypingGameInfoI
+} from './types/typesIndex';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { AchievementsProgressI } from './types/AchievementsTypes';
 import {
@@ -31,7 +32,8 @@ import {
   REQUEST_TO_PLAY,
   GAME_HAS_TIMEOUT,
   NAVIGATE_RESULT,
-  GAME_IS_ACTIVE
+  GAME_IS_ACTIVE,
+  TYPING_TEST_IS_ACTIVE
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
 
@@ -125,6 +127,12 @@ const socketManager: any = {
     this.socket.on(COMPETITOR_HAS_FINISHED, (data: PlayerSerialize) => {
       this.dispatch({
         type: COMPETITOR_HAS_FINISHED,
+        payload: data
+      });
+    });
+    this.socket.on(TYPING_TEST_IS_ACTIVE, (data: TypingGameInfoI) => {
+      this.dispatch({
+        type: TYPING_TEST_IS_ACTIVE,
         payload: data
       });
     });

@@ -3,6 +3,7 @@ import Letter from './store/classes/lettterData';
 import { AchievementsProgressReducer } from './types/AchievementsTypes';
 import { GameSummryDBI } from './types/schemasTypes';
 import { PlayerGameStatus } from './types/GameStatusType';
+import { TypingGameInfoI } from './types/typingTestTypes';
 export interface JoiningRoomResponse {
   roomId: number;
   playersGameStatus: PlayerGameStatus[];
@@ -79,6 +80,7 @@ export interface RootState {
   readonly achievementsProgress: AchievementsProgressReducer;
   readonly highlights: HighlightsMapping;
   readonly notificationsManager: NotificationsReducerI;
+  readonly typingTest: TypingGameInfoI;
 }
 export interface PlayerJoiningAction {
   type: string;

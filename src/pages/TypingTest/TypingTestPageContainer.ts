@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
-import TypingTestPage from './TypingTest';
+import { RootState } from '../../types/typesIndex';
+import TypingTestPage from './TypingTestPage';
 const mapDispatchToProps = {};
-const mapStateToProps = (state: any, props: any) => {
-  return {};
+const mapStateToProps = (state: RootState, props: any) => {
+  return {
+    gameInfo: state.typingTest
+  };
 };
 export const TypingTestPageContainer = connect(
   mapStateToProps,

@@ -34,7 +34,9 @@ class TypingTestRoom {
   private get getInitialGameData(): TypingGameInfoI {
     return {
       letters: ['a', 'b', 'c'],
-      instanceId: this.instanceId
+      instanceId: this.instanceId,
+      isGameActive: true
     };
   }
+  private gametick() {}
 }
