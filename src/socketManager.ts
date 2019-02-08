@@ -154,8 +154,8 @@ const socketManager: any = {
   reconnect() {
     this.initSocket(this.dispatch, this.history);
   },
-  emitTyping(typingInput: string) {
-    this.socket.emit(PLAYER_TYPING, { typingInput });
+  emitTyping(typingInput: string, roomType: RoomType) {
+    this.socket.emit(PLAYER_TYPING, { typingInput, roomType });
   },
   emitFinishedGame() {
     this.socket.emit(GAME_HAS_FINISHED);

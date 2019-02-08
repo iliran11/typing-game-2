@@ -53,7 +53,10 @@ class MultiplayerPage extends PureComponent<Props, State> {
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}
-        <GameManagerContainer gameActive={this.state.gameActive} />
+        <GameManagerContainer
+          gameActive={this.state.gameActive}
+          gameType={RoomType.MULTIPLAYER}
+        />
         <ScoreBoardContainer history={this.props.history} />
         <ServerAlertManager />
       </div>

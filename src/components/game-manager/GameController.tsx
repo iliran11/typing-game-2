@@ -2,6 +2,7 @@ import React from 'react';
 import socketManager from '../../socketManager';
 import GameView from './GameView';
 import ToolTip from '../../components/tooltip';
+import { RoomType } from '../../types/typesIndex';
 
 interface State {
   index: number;
@@ -11,8 +12,16 @@ interface State {
   isOpen: boolean;
   tooltipInput: string;
 }
+export interface GameControllerProps {
+  letters: string[];
+  gameActive: boolean;
+  gameType: RoomType;
+}
 
-export default class GameController extends React.Component<any, State> {
+export default class GameController extends React.Component<
+  GameControllerProps,
+  State
+> {
   private inputRef: any;
   private bodyElement: any;
   tooltipTimer: any;
@@ -59,7 +68,7 @@ export default class GameController extends React.Component<any, State> {
     const { index } = this.state;
     const input: string = event.target.value.toLowerCase();
     const updatedInput = this.updateInputArray(index, input);
-    socketManager.emitTyping(input);
+    socketManager.emitTyping(input, this.props.gameType);
     // if input is corret
     if (input === this.currentLetter.toLowerCase()) {
       this.setState({

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import socketManager from '../../socketManager';
-import { RoomType } from '../../types/typesIndex';
 import GameController from '../../components/game-manager/GameController';
-import { TypingGameInfoI } from '../../types/typesIndex';
+import { TypingGameInfoI, RoomType } from '../../types/typesIndex';
 
 export interface TypingTestPageProps {
   gameInfo: TypingGameInfoI;
@@ -24,7 +23,8 @@ export default class TypingTestPage extends React.Component<
       <div id="game-page">
         <GameController
           letters={this.props.gameInfo.letters}
-          gameActive={this.props.gameInfo}
+          gameActive={this.props.gameInfo.isGameActive}
+          gameType={RoomType.TYPING_TEST}
         />
       </div>
     );
