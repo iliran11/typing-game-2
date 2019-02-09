@@ -8,7 +8,7 @@
     padding: 15px 0px;
     border-radius: 10px;
     width: 100%;
-    color:white;
+    color: white;
     font-size: 20px;
   }
   .bold {
@@ -45,5 +45,22 @@
 .page {
   @media (max-width: 992px) {
     width: 82%;
+  }
+}
+
+.right-border {
+  &:after {
+    content: '';
+    background: -webkit-linear-gradient(
+      bottom,
+      #365902 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    display: block;
+    height: 100%;
+    width: 2px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 }

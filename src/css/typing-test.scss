@@ -1,3 +1,4 @@
+@import './colors.scss';
 .typing-test-timer {
   border-radius: 50%;
   display: inline-flex;
@@ -11,4 +12,22 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
+}
+#typing-test-scoreboard {
+  color: $color1;
+  .score-division {
+    flex: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .score {
+    font-size: 36px;
+    font-weight: 500;
+  }
+  .label {
+    font-size: 16px;
+  }
+  display: flex;
 }

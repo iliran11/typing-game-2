@@ -6,3 +6,8 @@ export interface TypingGameInfoI {
   cpm: number;
   accuracy: number;
 }
+
+export interface ScoreboardSectionData {
+  value: string | number;
+  label: string;
+}

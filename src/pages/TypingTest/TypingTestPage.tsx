@@ -3,8 +3,19 @@ import socketManager from '../../socketManager';
 import GameController from '../../components/game-manager/GameController';
 import { TypingGameInfoI, RoomType } from '../../types/typesIndex';
 import { TypingTestTimer } from '../../components/TimerRenderProps/TimerRenderProps';
+import {
+  TypingTestScoreboard,
+  TypingTestScoreboardProps
+} from './TypingTestScoreboard';
 import '../../css/typing-test.scss';
 
+const scoreboardData: TypingTestScoreboardProps = {
+  data: [
+    { value: 12, label: 'WORDS/MIN' },
+    { value: 77, label: 'CHARS/MIN' },
+    { value: '94%', label: 'ACCURACY' }
+  ]
+};
 export interface TypingTestPageProps {
   gameInfo: TypingGameInfoI;
 }
@@ -33,6 +44,7 @@ export default class TypingTestPage extends React.Component<
             }}
           />
         </div>
+        <TypingTestScoreboard {...scoreboardData} />
         <GameController
           letters={this.props.gameInfo.letters}
           gameActive={this.props.gameInfo.isGameActive}
