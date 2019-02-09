@@ -4,7 +4,9 @@ import { PROMOTION_DATA, LevelRulesI } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { UserAchievementsI } from '../../../types/AchievementsTypes';
 import { PROMOTION_EVENT } from '../../../constants';
+import { longtext } from '../longtext';
 
+console.log(longtext);
 interface LevelsMap {
   [level: string]: LevelRulesI;
 }
@@ -53,6 +55,14 @@ export const levelsMap: LevelsMap = {
     totalWordsTyped: 100,
     totalCharsTyped: 150,
     text: 'level 4'
+  },
+  level99: {
+    level: 99,
+    wpm: 0,
+    accuracy: 0,
+    totalWordsTyped: 0,
+    totalCharsTyped: 0,
+    text: longtext
   }
 };
 

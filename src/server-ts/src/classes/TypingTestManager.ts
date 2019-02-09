@@ -42,7 +42,7 @@ class TypingTestRoom {
     this.gametick = this.gametick.bind(this);
     this.socket = socket;
     this.instanceId = `TypingTest-${uuid()}`;
-    this.game = new Game(1);
+    this.game = new Game(99);
     this.intervalId = setInterval(this.gametick, 1000);
     this.startTime = Date.now();
     socket.emit(TYPING_TEST_IS_ACTIVE, this.getInitialGameData);
@@ -64,7 +64,6 @@ class TypingTestRoom {
     return this.passedTime / 60000;
   }
   private gametick() {
-    console.log(this.game.getWpmScore(this.passedTimeMinutes));
     this.socket.emit(TYPING_TEST_SCORE_BROADCAST, this.getInitialGameData);
   }
 }
