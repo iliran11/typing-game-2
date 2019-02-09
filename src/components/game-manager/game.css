@@ -25,25 +25,7 @@
 }
 #competitor-list {
   flex: none;
-  margin-top:23px;
-}
-#words-box {
-  color: #000000;
-  margin-top: 38px;
-  padding: 0px 20px;
-  overflow: hidden;
-  position: relative;
-  transition: background-color 0.5s, opacity 0.5s;
-  line-height: 30px;
-  height: 62px;
-  max-height: 115px;
-  font-size: 24px;
-  flex: auto;
-}
-.words-box-letters {
-  font-weight: bold;
-  font-size: 24px;
-  opacity: 0.87;
+  margin-top: 23px;
 }
 input {
   width: 100%;
@@ -54,23 +36,6 @@ input {
 }
 #words-box.disabled {
   opacity: 0.1;
-}
-.letter-group {
-  display: inline-flex;
-  flex-wrap: wrap;
-}
-
-.letter-container {
-  display: inline-flex;
-}
-.letter {
-  display: inline-block;
-  position: relative;
-}
-
-.letter.success {
-  animation: 0.5s linear 0s pulse-success;
-  color: #56ab2f;
 }
 
 @keyframes pulse-success {
@@ -168,4 +133,11 @@ input {
   margin-top: 8px;
   z-index: 10;
   font-weight: bold;
+}
+#word-box {
+  padding: 0px 5px;
+}
+.word {
+  padding: 0px 5px;
+  display: inline-block;
 }
