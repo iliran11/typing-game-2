@@ -33,7 +33,8 @@ import {
   GAME_HAS_TIMEOUT,
   NAVIGATE_RESULT,
   GAME_IS_ACTIVE,
-  TYPING_TEST_IS_ACTIVE
+  TYPING_TEST_IS_ACTIVE,
+  TYPING_TEST_SCORE_BROADCAST
 } from './constants';
 import AuthenticationManager from './AuthenticationManager';
 
@@ -131,6 +132,12 @@ const socketManager: any = {
       });
     });
     this.socket.on(TYPING_TEST_IS_ACTIVE, (data: TypingGameInfoI) => {
+      this.dispatch({
+        type: TYPING_TEST_IS_ACTIVE,
+        payload: data
+      });
+    });
+    this.socket.on(TYPING_TEST_SCORE_BROADCAST, (data: TypingGameInfoI) => {
       this.dispatch({
         type: TYPING_TEST_IS_ACTIVE,
         payload: data

@@ -30,6 +30,7 @@ export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot';
 export const RANDOM_AVATAR_MAX_INDEX = 10;
 export const SHOW_NOTIFICATION = 'show-notification';
 export const HIDE_NOTIFICATION = 'hide-notification';
+export const TYPING_TEST_SCORE_BROADCAST = 'typing-test-score-broadcast'
 
 // ------ AUTH ------- //
 

@@ -3,6 +3,7 @@ import PlayerManager from '../classes/PlayerManager';
 import { typingDb } from '../mongoIndex';
 import RoomManager from '../classes/MultiplayerRoomManager';
 import { RoomType } from '../../../types';
+import { typingTestManager } from '../classes/TypingTestManager';
 const playerManager = PlayerManager.getInstance();
 
 export default function playerTyping(socket: io.Socket, data) {
@@ -25,6 +26,9 @@ export default function playerTyping(socket: io.Socket, data) {
     }
   }
   if (data.roomType === RoomType.TYPING_TEST) {
-    console;
+    const room = typingTestManager.getRoom(socket);
+    if (room) {
+      room.game.processNewTyping(data.typingInput);
+    }
   }
 }

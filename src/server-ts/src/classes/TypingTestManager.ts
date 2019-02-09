@@ -1,16 +1,25 @@
 import { emitToRoom } from '../utilities';
-import { TYPING_TEST_IS_ACTIVE } from '../../../constants';
+import {
+  TYPING_TEST_IS_ACTIVE,
+  TYPING_TEST_SCORE_BROADCAST
+} from '../../../constants';
 import { TypingGameInfoI } from '../../../types/typesIndex';
-const uuid = require('uuid/v4');
+import Game from './Game';
+import * as io from 'socket.io';
 
-class TypingTestManager {
+const uuid = require('uuid/v4');
+export class TypingTestManager {
   private static instance: TypingTestManager;
-  rooms: Map<number, TypingTestRoom>;
+  rooms: Map<io.Socket, TypingTestRoom>;
   private constructor() {
     this.rooms = new Map();
   }
   initGame(socket) {
     const room = new TypingTestRoom(socket);
+    this.rooms.set(socket, room);
+  }
+  getRoom(socket): TypingTestRoom | undefined {
+    return this.rooms.get(socket);
   }
   static getInstance() {
     if (!TypingTestManager.instance) {
@@ -26,17 +35,36 @@ export const typingTestManager = TypingTestManager.getInstance(); // do somethin
 class TypingTestRoom {
   socket: any;
   instanceId: string;
+  intervalId: any;
+  game: Game;
+  startTime: number;
   constructor(socket) {
-    this.socket = this.socket;
+    this.gametick = this.gametick.bind(this);
+    this.socket = socket;
     this.instanceId = `TypingTest-${uuid()}`;
+    this.game = new Game(1);
+    this.intervalId = setInterval(this.gametick, 1000);
+    this.startTime = Date.now();
     socket.emit(TYPING_TEST_IS_ACTIVE, this.getInitialGameData);
   }
   private get getInitialGameData(): TypingGameInfoI {
     return {
-      letters: ['a', 'b', 'c'],
+      letters: this.game.getRawLetters,
       instanceId: this.instanceId,
-      isGameActive: true
+      isGameActive: true,
+      wpm: this.game.getWpmScore(this.passedTimeMinutes),
+      cpm: this.game.getWpmScore(this.passedTimeMinutes),
+      accuracy: this.game.getAccuracy()
     };
   }
-  private gametick() {}
+  private get passedTime(): number {
+    return Date.now() - this.startTime;
+  }
+  private get passedTimeMinutes(): number {
+    return this.passedTime / 60000;
+  }
+  private gametick() {
+    console.log(this.game.getWpmScore(this.passedTimeMinutes));
+    this.socket.emit(TYPING_TEST_SCORE_BROADCAST, this.getInitialGameData);
+  }
 }

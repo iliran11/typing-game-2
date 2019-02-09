@@ -49,10 +49,18 @@ export default class Game {
     return numberOfWords;
   }
   public getWpmScore(minutesPassed: number) {
-    return this.index / minutesPassed / 5;
+    // number of letters in average word;
+    const lettersInWord = 5;
+    return this.index / lettersInWord / minutesPassed;
+  }
+  public getCpmScore(minutesPassed: number) {
+    return this.index / minutesPassed;
   }
   public get getPercentageComplete() {
     return this.index / this.letters.length;
+  }
+  public getAccuracy() {
+    return this.index / this.numberOfTypings;
   }
   public get currentChallengeLetter() {
     if (this.index < this.letters.length) {
