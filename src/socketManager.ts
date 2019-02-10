@@ -81,7 +81,7 @@ const socketManager: any = {
           myId
         }
       });
-      const words = data.letters.join('').split(' ')
+      const words = data.letters.join('').split(' ');
       this.dispatch({
         type: SET_GAME_LETTERS,
         payload: {
@@ -133,16 +133,18 @@ const socketManager: any = {
       });
     });
     this.socket.on(TYPING_TEST_IS_ACTIVE, (data: TypingGameInfoI) => {
+      const letters = data.letters.join('').split(' ');
+
       this.dispatch({
         type: TYPING_TEST_IS_ACTIVE,
-        payload: data
+        payload: { ...data, letters }
       });
     });
     this.socket.on(TYPING_TEST_SCORE_BROADCAST, (data: TypingGameInfoI) => {
-      this.dispatch({
-        type: TYPING_TEST_IS_ACTIVE,
-        payload: data
-      });
+      // this.dispatch({
+      //   type: TYPING_TEST_IS_ACTIVE,
+      //   payload: data
+      // });
     });
     this.socket.on(GAME_HAS_TIMEOUT, () => {
       this.dispatch({

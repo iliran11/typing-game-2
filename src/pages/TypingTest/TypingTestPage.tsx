@@ -35,11 +35,11 @@ export default class TypingTestPage extends React.Component<
           />
         </div>
         <TypingTestScoreboardContainer />
-        {/* <GameController
-          letters={this.props.gameInfo.letters}
-          gameActive={this.props.gameInfo.isGameActive}
-          gameType={RoomType.TYPING_TEST}
-        /> */}
+        <GameController
+          words={this.props.gameInfo.letters}
+          // gameActive={this.props.gameInfo.isGameActive}
+          // gameType={RoomType.TYPING_TEST}
+        />
       </div>
     );
   }

@@ -14,7 +14,7 @@ export function TypingTestScoreboard(props: TypingTestScoreboardProps) {
     <div id="typing-test-scoreboard">
       {props.data.map((data, index) => {
         const hasBorder = index !== props.data.length - 1;
-        return <ScoreDivision data={data} hasBorder={hasBorder} />;
+        return <ScoreDivision key={index} data={data} hasBorder={hasBorder} />;
       })}
     </div>
   );
