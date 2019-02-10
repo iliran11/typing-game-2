@@ -10,6 +10,6 @@ export class GameDomManager {
     this.letterRefs = [];
   }
   init() {
-    console.log(document.querySelectorAll('.letter'));
+    this.letterRefs = document.querySelectorAll('.letter');
   }
 }

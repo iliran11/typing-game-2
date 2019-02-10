@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Word } from './Word';
 import Marker, { markerProps } from '../Marker';
-import { GameDomManager } from './GameManager';
+import { GameDomManager } from './GameDomManager';
 import './game.css';
 // no updated definitions for this library. that's a way to workaround it.
 const scrollIntoView = require('scroll-into-view');
