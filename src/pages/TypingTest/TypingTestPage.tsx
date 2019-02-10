@@ -1,6 +1,6 @@
 import * as React from 'react';
 import socketManager from '../../socketManager';
-import GameController from '../../components/game-manager/GameController';
+import GameController from '../../components/game-manager/GameController2';
 import { TypingGameInfoI, RoomType } from '../../types/typesIndex';
 import { TypingTestTimer } from '../../components/TimerRenderProps/TimerRenderProps';
 import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
@@ -35,11 +35,11 @@ export default class TypingTestPage extends React.Component<
           />
         </div>
         <TypingTestScoreboardContainer />
-        <GameController
+        {/* <GameController
           letters={this.props.gameInfo.letters}
           gameActive={this.props.gameInfo.isGameActive}
           gameType={RoomType.TYPING_TEST}
-        />
+        /> */}
       </div>
     );
   }

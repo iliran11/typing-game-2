@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import GameManager from './GameController';
+import GameManager from './GameController2';
 import { gameIsFinished } from '../../store/gameAction';
 
 const mapStateToProps = (state: any, ownProps: any) => {

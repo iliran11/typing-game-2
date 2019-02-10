@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface WordProps {
-  word: string;
+  letters: string[];
 }
 
 export interface WordState {}
@@ -14,6 +14,12 @@ export class Word extends React.Component<WordProps, WordState> {
   }
 
   public render() {
-    return <span className="word">{this.props.word}</span>;
+    return (
+      <span className="word">
+        {this.props.letters.map(letter => {
+          return <span className="letter">{letter}</span>;
+        })}
+      </span>
+    );
   }
 }

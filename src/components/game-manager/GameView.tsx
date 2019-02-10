@@ -28,7 +28,7 @@ export default class GameView extends React.Component<any, State> {
     this.renderWords = this.renderWords.bind(this);
   }
   renderWords(word: string, index: number) {
-    return <Word word={word} />;
+    return <Word letters={word.split('')} />;
   }
   render() {
     return <div id="words-box">{this.props.letters.map(this.renderWords)}</div>;
