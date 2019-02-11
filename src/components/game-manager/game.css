@@ -37,14 +37,20 @@ input {
 #words-box.disabled {
   opacity: 0.1;
 }
-
+.letter.success {
+  animation: 0.5s linear 0s pulse-success;
+  color: #56ab2f;
+}
+.letter {
+  display: inline-block;
+}
 @keyframes pulse-success {
   0% {
     transform: scale(1);
     color: initial;
   }
   50% {
-    transform: scale(1.5);
+    transform: scale(3);
     color: green;
   }
   100% {
@@ -139,7 +145,6 @@ input {
   overflow: hidden;
   position: relative;
   height: 200px;
-
 }
 .word {
   padding: 0px 5px;

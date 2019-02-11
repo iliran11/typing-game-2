@@ -1,5 +1,6 @@
 import * as React from 'react';
 import GameView from './GameView';
+import { gameDomManager } from './GameDomManager';
 
 export interface IAppProps {
   words: string[];
@@ -10,17 +11,12 @@ export interface IAppState {}
 export default class IApp extends React.Component<IAppProps, IAppState> {
   private inputRef: any;
   private bodyElement: any;
-  private input: string[];
-  private index: number;
-  private letters: string[];
   constructor(props: IAppProps) {
     super(props);
+    this.onInput = this.onInput.bind(this);
+    this.onBodyClick = this.onBodyClick.bind(this);
     this.state = {};
     this.inputRef = React.createRef();
-    this.onBodyClick = this.onBodyClick.bind(this);
-    this.input = [];
-    this.letters = [];
-    this.index = 0;
     this.bodyElement = document.querySelector('body');
     if (this.bodyElement) {
       this.bodyElement.addEventListener('click', this.onBodyClick);
@@ -29,19 +25,14 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
   componentWillUnmount() {
     this.bodyElement.removeEventListener('click', this.onBodyClick);
   }
-  componentDidUpdate(prevProps: IAppProps) {
-    if (this.props.words.length > 0 && prevProps.words.length === 0) {
-      this.letters = this.props.words.join('').split('');
-      console.log(this.letters);
-    }
-  }
+  componentDidUpdate(prevProps: IAppProps) {}
   onBodyClick() {
     if (this.inputRef.current) {
       this.inputRef.current.focus();
     }
   }
   onInput(event: any) {
-    const value = event.target.value;
+    gameDomManager.onInput(event.target.value);
   }
 
   public render() {
