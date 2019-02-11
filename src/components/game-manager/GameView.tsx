@@ -34,8 +34,10 @@ export default class GameView extends React.Component<any, State> {
   render() {
     return (
       <Fragment>
-        <div id="words-box">{this.props.letters.map(this.renderWords)}</div>
-        {this.props.gameActive && <Marker />}
+        <div id="words-box">
+          {this.props.letters.map(this.renderWords)}
+          <Marker />
+        </div>
       </Fragment>
     );
   }

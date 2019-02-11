@@ -67,6 +67,7 @@ input {
   transition: all 0.3s;
   z-index: 9999;
   color: white;
+  top: 0;
 }
 #game-text {
   position: relative;
@@ -141,7 +142,7 @@ input {
   font-weight: bold;
 }
 #words-box {
-  padding: 0px 20px;
+  margin: 0px 20px;
   overflow: hidden;
   position: relative;
   height: 200px;
