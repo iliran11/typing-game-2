@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Word } from './Word';
 import Marker, { markerProps } from '../Marker';
 import { gameDomManager } from './GameDomManager';
+import ToolTip from '../tooltip';
 import './game.css';
 // no updated definitions for this library. that's a way to workaround it.
 const scrollIntoView = require('scroll-into-view');
@@ -38,6 +39,7 @@ export default class GameView extends React.Component<any, State> {
           {this.props.letters.map(this.renderWords)}
           <Marker />
         </div>
+        <ToolTip />
       </Fragment>
     );
   }

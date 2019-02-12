@@ -76,11 +76,13 @@ input {
 .tooltip {
   transition: all 0.3s;
   position: absolute;
-  top: -8px;
+  top: 0px;
   display: block;
   transition: all 0.1s ease-in-out;
   z-index: 9999;
   font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 .tooltip .tooltip-inner {
   max-width: 200px;
@@ -89,6 +91,9 @@ input {
   text-align: center;
   background-color: #76a60f;
   border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  width: 20px;
 }
 .tooltip .tooltip-inner.has-space {
   padding: 10px 11px;
@@ -148,6 +153,6 @@ input {
   height: 200px;
 }
 .word {
-  padding: 0px 5px;
+  padding-right: 5px;
   display: inline-block;
 }

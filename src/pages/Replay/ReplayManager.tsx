@@ -179,12 +179,12 @@ export default class ReplayManager extends React.Component<
           gameIsFinished={() => {}}
           notifyServerOnFinish={false}
         />
-        <ToolTip
+        {/* <ToolTip
           x={this.state.toolTipX}
           y={this.state.toolTipY}
           isOpen={this.state.isOpen}
           input={this.state.tooltipInput}
-        />
+        /> */}
       </div>
     );
   }
