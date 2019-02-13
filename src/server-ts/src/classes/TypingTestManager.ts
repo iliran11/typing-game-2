@@ -49,7 +49,7 @@ class TypingTestRoom {
   }
   private get getInitialGameData(): TypingGameInfoI {
     return {
-      letters: this.game.getRawLetters,
+      words: this.game.words,
       instanceId: this.instanceId,
       isGameActive: true,
       wpm: this.game.getWpmScore(this.passedTimeMinutes),

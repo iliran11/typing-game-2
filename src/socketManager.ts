@@ -133,7 +133,7 @@ const socketManager: any = {
       });
     });
     this.socket.on(TYPING_TEST_IS_ACTIVE, (data: TypingGameInfoI) => {
-      const letters = data.letters.join('').split(' ');
+      const letters = data.words;
 
       this.dispatch({
         type: TYPING_TEST_IS_ACTIVE,

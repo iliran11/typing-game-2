@@ -36,6 +36,9 @@ export default class Game {
   public get getRawLetters() {
     return this.rawLetters.split('');
   }
+  public get words() {
+    return this.rawLetters.split(/(\s+)/);
+  }
   public get numberOfWords() {
     let numberOfWords = 0;
     this.getRawLetters

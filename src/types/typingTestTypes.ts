@@ -1,6 +1,6 @@
 export interface TypingGameInfoI {
   instanceId: string;
-  letters: string[];
+  words: string[];
   isGameActive: boolean;
   wpm: number;
   cpm: number;

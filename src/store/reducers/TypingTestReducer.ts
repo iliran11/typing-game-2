@@ -6,7 +6,7 @@ import { TypingGameInfoI } from '../../types/typesIndex';
 
 const initialState: TypingGameInfoI = {
   instanceId: '',
-  letters: [],
+  words: [],
   isGameActive: false,
   wpm: 0,
   cpm: 0,

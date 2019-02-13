@@ -36,7 +36,7 @@ export default class TypingTestPage extends React.Component<
         </div>
         <TypingTestScoreboardContainer />
         <GameController
-          words={this.props.gameInfo.letters}
+          words={this.props.gameInfo.words}
           // gameActive={this.props.gameInfo.isGameActive}
           // gameType={RoomType.TYPING_TEST}
         />

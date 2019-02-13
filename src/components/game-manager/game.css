@@ -153,6 +153,5 @@ input {
   height: 200px;
 }
 .word {
-  padding-right: 5px;
   display: inline-block;
 }

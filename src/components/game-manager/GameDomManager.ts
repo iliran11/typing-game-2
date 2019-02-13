@@ -1,3 +1,5 @@
+const scrollIntoView = require('scroll-into-view');
+
 class GameDomManager {
   private input: string[];
   private index: number;
@@ -48,7 +50,6 @@ class GameDomManager {
     this.letterRefs[index].classList.add('success');
   }
   private get markerprops() {
-    console.log(this.currentLetterRect.left, this.wordsBoxRect.left);
     return {
       top: this.currentLetterRect.top - this.wordsBoxRect.top,
       left: this.currentLetterRect.left - this.wordsBoxRect.left
@@ -74,9 +75,14 @@ class GameDomManager {
     this.markerRef.innerText = this.letters[this.index];
   }
   onInput(value: string) {
+    const originalIndex = this.index;
     if (this.challenge === value) {
       this.letterSuccess(this.index);
-      this.index++;
+      if (this.index < this.letters.length - 1) {
+        this.index++;
+      } else {
+        console.log('finish');
+      }
     } else {
       this.tooltipPosition();
       this.tooltipPlaceholderRef.innerText = value === ' ' ? '_' : value;
@@ -86,6 +92,15 @@ class GameDomManager {
       }, 1000);
     }
     this.markerPosition();
+    if (this.index !== originalIndex) {
+      scrollIntoView(this.letterRefs[this.index], {
+        time: 200,
+        align: {
+          top: 0.5
+        },
+        isScrollable: () => true
+      });
+    }
   }
   static getInstance() {
     if (!GameDomManager.instance) {
