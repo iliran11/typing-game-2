@@ -73,6 +73,8 @@ class GameDomManager {
     const { top, left } = this.markerprops;
     this.markerRef.style.transform = `translate(${left}px,${top}px)`;
     this.markerRef.innerText = this.letters[this.index];
+    this.markerRef.style.width = `${this.currentLetterRect.width}px`;
+    this.markerRef.style.height = `${this.currentLetterRect.height}px`;
   }
   onInput(value: string) {
     const originalIndex = this.index;
