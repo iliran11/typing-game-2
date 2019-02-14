@@ -32,6 +32,9 @@ class GameDomManager {
   private get currentLetterRect() {
     return this.letterRects[this.index];
   }
+  private get previousLetterRect() {
+    return this.letterRects[this.index - 1];
+  }
   init(words: string[]) {
     this.letterRefs = document.querySelectorAll('.letter');
     this.markerRef = document.querySelector('#marker');
@@ -93,7 +96,11 @@ class GameDomManager {
       }, 1000);
     }
     this.markerPosition();
-    if (this.index !== originalIndex) {
+    if (
+      this.index > 0 &&
+      this.currentLetterRect.top !== this.previousLetterRect.top
+    ) {
+      console.log('scroll!');
       scrollIntoView(this.letterRefs[this.index], {
         time: 200,
         align: {
