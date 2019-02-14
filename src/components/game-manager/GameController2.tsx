@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Fragment } from 'react';
 import GameView from './GameView';
 import { gameDomManager } from './GameDomManager';
 
@@ -37,7 +37,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
 
   public render() {
     return (
-      <div>
+      <Fragment>
         <input
           onChange={this.onInput}
           value={''}
@@ -48,7 +48,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
           ref={this.inputRef}
         />
         <GameView letters={this.props.words} />
-      </div>
+      </Fragment>
     );
   }
 }

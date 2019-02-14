@@ -1,7 +1,6 @@
 #game-page {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 #app-toolbar {
   flex: none;
@@ -50,7 +49,7 @@ input {
     color: initial;
   }
   50% {
-    transform: scale(3);
+    transform: scale(2.5);
     color: green;
   }
   100% {
@@ -68,10 +67,6 @@ input {
   z-index: 9999;
   color: white;
   top: 0;
-}
-#game-text {
-  position: relative;
-  font-size: 25px;
 }
 .tooltip {
   transition: all 0.3s;
@@ -150,7 +145,8 @@ input {
   margin: 0px 30px;
   overflow: hidden;
   position: relative;
-  height: 100px;
+  font-size: 24px;
+  font-weight: 700;
 }
 .word {
   display: inline-block;

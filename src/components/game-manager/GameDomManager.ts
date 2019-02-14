@@ -98,7 +98,7 @@ class GameDomManager {
       scrollIntoView(this.letterRefs[this.index], {
         time: 200,
         align: {
-          top: 1
+          top: 0.8
         },
         isScrollable: () => true
       });
