@@ -7,6 +7,7 @@ class GameDomManager {
   private wordRefs: any;
   private letterRefs: any;
   private letterRects: any;
+  private wordsBoxRef: any;
   private wordsBoxRect: any;
   private static instance: GameDomManager;
   private markerRef: any;
@@ -20,6 +21,7 @@ class GameDomManager {
     this.wordRefs = [];
     this.letterRefs = [];
     this.letterRects = [];
+    this.wordsBoxRef = null;
     this.wordsBoxRect = null;
     this.toolTipRef = null;
     this.tooltipPlaceholderRef = null;
@@ -36,9 +38,8 @@ class GameDomManager {
     this.toolTipRef = document.querySelector('#tooltip');
     this.tooltipPlaceholderRef = document.querySelector('#tooltip-spaceholder');
     // @ts-ignore
-    this.wordsBoxRect = document
-      .querySelector('#words-box')
-      .getBoundingClientRect();
+    this.wordsBoxRef = document.querySelector('#words-box');
+    this.wordsBoxRect = this.wordsBoxRef.getBoundingClientRect();
     this.letters = words.join('').split('');
     this.letterRefs.forEach((letterRef: any) => {
       this.letterRects.push(letterRef.getBoundingClientRect());
@@ -63,11 +64,9 @@ class GameDomManager {
       this.currentLetterRect.left -
       this.wordsBoxRect.left +
       this.letterRects[this.index].width / 2;
+    const scroll = this.wordsBoxRef.scrollTop;
     this.toolTipRef.style.left = `${left}px`;
-    this.toolTipRef.style.top = `${this.wordsBoxRect.top -
-      40 +
-      this.currentLetterRect.top -
-      this.wordsBoxRect.top}px`;
+    this.toolTipRef.style.top = `${this.currentLetterRect.top - scroll - 40}px`;
   }
   private markerPosition() {
     const { top, left } = this.markerprops;
