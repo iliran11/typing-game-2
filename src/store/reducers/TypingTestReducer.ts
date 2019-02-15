@@ -2,7 +2,7 @@ import {
   TYPING_TEST_IS_ACTIVE,
   TYPING_TEST_SCORE_BROADCAST
 } from '../../constants';
-import { TypingGameInfoI } from '../../types/typesIndex';
+import { TypingGameInfoI, PlayerType } from '../../types/typesIndex';
 
 const initialState: TypingGameInfoI = {
   instanceId: '',
@@ -10,7 +10,16 @@ const initialState: TypingGameInfoI = {
   isGameActive: false,
   wpm: 0,
   cpm: 0,
-  accuracy: 0
+  accuracy: 0,
+  player: {
+    id: '',
+    type: PlayerType.human,
+    name: '',
+    avatar: {
+      isAnonymous: false,
+      picture: -1
+    }
+  }
 };
 
 export default function GameReducer(state: any = initialState, action: any) {

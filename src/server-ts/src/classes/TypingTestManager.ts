@@ -7,6 +7,7 @@ import { TypingGameInfoI, RoomType } from '../../../types/typesIndex';
 import Game from './Game';
 import * as io from 'socket.io';
 import { roomLogDb, roomSummaryDb } from '../mongoIndex';
+import Player from '../classes/Player';
 
 const uuid = require('uuid/v4');
 export class TypingTestManager {
@@ -15,8 +16,8 @@ export class TypingTestManager {
   private constructor() {
     this.rooms = new Map();
   }
-  initGame(socket) {
-    const room = new TypingTestRoom(socket);
+  initGame(socket, player: Player) {
+    const room = new TypingTestRoom(socket, player);
     this.rooms.set(socket, room);
   }
   getRoom(socket): TypingTestRoom | undefined {
@@ -40,7 +41,8 @@ class TypingTestRoom {
   game: Game;
   startTime: number;
   gameTickSequenceId: number;
-  constructor(socket) {
+  player: Player;
+  constructor(socket, player: Player) {
     this.gametick = this.gametick.bind(this);
     this.onGameEnd = this.onGameEnd.bind(this);
     this.socket = socket;
@@ -49,6 +51,7 @@ class TypingTestRoom {
     this.intervalId = setInterval(this.gametick, 1000);
     this.startTime = Date.now();
     this.gameTickSequenceId = 0;
+    this.player = player;
     socket.emit(TYPING_TEST_IS_ACTIVE, this.getInitialGameData);
   }
   private get getInitialGameData(): TypingGameInfoI {
@@ -58,7 +61,8 @@ class TypingTestRoom {
       isGameActive: true,
       wpm: this.game.getWpmScore(this.passedTimeMinutes),
       cpm: this.game.getWpmScore(this.passedTimeMinutes),
-      accuracy: this.game.getAccuracy()
+      accuracy: this.game.getAccuracy(),
+      player: this.player.serializable
     };
   }
   private get passedTime(): number {
@@ -68,16 +72,20 @@ class TypingTestRoom {
     return this.passedTime / 60000;
   }
   private onGameEnd() {
-    roomSummaryDb.saveTypingTest(this.getInitialGameData);
+    if (this.player.isAuthenticated) {
+      roomSummaryDb.saveTypingTest(this.getInitialGameData);
+    }
   }
   private gametick() {
     this.gameTickSequenceId++;
-    roomLogDb.save(
-      this.getInitialGameData,
-      this.instanceId,
-      this.gameTickSequenceId,
-      RoomType.TYPING_TEST
-    );
+    if (this.player.isAuthenticated) {
+      roomLogDb.save(
+        this.getInitialGameData,
+        this.instanceId,
+        this.gameTickSequenceId,
+        RoomType.TYPING_TEST
+      );
+    }
     this.socket.emit(TYPING_TEST_SCORE_BROADCAST, this.getInitialGameData);
   }
 }

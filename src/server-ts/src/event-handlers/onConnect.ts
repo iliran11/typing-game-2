@@ -38,7 +38,7 @@ export default function onConnect(socket: io.Socket): void {
         multiplayerRoomManager.allocateToRoom(socket, player.playerType);
       }
       if (roomType === RoomType.TYPING_TEST) {
-        typingTestManager.initGame(socket);
+        typingTestManager.initGame(socket,player);
       }
       socket.emit(CONNECT_SERVER_SUCCESS);
     });

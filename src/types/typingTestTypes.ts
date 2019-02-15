@@ -1,3 +1,5 @@
+import { PlayerSerialize } from './typesIndex';
+
 export interface TypingGameInfoI {
   instanceId: string;
   words: string[];
@@ -5,6 +7,7 @@ export interface TypingGameInfoI {
   wpm: number;
   cpm: number;
   accuracy: number;
+  player: PlayerSerialize;
 }
 
 export interface ScoreboardSectionData {
