@@ -1,9 +1,12 @@
 import React, { Fragment } from 'react';
 import GameView from './GameView';
 import { gameDomManager } from './GameDomManager';
+import socketManager from '../../socketManager';
+import { RoomType } from '../../types';
 
 export interface IAppProps {
   words: string[];
+  gameType: RoomType;
 }
 
 export interface IAppState {}
@@ -26,7 +29,6 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
     this.bodyElement.removeEventListener('click', this.onBodyClick);
   }
   componentDidMount() {
-    console.log(this.inputRef)
     this.inputRef.current.focus();
   }
   componentDidUpdate(prevProps: IAppProps) {}
@@ -37,6 +39,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
   }
   onInput(event: any) {
     gameDomManager.onInput(event.target.value);
+    socketManager.emitTyping(event.target.value, this.props.gameType);
   }
 
   public render() {

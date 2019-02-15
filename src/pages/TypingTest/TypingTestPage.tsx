@@ -7,7 +7,7 @@ import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
 import '../../css/typing-test.scss';
 
 export interface TypingTestPageProps {
-  gameInfo: TypingGameInfoI;
+  gameWords: string[];
 }
 
 export interface TypingTestPageState {}
@@ -36,9 +36,9 @@ export default class TypingTestPage extends React.Component<
         </div>
         <TypingTestScoreboardContainer />
         <GameController
-          words={this.props.gameInfo.words}
+          words={this.props.gameWords}
           // gameActive={this.props.gameInfo.isGameActive}
-          // gameType={RoomType.TYPING_TEST}
+          gameType={RoomType.TYPING_TEST}
         />
       </div>
     );

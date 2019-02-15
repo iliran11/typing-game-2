@@ -15,7 +15,7 @@ interface State {
   input: string[];
 }
 
-export default class GameView extends React.Component<any, State> {
+export default class GameView extends React.PureComponent<any, State> {
   constructor(props: GameViewProps) {
     super(props);
     this.state = {
@@ -33,6 +33,7 @@ export default class GameView extends React.Component<any, State> {
     }
   }
   render() {
+    console.log('game view')
     return (
       <Fragment>
         <div id="words-box">

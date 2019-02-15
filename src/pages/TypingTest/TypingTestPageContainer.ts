@@ -4,7 +4,7 @@ import TypingTestPage from './TypingTestPage';
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
   return {
-    gameInfo: state.typingTest
+    gameWords: state.typingTest.words
   };
 };
 export const TypingTestPageContainer = connect(

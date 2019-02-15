@@ -24,8 +24,17 @@ export default function GameReducer(state: any = initialState, action: any) {
 }
 
 function activateTypingGame(state: TypingGameInfoI, data: TypingGameInfoI) {
+  let words;
+  // do not replace the reference of words if it already exists.
+  // we will need to replace the reference only on game-restart event.
+  if (state.words.length === 0) {
+    words = data.words;
+  } else {
+    words = state.words;
+  }
   return {
     ...state,
-    ...data
+    ...data,
+    words
   };
 }
