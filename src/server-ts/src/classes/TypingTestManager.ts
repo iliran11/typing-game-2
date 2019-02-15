@@ -3,9 +3,10 @@ import {
   TYPING_TEST_IS_ACTIVE,
   TYPING_TEST_SCORE_BROADCAST
 } from '../../../constants';
-import { TypingGameInfoI } from '../../../types/typesIndex';
+import { TypingGameInfoI, RoomType } from '../../../types/typesIndex';
 import Game from './Game';
 import * as io from 'socket.io';
+import { roomLogDb, roomSummaryDb } from '../mongoIndex';
 
 const uuid = require('uuid/v4');
 export class TypingTestManager {
@@ -38,13 +39,16 @@ class TypingTestRoom {
   intervalId: any;
   game: Game;
   startTime: number;
+  gameTickSequenceId: number;
   constructor(socket) {
     this.gametick = this.gametick.bind(this);
+    this.onGameEnd = this.onGameEnd.bind(this);
     this.socket = socket;
     this.instanceId = `TypingTest-${uuid()}`;
-    this.game = new Game(99);
+    this.game = new Game(99, this.onGameEnd);
     this.intervalId = setInterval(this.gametick, 1000);
     this.startTime = Date.now();
+    this.gameTickSequenceId = 0;
     socket.emit(TYPING_TEST_IS_ACTIVE, this.getInitialGameData);
   }
   private get getInitialGameData(): TypingGameInfoI {
@@ -63,7 +67,17 @@ class TypingTestRoom {
   private get passedTimeMinutes(): number {
     return this.passedTime / 60000;
   }
+  private onGameEnd() {
+    roomSummaryDb.saveTypingTest(this.getInitialGameData);
+  }
   private gametick() {
+    this.gameTickSequenceId++;
+    roomLogDb.save(
+      this.getInitialGameData,
+      this.instanceId,
+      this.gameTickSequenceId,
+      RoomType.TYPING_TEST
+    );
     this.socket.emit(TYPING_TEST_SCORE_BROADCAST, this.getInitialGameData);
   }
 }

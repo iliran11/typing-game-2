@@ -8,9 +8,11 @@ export default class Game {
   gameId: number;
   instanceId: string;
   rawLetters: string;
+  private gameHasEnded: boolean;
+  private onGameEnd: () => void;
   static gameCounter: number = 1;
 
-  constructor(level: number) {
+  constructor(level: number, onGameEnd = () => {}) {
     this.rawLetters = LevelManager.getText(level);
     this.letters = LevelManager.getText(level)
       .split('')
@@ -20,17 +22,24 @@ export default class Game {
     this.numberOfTypings = 0;
     Game.gameCounter++;
     this.instanceId = `GAME-${uuid()}`;
+    this.onGameEnd = onGameEnd;
+    this.gameHasEnded = false;
+  }
+  get isGameEnd() {
+    return this.index === this.letters.length;
   }
   public processNewTyping(input: string) {
-    // if we are out of letters, reached the end of the array already - do not process.
-    if (this.index === this.letters.length) {
-      return;
-    }
-    this.numberOfTypings++;
+    if (this.isGameEnd) return;
     const letter = this.letters[this.index];
     letter.setInput(input);
+    this.numberOfTypings++;
     if (letter.isCorrect) {
       this.index++;
+    }
+    // if we are out of letters, reached the end of the array already - do not process.
+    if (this.isGameEnd && this.gameHasEnded === false) {
+      this.gameHasEnded = true;
+      this.onGameEnd();
     }
   }
   public get getRawLetters() {

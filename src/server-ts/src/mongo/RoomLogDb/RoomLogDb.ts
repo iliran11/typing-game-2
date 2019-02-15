@@ -16,8 +16,8 @@ class RoomLogDb {
     );
     this.model = mongoose.model('room-log', this.scheme);
   }
-  async save(
-    results: PlayerGameStatus[],
+  async save<T>(
+    results: T,
     instanceId: string,
     gameTickSequenceId: number,
     roomType: RoomType

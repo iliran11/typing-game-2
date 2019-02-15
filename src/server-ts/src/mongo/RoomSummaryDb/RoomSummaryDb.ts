@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-import { GameSummryDBI } from '../../../../types/schemasTypes';
+import { GameSummryDBI,TypingTestSummary } from '../../../../types/typesIndex';
 
 class RoomSummaryDb {
   private static instance: RoomSummaryDb;
@@ -20,6 +20,14 @@ class RoomSummaryDb {
       throw new Error(error);
     }
   }
+  async saveTypingTest(data:TypingTestSummary){
+    try {
+      const document = new this.model(data);
+      return document.save();
+    } catch(error) {
+      throw new Error(error)
+    }
+  })
   async updateById(searchParam: string, document: object): Promise<void> {
     return this.model.updateOne(searchParam, document);
   }

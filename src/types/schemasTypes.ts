@@ -1,6 +1,6 @@
 import { PlayerSerialize } from '../types';
 import { PlayerGameStatus } from './GameStatusType';
-import { RoomType } from './typesIndex';
+import { RoomType, TypingGameInfoI } from './typesIndex';
 
 export interface GameSummryDBI {
   letters: string[];
@@ -10,4 +10,12 @@ export interface GameSummryDBI {
   finalResult: {
     results: PlayerGameStatus[];
   };
+}
+
+export interface TypingTestSummary {
+  letters: string[];
+  player: string;
+  roomId: string;
+  roomType: RoomType;
+  finalResult: TypingGameInfoI;
 }
