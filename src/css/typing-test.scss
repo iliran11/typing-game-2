@@ -1,4 +1,10 @@
 @import './colors.scss';
+
+.typing-test-scope {
+  #words-box {
+    margin-top: 20px;
+  }
+}
 .typing-test-timer {
   border-radius: 50%;
   display: inline-flex;
@@ -12,7 +18,7 @@
 .typing-test-timer-row {
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 #typing-test-scoreboard {
   color: $color1;

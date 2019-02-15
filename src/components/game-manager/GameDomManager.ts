@@ -54,9 +54,13 @@ class GameDomManager {
     this.letterRefs[index].classList.add('success');
   }
   private get markerprops() {
+    const wordsBoxPaddingLeft = 15;
     return {
       top: this.currentLetterRect.top - this.wordsBoxRect.top,
-      left: this.currentLetterRect.left - this.wordsBoxRect.left
+      left:
+        this.currentLetterRect.left -
+        this.wordsBoxRect.left -
+        wordsBoxPaddingLeft
     };
   }
   private tooltipPosition() {

@@ -25,6 +25,10 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
   componentWillUnmount() {
     this.bodyElement.removeEventListener('click', this.onBodyClick);
   }
+  componentDidMount() {
+    console.log(this.inputRef)
+    this.inputRef.current.focus();
+  }
   componentDidUpdate(prevProps: IAppProps) {}
   onBodyClick() {
     if (this.inputRef.current) {
