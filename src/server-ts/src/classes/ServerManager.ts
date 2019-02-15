@@ -13,7 +13,6 @@ export default class ServerManager {
     this.server.on('connection', onConnect);
     this.server.use((socket, next) => {
       const token = socket.handshake.query.token;
-      console.log(token);
       if (token) {
         jwt.verify(
           token,
