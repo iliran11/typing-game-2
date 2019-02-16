@@ -8,7 +8,7 @@ import './game.css';
 const scrollIntoView = require('scroll-into-view');
 
 interface GameViewProps {
-  letters: string[];
+  words: string[];
 }
 
 interface State {
@@ -28,16 +28,16 @@ export default class GameView extends React.PureComponent<any, State> {
   }
   componentDidUpdate(prevProps: GameViewProps) {
     // console.log(prevProps.letters.length, this.props.letterslength);
-    if (prevProps.letters.length === 0 && this.props.letters.length > 0) {
-      gameDomManager.init(this.props.letters);
+    if (prevProps.words.length === 0 && this.props.words.length > 0) {
+      gameDomManager.init(this.props.words);
     }
   }
   render() {
-    console.log('game view')
+    console.log('game view');
     return (
       <Fragment>
         <div id="words-box">
-          {this.props.letters.map(this.renderWords)}
+          {this.props.words.map(this.renderWords)}
           <Marker />
         </div>
         <ToolTip />

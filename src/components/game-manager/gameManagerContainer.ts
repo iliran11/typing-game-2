@@ -4,7 +4,7 @@ import { gameIsFinished } from '../../store/gameAction';
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    letters: state.gameData.letters
+    words: state.gameData.letters
   };
 };
 

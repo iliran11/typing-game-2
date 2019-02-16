@@ -54,7 +54,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
           // id="game-input"
           ref={this.inputRef}
         />
-        <GameView letters={this.props.words} />
+        <GameView words={this.props.words} />
       </Fragment>
     );
   }
