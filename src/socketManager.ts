@@ -7,7 +7,8 @@ import {
   ScoreBroadcastAction,
   Enviroments,
   RoomType,
-  TypingGameInfoI
+  TypingGameInfoI,
+  RootState
 } from './types/typesIndex';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { AchievementsProgressI } from './types/AchievementsTypes';
@@ -39,10 +40,11 @@ import {
 import AuthenticationManager from './AuthenticationManager';
 
 const socketManager: any = {
-  initSocket(dispatch: any, history: any) {
+  initSocket(dispatch: any, history: any, getState: () => RootState) {
     // this.socket = socketIo.connect('http://localhost:4001');
     this.dispatch = dispatch;
     this.history = history;
+    this.getState = getState;
     const url = getServerUrl();
     const token = AuthenticationManager.appToken || null;
     const query = token ? { token } : {};
@@ -171,7 +173,8 @@ const socketManager: any = {
     this.socket.emit(GAME_HAS_FINISHED);
   },
   emitRequestToPlay(roomType: RoomType) {
-    this.socket.emit(REQUEST_TO_PLAY, roomType);
+    const state: RootState = this.getState();
+    this.socket.emit(REQUEST_TO_PLAY, roomType, state.myData.platform);
   },
   emitGameRestart() {
     this.socket.emit(RESTART_GAME);

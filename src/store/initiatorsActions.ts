@@ -12,7 +12,7 @@ export function initAuthenticationManager(history: any) {
 
 export function initSocketManager(history: any) {
   return function(dispatch: any, getState: RootState) {
-    const result = socketManager.initSocket(dispatch, history);
+    const result = socketManager.initSocket(dispatch, history, getState);
     return result;
   };
 }
