@@ -4,7 +4,7 @@ import { RootState } from '../../types/typesIndex';
 import { ScoreboardSectionData } from '../../types/typesIndex';
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
-  const accuracy = (state.typingTest.accuracy * 100).toFixed(1);
+  const accuracy = (state.typingTest.accuracy * 100).toFixed(0);
   const data: ScoreboardSectionData[] = [
     {
       value: Math.floor(state.typingTest.wpm),

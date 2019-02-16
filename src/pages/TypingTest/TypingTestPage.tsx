@@ -23,7 +23,7 @@ export default class TypingTestPage extends React.Component<
   }
   public render() {
     return (
-      <div id="game-page" className="typing-test-scope">
+      <div id="game-page" className="typing-test-scope page">
         <div className="typing-test-timer-row">
           <TypingTestTimer
             isActive={true}
