@@ -1,4 +1,4 @@
-import Room from './Room';
+import Room from './Room/MultiplayerRoom';
 import * as socketIo from 'socket.io';
 import Player from './Player';
 import {

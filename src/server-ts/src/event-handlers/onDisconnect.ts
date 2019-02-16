@@ -1,7 +1,7 @@
 import * as io from 'socket.io';
 import RoomManager from '../classes/MultiplayerRoomManager';
 import PlayerManager from '../classes/PlayerManager';
-import Room from '../classes/Room';
+import Room from '../classes/Room/MultiplayerRoom';
 import { MAX_PLAYERS_PER_ROOM, COMPETITOR_LEFT } from '../../../constants';
 import { emitToRoom } from '../utilities';
 

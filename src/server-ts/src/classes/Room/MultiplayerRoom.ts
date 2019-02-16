@@ -1,6 +1,6 @@
-import Player from './Player';
-import BotPlayer from './BotPlayer';
-import ServerManager from './ServerManager';
+import Player from '../Player';
+import BotPlayer from '../BotPlayer';
+import ServerManager from '../ServerManager';
 import {
   SCORE_BROADCAST,
   MAX_PLAYERS_PER_ROOM,
@@ -10,18 +10,22 @@ import {
   GAME_HAS_TIMEOUT,
   GAME_TIMEOUT_DURATION,
   NAVIGATE_RESULT
-} from '../../../constants';
+} from '../../../../constants';
 import { clearTimeout } from 'timers';
-import PlayerManager from './PlayerManager';
-import { multiplayerRoomManager } from './MultiplayerRoomManager';
-import { PlayerType, RoomType } from '../../../types';
-import { PlayerGameStatus } from '../../../types/GameStatusType';
-import { AchievementsProgressI } from '../../../types/AchievementsTypes';
-import { emitToRoom } from '../utilities';
-import { roomLogDb, userGameHistoryDb, roomSummaryDb } from '../mongoIndex';
-import LevelManager from './LevelManager';
-import { userPorgressDb } from '../mongo/AchievementsProgress/AchievementsProgress';
-import { Countdown } from './Countdown';
+import PlayerManager from '../PlayerManager';
+import { multiplayerRoomManager } from '../MultiplayerRoomManager';
+import {
+  AchievementsProgressI,
+  PlayerGameStatus,
+  PlayerType,
+  RoomType
+} from '../../../../types/typesIndex';
+
+import { emitToRoom } from '../../utilities';
+import { roomLogDb, userGameHistoryDb, roomSummaryDb } from '../../mongoIndex';
+import LevelManager from '../LevelManager';
+import { userPorgressDb } from '../../mongo/AchievementsProgress/AchievementsProgress';
+import { Countdown } from '../Countdown';
 var countBy = require('lodash.countby');
 var isNil = require('lodash.isnil');
 const random = require('lodash.random');
