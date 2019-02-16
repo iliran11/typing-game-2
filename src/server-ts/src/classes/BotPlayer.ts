@@ -1,5 +1,5 @@
 import Player from './Player';
-import { PlayerType } from '../../../types';
+import { PlayerType, RoomType } from '../../../types/typesIndex';
 import playerTyping from '../event-handlers/playerTyping';
 import RoomManager from './MultiplayerRoomManager';
 import onGameFinished from '../event-handlers/onGameFinished';
@@ -35,7 +35,8 @@ export default class BotPlayer extends Player {
     const timeToNextLetter = this.getLetterPerMillisecond(currentTargetWpm);
     // const timeToNextLetter = 400
     const typingData = {
-      typingInput: this.playerGame.getRawLetters[this.typingIndex]
+      typingInput: this.playerGame.getRawLetters[this.typingIndex],
+      roomType: RoomType.MULTIPLAYER
     };
     // console.log(`${this.guestName} typed: ${typingData.typingInput}. next typing in: ${timeToNextLetter}`)
     playerTyping(this.name, typingData);

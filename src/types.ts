@@ -107,9 +107,15 @@ export interface MyDataReducer {
   firstName: string;
   lastName: string;
   level: number;
+  platform: PlaformEnum;
 }
 export interface SdkLoadedSuccessAction {
   type: string;
+}
+export enum PlaformEnum {
+  WEB = 'WEB',
+  MOBILE = 'MOBILE',
+  UNDECIDED = 'UNDECIDED'
 }
 
 // TODO: change to: CheckStatusResponse;
