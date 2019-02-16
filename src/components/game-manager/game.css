@@ -146,12 +146,12 @@ input:focus {
   font-weight: bold;
 }
 #words-box {
-  margin: 0px 30px;
   overflow: hidden;
   position: relative;
   font-size: 24px;
   font-weight: 700;
   padding-left: 15px;
+  transition: opacity 0.3s;
 }
 .word {
   display: inline-block;

@@ -9,6 +9,7 @@ const scrollIntoView = require('scroll-into-view');
 
 interface GameViewProps {
   words: string[];
+  gameActive:boolean;
 }
 
 interface State {
@@ -29,7 +30,10 @@ export default class GameView extends React.PureComponent<any, State> {
   componentDidUpdate(prevProps: GameViewProps) {
     // console.log(prevProps.letters.length, this.props.letterslength);
     if (prevProps.words.length === 0 && this.props.words.length > 0) {
-      gameDomManager.init(this.props.words);
+    gameDomManager.init(this.props.words,this.props.gameActive);
+    }
+    if(prevProps.gameActive===false && this.props.gameActive) {
+      gameDomManager.activateGame();
     }
   }
   render() {

@@ -35,7 +35,7 @@ class GameDomManager {
   private get previousLetterRect() {
     return this.letterRects[this.index - 1];
   }
-  init(words: string[]) {
+  init(words: string[], gameActive: boolean) {
     this.letterRefs = document.querySelectorAll('.letter');
     this.markerRef = document.querySelector('#marker');
     this.toolTipRef = document.querySelector('#tooltip');
@@ -49,6 +49,9 @@ class GameDomManager {
     });
     this.markerPosition();
     this.tooltipPosition();
+    if (gameActive === false) {
+      this.wordsBoxRef.classList.add('disabled');
+    }
   }
   private letterSuccess(index: number) {
     this.letterRefs[index].classList.add('success');
@@ -113,6 +116,9 @@ class GameDomManager {
         isScrollable: () => true
       });
     }
+  }
+  public activateGame() {
+    this.wordsBoxRef.classList.remove('disabled');
   }
   static getInstance() {
     if (!GameDomManager.instance) {
