@@ -1,4 +1,4 @@
-import Room from './Room/MultiplayerRoom';
+import MultiplayerRoom from './Room/MultiplayerRoom';
 import * as socketIo from 'socket.io';
 import Player from './Player';
 import {
@@ -17,7 +17,7 @@ import { emitToRoom } from '../utilities';
 export default class MultiplayerRoomManager {
   private static instance: MultiplayerRoomManager;
   static words = ['hello', 'goodbye'];
-  rooms: Map<number, Room>;
+  rooms: Map<number, MultiplayerRoom>;
   playerManager: PlayerManager;
 
   private constructor() {
@@ -51,8 +51,8 @@ export default class MultiplayerRoomManager {
       emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
     }
   }
-  private addPlayer(player: Player): Room {
-    let room: Room;
+  private addPlayer(player: Player): MultiplayerRoom {
+    let room: MultiplayerRoom;
     if (this.openRooms > 0) {
       room = this.addPlayerToExistingRoom(player);
     } else {
@@ -61,19 +61,19 @@ export default class MultiplayerRoomManager {
     player.setRoomId(room.roomId);
     return room;
   }
-  private addPlayerToExistingRoom(player: Player): Room {
+  private addPlayerToExistingRoom(player: Player): MultiplayerRoom {
     // @ts-ignore
-    const selectedRoom: Room = this.rooms.get(this.availableRoomNumber);
+    const selectedRoom: MultiplayerRoom = this.rooms.get(this.availableRoomNumber);
     selectedRoom.addPlayer(player);
     return selectedRoom;
   }
-  private addPlayerToNewRoom(player: Player, roomType: RoomType): Room {
+  private addPlayerToNewRoom(player: Player, roomType: RoomType): MultiplayerRoom {
     const room = this.createNewRoom(roomType);
     room.addPlayer(player);
     return room;
   }
 
-  removePlayer(player: Player): Room | null {
+  removePlayer(player: Player): MultiplayerRoom | null {
     return null;
     const roomId: number = player.getRoomId;
 
@@ -94,7 +94,7 @@ export default class MultiplayerRoomManager {
     }
     return null;
   }
-  getRoom(roomId: number): Room {
+  getRoom(roomId: number): MultiplayerRoom {
     // @ts-ignore
     return this.rooms.get(roomId);
   }
@@ -108,15 +108,15 @@ export default class MultiplayerRoomManager {
     return this.openRoomsIds[0];
   }
 
-  private createNewRoom(roomType: RoomType): Room {
-    const room = new Room(MultiplayerRoomManager.words, roomType);
+  private createNewRoom(roomType: RoomType): MultiplayerRoom {
+    const room = new MultiplayerRoom(MultiplayerRoomManager.words, roomType);
     this.rooms.set(room.roomId, room);
     return room;
   }
   get openRoomsIds(): number[] {
     const openRooms: number[] = [];
     this.rooms.forEach(
-      (room: Room): void => {
+      (room: MultiplayerRoom): void => {
         if (!room.isClosed) {
           openRooms.push(room.roomId);
         }

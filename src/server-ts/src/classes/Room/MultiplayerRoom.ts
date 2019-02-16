@@ -1,3 +1,4 @@
+import { BaseRoom } from './BaseRoom';
 import Player from '../Player';
 import BotPlayer from '../BotPlayer';
 import ServerManager from '../ServerManager';
@@ -31,7 +32,7 @@ var isNil = require('lodash.isnil');
 const random = require('lodash.random');
 const uuid = require('uuid/v4');
 
-export default class Room {
+export default class MultiplayerRoom extends BaseRoom {
   private static globalRoomCounter: number = 1;
   public readonly maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM;
   // time without any real player join - so we can add a bot.
@@ -43,7 +44,6 @@ export default class Room {
   private timeIncrement: number = 1000;
   private finalScores: PlayerGameStatus[];
   public roomStartTimestamp: number = 0;
-  private instanceId: string;
   private gameTickSequence: number;
   // store the already given avatar indexes so we can give anonymous player a unique avatar.
   private avatarIndexes: number = 0;
@@ -55,8 +55,9 @@ export default class Room {
   botRecruitTimer: any;
 
   constructor(words: string[], roomType: RoomType) {
-    this.roomId = Room.globalRoomCounter;
-    Room.globalRoomCounter++;
+    super();
+    this.roomId = MultiplayerRoom.globalRoomCounter;
+    MultiplayerRoom.globalRoomCounter++;
     this.players = [];
     this.gameWords = words;
     // closed for new players additions. i.e - game has started.
@@ -65,7 +66,6 @@ export default class Room {
     // game timer start with negative value. becuase of countdown the clients gets when the game starts.
     this.timePassed = 0;
     this.addBot = this.addBot.bind(this);
-    this.instanceId = `Room-${uuid()}`;
     if (MAX_PLAYERS_PER_ROOM > 1) {
       this.startCountdownBot();
     }
