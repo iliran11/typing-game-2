@@ -6,7 +6,6 @@ import ScoreBoardContainer from '../../components/CompetitorList/CometitorListCo
 import CountDown from '../../components/CountDown/CountDown';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
 import { RoomType } from '../../types';
-import ServerAlertManager from './ServerAlertsManager/ServerAlertManagerContainer';
 
 interface Props {
   isGameActive: boolean;
@@ -58,7 +57,6 @@ class MultiplayerPage extends PureComponent<Props, State> {
           gameType={RoomType.MULTIPLAYER}
         />
         <ScoreBoardContainer history={this.props.history} />
-        <ServerAlertManager />
       </div>
     );
   }

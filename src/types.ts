@@ -220,7 +220,9 @@ export interface ChangeLevelPayload {
 
 export enum NotificationTypes {
   NONE = 'none',
-  LOGOUT_NOTIFICATION = 'logout-notification'
+  LOGOUT_NOTIFICATION = 'logout-notification',
+  GAME_TIMEOUT_NOTIFICATION = 'game-timeout-notification',
+  SOCKET_DISCONNECT = 'socket-disconnected'
 }
 
 export enum RoomType {

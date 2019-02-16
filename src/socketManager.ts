@@ -8,7 +8,8 @@ import {
   Enviroments,
   RoomType,
   TypingGameInfoI,
-  RootState
+  RootState,
+  NotificationTypes
 } from './types/typesIndex';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { AchievementsProgressI } from './types/AchievementsTypes';
@@ -69,6 +70,12 @@ const socketManager: any = {
     this.socket.on('disconnect', () => {
       this.dispatch({
         type: SOCKET_HAS_DISCONNECTED
+      });
+      this.dispatch({
+        type: SHOW_NOTIFICATION,
+        payload: {
+          notificationType: NotificationTypes.SOCKET_DISCONNECT
+        }
       });
     });
     this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
@@ -150,9 +157,17 @@ const socketManager: any = {
     });
     this.socket.on(GAME_HAS_TIMEOUT, () => {
       this.dispatch({
-        type: GAME_HAS_TIMEOUT
+        type: SHOW_NOTIFICATION,
+        payload: {
+          notificationType: NotificationTypes.GAME_TIMEOUT_NOTIFICATION
+        }
       });
     });
+    // this.socket.on(GAME_HAS_TIMEOUT, () => {
+    //   this.dispatch({
+    //     type: GAME_HAS_TIMEOUT
+    //   });
+    // });
     this.socket.on(NAVIGATE_RESULT, (data: AchievementsProgressI) => {
       this.dispatch({
         type: LOAD_ACHIEVEMENT_PROGRESS,
