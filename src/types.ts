@@ -7,7 +7,7 @@ import { TypingGameInfoI } from './types/typingTestTypes';
 export interface JoiningRoomResponse {
   roomId: number;
   playersGameStatus: PlayerGameStatus[];
-  letters: string[];
+  words: string[];
   roomSize: number;
   isGameActive: boolean;
   myId: string;
@@ -49,7 +49,7 @@ export enum FbLoginStatus {
   unknown = 'unknown'
 }
 export interface GameDataReducer {
-  readonly letters: Letter[];
+  readonly words: string[];
   readonly isGameFinished: boolean;
 }
 export interface NotificationsReducerI {

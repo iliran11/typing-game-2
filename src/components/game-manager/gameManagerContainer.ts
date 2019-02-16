@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import GameManager from './GameController2';
 import { gameIsFinished } from '../../store/gameAction';
+import { RootState } from '../../types/typesIndex';
 
-const mapStateToProps = (state: any, ownProps: any) => {
+const mapStateToProps = (state: RootState, ownProps: any) => {
   return {
-    words: state.gameData.letters
+    words: state.gameData.words
   };
 };
 

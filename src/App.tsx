@@ -8,7 +8,7 @@ import AppToolbar from './components/AppToolBar/AppToolBarContainer';
 import GlobalBlockingAlerts from './components/BlockingAlert/GlobalBlockingAlertsContainer';
 import {
   MultiplayerPageContainer,
-  ResultPageContainer,
+  // ResultPageContainer,
   MyProfilePageContainer,
   HomePageContainer,
   ReplayContainer,
@@ -35,11 +35,11 @@ class App extends React.Component {
               path="/game"
               component={MultiplayerPageContainer}
             />
-            <Route
+            {/* <Route
               exact={true}
               path="/result"
               component={ResultPageContainer}
-            />
+            /> */}
             <Route
               exact={true}
               path="/my-profile"

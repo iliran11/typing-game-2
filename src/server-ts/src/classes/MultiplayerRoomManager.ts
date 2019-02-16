@@ -32,7 +32,7 @@ export default class MultiplayerRoomManager {
       const response: JoiningRoomResponse = {
         roomId: room.roomId,
         playersGameStatus: room.playersInRoom,
-        letters: player.playerGame.getRawLetters,
+        words: player.playerGame.words,
         roomSize: room.maxPlayersInRoom,
         isGameActive: room.isGameActive,
         myId: player.playerId

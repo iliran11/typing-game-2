@@ -3,9 +3,9 @@ import { RootState } from '../../types';
 import MultiplayerPage from './Multiplayerpage';
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
-  const letters = state.gameData.letters;
+  const words = state.gameData.words;
   return {
-    gameIsLoaded: letters.length > 0,
+    gameIsLoaded: words.length > 0,
     isSocketConnected: state.serverStatus.socketConnected
   };
 };

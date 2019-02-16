@@ -81,11 +81,11 @@ const socketManager: any = {
           myId
         }
       });
-      const words = data.letters.join('').split(' ');
+      const words = data.words;
       this.dispatch({
         type: SET_GAME_LETTERS,
         payload: {
-          letters: words
+          words
         }
       });
     });

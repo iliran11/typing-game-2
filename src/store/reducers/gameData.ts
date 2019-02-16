@@ -9,7 +9,7 @@ import { GameDataReducer } from '../../types';
 // const letters : Letter[] = [new ]
 
 const initialState: GameDataReducer = {
-  letters: [],
+  words: [],
   // indicated if the game is over for the current local player.
   isGameFinished: false
 };
@@ -22,7 +22,7 @@ export default function GameReducer(
     case SET_GAME_LETTERS:
       return {
         ...state,
-        letters: action.payload.letters
+        words: action.payload.words
       };
     case GAME_HAS_FINISHED:
       return {
@@ -34,7 +34,7 @@ export default function GameReducer(
     case LEAVE_GAME:
       return {
         ...state,
-        letters: []
+        words: []
       };
   }
 
