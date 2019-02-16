@@ -12,6 +12,7 @@ export class TypingTestManager {
   initGame(socket, player: Player) {
     const room = new TypingTestRoom(socket, player);
     this.rooms.set(socket, room);
+    socket.join(room.roomName);
   }
   getRoom(socket): TypingTestRoom | undefined {
     return this.rooms.get(socket);

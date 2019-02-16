@@ -26,12 +26,12 @@ export function initTouchFlag() {
     const body = document.querySelector('body');
     const detectMouse = function(e: any) {
       if (e.type === 'mousedown') {
-        alert('mouse');
+        // alert('mouse');
         dispatch({
           type: SET_WEB_PLATFORM
         });
       } else if (e.type === 'touchstart') {
-        alert('touch');
+        // alert('touch');
         dispatch({
           type: SET_TOUCH_PLATFORM
         });

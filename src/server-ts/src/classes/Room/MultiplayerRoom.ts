@@ -35,16 +35,12 @@ const uuid = require('uuid/v4');
 export default class MultiplayerRoom extends BaseRoom {
   private static globalRoomCounter: number = 1;
   public readonly maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM;
+  private shouldSaveOnStop: boolean;
   // time without any real player join - so we can add a bot.
   private players: (Player | BotPlayer)[];
   private gameWords: string[];
   // measure game length duration - not sure if needed.
-  private timerId: any;
-  private timePassed: number;
-  private timeIncrement: number = 1000;
   private finalScores: PlayerGameStatus[];
-  public roomStartTimestamp: number = 0;
-  private gameTickSequence: number;
   // store the already given avatar indexes so we can give anonymous player a unique avatar.
   private avatarIndexes: number = 0;
   public roomType: RoomType;
@@ -64,13 +60,12 @@ export default class MultiplayerRoom extends BaseRoom {
     this.isClosed = false;
     this.finalScores = new Array(MAX_PLAYERS_PER_ROOM).fill(null);
     // game timer start with negative value. becuase of countdown the clients gets when the game starts.
-    this.timePassed = 0;
     this.addBot = this.addBot.bind(this);
     if (MAX_PLAYERS_PER_ROOM > 1) {
       this.startCountdownBot();
     }
-    this.gameTickSequence = 1;
     this.roomType = roomType;
+    this.shouldSaveOnStop = false;
   }
   addPlayer(player: Player): void {
     player.setAvatar(this.randomAvatarIndex);
@@ -118,9 +113,6 @@ export default class MultiplayerRoom extends BaseRoom {
   }
   get isRoomFull(): boolean {
     return this.players.length === this.maxPlayersInRoom;
-  }
-  get roomName(): string {
-    return `room-${this.roomId}`;
   }
   get currentRankOfFinishedPlayer(): number {
     const map = countBy(this.finalScores, value => {
@@ -183,9 +175,6 @@ export default class MultiplayerRoom extends BaseRoom {
       return player instanceof BotPlayer;
     });
   }
-  get timeElapsed() {
-    return this.timePassed;
-  }
   private get server() {
     return ServerManager.getInstance().serverObject;
   }
@@ -212,16 +201,12 @@ export default class MultiplayerRoom extends BaseRoom {
       return this.finalScores[index] || this.getPlayerScore(player);
     });
   }
-  private gameTick(): void {
-    this.timePassed += this.timeIncrement;
+  protected onGameTick(): void {
+    this.shouldSaveOnStop = true;
     const roomLog: PlayerGameStatus[] = this.roomStatus;
     this.server.in(this.roomName).emit(SCORE_BROADCAST, roomLog);
     if (this.isAnyoneStillPlaying === false) {
-      this.stopGame(roomLog);
-    }
-    if (this.timePassed > GAME_TIMEOUT_DURATION) {
       this.stopGame();
-      emitToRoom(this.roomName, GAME_HAS_TIMEOUT);
     }
     roomLogDb.save(
       roomLog,
@@ -229,17 +214,13 @@ export default class MultiplayerRoom extends BaseRoom {
       this.gameTickSequence,
       this.roomType
     );
-    this.gameTickSequence++;
   }
-  async startGame(): Promise<void> {
+  async onStartGame(): Promise<void> {
     // client still doesn't use the countdown socket being emmited to it.
     const countdown = new Countdown(this.roomName);
     await countdown.initiateCountdown();
-    const intervalTime: number = 1000;
-    this.timerId = setInterval(this.gameTick.bind(this), intervalTime);
     this.isClosed = true;
     this.stopCountdownBot();
-    this.roomStartTimestamp = Date.now();
     emitToRoom(this.roomName, GAME_HAS_STARTED, {
       startTimeStamp: this.roomStartTimestamp
     });
@@ -288,15 +269,14 @@ export default class MultiplayerRoom extends BaseRoom {
       this.restartCountdownBot();
     }
   }
-  private stopGame(finalResult?: PlayerGameStatus[]) {
+  protected onStopGame(finalResult?: PlayerGameStatus[]) {
     clearTimeout(this.botRecruitTimer);
-    clearTimeout(this.timerId);
     this.isClosed = true;
     console.log(`${this.roomName} has finished!`);
     //TODO: if there is no final result - delete or update accordingly this game on db.
-    if (finalResult) {
+    if (this.shouldSaveOnStop) {
       const finalResultDocument = roomLogDb.save(
-        finalResult,
+        this.roomStatus,
         this.instanceId,
         this.gameTickSequence,
         this.roomType
