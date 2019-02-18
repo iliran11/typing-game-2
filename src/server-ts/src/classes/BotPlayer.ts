@@ -70,7 +70,7 @@ export default class BotPlayer extends Player {
   private get timeFraction() {
     return this.timeElapsed / this.timeToTarget;
   }
-  private get timeElapsed() {
+  private get timeElapsed(): number {
     return RoomManager.getInstance().getRoom(this.getRoomId).timeElapsed;
   }
   // holding the typing operation until the delay is over.

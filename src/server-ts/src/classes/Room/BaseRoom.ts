@@ -18,6 +18,9 @@ export class BaseRoom {
   protected get passedTimeMinutes() {
     return this.timePassed / 60000;
   }
+  get timeElapsed(): number {
+    return this.timePassed;
+  }
   startGame() {
     this.timerId = setInterval(this.gameTick.bind(this), this.timeIncrement);
     this.roomStartTimestamp = Date.now();
