@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { TypingTestScoreboard } from './TypingTestScoreboard';
+import { TypingTestScoreboard } from '../../components/TypingTestScoreBoard/TypingTestScoreboard';
 import { RootState } from '../../types/typesIndex';
 import { ScoreboardSectionData } from '../../types/typesIndex';
 const mapDispatchToProps = {};

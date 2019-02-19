@@ -8,3 +8,4 @@ export * from './Replay/ReplayContainer';
 // export * from './ResultPage/ResultPageContainer';
 export * from './RenderlessInitiator/RenderlessInitiatorContainer';
 export * from './TypingTest/TypingTestPageContainer';
+export * from './TypingTest/ResultPageContainer';
