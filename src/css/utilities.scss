@@ -1,6 +1,9 @@
 @import './colors.scss';
 
 #app-container {
+  .overflow-auto-y {
+    overflow-y: auto;
+  }
   .larger-text {
     font-size: 150%;
   }
@@ -21,15 +24,6 @@
     box-shadow: none;
     border-radius: 0px;
   }
-
-  .bold {
-    font-weight: bold;
-    font-size: 120%;
-  }
-  .green {
-    color: green;
-  }
-
   .hidden {
     display: none;
   }
@@ -40,28 +34,45 @@
   .snackbar-failure {
     background-color: red;
   }
-}
-
-.page {
-  width: 80%;
-  @media (max-width: 992px) {
-    width: 82%;
+  .page {
+    @media (max-width: 992px) {
+      width: 82%;
+    }
   }
-}
 
-.right-border {
-  &:after {
-    content: '';
-    background: -webkit-linear-gradient(
-      bottom,
-      #365902 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    display: block;
-    height: 100%;
-    width: 2px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+  .right-border {
+    &:after {
+      content: '';
+      background: -webkit-linear-gradient(
+        bottom,
+        #365902 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      display: block;
+      height: 100%;
+      width: 2px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+  .display-flex {
+    display: flex;
+  }
+  .flex-center {
+    align-items: center;
+    justify-items: center;
+  }
+  .flex-column {
+    flex-direction: column;
+  }
+  .color-white {
+    color: white;
+  }
+  .color-1 {
+    color: $color1;
+  }
+  .facebook-background {
+    background-color: $facebook-color;
   }
 }

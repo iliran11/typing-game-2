@@ -1,5 +1,6 @@
 import * as React from 'react';
 import checked from '../../../../assets/checked2.svg';
+import { Title } from '../../../../components/Title/Title';
 
 export interface StatsProps {
   currentWpm: number;
@@ -72,15 +73,11 @@ export default class Stats extends React.Component<StatsProps, StatsState> {
     return (
       <div id="profile-stats">
         <div className="profile-stats-section">
-          <div className="stats-section-header align-left">
-            <h3>My Score</h3>
-          </div>
+          <Title className="align-left">My Score</Title>
           <StatsList {...this.currentStatsProps} />
         </div>
         <div className="profile-stats-section align-right">
-          <div className="stats-section-header align-right">
-            <h3>Next Level</h3>
-          </div>
+          <Title className="align-right">Next Level</Title>
           <StatsList {...this.targetStatsProps} />
         </div>
       </div>
@@ -100,6 +97,7 @@ interface StatsListI {
 }
 
 function StatsList(props: StatsListI) {
+  // TODO: AVOID REPTITION!
   return (
     <div className="stats-goals-list">
       <StatsItem

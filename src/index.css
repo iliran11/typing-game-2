@@ -2,14 +2,12 @@ html,
 body,
 #root {
   height: 100%;
-  /* overflow: hidden; */
   margin: auto;
 }
 body {
   margin: 0px;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  overflow: hidden;
 }
 
 html {

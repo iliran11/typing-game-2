@@ -114,7 +114,7 @@
   }
   &:after {
     content: '';
-    background: -webkit-linear-gradient(left, $color1 0%, rgba(0, 0, 0, 0) 70%);
+    background: -webkit-linear-gradient(left, $color1 0%, rgba(0, 0, 0, 0) 80%);
     display: block;
     height: 2px;
     width: 100%;
@@ -125,7 +125,7 @@
     background-image: -webkit-linear-gradient(
       right,
       rgb(54, 89, 2) 0%,
-      rgba(0, 0, 0, 0) 70%
+      rgba(0, 0, 0, 0) 80%
     );
   }
   h3 {
@@ -225,5 +225,11 @@
   text-align: center;
   img {
     width: 200px;
+  }
+}
+
+#results-page {
+  .result-page-padding {
+    padding: 0px 10px;
   }
 }
