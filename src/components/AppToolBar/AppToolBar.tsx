@@ -32,11 +32,6 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
     this.navigateToProfile = this.navigateToProfile.bind(this);
     this.onBack = this.onBack.bind(this);
     this.onLogout = this.onLogout.bind(this);
-    props.history.listen((location: any, action: any) => {
-      if (this.currentPath === '/game' && location.pathname !== '/game') {
-        this.onLeaveGame();
-      }
-    });
   }
   handleDebug() {
     this.setState({
@@ -103,7 +98,11 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
           <Toolbar>
             <DebugDialog />
             {this.shouldShowBackbutton && (
-              <img className="toolbar-icons" src={backbutton} onClick={this.onBack} />
+              <img
+                className="toolbar-icons"
+                src={backbutton}
+                onClick={this.onBack}
+              />
             )}
             <div id="toolbar-layout">
               <img src={tcLogo} id="logo-toolbar" />
