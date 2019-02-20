@@ -6,7 +6,7 @@ import { TypingTestTimer } from '../../components/TimerRenderProps/TimerRenderPr
 import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
 import '../../css/typing-test.scss';
 import { ROOM_ID_PARM } from '../../constants';
-
+import { BoxLoader } from '../../components/boxLoader/boxLoader';
 export interface TypingTestPageProps {
   gameWords: string[];
   roomId: string;
@@ -31,6 +31,9 @@ export default class TypingTestPage extends React.Component<
     );
   }
   public render() {
+    if (!this.props.roomId) {
+      return <BoxLoader message="Thinking about your challenge ..." />;
+    }
     return (
       <div id="game-page" className="typing-test-scope page">
         <div className="typing-test-timer-row">
