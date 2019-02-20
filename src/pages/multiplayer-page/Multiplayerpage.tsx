@@ -11,7 +11,6 @@ import { ROOM_ID_PARM } from '../../constants';
 interface Props {
   isGameActive: boolean;
   history: any;
-  gameIsLoaded: boolean;
   isSocketConnected: boolean;
   words: string[];
   roomId: string;
@@ -75,10 +74,4 @@ class MultiplayerPage extends PureComponent<Props, State> {
     );
   }
 }
-
-const mapStateToProps = (state: any) => {
-  return {
-    isGameActive: state.serverStatus.isGameActive
-  };
-};
-export default connect(mapStateToProps)(MultiplayerPage);
+export default MultiplayerPage;

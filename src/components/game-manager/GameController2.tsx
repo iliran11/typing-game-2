@@ -40,6 +40,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
     }
   }
   onInput(event: any) {
+    if (this.props.gameActive === false) return;
     gameDomManager.onInput(event.target.value);
     socketManager.emitTyping(event.target.value, this.props.gameType);
   }

@@ -9,7 +9,8 @@ import {
   RoomType,
   TypingGameInfoI,
   RootState,
-  NotificationTypes
+  NotificationTypes,
+  MultiplayerRoomActive
 } from './types/typesIndex';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { AchievementsProgressI } from './types/AchievementsTypes';
@@ -131,8 +132,13 @@ const socketManager: any = {
       this.dispatch(action);
     });
     this.socket.on(GAME_IS_ACTIVE, () => {
+      const state: RootState = this.getState();
+      const payload: MultiplayerRoomActive = {
+        roomId: state.serverStatus.activeRoomId
+      };
       this.dispatch({
-        type: GAME_IS_ACTIVE
+        type: GAME_IS_ACTIVE,
+        payload
       });
     });
     this.socket.on(COMPETITOR_LEFT, (data: PlayerSerialize) => {

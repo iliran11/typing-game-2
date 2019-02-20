@@ -3,15 +3,15 @@ import {
   YOU_JOINED_ROOM,
   COMPETITOR_JOINED_ROOM,
   SCORE_BROADCAST,
-  GAME_HAS_STARTED
+  GAME_HAS_STARTED,
+  GAME_IS_ACTIVE
 } from '../../constants';
 import {
   PlayerJoiningAction,
-  ScoreBroadcastAction
-} from '../../types/typesIndex';
-import {
+  ScoreBroadcastAction,
   MultiplayerRoomMappingI,
-  PlayerGameStatus
+  PlayerGameStatus,
+  MultiplayerRoomActive
 } from '../../types/typesIndex';
 
 const initialState: MultiplayerRoomMappingI = {};
@@ -30,6 +30,8 @@ export function MultiplayerMappingReducer(
       return scoreBroadCast(state, action);
     case GAME_HAS_STARTED:
       gameHasStarted(state, action.payload);
+    case GAME_IS_ACTIVE:
+      return gameIsActive(state, action.payload);
     default:
       return state;
   }
@@ -99,6 +101,20 @@ function gameHasStarted(
       ...state.roomId,
       isGameActive: true,
       gameStartTimestamp: payload.gameStartTimestamp
+    }
+  };
+}
+
+function gameIsActive(
+  state: MultiplayerRoomMappingI,
+  payload: MultiplayerRoomActive
+): MultiplayerRoomMappingI {
+  const roomId = payload.roomId;
+  return {
+    ...state,
+    [roomId]: {
+      ...state[roomId],
+      isGameActive: true
     }
   };
 }

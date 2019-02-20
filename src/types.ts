@@ -240,3 +240,7 @@ export enum RoomType {
   MULTIPLAYER = 'multiplayer',
   TYPING_TEST = 'typing-test'
 }
+
+export interface MultiplayerRoomActive {
+  roomId: string;
+}
