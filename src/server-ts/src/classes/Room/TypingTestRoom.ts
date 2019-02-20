@@ -36,9 +36,8 @@ export class TypingTestRoom extends BaseRoom {
     };
   }
   private onGameEnd() {
-    if (this.player.isAuthenticated) {
-      roomSummaryDb.saveTypingTest(this.getInitialGameData);
-    }
+    roomSummaryDb.saveTypingTest(this.getInitialGameData);
+    this.stopGame();
   }
   protected onGameTick() {
     if (this.player.isAuthenticated) {
