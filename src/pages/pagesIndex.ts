@@ -9,3 +9,4 @@ export * from './Replay/ReplayContainer';
 export * from './RenderlessInitiator/RenderlessInitiatorContainer';
 export * from './TypingTest/TypingTestPageContainer';
 export * from './TypingTest/ResultPageContainer';
+export * from './multiplayer-page/ResultsContainer'

@@ -30,7 +30,7 @@ export default class MultiplayerRoomManager {
     if (playerType === PlayerType.human) {
       socket.join(room.roomName);
       const response: JoiningRoomResponse = {
-        roomId: room.roomId,
+        roomId: room.instanceId,
         playersGameStatus: room.playersInRoom,
         words: player.playerGame.words,
         roomSize: room.maxPlayersInRoom,
@@ -63,11 +63,16 @@ export default class MultiplayerRoomManager {
   }
   private addPlayerToExistingRoom(player: Player): MultiplayerRoom {
     // @ts-ignore
-    const selectedRoom: MultiplayerRoom = this.rooms.get(this.availableRoomNumber);
+    const selectedRoom: MultiplayerRoom = this.rooms.get(
+      this.availableRoomNumber
+    );
     selectedRoom.addPlayer(player);
     return selectedRoom;
   }
-  private addPlayerToNewRoom(player: Player, roomType: RoomType): MultiplayerRoom {
+  private addPlayerToNewRoom(
+    player: Player,
+    roomType: RoomType
+  ): MultiplayerRoom {
     const room = this.createNewRoom(roomType);
     room.addPlayer(player);
     return room;

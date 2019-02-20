@@ -5,7 +5,7 @@ import { GameSummryDBI } from './types/schemasTypes';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { TypingGameInfoI } from './types/typingTestTypes';
 export interface JoiningRoomResponse {
-  roomId: number;
+  roomId: string;
   playersGameStatus: PlayerGameStatus[];
   words: string[];
   roomSize: number;
@@ -57,7 +57,7 @@ export interface NotificationsReducerI {
 }
 
 export interface ServerStatusReducer {
-  readonly roomId: number;
+  readonly roomId: string;
   readonly isConnected: boolean;
   readonly myId: string;
   readonly playersGameStatus: { [playerId: string]: PlayerGameStatus };

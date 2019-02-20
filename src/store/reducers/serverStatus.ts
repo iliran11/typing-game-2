@@ -26,7 +26,7 @@ import {
 import { PlayerGameStatus } from '../../types/GameStatusType';
 
 export const initialState: ServerStatusReducer = {
-  roomId: -1,
+  roomId: "",
   isConnected: false,
   myId: '',
   playersGameStatus: {},
