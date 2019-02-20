@@ -113,16 +113,19 @@ const socketManager: any = {
       const action = {
         type: GAME_HAS_STARTED,
         payload: {
-          gameStartTimestamp: payload.startTimeStamp
+          gameStartTimestamp: payload.startTimeStamp,
+          roomId: payload.roomId
         }
       };
       this.dispatch(action);
     });
     this.socket.on(SCORE_BROADCAST, (data: any) => {
+      const state: RootState = this.getState();
       const action: ScoreBroadcastAction = {
         type: SCORE_BROADCAST,
         payload: {
-          players: data
+          players: data,
+          roomId: state.serverStatus.activeRoomId
         }
       };
       this.dispatch(action);

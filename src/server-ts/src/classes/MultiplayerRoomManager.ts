@@ -48,7 +48,10 @@ export default class MultiplayerRoomManager {
       const playerGameStatus = player.playerGameStatus({
         timePassedMinutes: 0
       }).serialize;
-      emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
+      emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, {
+        ...playerGameStatus,
+        roomId: room.instanceId
+      });
     }
   }
   private addPlayer(player: Player): MultiplayerRoom {

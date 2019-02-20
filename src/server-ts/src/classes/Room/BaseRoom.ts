@@ -35,7 +35,7 @@ export class BaseRoom {
     this.gameTickSequence++;
     if (this.timePassed > GAME_TIMEOUT_DURATION) {
       this.stopGame();
-      emitToRoom(this.roomName, GAME_HAS_TIMEOUT);
+      emitToRoom(this.roomName, GAME_HAS_TIMEOUT, { roomId: this.instanceId });
     }
     this.onGameTick();
   }

@@ -3,20 +3,22 @@ import CompetitorList from './CompetitorList';
 import { RootState, PlayerAvatar } from '../../types';
 import { PlayerGameStatus } from '../../types/GameStatusType';
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState, ownProps: any) => {
+  const roomInfo = state.multiplayerMapping[ownProps.roomId];
   // @ts-ignore
   const playersGameStatus: PlayerGameStatus[] = Object.values(
-    state.serverStatus.playersGameStatus
+    roomInfo.playersGameStatus
   );
   const avatars: PlayerAvatar[] = playersGameStatus.map(playerGameStatus => {
     return playerGameStatus.avatar;
   });
-  const { myId, roomId, roomSize } = state.serverStatus;
+  const { myId } = state.serverStatus;
+  const roomSize = roomInfo.roomSize;
 
   return {
     players: playersGameStatus,
     myId,
-    roomId,
+    roomId: roomInfo.roomId,
     roomSize,
     avatars
   };

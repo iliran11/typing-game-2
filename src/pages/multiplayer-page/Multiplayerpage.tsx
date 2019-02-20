@@ -53,7 +53,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
     );
   }
   render() {
-    if (this.props.words.length === 0) {
+    if (!this.props.roomId || this.props.words.length === 0) {
       return <BoxLoader message="Thinking about your challenge ..." />;
     }
     return (
@@ -67,7 +67,10 @@ class MultiplayerPage extends PureComponent<Props, State> {
           words={this.props.words}
           onFinish={this.onGameFinish}
         />
-        <ScoreBoardContainer history={this.props.history} />
+        <ScoreBoardContainer
+          history={this.props.history}
+          roomId={this.props.roomId}
+        />
       </div>
     );
   }

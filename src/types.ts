@@ -57,17 +57,22 @@ export interface NotificationsReducerI {
 }
 
 export interface ServerStatusReducer {
-  readonly roomId: string;
   readonly isConnected: boolean;
   readonly myId: string;
+  readonly socketConnected: boolean;
+  readonly initialSocketConnection: boolean;
+  readonly gameHasTimeout: boolean;
+  readonly activeRoomId: string;
+}
+export interface MultiplayerRoomInfoI {
+  readonly roomId: string;
   readonly playersGameStatus: { [playerId: string]: PlayerGameStatus };
   readonly isGameActive: boolean;
   readonly roomSize: number;
   readonly gameStartTimestamp: number;
-  readonly socketConnected: boolean;
-  readonly gameHasTimeout: boolean;
-  readonly initialSocketConnection: boolean;
-  readonly activeTypingTestRoomId: string;
+}
+export interface MultiplayerRoomMappingI {
+  [roomId: string]: MultiplayerRoomInfoI;
 }
 export interface RootState {
   readonly gameData: GameDataReducer;
@@ -82,6 +87,7 @@ export interface RootState {
   readonly highlights: HighlightsMapping;
   readonly notificationsManager: NotificationsReducerI;
   readonly typingTest: TypingTestGamesMapping;
+  readonly multiplayerMapping: MultiplayerRoomMappingI;
 }
 export interface PlayerJoiningAction {
   type: string;
@@ -92,6 +98,7 @@ export interface ScoreBroadcastAction {
   type: string;
   payload: {
     players: PlayerGameStatus[];
+    roomId: string;
   };
 }
 

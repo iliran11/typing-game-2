@@ -8,7 +8,7 @@ const mapStateToProps = (state: RootState, props: any) => {
     gameIsLoaded: words.length > 0,
     isSocketConnected: state.serverStatus.socketConnected,
     words: state.gameData.words,
-    roomId: state.serverStatus.roomId
+    roomId: state.serverStatus.activeRoomId
   };
 };
 export const MultiplayerPageContainer = connect(

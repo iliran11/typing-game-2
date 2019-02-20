@@ -222,7 +222,8 @@ export default class MultiplayerRoom extends BaseRoom {
     this.isClosed = true;
     this.stopCountdownBot();
     emitToRoom(this.roomName, GAME_HAS_STARTED, {
-      startTimeStamp: this.roomStartTimestamp
+      startTimeStamp: this.roomStartTimestamp,
+      roomId:this.instanceId
     });
     this.allBotPlayers.forEach((player: Player | BotPlayer) => {
       // @ts-ignore
