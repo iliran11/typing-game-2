@@ -67,6 +67,7 @@ export interface ServerStatusReducer {
   readonly socketConnected: boolean;
   readonly gameHasTimeout: boolean;
   readonly initialSocketConnection: boolean;
+  readonly activeTypingTestRoomId: string;
 }
 export interface RootState {
   readonly gameData: GameDataReducer;
@@ -80,7 +81,7 @@ export interface RootState {
   readonly achievementsProgress: AchievementsProgressReducer;
   readonly highlights: HighlightsMapping;
   readonly notificationsManager: NotificationsReducerI;
-  readonly typingTest: TypingGameInfoI;
+  readonly typingTest: TypingTestGamesMapping;
 }
 export interface PlayerJoiningAction {
   type: string;
@@ -206,6 +207,9 @@ export interface HighlightsI {
 
 export interface HighlightsMapping {
   [playerId: string]: HighlightsI;
+}
+export interface TypingTestGamesMapping {
+  [gameId: string]: TypingGameInfoI;
 }
 
 export interface PROMOTION_DATA {

@@ -13,6 +13,7 @@ class GameDomManager {
   private markerRef: any;
   private toolTipRef: any;
   private tooltipPlaceholderRef: any;
+  private onFinish: any;
 
   private constructor() {
     this.input = [];
@@ -35,7 +36,7 @@ class GameDomManager {
   private get previousLetterRect() {
     return this.letterRects[this.index - 1];
   }
-  init(words: string[], gameActive: boolean) {
+  init(words: string[], gameActive: boolean, onFinish: () => void) {
     this.letterRefs = document.querySelectorAll('.letter');
     this.markerRef = document.querySelector('#marker');
     this.toolTipRef = document.querySelector('#tooltip');
@@ -52,6 +53,7 @@ class GameDomManager {
     if (gameActive === false) {
       this.wordsBoxRef.classList.add('disabled');
     }
+    this.onFinish = onFinish;
   }
   private letterSuccess(index: number) {
     this.letterRefs[index].classList.add('success');
@@ -92,7 +94,9 @@ class GameDomManager {
       if (this.index < this.letters.length - 1) {
         this.index++;
       } else {
-        console.log('finish');
+        if (this.onFinish) {
+          this.onFinish();
+        }
       }
     } else {
       this.tooltipPosition();

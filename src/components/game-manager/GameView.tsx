@@ -4,12 +4,11 @@ import Marker, { markerProps } from '../Marker';
 import { gameDomManager } from './GameDomManager';
 import ToolTip from '../tooltip';
 import './game.css';
-// no updated definitions for this library. that's a way to workaround it.
-const scrollIntoView = require('scroll-into-view');
 
 interface GameViewProps {
   words: string[];
-  gameActive:boolean;
+  gameActive: boolean;
+  onFinish: () => void;
 }
 
 interface State {
@@ -30,9 +29,13 @@ export default class GameView extends React.PureComponent<any, State> {
   componentDidUpdate(prevProps: GameViewProps) {
     // console.log(prevProps.letters.length, this.props.letterslength);
     if (prevProps.words.length === 0 && this.props.words.length > 0) {
-    gameDomManager.init(this.props.words,this.props.gameActive);
+      gameDomManager.init(
+        this.props.words,
+        this.props.gameActive,
+        this.props.onFinish
+      );
     }
-    if(prevProps.gameActive===false && this.props.gameActive) {
+    if (prevProps.gameActive === false && this.props.gameActive) {
       gameDomManager.activateGame();
     }
   }

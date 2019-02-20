@@ -58,7 +58,6 @@ class App extends React.Component {
               component={TypingTestPageContainer}
             />
             <Route
-              exact
               path="/typing-test/results"
               component={ResultTypingTestContainer}
             />

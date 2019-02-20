@@ -13,14 +13,16 @@ import {
   SOCKET_HAS_DISCONNECTED,
   GAME_HAS_TIMEOUT,
   LEAVE_GAME,
-  GAME_IS_ACTIVE
+  GAME_IS_ACTIVE,
+  TYPING_TEST_IS_ACTIVE
 } from '../../constants';
 import {
   PlayerSerialize,
   ServerStatusReducer,
   ScoreBroadcastAction,
-  PlayerJoiningAction
-} from '../../types';
+  PlayerJoiningAction,
+  TypingGameInfoI
+} from '../../types/typesIndex';
 import { PlayerGameStatus } from '../../types/GameStatusType';
 
 export const initialState: ServerStatusReducer = {
@@ -33,7 +35,8 @@ export const initialState: ServerStatusReducer = {
   gameStartTimestamp: 0,
   socketConnected: false,
   gameHasTimeout: false,
-  initialSocketConnection: false
+  initialSocketConnection: false,
+  activeTypingTestRoomId: ''
 };
 
 export default function ServerStatus(
@@ -87,6 +90,9 @@ export default function ServerStatus(
         ...state,
         isGameActive: true
       };
+    case TYPING_TEST_IS_ACTIVE:
+      return typingTestActive(state, action.payload);
+
     default:
       return state;
   }
@@ -151,4 +157,11 @@ function scoreBroadCast(
     nextState.playersGameStatus[player.playerId] = player;
   });
   return nextState;
+}
+
+function typingTestActive(state: ServerStatusReducer, data: TypingGameInfoI) {
+  return {
+    ...state,
+    activeTypingTestRoomId: data.instanceId
+  };
 }

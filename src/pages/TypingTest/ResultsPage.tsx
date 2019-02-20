@@ -1,29 +1,12 @@
 import React from 'react';
 import { Title } from '../../components/Title/Title';
-import {
-  TypingTestScoreboard,
-  TypingTestScoreboardProps
-} from '../../components/TypingTestScoreBoard/TypingTestScoreboard';
+import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
 import Button from '@material-ui/core/Button';
 
-export interface TypingTestResultPageProps {}
-
-const data: TypingTestScoreboardProps = {
-  data: [
-    {
-      label: 'WORDS/MIN',
-      value: '12'
-    },
-    {
-      label: 'CHARS/MIN',
-      value: '77'
-    },
-    {
-      label: 'ACCURACY',
-      value: '94%'
-    }
-  ]
-};
+export interface TypingTestResultPageProps {
+  comparison: number;
+  roomId: string;
+}
 
 export function TypingTestResultPage(props: TypingTestResultPageProps) {
   return (
@@ -32,7 +15,7 @@ export function TypingTestResultPage(props: TypingTestResultPageProps) {
         <Title>Test Results</Title>
       </div>
       <div id="scoreboard-results">
-        <TypingTestScoreboard {...data} />
+        <TypingTestScoreboardContainer roomId={props.roomId} />
       </div>
       <Title />
       <h2 className="result-page-padding">Your score beats 77.37% of all</h2>

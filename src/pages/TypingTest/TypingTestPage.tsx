@@ -5,9 +5,12 @@ import { TypingGameInfoI, RoomType } from '../../types/typesIndex';
 import { TypingTestTimer } from '../../components/TimerRenderProps/TimerRenderProps';
 import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
 import '../../css/typing-test.scss';
+import { ROOM_ID_PARM } from '../../constants';
 
 export interface TypingTestPageProps {
   gameWords: string[];
+  roomId: string;
+  history: any;
 }
 
 export interface TypingTestPageState {}
@@ -20,6 +23,12 @@ export default class TypingTestPage extends React.Component<
     super(props);
     socketManager.emitRequestToPlay(RoomType.TYPING_TEST);
     this.state = {};
+    this.onFinish = this.onFinish.bind(this);
+  }
+  onFinish() {
+    this.props.history.push(
+      `/typing-test/results?${ROOM_ID_PARM}=${this.props.roomId}`
+    );
   }
   public render() {
     return (
@@ -34,12 +43,13 @@ export default class TypingTestPage extends React.Component<
             }}
           />
         </div>
-        <TypingTestScoreboardContainer />
+        <TypingTestScoreboardContainer roomId={this.props.roomId} />
         <GameController
           gameActive={true}
           words={this.props.gameWords}
           // gameActive={this.props.gameInfo.isGameActive}
           gameType={RoomType.TYPING_TEST}
+          onFinish={this.onFinish}
         />
       </div>
     );

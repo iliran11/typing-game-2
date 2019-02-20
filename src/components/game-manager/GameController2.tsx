@@ -8,6 +8,7 @@ export interface IAppProps {
   words: string[];
   gameType: RoomType;
   gameActive: boolean;
+  onFinish: () => void;
 }
 
 export interface IAppState {}
@@ -55,7 +56,11 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
           // id="game-input"
           ref={this.inputRef}
         />
-        <GameView words={this.props.words} gameActive={this.props.gameActive} />
+        <GameView
+          words={this.props.words}
+          gameActive={this.props.gameActive}
+          onFinish={this.props.onFinish}
+        />
       </Fragment>
     );
   }

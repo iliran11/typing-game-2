@@ -151,7 +151,7 @@ const socketManager: any = {
     });
     this.socket.on(TYPING_TEST_SCORE_BROADCAST, (data: TypingGameInfoI) => {
       this.dispatch({
-        type: TYPING_TEST_IS_ACTIVE,
+        type: TYPING_TEST_SCORE_BROADCAST,
         payload: data
       });
     });
