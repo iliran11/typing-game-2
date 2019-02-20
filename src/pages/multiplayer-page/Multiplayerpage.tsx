@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import socketManager from '../../socketManager';
-import GameManagerContainer from '../../components/game-manager/gameManagerContainer';
+import GameController from '../../components/game-manager/GameController2';
 import ScoreBoardContainer from '../../components/CompetitorList/CometitorListContainer';
 import CountDown from '../../components/CountDown/CountDown';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
@@ -12,6 +12,7 @@ interface Props {
   history: any;
   gameIsLoaded: boolean;
   isSocketConnected: boolean;
+  words: string[];
 }
 interface State {
   gameActive: boolean;
@@ -44,17 +45,19 @@ class MultiplayerPage extends PureComponent<Props, State> {
     });
   }
   render() {
+    if (this.props.words.length === 0) {
+      return <BoxLoader message="Thinking about your challenge ..." />;
+    }
     return (
       <div id="game-page">
-        {!this.props.gameIsLoaded && (
-          <BoxLoader message="Thinking about your challenge ..." />
-        )}
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}
-        <GameManagerContainer
+        <GameController
           gameActive={this.state.gameActive}
           gameType={RoomType.MULTIPLAYER}
+          words={this.props.words}
+          onFinish={() => {}}
         />
         <ScoreBoardContainer history={this.props.history} />
       </div>
