@@ -27,7 +27,7 @@ export class TypingTestRoom extends BaseRoom {
   private get getInitialGameData(): TypingGameInfoI {
     return {
       words: this.game.words,
-      instanceId: this.instanceId,
+      roomId: this.instanceId,
       isGameActive: true,
       wpm: this.game.getWpmScore(this.passedTimeMinutes),
       cpm: this.game.getCpmScore(this.passedTimeMinutes),

@@ -63,7 +63,7 @@ class App extends React.Component {
               component={ResultTypingTestContainer}
             />
             <Route
-              path="/multiplayer-game/results"
+              path="/results"
               component={MultiPlayerResultPage}
             />
           </Fragment>

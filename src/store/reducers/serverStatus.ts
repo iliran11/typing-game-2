@@ -82,6 +82,6 @@ function youJoinedRoom(
 function typingTestActive(state: ServerStatusReducer, data: TypingGameInfoI) {
   return {
     ...state,
-    activeRoomId: data.instanceId
+    activeRoomId: data.roomId
   };
 }

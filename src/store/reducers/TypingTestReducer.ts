@@ -26,7 +26,7 @@ function activateTypingGame(
 ) {
   return {
     ...state,
-    [data.instanceId]: {
+    [data.roomId]: {
       ...data
     }
   };
@@ -37,9 +37,9 @@ function updateScoreBoard(
 ) {
   const nextGameObject = { ...data };
   // we don't want to change the reference of words object here to save re-rendering
-  nextGameObject.words = state[data.instanceId].words;
+  nextGameObject.words = state[data.roomId].words;
   return {
     ...state,
-    [data.instanceId]: nextGameObject
+    [data.roomId]: nextGameObject
   };
 }

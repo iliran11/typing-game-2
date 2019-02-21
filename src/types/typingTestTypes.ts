@@ -1,7 +1,7 @@
 import { PlayerSerialize } from './typesIndex';
 
 export interface TypingGameInfoI {
-  instanceId: string;
+  roomId: string;
   words: string[];
   isGameActive: boolean;
   wpm: number;
