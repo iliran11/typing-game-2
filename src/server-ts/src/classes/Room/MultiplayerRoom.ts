@@ -86,7 +86,7 @@ export default class MultiplayerRoom extends BaseRoom {
   }
   deletePlayer(player: Player): void {
     if (this.isThereHuman === false) {
-      this.stopGame();
+      super.stopGame();
       // TODO: implement tracking of human players in the room. when we have 0 human players, stop the game.
       // clearTimeout(this.timerId);
       // console.log(`${this.roomName}- Game Stopped.`);
@@ -206,7 +206,7 @@ export default class MultiplayerRoom extends BaseRoom {
     const roomLog: PlayerGameStatus[] = this.roomStatus;
     this.server.in(this.roomName).emit(SCORE_BROADCAST, roomLog);
     if (this.isAnyoneStillPlaying === false) {
-      this.stopGame();
+      super.stopGame();
     }
     roomLogDb.save(
       roomLog,
@@ -223,7 +223,7 @@ export default class MultiplayerRoom extends BaseRoom {
     this.stopCountdownBot();
     emitToRoom(this.roomName, GAME_HAS_STARTED, {
       startTimeStamp: this.roomStartTimestamp,
-      roomId:this.instanceId
+      roomId: this.instanceId
     });
     this.allBotPlayers.forEach((player: Player | BotPlayer) => {
       // @ts-ignore
@@ -270,21 +270,24 @@ export default class MultiplayerRoom extends BaseRoom {
       this.restartCountdownBot();
     }
   }
-  protected onStopGame(finalResult?: PlayerGameStatus[]) {
+  protected async onStopGame(finalResult?: PlayerGameStatus[]) {
     clearTimeout(this.botRecruitTimer);
     this.isClosed = true;
     console.log(`${this.roomName} has finished!`);
     //TODO: if there is no final result - delete or update accordingly this game on db.
     if (this.shouldSaveOnStop) {
-      const finalResultDocument = roomLogDb.save(
+      const finalResultDocument = await roomLogDb.save(
         this.roomStatus,
         this.instanceId,
         this.gameTickSequence,
         this.roomType
       );
-      roomSummaryDb.updateById(this.instanceId, {
-        finalResult: finalResultDocument
-      });
+      roomSummaryDb.updateById(
+        { roomId: this.instanceId },
+        {
+          finalResult: finalResultDocument
+        }
+      );
     }
   }
   private get randomAvatarIndex(): number {

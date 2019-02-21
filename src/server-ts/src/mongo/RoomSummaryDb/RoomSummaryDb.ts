@@ -28,7 +28,7 @@ class RoomSummaryDb {
       throw new Error(error);
     }
   }
-  async updateById(searchParam: string, document: object): Promise<void> {
+  async updateById(searchParam: object, document: object): Promise<void> {
     return this.model.updateOne(searchParam, document);
   }
 

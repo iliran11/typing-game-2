@@ -52,6 +52,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
         this.props.roomId
       }&${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`
     );
+    socketManager.emitFinishedGame()
   }
   render() {
     if (!this.props.roomId || this.props.words.length === 0) {
