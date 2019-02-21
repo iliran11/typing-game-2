@@ -30,7 +30,7 @@ export const levelsMap: LevelsMap = {
     accuracy: 10,
     totalWordsTyped: 2,
     totalCharsTyped: 2,
-    text: 'He determined to drop his litigation with the monastry, and relinguish his claims to the wood-cuting and fishery rihgts at once. He was the'
+    text: 'He determined'
   },
   level2: {
     level: 10,

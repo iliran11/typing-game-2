@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { PlayerGameStatus } from '../../types/typesIndex';
-import { networkManager } from '../../NetworkManager';
-import { BoxLoader } from '../../components/boxLoader/boxLoader';
-
+import { PlayerResult } from '../../components/PlayerResult/PlayerResult';
 export interface MultiplayerResultPageProps {
   roomId: string;
   players: PlayerGameStatus[];
@@ -22,10 +20,16 @@ export class MultiplayerResultPage extends React.Component<
     });
     return index;
   }
+  renderPlayerResult(player: PlayerGameStatus, index: number) {
+    return (
+      <PlayerResult
+        playerAvatar={player.avatar}
+        playerType={player.type}
+        position={index}
+      />
+    );
+  }
   public render() {
-    if (this.props.players.length === 0) {
-      return <BoxLoader message="Retrieving history ... " />;
-    }
-    return <div>hi {this.myPosition}</div>;
+    return this.props.players.map(this.renderPlayerResult);
   }
 }
