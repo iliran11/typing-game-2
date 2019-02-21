@@ -50,7 +50,7 @@ function getPlayersStatus(
   const gameHistory = state.gamesHistory[roomId];
   if (gameHistory) {
     if (roomType === RoomType.MULTIPLAYER) {
-      return gameHistory.players;
+      return gameHistory.finalResult.results;
     }
     if (roomType === RoomType.TYPING_TEST) {
       // @ts-ignore

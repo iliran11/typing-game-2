@@ -24,7 +24,6 @@ export class GenericResultPage extends React.Component<
     props.fetchReplay(props.roomId, props.myId);
   }
   public render() {
-    console.log(this.props.players);
     if (Array.isArray(this.props.players) && this.props.players.length === 0)
       return <BoxLoader message="getting your result" />;
     if (!this.props.players) {
