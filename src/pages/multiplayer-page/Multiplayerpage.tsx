@@ -48,7 +48,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
   }
   onGameFinish() {
     this.props.history.push(
-      `/multiplayer-game/results?${ROOM_ID_PARM}=${
+      `/results?${ROOM_ID_PARM}=${
         this.props.roomId
       }&${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`
     );

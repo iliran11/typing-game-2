@@ -5,7 +5,7 @@ import {
   PlayerGameStatus
 } from '../../types/typesIndex';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
-import { TypingTestResultPage } from '../pagesIndex';
+import { TypingTestResultPage, MultiplayerResultPage } from '../pagesIndex';
 
 export interface GenericResultPageProps {
   roomType: RoomType;
@@ -31,7 +31,14 @@ export class GenericResultPage extends React.Component<
       return <div>error</div>;
     }
     if (this.props.roomType === RoomType.MULTIPLAYER) {
-      return <div>multiplayer</div>;
+      return (
+        <MultiplayerResultPage
+          roomId={this.props.roomId}
+          //@ts-ignore
+          players={this.props.players}
+          myId={this.props.myId}
+        />
+      );
     }
     return (
       <TypingTestResultPage

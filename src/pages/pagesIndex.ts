@@ -10,3 +10,4 @@ export * from './RenderlessInitiator/RenderlessInitiatorContainer';
 export * from './TypingTest/TypingTestPageContainer';
 export * from './TypingTest/ResultsPage';
 export * from './GenericResults/GenericResultsContainer';
+export * from './multiplayer-page/ResultsPage';
