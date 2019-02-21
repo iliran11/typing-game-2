@@ -13,9 +13,12 @@ export default function GameReducer(state: any = initialState, action: any) {
 }
 
 function loadReplay(state: ReplayReducer, data: GameRecordsModel[]) {
-  const roomId = data[0].gameInstanceId;
-  return {
-    ...state,
-    [roomId]: data
-  };
+  if (data.length > 0) {
+    const roomId = data[0].gameInstanceId;
+    return {
+      ...state,
+      [roomId]: data
+    };
+  }
+  return state;
 }

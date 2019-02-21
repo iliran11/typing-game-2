@@ -20,6 +20,13 @@ export default function GamesHistoryController(req, res) {
     playerIdParam
   );
   Promise.all([gameRecords, gameInfo, gameTyping]).then(values => {
+    const gameInfo = values[1];
+    if (!gameInfo) {
+      res.status(400).send({
+        message: 'No Such Room'
+      });
+      return;
+    }
     const response: ReplayEndPointResponseI = {
       gameRecords: values[0],
       gameInfo: values[1],

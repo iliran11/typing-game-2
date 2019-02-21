@@ -53,6 +53,7 @@ export const LOGOUT = 'log-out';
 
 export const USER_ID_PARAM = 'user-id-parm';
 export const ROOM_ID_PARM = 'room-id';
+export const ROOM_TYPE_PARAM = 'room-type';
 export const PLAYER_ID_PARAM = 'player-id-parm';
 export const LOAD_GAME_HISTORY_DATA = 'load-game-history-data';
 export const LOAD_TYPING = 'load-typing';

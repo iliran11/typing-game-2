@@ -5,7 +5,7 @@ import { TypingGameInfoI, RoomType } from '../../types/typesIndex';
 import { TypingTestTimer } from '../../components/TimerRenderProps/TimerRenderProps';
 import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
 import '../../css/typing-test.scss';
-import { ROOM_ID_PARM } from '../../constants';
+import { ROOM_ID_PARM, ROOM_TYPE_PARAM } from '../../constants';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
 export interface TypingTestPageProps {
   gameWords: string[];
@@ -27,7 +27,9 @@ export default class TypingTestPage extends React.Component<
   }
   onFinish() {
     this.props.history.push(
-      `/typing-test/results?${ROOM_ID_PARM}=${this.props.roomId}`
+      `/results?${ROOM_ID_PARM}=${this.props.roomId}&${ROOM_TYPE_PARAM}=${
+        RoomType.TYPING_TEST
+      }`
     );
   }
   public render() {

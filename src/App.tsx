@@ -16,8 +16,7 @@ import {
   AchievementProgressPageContainer,
   RenderlessInitiatorContainer,
   TypingTestPageContainer,
-  ResultTypingTestContainer,
-  MultiPlayerResultPage
+  GenericResultsContainer
 } from './pages/pagesIndex';
 
 class App extends React.Component {
@@ -58,14 +57,7 @@ class App extends React.Component {
               path="/typing-test"
               component={TypingTestPageContainer}
             />
-            <Route
-              path="/typing-test/results"
-              component={ResultTypingTestContainer}
-            />
-            <Route
-              path="/results"
-              component={MultiPlayerResultPage}
-            />
+            <Route path="/results" component={GenericResultsContainer} />
           </Fragment>
         </Router>
         <GlobalBlockingAlerts />

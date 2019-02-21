@@ -6,7 +6,7 @@ import ScoreBoardContainer from '../../components/CompetitorList/CometitorListCo
 import CountDown from '../../components/CountDown/CountDown';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
 import { RoomType } from '../../types';
-import { ROOM_ID_PARM } from '../../constants';
+import { ROOM_ID_PARM,ROOM_TYPE_PARAM } from '../../constants';
 
 interface Props {
   isGameActive: boolean;
@@ -48,7 +48,9 @@ class MultiplayerPage extends PureComponent<Props, State> {
   }
   onGameFinish() {
     this.props.history.push(
-      `/multiplayer-game/results?${ROOM_ID_PARM}=${this.props.roomId}`
+      `/multiplayer-game/results?${ROOM_ID_PARM}=${
+        this.props.roomId
+      }&${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`
     );
   }
   render() {

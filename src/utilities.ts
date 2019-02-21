@@ -1,4 +1,8 @@
-import { RootState } from './types';
+import {
+  ScoreboardSectionData,
+  TypingGameInfoI,
+  RootState
+} from './types/typesIndex';
 
 export function loadFbSdk(appId: string) {
   return new Promise(resolve => {
@@ -67,4 +71,24 @@ export function userHasAchievements(state: RootState) {
   const playerId = state.authentication.playerId;
   const userAchievements = state.userAchievments[playerId];
   return userAchievements && userAchievements.wpm > -1;
+}
+
+export function getTypingTestScoreboardData(
+  data: TypingGameInfoI
+): ScoreboardSectionData[] {
+  const accuracy = (data.accuracy * 100).toFixed(0);
+  return [
+    {
+      value: Math.floor(data.wpm),
+      label: 'WORDS/MIN'
+    },
+    {
+      value: Math.floor(data.cpm),
+      label: 'CHARS/MIN'
+    },
+    {
+      value: `${accuracy}%`,
+      label: 'ACCURACY'
+    }
+  ];
 }

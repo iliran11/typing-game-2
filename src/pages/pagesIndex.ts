@@ -8,5 +8,5 @@ export * from './Replay/ReplayContainer';
 // export * from './ResultPage/ResultPageContainer';
 export * from './RenderlessInitiator/RenderlessInitiatorContainer';
 export * from './TypingTest/TypingTestPageContainer';
-export * from './TypingTest/ResultPageContainer';
-export * from './multiplayer-page/ResultsContainer'
+export * from './TypingTest/ResultsPage';
+export * from './GenericResults/GenericResultsContainer';
