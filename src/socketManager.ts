@@ -178,13 +178,13 @@ const socketManager: any = {
     //   });
     // });
     this.socket.on(NAVIGATE_RESULT, (data: AchievementsProgressI) => {
-      this.dispatch({
-        type: LOAD_ACHIEVEMENT_PROGRESS,
-        payload: data
-      });
-      window.setTimeout(() => {
-        this.history.push(`/achievements-progress/?room-id=${data.roomId}`);
-      }, 2000);
+      // this.dispatch({
+      //   type: LOAD_ACHIEVEMENT_PROGRESS,
+      //   payload: data
+      // });
+      // window.setTimeout(() => {
+      //   this.history.push(`/achievements-progress/?room-id=${data.roomId}`);
+      // }, 2000);
     });
   },
   reconnect() {

@@ -19,6 +19,9 @@ function loadAchievementProgress(
   state: AchievementsProgressReducer,
   data: AchievementsProgressI
 ) {
+  if (!data) {
+    return state;
+  }
   const roomId = data.roomId;
   return {
     ...state,

@@ -122,16 +122,12 @@ export default class MultiplayerRoom extends BaseRoom {
     // if there is 1 non-null value in the array, it means one player already finished. so we are number 2 (hench the +1)
     return (map.false || 0) + 1;
   }
-  async playerHasFinished(finishedPlayer: Player) {
-    const playerIndex = this.players.findIndex((gamePlayer: Player) => {
-      return gamePlayer.getName === finishedPlayer.getName;
-    });
+  playerScoreInfo(player: Player) {
     const timestampNow = Date.now();
-    //TODO: Unite with game status function.
     const {
       playerGame: { getRawLetters, numberOfTypings, numberOfWords }
-    } = finishedPlayer;
-    const gameResultRecord = finishedPlayer.playerGameStatus({
+    } = player;
+    return {
       timePassedMinutes: this.timePassedMinutes,
       finishedTimeStamp: this.roomStartTimestamp,
       gameDuration: timestampNow - this.roomStartTimestamp,
@@ -142,7 +138,15 @@ export default class MultiplayerRoom extends BaseRoom {
       rankAtFinish: this.currentRankOfFinishedPlayer,
       roomId: this.instanceId,
       roomType: this.roomType
+    };
+  }
+  async playerHasFinished(finishedPlayer: Player) {
+    const playerIndex = this.players.findIndex((gamePlayer: Player) => {
+      return gamePlayer.getName === finishedPlayer.getName;
     });
+    const gameResultRecord = finishedPlayer.playerGameStatus(
+      this.playerScoreInfo(finishedPlayer)
+    );
     this.finalScores[playerIndex] = gameResultRecord;
     if (finishedPlayer.isAuthenticated) {
       const stats = await LevelManager.getPlayerStats(finishedPlayer.playerId);
@@ -188,9 +192,9 @@ export default class MultiplayerRoom extends BaseRoom {
     });
   }
   private getPlayerScore(player: Player): PlayerGameStatus {
-    const currentPlayerStatus: PlayerGameStatus = player.playerGameStatus({
-      timePassedMinutes: this.timePassedMinutes
-    }).serialize;
+    const currentPlayerStatus: PlayerGameStatus = player.playerGameStatus(
+      this.playerScoreInfo(player)
+    ).serialize;
     return currentPlayerStatus;
   }
   private get roomStatus(): PlayerGameStatus[] {
