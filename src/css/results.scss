@@ -1,9 +1,29 @@
 @import './colors.scss';
-.player-result {
+.player-result-container {
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+  font-family: 'Roboto', sans-serif;
   margin-top: 40px;
   opacity: 0.87;
+  padding: 0px 10px;
+  max-width: 670px;
+  .player-section {
+    flex: auto;
+  }
+  .position-container {
+    width: 25px;
+  }
+  .position {
+    font-size: 20px;
+  }
+  .ordinal-position {
+    font-size: 14px;
+  }
+  .player-scores-section {
+    flex: auto;
+  }
   .player-result-avatar {
-    width: 30px;
+    width: 40px;
+    margin: 0px 5px;
   }
   .scoreboard {
     // margin-left: 20px;
@@ -19,7 +39,9 @@
     // padding-right: 10px;
     position: relative;
     padding: 0px 10px;
-    width: 70px;
+    // width: 70px;
+  }
+  .score:not(:last-child) {
     &:after {
       content: '';
       position: absolute;
@@ -34,12 +56,13 @@
     font-size: 10px;
   }
   .name {
-    width: 50px;
+    // width: 50px;
   }
   .competitor-name-section {
     line-height: 15px;
+    width: 50px;
   }
-  .ordinal-place {
-    width: 35px;
+  .number-place {
+    font-size: 20px;
   }
 }

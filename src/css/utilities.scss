@@ -66,8 +66,18 @@
   .flex-column {
     flex-direction: column;
   }
+  .flex-auto {
+    flex: auto;
+  }
+  .non-flex {
+    flex:none;
+  }
+  
   .color-white {
     color: white;
+  }
+  .full-width {
+    width: 100%;
   }
   .color-1 {
     color: $color1;

@@ -18,19 +18,23 @@ export interface PlayerResultProps {
 export function PlayerResult(props: PlayerResultProps) {
   console.log(props.scores);
   return (
-    <div className="player-result display-flex flex-center">
-      <span className="ordinal-place">
-        {props.position + 1}
-        <span>{ordinal(props.position + 1)}</span>
-      </span>
-      <div className="player-result-avatar">
-        <Avatar playerAvatar={props.playerAvatar} type={props.playerType} />
-      </div>
-      <span className="competitor-name-section">{props.name}</span>
-      <div className="scoreboard display-flex">
+    <div className="player-result-container display-flex flex-center full-width">
+      <section className="player-section non-flex display-flex flex-center">
+        <span className="position-container">
+          <span className="position">{props.position + 1}</span>
+          <span className="ordinal-position">
+            {ordinal(props.position + 1)}
+          </span>
+        </span>
+        <div className="player-result-avatar">
+          <Avatar playerAvatar={props.playerAvatar} type={props.playerType} />
+        </div>
+        <span className="competitor-name-section">{props.name}</span>
+      </section>
+      <div className="scoreboard display-flex flex-auto">
         {props.scores.map(score => {
           return (
-            <span className="score display-flex flex-column flex-center">
+            <span className="score display-flex flex-column flex-center flex-auto">
               <span className="value">{score.value}</span>
               <label className="label">{score.label}</label>
             </span>
