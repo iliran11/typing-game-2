@@ -4,6 +4,8 @@ import {
   ScoreboardSectionData
 } from '../../types/typesIndex';
 import { PlayerResult } from '../../components/PlayerResult/PlayerResult';
+import { ordinal } from '../../utilities';
+import { Title } from '../../components/Title/Title';
 export interface MultiplayerResultPageProps {
   roomId: string;
   players: PlayerGameStatus[];
@@ -19,9 +21,11 @@ export class MultiplayerResultPage extends React.Component<
     this.renderPlayerResult = this.renderPlayerResult.bind(this);
   }
   get myPosition() {
-    const index = this.props.players.findIndex((player: PlayerGameStatus) => {
-      return player.playerId === this.props.myId;
-    });
+    const index = this.sortedPlayerResults.findIndex(
+      (player: PlayerGameStatus) => {
+        return player.playerId === this.props.myId;
+      }
+    );
     return index;
   }
   get sortedPlayerResults() {
@@ -54,12 +58,23 @@ export class MultiplayerResultPage extends React.Component<
       />
     );
   }
+  get positionTitle() {
+    const position = this.myPosition;
+    if (position === 0) {
+      return 'YOU WON';
+    } else {
+      return `${position + 1}${ordinal(position + 1)} Place`;
+    }
+  }
   public render() {
     return (
-      <div className="full-width">
+      <div className="full-width multiplayer-results-page">
+        <div className="title text-center bold">{this.positionTitle}</div>
+        <Title />
         <div className="player-results-container">
           {this.sortedPlayerResults.map(this.renderPlayerResult)}
         </div>
+        <Title className="align-right" />
       </div>
     );
   }

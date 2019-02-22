@@ -60,7 +60,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
       return <BoxLoader message="Thinking about your challenge ..." />;
     }
     return (
-      <div id="game-page">
+      <div className="page full-width">
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}

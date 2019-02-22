@@ -35,9 +35,7 @@
     background-color: red;
   }
   .page {
-    @media (max-width: 992px) {
-      width: 82%;
-    }
+    overflow: auto;
   }
 
   .right-border {
