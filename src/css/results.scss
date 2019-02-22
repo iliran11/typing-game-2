@@ -1,0 +1,45 @@
+@import './colors.scss';
+.player-result {
+  margin-top: 40px;
+  opacity: 0.87;
+  .player-result-avatar {
+    width: 30px;
+  }
+  .scoreboard {
+    // margin-left: 20px;
+    // & > span:not(:first-child) {
+    //   margin-left: 15px;
+    // }
+  }
+  .value {
+    font-size: 20px;
+    color: $color1;
+  }
+  .score {
+    // padding-right: 10px;
+    position: relative;
+    padding: 0px 10px;
+    width: 70px;
+    &:after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      background-color: $color2;
+      right: 0;
+      top: 0;
+    }
+  }
+  .label {
+    font-size: 10px;
+  }
+  .name {
+    width: 50px;
+  }
+  .competitor-name-section {
+    line-height: 15px;
+  }
+  .ordinal-place {
+    width: 35px;
+  }
+}

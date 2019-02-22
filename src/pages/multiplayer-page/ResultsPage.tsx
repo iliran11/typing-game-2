@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { PlayerGameStatus } from '../../types/typesIndex';
+import {
+  PlayerGameStatus,
+  ScoreboardSectionData
+} from '../../types/typesIndex';
 import { PlayerResult } from '../../components/PlayerResult/PlayerResult';
 export interface MultiplayerResultPageProps {
   roomId: string;
@@ -21,11 +24,20 @@ export class MultiplayerResultPage extends React.Component<
     return index;
   }
   renderPlayerResult(player: PlayerGameStatus, index: number) {
+    const scores: ScoreboardSectionData[] = [
+      { label: 'WPM', value: Math.floor(player.score) },
+      // @ts-ignore
+      { label: 'ACCURACY', value: `${Math.floor(player.accuracy)}%` },
+      // @ts-ignore
+      { label: 'TIME', value: '0:43' }
+    ];
     return (
       <PlayerResult
         playerAvatar={player.avatar}
         playerType={player.type}
         position={index}
+        name={player.name}
+        scores={scores}
       />
     );
   }

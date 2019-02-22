@@ -3,6 +3,7 @@ import './css/App.css';
 import './css/shadows.css';
 import './css/gradients.css';
 import './css/utilities.scss';
+import './css/results.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBarContainer';
 import GlobalBlockingAlerts from './components/BlockingAlert/GlobalBlockingAlertsContainer';
