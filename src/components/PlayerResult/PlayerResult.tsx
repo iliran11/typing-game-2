@@ -13,12 +13,14 @@ export interface PlayerResultProps {
   position: number;
   name: string;
   scores: ScoreboardSectionData[];
+  highlight?: boolean;
 }
 
 export function PlayerResult(props: PlayerResultProps) {
-  console.log(props.scores);
+  const highlightClass = props.highlight ? 'shadow-4dp' : '';
+  const containerClass = `player-result-container display-flex flex-center full-width ${highlightClass}`;
   return (
-    <div className="player-result-container display-flex flex-center full-width">
+    <div className={containerClass}>
       <section className="player-section non-flex display-flex flex-center">
         <span className="position-container">
           <span className="position">{props.position + 1}</span>
@@ -32,9 +34,12 @@ export function PlayerResult(props: PlayerResultProps) {
         <span className="competitor-name-section capitalize">{props.name}</span>
       </section>
       <div className="scoreboard display-flex flex-auto">
-        {props.scores.map(score => {
+        {props.scores.map((score, index) => {
           return (
-            <span className="score display-flex flex-column flex-center flex-auto">
+            <span
+              className="score display-flex flex-column flex-center flex-auto"
+              key={index}
+            >
               <span className="value full-width text-center">
                 {score.value}
               </span>

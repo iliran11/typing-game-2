@@ -16,12 +16,22 @@ export class MultiplayerResultPage extends React.Component<
 > {
   constructor(props: MultiplayerResultPageProps) {
     super(props);
+    this.renderPlayerResult = this.renderPlayerResult.bind(this);
   }
   get myPosition() {
     const index = this.props.players.findIndex((player: PlayerGameStatus) => {
       return player.playerId === this.props.myId;
     });
     return index;
+  }
+  get sortedPlayerResults() {
+    return this.props.players.sort((a, b) => {
+      if (a.score > b.score) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
   }
   renderPlayerResult(player: PlayerGameStatus, index: number) {
     const scores: ScoreboardSectionData[] = [
@@ -31,6 +41,7 @@ export class MultiplayerResultPage extends React.Component<
       // @ts-ignore
       { label: 'TIME', value: '0:43' }
     ];
+    console.log(player.playerId, this.props.myId);
     return (
       <PlayerResult
         playerAvatar={player.avatar}
@@ -38,10 +49,18 @@ export class MultiplayerResultPage extends React.Component<
         position={index}
         name={player.name}
         scores={scores}
+        key={player.playerId}
+        highlight={player.playerId === this.props.myId}
       />
     );
   }
   public render() {
-    return this.props.players.map(this.renderPlayerResult);
+    return (
+      <div className="full-width">
+        <div className="player-results-container">
+          {this.sortedPlayerResults.map(this.renderPlayerResult)}
+        </div>
+      </div>
+    );
   }
 }

@@ -1,11 +1,15 @@
 @import './colors.scss';
+.player-results-container {
+  padding: 0px 10px;
+}
 .player-result-container {
   @import url('https://fonts.googleapis.com/css?family=Roboto');
   font-family: 'Roboto', sans-serif;
-  margin-top: 40px;
+  margin-top: 20px;
   opacity: 0.87;
-  padding: 0px 10px;
   max-width: 670px;
+  padding: 10px;
+  border-radius: 10px;
   .player-section {
     flex: auto;
   }

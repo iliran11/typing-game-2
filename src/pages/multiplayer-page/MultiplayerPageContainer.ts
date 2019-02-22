@@ -12,7 +12,8 @@ const mapStateToProps = (state: RootState, props: any) => {
     isGameActive,
     isSocketConnected: state.serverStatus.socketConnected,
     words: state.gameData.words,
-    roomId: state.serverStatus.activeRoomId
+    roomId: state.serverStatus.activeRoomId,
+    myId: state.serverStatus.myId
   };
 };
 export const MultiplayerPageContainer = connect(
