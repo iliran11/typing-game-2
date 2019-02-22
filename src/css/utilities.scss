@@ -69,10 +69,13 @@
   .flex-auto {
     flex: auto;
   }
-  .non-flex {
-    flex:none;
+  .text-center {
+    text-align: center;
   }
-  
+  .non-flex {
+    flex: none;
+  }
+
   .color-white {
     color: white;
   }
@@ -84,5 +87,8 @@
   }
   .facebook-background {
     background-color: $facebook-color;
+  }
+  .capitalize {
+    text-transform: capitalize;
   }
 }

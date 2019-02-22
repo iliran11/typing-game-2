@@ -25,24 +25,8 @@
     width: 40px;
     margin: 0px 5px;
   }
-  .scoreboard {
-    // margin-left: 20px;
-    // & > span:not(:first-child) {
-    //   margin-left: 15px;
-    // }
-  }
-  .value {
-    font-size: 20px;
-    color: $color1;
-  }
-  .score {
-    // padding-right: 10px;
-    position: relative;
-    padding: 0px 10px;
-    // width: 70px;
-  }
   .score:not(:last-child) {
-    &:after {
+    .value:after {
       content: '';
       position: absolute;
       height: 100%;
@@ -52,15 +36,20 @@
       top: 0;
     }
   }
+  .value {
+    font-size: 20px;
+    color: $color1;
+    padding: 5px 0px;
+    margin-bottom: 5px;
+    position: relative;
+  }
   .label {
     font-size: 10px;
-  }
-  .name {
-    // width: 50px;
   }
   .competitor-name-section {
     line-height: 15px;
     width: 50px;
+    font-size: 14px;
   }
   .number-place {
     font-size: 20px;

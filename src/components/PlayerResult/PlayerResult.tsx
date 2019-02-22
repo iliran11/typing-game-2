@@ -29,13 +29,15 @@ export function PlayerResult(props: PlayerResultProps) {
         <div className="player-result-avatar">
           <Avatar playerAvatar={props.playerAvatar} type={props.playerType} />
         </div>
-        <span className="competitor-name-section">{props.name}</span>
+        <span className="competitor-name-section capitalize">{props.name}</span>
       </section>
       <div className="scoreboard display-flex flex-auto">
         {props.scores.map(score => {
           return (
             <span className="score display-flex flex-column flex-center flex-auto">
-              <span className="value">{score.value}</span>
+              <span className="value full-width text-center">
+                {score.value}
+              </span>
               <label className="label">{score.label}</label>
             </span>
           );
