@@ -1,5 +1,6 @@
 import Player from './Player';
 import { PlayerType, RoomType } from '../../../types/typesIndex';
+import { PlayerConstructorOptions } from './Player';
 import playerTyping from '../event-handlers/playerTyping';
 import RoomManager from './MultiplayerRoomManager';
 import onGameFinished from '../event-handlers/onGameFinished';
@@ -15,8 +16,8 @@ export default class BotPlayer extends Player {
   slope: number;
   startingPoint: number;
 
-  constructor(socket: any, name?: any, level = 1) {
-    super(socket, name, level);
+  constructor(playerConstructorOptions: PlayerConstructorOptions) {
+    super(playerConstructorOptions);
     this.type = this.type.bind(this);
     this.typingScheduler = this.typingScheduler.bind(this);
     this.slope = random(10, 30);

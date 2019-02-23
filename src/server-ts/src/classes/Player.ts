@@ -6,14 +6,19 @@ import {
   PlayerType,
   PlayerAvatar,
   RoomType
-} from '../../../types';
+} from '../../../types/typesIndex';
 
-import {
-  PlayerGameStatus,
-  PlayerGameStatusFactory
-} from '../../../types/GameStatusType';
+import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { createUserInstance } from '../mongo/User/UserModel';
+import { Socket } from 'dgram';
 // import Game from "./Game ";
+
+export interface PlayerConstructorOptions {
+  socket?: io.Socket | string;
+  userData?: FacebookUserType;
+  level: number;
+  roomType: RoomType;
+}
 
 export default class Player {
   static playerCounter: number = 1;
@@ -28,7 +33,8 @@ export default class Player {
   private currentLevel: number;
 
   // private game: Game;
-  constructor(socket: io.Socket, userData: FacebookUserType, level: number) {
+  constructor(playerConstructorOptions: PlayerConstructorOptions) {
+    const { socket, userData, level, roomType } = playerConstructorOptions;
     this.socket = socket;
     this.name =
       (userData && `${userData.firstName} ${userData.lastName}`) ||
@@ -45,10 +51,11 @@ export default class Player {
     }
     Player.playerCounter++;
     this.currentLevel = level;
-    this.game = new Game(level);
-  }
-  createGame() {
-    this.game = new Game(this.currentLevel);
+    if (roomType === RoomType.MULTIPLAYER) {
+      this.game = new Game(level);
+    } else {
+      this.game = new Game(99);
+    }
   }
   public get playerType() {
     return PlayerType.human;
@@ -91,51 +98,4 @@ export default class Player {
   public setLevel(level: number) {
     this.currentLevel = level;
   }
-  playerGameStatus(options: PlayerGameStatusI): PlayerGameStatusFactory {
-    const {
-      timePassedMinutes,
-      finishedTimeStamp,
-      gameDuration,
-      accuracy,
-      numberOfTypings,
-      numberOfLetters,
-      numberOfWords,
-      rankAtFinish,
-      roomId,
-      roomType
-    } = options;
-    return new PlayerGameStatusFactory({
-      playerId: this.id,
-      score: this.playerGame.getWpmScore(timePassedMinutes),
-      completedPercentage: this.playerGame.getPercentageComplete,
-      type: this.playerType,
-      hasLeft: false,
-      isFinished: false,
-      finishedTimeStamp,
-      accuracy,
-      gameDuration,
-      name: this.serializable.name,
-      numberOfTypings,
-      numberOfLetters,
-      numberOfWords,
-      rankAtFinish,
-      roomId,
-      isAuthenticated: this.isAuthenticated,
-      avatar: this.avatar,
-      roomType
-    });
-  }
-}
-
-interface PlayerGameStatusI {
-  timePassedMinutes: number;
-  finishedTimeStamp?: number;
-  gameDuration?: number;
-  accuracy?: number;
-  numberOfTypings?: number;
-  numberOfLetters?: number;
-  numberOfWords?: number;
-  rankAtFinish?: number;
-  roomType?: RoomType;
-  roomId?: string;
 }
