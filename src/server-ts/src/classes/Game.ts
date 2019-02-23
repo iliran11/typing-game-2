@@ -1,18 +1,22 @@
 import LetterData from '../../../store/classes/lettterData';
 const uuid = require('uuid/v4');
 import LevelManager from './LevelManager';
+import Player from './Player';
+
 export default class Game {
   private index: number;
   private letters: LetterData[];
   numberOfTypings: number;
   gameId: number;
   instanceId: string;
-  rawLetters: string;
+  private rawLetters: string;
   private gameHasEnded: boolean;
-  private onGameEnd: () => void;
   static gameCounter: number = 1;
+  private startTimestamp: number = -1;
+  private endTimestamp: number = -1;
+  private player: Player;
 
-  constructor(level: number, onGameEnd = () => {}) {
+  constructor(level: number, player: Player) {
     this.rawLetters = LevelManager.getText(level);
     this.letters = LevelManager.getText(level)
       .split('')
@@ -22,11 +26,19 @@ export default class Game {
     this.numberOfTypings = 0;
     Game.gameCounter++;
     this.instanceId = `GAME-${uuid()}`;
-    this.onGameEnd = onGameEnd;
     this.gameHasEnded = false;
+    this.player = player;
   }
-  get isGameEnd() {
+  private get isGameEnd() {
     return this.index === this.letters.length;
+  }
+  setStartTimestamp(timestamp: number) {
+    this.startTimestamp = timestamp;
+  }
+  endGame() {
+    this.gameHasEnded = true;
+    this.endTimestamp = Date.now();
+    this.player.onGameEnd();
   }
   public processNewTyping(input: string) {
     if (this.isGameEnd) return;
@@ -38,8 +50,7 @@ export default class Game {
     }
     // if we are out of letters, reached the end of the array already - do not process.
     if (this.isGameEnd && this.gameHasEnded === false) {
-      this.gameHasEnded = true;
-      this.onGameEnd();
+      this.endGame();
     }
   }
   public get getRawLetters() {
@@ -60,13 +71,16 @@ export default class Game {
       });
     return numberOfWords;
   }
-  public getWpmScore(minutesPassed: number) {
+  private get minutesPassed() {
+    return (Date.now() - this.startTimestamp) / 60000;
+  }
+  public getWpmScore() {
     // number of letters in average word;
     const lettersInWord = 5;
-    return this.index / lettersInWord / minutesPassed;
+    return this.index / lettersInWord / this.minutesPassed;
   }
-  public getCpmScore(minutesPassed: number) {
-    return this.index / minutesPassed;
+  public getCpmScore() {
+    return this.index / this.minutesPassed;
   }
   public get getPercentageComplete() {
     return this.index / this.letters.length;
@@ -79,5 +93,12 @@ export default class Game {
       return this.letters[this.index].getValue;
     }
     return '';
+  }
+  public get gameDuration() {
+    if (this.gameHasEnded) {
+      return this.endTimestamp - this.startTimestamp;
+    } else {
+      return Date.now() - this.startTimestamp;
+    }
   }
 }

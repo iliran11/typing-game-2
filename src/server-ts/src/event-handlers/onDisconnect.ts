@@ -10,14 +10,14 @@ const roomManager = RoomManager.getInstance();
 
 export default function onDisconnect(socket: io.Socket): void {
   return;
-  const player = playerManager.getPlayer(socket);
-  playerManager.deletePlayer(socket);
-  // @ts-ignore
-  const room: MultiplayerRoom = roomManager.removePlayer(player);
-  console.log(
-    `${player.playerId} disconnected ${room.roomId}. Capacity:${
-      room.playersInRoom.length
-    }/${MAX_PLAYERS_PER_ROOM}`
-  );
-  emitToRoom(room.roomName, COMPETITOR_LEFT, player.serializable);
+  // const player = playerManager.getPlayer(socket);
+  // playerManager.deletePlayer(socket);
+  // // @ts-ignore
+  // const room: MultiplayerRoom = roomManager.removePlayer(player);
+  // console.log(
+  //   `${player.playerId} disconnected ${room.roomId}. Capacity:${
+  //     room.playersInRoom.length
+  //   }/${MAX_PLAYERS_PER_ROOM}`
+  // );
+  // emitToRoom(room.roomName, COMPETITOR_LEFT, player.serializable);
 }

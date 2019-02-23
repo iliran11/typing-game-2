@@ -7,17 +7,16 @@ import {
   PlayerAvatar,
   RoomType
 } from '../../../types/typesIndex';
+import { BaseRoom } from './Room/BaseRoom';
 
-import { PlayerGameStatus } from '../../../types/GameStatusType';
 import { createUserInstance } from '../mongo/User/UserModel';
-import { Socket } from 'dgram';
-// import Game from "./Game ";
 
 export interface PlayerConstructorOptions {
   socket?: io.Socket | string;
   userData?: FacebookUserType;
   level: number;
   roomType: RoomType;
+  room: BaseRoom;
 }
 
 export default class Player {
@@ -29,12 +28,22 @@ export default class Player {
   private roomId: number = 0;
   private anonymousAvatar: number = -1;
   public isAuthenticated: boolean = false;
+  public hasLeft: boolean = false;
+  public hasFinished: boolean = false;
   private userDbModel: any;
   private currentLevel: number;
+  private room: any;
 
   // private game: Game;
   constructor(playerConstructorOptions: PlayerConstructorOptions) {
-    const { socket, userData, level, roomType } = playerConstructorOptions;
+    const {
+      socket,
+      userData,
+      level,
+      roomType,
+      room
+    } = playerConstructorOptions;
+    this.room = room;
     this.socket = socket;
     this.name =
       (userData && `${userData.firstName} ${userData.lastName}`) ||
@@ -52,13 +61,17 @@ export default class Player {
     Player.playerCounter++;
     this.currentLevel = level;
     if (roomType === RoomType.MULTIPLAYER) {
-      this.game = new Game(level);
+      this.game = new Game(level, this);
     } else {
-      this.game = new Game(99);
+      this.game = new Game(99, this);
     }
+    this.onGameEnd = this.onGameEnd.bind(this);
   }
   public get playerType() {
     return PlayerType.human;
+  }
+  onGameEnd() {
+    this.room.playerHasFinished(this);
   }
   getSocket(): io.Socket {
     return this.socket;

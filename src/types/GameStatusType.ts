@@ -2,7 +2,8 @@ import { PlayerType, PlayerAvatar, RoomType } from '../types';
 
 export interface PlayerGameStatus {
   playerId: string;
-  score: number;
+  wpm: number;
+  cpm: number;
   completedPercentage: number;
   type: PlayerType;
   hasLeft: boolean;

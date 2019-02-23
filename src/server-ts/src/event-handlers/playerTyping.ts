@@ -11,14 +11,14 @@ export default function playerTyping(socket: io.Socket, data) {
     const { typingInput } = data;
     const player = playerManager.getPlayer(socket);
     const roomManager = RoomManager.getInstance();
-    const room = roomManager.getRoom(player.getRoomId);
+    const room = roomManager.getRoomById(player.getRoomId);
     const challengeLetter = player.playerGame.currentChallengeLetter;
     const game = player.playerGame.processNewTyping(typingInput);
     if (player.isAuthenticated) {
       typingDb.save({
         typedLetter: typingInput,
         playerId: player.playerId,
-        gameId: room.roomInstanceId,
+        gameId: room.instanceId,
         gameTimeStamp: Date.now() - room.roomStartTimestamp,
         challengeLetter,
         roomType: room.roomType
@@ -28,7 +28,7 @@ export default function playerTyping(socket: io.Socket, data) {
   if (data.roomType === RoomType.TYPING_TEST) {
     const room = typingTestManager.getRoom(socket);
     if (room) {
-      room.game.processNewTyping(data.typingInput);
+      room.player.playerGame.processNewTyping(data.typingInput);
     }
   }
 }

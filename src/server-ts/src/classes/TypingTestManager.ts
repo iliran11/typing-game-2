@@ -1,6 +1,11 @@
 import * as io from 'socket.io';
 import Player from '../classes/Player';
 import { TypingTestRoom } from './Room/TypingTestRoom';
+import {
+  FacebookUserType,
+  RoomType,
+  PlayerType
+} from '../../../types/typesIndex';
 
 const uuid = require('uuid/v4');
 export class TypingTestManager {
@@ -9,8 +14,21 @@ export class TypingTestManager {
   private constructor() {
     this.rooms = new Map();
   }
-  initGame(socket, player: Player) {
-    const room = new TypingTestRoom(socket, player);
+  initGame(
+    socket: any,
+    userData: FacebookUserType,
+    level: number,
+    roomType: RoomType,
+    playerType: PlayerType
+  ) {
+    const room = new TypingTestRoom();
+    const player = new Player({
+      socket,
+      userData,
+      level,
+      roomType,
+      room
+    });
     this.rooms.set(socket, room);
     socket.join(room.roomName);
   }

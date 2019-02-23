@@ -143,7 +143,7 @@ class LevelManager {
     currentStats: UserAchievementsI,
     playerGameStatus: PlayerGameStatus
   ): UserAchievementsI {
-    const wpm = Math.max(currentStats.wpm, playerGameStatus.score);
+    const wpm = Math.max(currentStats.wpm, playerGameStatus.wpm);
     const totalWordsTyped =
       currentStats.totalWordsTyped + (playerGameStatus.numberOfWords || 0);
     const totalCharsTyped =

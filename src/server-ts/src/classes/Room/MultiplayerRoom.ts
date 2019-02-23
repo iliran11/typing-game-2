@@ -1,16 +1,10 @@
 import { BaseRoom } from './BaseRoom';
-import Player from '../Player';
-import BotPlayer from '../BotPlayer';
 import ServerManager from '../ServerManager';
 import {
-  SCORE_BROADCAST,
   MAX_PLAYERS_PER_ROOM,
-  GAME_START_DELAY,
-  BOT_SPAWN_RATE,
   GAME_HAS_STARTED,
-  GAME_HAS_TIMEOUT,
-  GAME_TIMEOUT_DURATION,
-  NAVIGATE_RESULT
+  NAVIGATE_RESULT,
+  SCORE_BROADCAST
 } from '../../../../constants';
 import { clearTimeout } from 'timers';
 import PlayerManager from '../PlayerManager';
@@ -21,133 +15,32 @@ import {
   PlayerType,
   RoomType
 } from '../../../../types/typesIndex';
-
+import Player from '../Player';
 import { emitToRoom } from '../../utilities';
 import { roomLogDb, userGameHistoryDb, roomSummaryDb } from '../../mongoIndex';
 import LevelManager from '../LevelManager';
 import { userPorgressDb } from '../../mongo/AchievementsProgress/AchievementsProgress';
 import { Countdown } from '../Countdown';
+import BotPlayer from '../BotPlayer';
 var countBy = require('lodash.countby');
 var isNil = require('lodash.isnil');
 const random = require('lodash.random');
 const uuid = require('uuid/v4');
 
 export default class MultiplayerRoom extends BaseRoom {
-  private static globalRoomCounter: number = 1;
-  public readonly maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM;
-  private shouldSaveOnStop: boolean;
-  // time without any real player join - so we can add a bot.
-  private players: (Player | BotPlayer)[];
-  private gameWords: string[];
   // measure game length duration - not sure if needed.
-  private finalScores: PlayerGameStatus[];
-  // store the already given avatar indexes so we can give anonymous player a unique avatar.
   private avatarIndexes: number = 0;
-  public roomType: RoomType;
-  isClosed: boolean;
-  roomId: number;
-  // time it takes for a bot to born
-  botInterval = BOT_SPAWN_RATE;
-  botRecruitTimer: any;
-
-  constructor(words: string[], roomType: RoomType) {
-    super();
-    this.roomId = MultiplayerRoom.globalRoomCounter;
-    MultiplayerRoom.globalRoomCounter++;
-    this.players = [];
-    this.gameWords = words;
-    // closed for new players additions. i.e - game has started.
-    this.isClosed = false;
-    this.finalScores = new Array(MAX_PLAYERS_PER_ROOM).fill(null);
-    // game timer start with negative value. becuase of countdown the clients gets when the game starts.
-    this.addBot = this.addBot.bind(this);
-    if (MAX_PLAYERS_PER_ROOM > 1) {
-      this.startCountdownBot();
-    }
-    this.roomType = roomType;
-    this.shouldSaveOnStop = false;
+  constructor(roomType: RoomType) {
+    super(roomType);
   }
   addPlayer(player: Player): void {
+    super.addPlayer(player);
     player.setAvatar(this.randomAvatarIndex);
-    this.players.push(player);
-    player.createGame();
-    console.log(
-      `${player.playerId} Joined ${this.roomName}. Capacity: ${
-        this.playersInRoom.length
-      }/${this.maxPlayersInRoom}`
-    );
-    if (this.isRoomFull) {
-      this.isClosed = true;
-    }
-    // bot should wait X time after a human is joined. so if a human has joined - start counting again.
-    if (this.isRoomFull === false) {
-      this.restartCountdownBot();
-    }
   }
-  deletePlayer(player: Player): void {
-    if (this.isThereHuman === false) {
-      super.stopGame();
-      // TODO: implement tracking of human players in the room. when we have 0 human players, stop the game.
-      // clearTimeout(this.timerId);
-      // console.log(`${this.roomName}- Game Stopped.`);
-    }
-    const index = this.getPlayerIndex(player.playerId);
-    this.players.splice(index, 1);
-  }
-  private get isThereHuman(): boolean {
-    return this.players.some((player: Player) => {
-      return player.playerType === PlayerType.human;
-    });
-  }
-  private getPlayerIndex(playerId: string): number {
-    return this.players.findIndex((player: Player) => {
-      return player.playerId === playerId;
-    });
-  }
-  get playersInRoom() {
-    return this.players.map((player: Player) => {
-      return player.playerGameStatus({
-        timePassedMinutes: this.timePassedMinutes
-      }).serialize;
-    });
-  }
-  get isRoomFull(): boolean {
-    return this.players.length === this.maxPlayersInRoom;
-  }
-  get currentRankOfFinishedPlayer(): number {
-    const map = countBy(this.finalScores, value => {
-      return isNil(value);
-    });
-    // false property represents the number of non-null values in finalcores.
-    // if there is 1 non-null value in the array, it means one player already finished. so we are number 2 (hench the +1)
-    return (map.false || 0) + 1;
-  }
-  playerScoreInfo(player: Player) {
-    const timestampNow = Date.now();
-    const {
-      playerGame: { getRawLetters, numberOfTypings, numberOfWords }
-    } = player;
-    return {
-      timePassedMinutes: this.timePassedMinutes,
-      finishedTimeStamp: this.roomStartTimestamp,
-      gameDuration: timestampNow - this.roomStartTimestamp,
-      accuracy: (getRawLetters.length / numberOfTypings) * 100,
-      numberOfTypings: numberOfTypings,
-      numberOfLetters: getRawLetters.length,
-      numberOfWords: numberOfWords,
-      rankAtFinish: this.currentRankOfFinishedPlayer,
-      roomId: this.instanceId,
-      roomType: this.roomType
-    };
-  }
-  async playerHasFinished(finishedPlayer: Player) {
-    const playerIndex = this.players.findIndex((gamePlayer: Player) => {
-      return gamePlayer.getName === finishedPlayer.getName;
-    });
-    const gameResultRecord = finishedPlayer.playerGameStatus(
-      this.playerScoreInfo(finishedPlayer)
-    );
-    this.finalScores[playerIndex] = gameResultRecord;
+  deletePlayer(player: Player): void {}
+  async onPlayerHasFinished(finishedPlayer: Player) {
+    super.playerHasFinished(finishedPlayer);
+    const gameResultRecord = super.getPlayerGameStatus(finishedPlayer);
     if (finishedPlayer.isAuthenticated) {
       const stats = await LevelManager.getPlayerStats(finishedPlayer.playerId);
       const nextStats = LevelManager.calculateNextStats(
@@ -157,12 +50,12 @@ export default class MultiplayerRoom extends BaseRoom {
       const playerProgress: AchievementsProgressI = {
         prevAchievement: stats,
         nextachievement: nextStats,
-        roomId: this.roomInstanceId,
+        roomId: this.instanceId,
         timestamp: Date.now()
       };
       finishedPlayer.getSocket().emit(NAVIGATE_RESULT, playerProgress);
-      userPorgressDb.createResult(playerProgress);
-      userGameHistoryDb.save(gameResultRecord.serialize);
+      // userPorgressDb.createResult(playerProgress);
+      userGameHistoryDb.save(gameResultRecord);
       await LevelManager.processNewResult(
         finishedPlayer.playerId,
         finishedPlayer.getSocket()
@@ -171,43 +64,8 @@ export default class MultiplayerRoom extends BaseRoom {
       finishedPlayer.getSocket().emit(NAVIGATE_RESULT);
     }
   }
-  get isGameActive() {
-    return this.players.length === MAX_PLAYERS_PER_ROOM;
-  }
-  get allBotPlayers(): (Player | BotPlayer)[] {
-    return this.players.filter((player: Player | BotPlayer) => {
-      return player instanceof BotPlayer;
-    });
-  }
-  private get server() {
-    return ServerManager.getInstance().serverObject;
-  }
-  private get isAnyoneStillPlaying(): boolean {
-    /* if we encounter 'null' value in the final scores array
-     *  it means someone is still typing. in this case we shouldn't stop the game tick yet.
-     */
-
-    return this.finalScores.some((playerGameStatus: PlayerGameStatus) => {
-      return playerGameStatus == null;
-    });
-  }
-  private getPlayerScore(player: Player): PlayerGameStatus {
-    const currentPlayerStatus: PlayerGameStatus = player.playerGameStatus(
-      this.playerScoreInfo(player)
-    ).serialize;
-    return currentPlayerStatus;
-  }
-  private get roomStatus(): PlayerGameStatus[] {
-    return this.players.map((player: Player, index: number) => {
-      /** if the player has an entry of the final score index - it means he is finished.
-       *  we will not re-calculate it. just retrieve it from the cached array.
-       */
-      return this.finalScores[index] || this.getPlayerScore(player);
-    });
-  }
   protected onGameTick(): void {
-    this.shouldSaveOnStop = true;
-    const roomLog: PlayerGameStatus[] = this.roomStatus;
+    const roomLog: PlayerGameStatus[] = this.roomPlayersScores;
     this.server.in(this.roomName).emit(SCORE_BROADCAST, roomLog);
     if (this.isAnyoneStillPlaying === false) {
       super.stopGame();
@@ -223,65 +81,27 @@ export default class MultiplayerRoom extends BaseRoom {
     // client still doesn't use the countdown socket being emmited to it.
     const countdown = new Countdown(this.roomName);
     await countdown.initiateCountdown();
-    this.isClosed = true;
-    this.stopCountdownBot();
     emitToRoom(this.roomName, GAME_HAS_STARTED, {
       startTimeStamp: this.roomStartTimestamp,
       roomId: this.instanceId
     });
-    this.allBotPlayers.forEach((player: Player | BotPlayer) => {
-      // @ts-ignore
-      player.onGameStart();
-    });
     roomSummaryDb.save({
       roomType: this.roomType,
-      letters: this.players[0].playerGame.getRawLetters,
-      players: this.playersInRoom,
+      letters: this.roomLetters,
+      players: this.playersArray,
       roomId: this.instanceId,
       finalResult: {
-        results: this.finalScores
+        results: this.roomPlayersScores
       }
     });
     console.log(`${this.roomName}-Game started.`);
   }
-  private get timePassedMinutes(): number {
-    return this.timePassed / 60000;
-  }
-  // initiate a countdown for adding a bot
-  private startCountdownBot(): void {
-    this.botRecruitTimer = setTimeout(this.addBot, this.botInterval);
-  }
-  // restart the countdown.
-  private restartCountdownBot(): void {
-    clearTimeout(this.botRecruitTimer);
-    this.startCountdownBot();
-  }
-  // stop the countdown completely - for now - when the room is full and no longer in need for players.n
-  private stopCountdownBot(): void {
-    clearTimeout(this.botRecruitTimer);
-  }
-  // add bot to this room if no human player is joining in X time.
-  private addBot(): void {
-    const botPlayerId = BotPlayer.getNextBotId();
-    const player = new BotPlayer(botPlayerId);
-    PlayerManager.getInstance().addPlayer(player);
-    multiplayerRoomManager.allocateToRoom(player.playerId, player.playerType);
-    if (this.isGameActive) {
-      this.startGame();
-    }
-
-    if (!this.isRoomFull) {
-      this.restartCountdownBot();
-    }
-  }
   protected async onStopGame(finalResult?: PlayerGameStatus[]) {
-    clearTimeout(this.botRecruitTimer);
-    this.isClosed = true;
     console.log(`${this.roomName} has finished!`);
     //TODO: if there is no final result - delete or update accordingly this game on db.
     if (this.shouldSaveOnStop) {
       const finalResultDocument = await roomLogDb.save(
-        this.roomStatus,
+        this.roomPlayersScores,
         this.instanceId,
         this.gameTickSequence,
         this.roomType
@@ -296,11 +116,5 @@ export default class MultiplayerRoom extends BaseRoom {
   }
   private get randomAvatarIndex(): number {
     return random(0, 11);
-  }
-  get roomTimePassed() {
-    return this.timePassed;
-  }
-  get roomInstanceId() {
-    return this.instanceId;
   }
 }

@@ -15,7 +15,7 @@ import {
   RESTART_GAME,
   REQUEST_TO_PLAY
 } from '../../../constants';
-import { FacebookUserType, RoomType } from '../../../types';
+import { FacebookUserType, RoomType, PlayerType } from '../../../types';
 import { getSocketAuthentication } from '../utilities';
 import LevelManager from '../classes/LevelManager';
 const get = require('lodash.get');
@@ -32,13 +32,25 @@ export default function onConnect(socket: io.Socket): void {
     const levelManager = LevelManager.getInstance();
     const playerId = get(userData, ['id']);
     levelManager.getPlayerLevel(playerId).then(level => {
-      const player = new Player(socket, userData, level);
-      playerManager.addPlayer(player);
+      // const player = new Player({socket, userData, level,roomType};
+      // playerManager.addPlayer(player);
       if (roomType === RoomType.MULTIPLAYER) {
-        multiplayerRoomManager.allocateToRoom(socket, player.playerType);
+        multiplayerRoomManager.allocateToRoom(
+          socket,
+          userData,
+          level,
+          roomType,
+          PlayerType.human
+        );
       }
       if (roomType === RoomType.TYPING_TEST) {
-        typingTestManager.initGame(socket,player);
+        typingTestManager.initGame(
+          socket,
+          userData,
+          level,
+          roomType,
+          PlayerType.human
+        );
       }
       socket.emit(CONNECT_SERVER_SUCCESS);
     });

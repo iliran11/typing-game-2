@@ -9,7 +9,8 @@ import {
 import {
   RoomType,
   PlayerType,
-  JoiningRoomResponse
+  JoiningRoomResponse,
+  FacebookUserType
 } from '../../../types/typesIndex';
 import PlayerManager from './PlayerManager';
 import { emitToRoom } from '../utilities';
@@ -17,116 +18,99 @@ import { emitToRoom } from '../utilities';
 export default class MultiplayerRoomManager {
   private static instance: MultiplayerRoomManager;
   static words = ['hello', 'goodbye'];
-  rooms: Map<number, MultiplayerRoom>;
+  rooms: Map<string, MultiplayerRoom>;
   playerManager: PlayerManager;
 
   private constructor() {
     this.rooms = new Map();
     this.playerManager = PlayerManager.getInstance();
   }
-  allocateToRoom(socket: any, playerType: PlayerType) {
-    const player = this.playerManager.getPlayer(socket);
-    const room = this.addPlayer(player);
+  allocateToRoom(
+    socket: any,
+    userData: FacebookUserType,
+    level: number,
+    roomType: RoomType,
+    playerType: PlayerType
+  ) {
+    const room = this.getAllocatedRoom();
+    const player = this.playerManager.getPlayer({
+      socket,
+      userData,
+      level,
+      roomType,
+      playerType
+    });
+    room.addPlayer(player);
+    const playerGameStatus = room.getPlayerGameStatus(player);
     if (playerType === PlayerType.human) {
       socket.join(room.roomName);
       const response: JoiningRoomResponse = {
         roomId: room.instanceId,
-        playersGameStatus: room.playersInRoom,
+        playersGameStatus: room.roomPlayersScores,
         words: player.playerGame.words,
         roomSize: room.maxPlayersInRoom,
         isGameActive: room.isGameActive,
         myId: player.playerId
       };
       socket.emit(YOU_JOINED_ROOM, response);
-      socket.to(room.roomName).emit(
-        COMPETITOR_JOINED_ROOM,
-        player.playerGameStatus({
-          timePassedMinutes: 0
-        })
-      );
+      socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, playerGameStatus);
     } else {
-      const playerGameStatus = player.playerGameStatus({
-        timePassedMinutes: 0
-      }).serialize;
       emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, {
-        ...playerGameStatus,
+        playerGameStatus,
         roomId: room.instanceId
       });
     }
   }
-  private addPlayer(player: Player): MultiplayerRoom {
+  private getAllocatedRoom(): MultiplayerRoom {
     let room: MultiplayerRoom;
-    if (this.openRooms > 0) {
-      room = this.addPlayerToExistingRoom(player);
+    if (this.openRooms !== '') {
+      room = this.getExistingRoom();
     } else {
-      room = this.addPlayerToNewRoom(player, RoomType.MULTIPLAYER);
+      room = this.getNewRoom(RoomType.MULTIPLAYER);
     }
-    player.setRoomId(room.roomId);
     return room;
   }
-  private addPlayerToExistingRoom(player: Player): MultiplayerRoom {
+  private getExistingRoom(): MultiplayerRoom {
     // @ts-ignore
     const selectedRoom: MultiplayerRoom = this.rooms.get(
       this.availableRoomNumber
     );
-    selectedRoom.addPlayer(player);
     return selectedRoom;
   }
-  private addPlayerToNewRoom(
-    player: Player,
-    roomType: RoomType
-  ): MultiplayerRoom {
+  private getNewRoom(roomType: RoomType): MultiplayerRoom {
     const room = this.createNewRoom(roomType);
-    room.addPlayer(player);
+
     return room;
   }
 
   removePlayer(player: Player): MultiplayerRoom | null {
     return null;
-    const roomId: number = player.getRoomId;
-
-    if (roomId) {
-      const room = this.getRoom(roomId);
-      /** if game is active - do not delete player
-       *  TODO: mark the player as non-active.
-       *
-       */
-      if (room.isGameActive) return room;
-      room.deletePlayer(player);
-      console.log(
-        `${player.playerId} has left ${room.roomName}. Capacity: ${
-          room.playersInRoom.length
-        }/${MAX_PLAYERS_PER_ROOM}`
-      );
-      return room;
-    }
-    return null;
   }
-  getRoom(roomId: number): MultiplayerRoom {
+  getRoomById(roomId: number): MultiplayerRoom {
     // @ts-ignore
     return this.rooms.get(roomId);
   }
-  private get openRooms(): number {
+  private get openRooms(): string {
     if (this.openRoomsIds.length > 0) {
       return this.openRoomsIds[0];
     }
-    return -1;
+    return '';
   }
-  private get availableRoomNumber(): number {
+  private get availableRoomNumber(): string {
     return this.openRoomsIds[0];
   }
 
   private createNewRoom(roomType: RoomType): MultiplayerRoom {
-    const room = new MultiplayerRoom(MultiplayerRoomManager.words, roomType);
-    this.rooms.set(room.roomId, room);
+    const room = new MultiplayerRoom(RoomType.MULTIPLAYER);
+    this.rooms.set(room.instanceId, room);
     return room;
   }
-  get openRoomsIds(): number[] {
-    const openRooms: number[] = [];
+  get openRoomsIds(): string[] {
+    const openRooms: string[] = [];
     this.rooms.forEach(
       (room: MultiplayerRoom): void => {
         if (!room.isClosed) {
-          openRooms.push(room.roomId);
+          openRooms.push(room.instanceId);
         }
       }
     );

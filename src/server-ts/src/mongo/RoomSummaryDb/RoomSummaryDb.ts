@@ -20,14 +20,6 @@ class RoomSummaryDb {
       throw new Error(error);
     }
   }
-  async saveTypingTest(data: TypingGameInfoI) {
-    try {
-      const document = new this.model(data);
-      return document.save();
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
   async updateById(searchParam: object, document: object): Promise<void> {
     return this.model.updateOne(searchParam, document);
   }
