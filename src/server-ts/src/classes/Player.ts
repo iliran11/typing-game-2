@@ -7,7 +7,8 @@ import {
   PlayerAvatar,
   RoomType
 } from '../../../types/typesIndex';
-import { BaseRoom } from './Room/BaseRoom';
+import MultiplayerRoom from './Room/MultiplayerRoom';
+import { TypingTestRoom } from './Room/TypingTestRoom';
 
 import { createUserInstance } from '../mongo/User/UserModel';
 
@@ -16,7 +17,7 @@ export interface PlayerConstructorOptions {
   userData?: FacebookUserType;
   level: number;
   roomType: RoomType;
-  room: BaseRoom;
+  room: MultiplayerRoom | TypingTestRoom;
 }
 
 export default class Player {
@@ -25,14 +26,14 @@ export default class Player {
   private id: string;
   private socket: io.Socket;
   private game: Game;
-  private roomId: number = 0;
   private anonymousAvatar: number = -1;
+  public roomId: string;
   public isAuthenticated: boolean = false;
   public hasLeft: boolean = false;
   public hasFinished: boolean = false;
-  private userDbModel: any;
-  private currentLevel: number;
-  private room: any;
+  public room: any;
+  public roomType: RoomType;
+  public currentLevel: number;
 
   // private game: Game;
   constructor(playerConstructorOptions: PlayerConstructorOptions) {
@@ -45,6 +46,8 @@ export default class Player {
     } = playerConstructorOptions;
     this.room = room;
     this.socket = socket;
+    this.roomType = roomType;
+    this.roomId = room.instanceId;
     this.name =
       (userData && `${userData.firstName} ${userData.lastName}`) ||
       `${this.serializable.type} ${Player.playerCounter}`;
@@ -98,9 +101,6 @@ export default class Player {
   }
   public get playerGame() {
     return this.game;
-  }
-  public get getRoomId(): number {
-    return this.roomId;
   }
   public setRoomId(roomId): void {
     this.roomId = roomId;

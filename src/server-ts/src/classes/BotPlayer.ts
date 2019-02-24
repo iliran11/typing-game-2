@@ -72,7 +72,7 @@ export default class BotPlayer extends Player {
     return this.timeElapsed / this.timeToTarget;
   }
   private get timeElapsed(): number {
-    return RoomManager.getInstance().getRoomById(this.getRoomId).timeElapsed;
+    return RoomManager.getInstance().getRoomById(this.roomId).timeElapsed;
   }
   // holding the typing operation until the delay is over.
   private typingScheduler() {
@@ -84,7 +84,6 @@ export default class BotPlayer extends Player {
     setTimeout(this.typingScheduler, 500);
   }
   public onGameStart() {
-    console.log(`${this.getName} initiated typingScheduler.`);
     this.typingScheduler();
   }
 }

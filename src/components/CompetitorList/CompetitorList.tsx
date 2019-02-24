@@ -32,21 +32,21 @@ class CompetitorList extends React.PureComponent<Props, object> {
     const player = index < players.length ? players[index] : null;
     if (player) {
       const {
-        score,
+        wpm,
         completedPercentage,
         type,
         hasLeft,
-        isFinished,
+        hasFinished,
         playerId
       } = player;
       return {
         playerId,
-        score,
+        wpm,
         completedPercentage,
         type,
         isMe: playerId === this.props.myId,
         hasLeft,
-        isFinished,
+        hasFinished,
         playerAvatar: this.props.avatars && this.props.avatars[index],
         name: player.name ? player.name : this.props.myId
       };

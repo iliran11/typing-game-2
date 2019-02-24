@@ -17,7 +17,7 @@ export class RoomPlayersManager {
   }
   playersArrayByType(playerType: PlayerType) {
     return this.playersArray.filter(player => {
-      player.playerType === playerType;
+      return player.playerType === playerType;
     });
   }
   get sortedPlayersArray() {

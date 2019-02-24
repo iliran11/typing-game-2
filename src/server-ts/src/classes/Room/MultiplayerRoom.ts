@@ -1,14 +1,9 @@
 import { BaseRoom } from './BaseRoom';
-import ServerManager from '../ServerManager';
 import {
-  MAX_PLAYERS_PER_ROOM,
   GAME_HAS_STARTED,
   NAVIGATE_RESULT,
   SCORE_BROADCAST
 } from '../../../../constants';
-import { clearTimeout } from 'timers';
-import PlayerManager from '../PlayerManager';
-import { multiplayerRoomManager } from '../MultiplayerRoomManager';
 import {
   AchievementsProgressI,
   PlayerGameStatus,
@@ -19,13 +14,8 @@ import Player from '../Player';
 import { emitToRoom } from '../../utilities';
 import { roomLogDb, userGameHistoryDb, roomSummaryDb } from '../../mongoIndex';
 import LevelManager from '../LevelManager';
-import { userPorgressDb } from '../../mongo/AchievementsProgress/AchievementsProgress';
 import { Countdown } from '../Countdown';
-import BotPlayer from '../BotPlayer';
-var countBy = require('lodash.countby');
-var isNil = require('lodash.isnil');
 const random = require('lodash.random');
-const uuid = require('uuid/v4');
 
 export default class MultiplayerRoom extends BaseRoom {
   // measure game length duration - not sure if needed.
@@ -64,7 +54,8 @@ export default class MultiplayerRoom extends BaseRoom {
       finishedPlayer.getSocket().emit(NAVIGATE_RESULT);
     }
   }
-  protected onGameTick(): void {
+  protected gameTick(): void {
+    super.gameTick();
     const roomLog: PlayerGameStatus[] = this.roomPlayersScores;
     this.server.in(this.roomName).emit(SCORE_BROADCAST, roomLog);
     if (this.isAnyoneStillPlaying === false) {
@@ -77,23 +68,16 @@ export default class MultiplayerRoom extends BaseRoom {
       this.roomType
     );
   }
-  async onStartGame(): Promise<void> {
+  async startGame(): Promise<void> {
     // client still doesn't use the countdown socket being emmited to it.
     const countdown = new Countdown(this.roomName);
     await countdown.initiateCountdown();
+    super.startGame();
     emitToRoom(this.roomName, GAME_HAS_STARTED, {
       startTimeStamp: this.roomStartTimestamp,
       roomId: this.instanceId
     });
-    roomSummaryDb.save({
-      roomType: this.roomType,
-      letters: this.roomLetters,
-      players: this.playersArray,
-      roomId: this.instanceId,
-      finalResult: {
-        results: this.roomPlayersScores
-      }
-    });
+    roomSummaryDb.save(super.roomSummary);
     console.log(`${this.roomName}-Game started.`);
   }
   protected async onStopGame(finalResult?: PlayerGameStatus[]) {

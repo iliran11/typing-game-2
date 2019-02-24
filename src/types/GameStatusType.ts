@@ -18,4 +18,5 @@ export interface PlayerGameStatus {
   roomId: string;
   isAuthenticated: boolean;
   roomType: RoomType;
+  name: string;
 }

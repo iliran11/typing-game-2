@@ -57,8 +57,8 @@ export function HighlightsList(props: HighlightsListProps) {
   );
 }
 function processHighestSpeed(item: HightLightItemI) {
-  const firstRow = `Your highest speed: ${Math.floor(item.data.score)}Wpm`;
-  const secondRow = `You took ${numberSuffix(item.data.rankAtFinish)} place`;
+  const firstRow = `Your highest speed: ${Math.floor(item.data.wpm)}Wpm`;
+  const secondRow = `You took ${numberSuffix(item.data.rank)} place`;
   // @ts-ignore
   const thirdRow = `Typed ${item.data.numberOfWords} in ${Math.floor(
     // @ts-ignore
@@ -76,8 +76,8 @@ function processHighestSpeed(item: HightLightItemI) {
 }
 
 function processFirstPlace(item: HightLightItemI) {
-  const firstRow = `You took the ${numberSuffix(item.data.rankAtFinish)} place`;
-  const secondRow = `Your speed: ${Math.floor(item.data.score)} WPM`;
+  const firstRow = `You took the ${numberSuffix(item.data.rank)} place`;
+  const secondRow = `Your speed: ${Math.floor(item.data.wpm)} WPM`;
   // @ts-ignore
   const thirdRow = `Typed ${item.data.numberOfWords} in ${Math.floor(
     // @ts-ignore
@@ -97,8 +97,8 @@ function processTypedTheMost(item: HightLightItemI) {
     // @ts-ignore
     item.data.gameDuration / 1000
   )} Seconds`;
-  const secondRow = `Your Speed: ${Math.floor(item.data.score)} WPM`;
-  const thirdRow = `You took ${numberSuffix(item.data.rankAtFinish)} Place`;
+  const secondRow = `Your Speed: ${Math.floor(item.data.wpm)} WPM`;
+  const thirdRow = `You took ${numberSuffix(item.data.rank)} Place`;
   const createdDate = `Invalid Date`;
   return {
     firstRow,

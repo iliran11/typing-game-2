@@ -26,12 +26,12 @@ const result = require('dotenv').config();
 if (result.error) {
   console.log(result.error);
 }
-const Sentry = require('@sentry/node');
-console.log('[enviroment] ', process.env.SERVER_ENVIROMENT)
-Sentry.init({
-  dsn: 'https://6ac55fff2f7e4348938a56e5637b5f07@sentry.io/1375055',
-  environment: process.env.SERVER_ENVIROMENT
-});
+// const Sentry = require('@sentry/node');
+// console.log('[enviroment] ', process.env.SERVER_ENVIROMENT)
+// Sentry.init({
+//   dsn: 'https://6ac55fff2f7e4348938a56e5637b5f07@sentry.io/1375055',
+//   environment: process.env.SERVER_ENVIROMENT
+// });
 
 const SECRET = process.env.SERVER_AUTH_SECRET;
 initMongo();

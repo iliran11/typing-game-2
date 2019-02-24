@@ -25,7 +25,10 @@ class BaseRoom {
   protected gameTickSequence: number = -1;
   protected roomPlayersManager: RoomPlayersManager = new RoomPlayersManager();
   protected botScheduler: BotScheduler;
+  private finishedPlayersCount: number = 0;
+  public isClosed: boolean = false;
   public roomType: RoomType;
+  public isGameActive: boolean = false;
 
   public roomStartTimestamp: number = 0;
 
@@ -41,9 +44,6 @@ class BaseRoom {
   get timeElapsed(): number {
     return this.timePassed;
   }
-  get isClosed() {
-    return false;
-  }
   get shouldSaveOnStop() {
     return true;
   }
@@ -51,17 +51,19 @@ class BaseRoom {
     return this.roomPlayersManager.playersMap.size >= this.maxPlayersInRoom;
   }
   get isAnyoneStillPlaying() {
-    return this.roomPlayersManager
-      .playersArrayByType(PlayerType.human)
-      .some(player => {
-        return player.hasFinished;
-      });
+    const result = this.roomPlayersManager.playersArray.some(player => {
+      return !player.hasFinished;
+    });
+    return result;
   }
   get roomLetters() {
     return this.roomPlayersManager.playersArray[0].playerGame.getRawLetters;
   }
   get playersArray() {
     return this.roomPlayersManager.playersArray;
+  }
+  finishedPlayersCountIncrement() {
+    this.finishedPlayersCount++;
   }
   getPlayerGameStatus(player: Player | BotPlayer): PlayerGameStatus {
     const game = player.playerGame;
@@ -83,7 +85,8 @@ class BaseRoom {
       rank: rank + 1,
       roomId: this.instanceId,
       isAuthenticated: player.isAuthenticated,
-      roomType: this.roomType
+      roomType: this.roomType,
+      name: player.getName
     };
   }
   protected get server() {
@@ -99,7 +102,7 @@ class BaseRoom {
   public get roomSummary(): GameSummryDBI {
     return {
       letters: this.roomLetters,
-      players: this.roomPlayersManager.playersArray,
+      players: this.roomPlayersScores,
       roomId: this.instanceId,
       roomType: this.roomType,
       finalResult: {
@@ -107,17 +110,18 @@ class BaseRoom {
       }
     };
   }
-  private get isThereHuman(): boolean {
-    return this.roomPlayersManager.playersArray.some((player: Player) => {
-      return player.playerType === PlayerType.human;
-    });
+  playerHasFinished(player: Player) {
+    player.hasFinished = true;
+    this.finishedPlayersCount++;
   }
-  playerHasFinished(player: Player) {}
   addPlayer(player: Player) {
     this.roomPlayersManager.addPlayer(player);
     player.onGameEnd;
     // bot should wait X time after a human is joined. so if a human has joined - start counting again.
-    if (this.isRoomFull === false) {
+    if (this.isRoomFull) {
+      this.startGame();
+      this.isClosed = true;
+    } else {
       this.botScheduler.restartCountdownBot();
     }
   }
@@ -125,22 +129,18 @@ class BaseRoom {
     const player = new BotPlayer({
       level: 99,
       roomType: this.roomType,
+      // @ts-ignore
       room: this
     });
     PlayerManager.getInstance().addPlayer(player);
     multiplayerRoomManager.allocateToRoom(
       player.getSocket(),
-      {
-        id: '',
-        firstName: player.playerId,
-        lastName: player.playerId
-      },
+      undefined,
       1,
       this.roomType,
       PlayerType.bot
     );
-
-    if (this.isRoomFull) {
+    if (this.roomPlayersManager.playersMap.size === this.maxPlayersInRoom) {
       this.botScheduler.stopCountDown();
     }
   }
@@ -153,6 +153,8 @@ class BaseRoom {
     });
   }
   startGame() {
+    this.isGameActive = true;
+    this.botScheduler.stopCountDown();
     this.timerId = setInterval(this.gameTick.bind(this), this.timeIncrement);
     this.roomStartTimestamp = Date.now();
     this.startPlayerGames();
@@ -162,20 +164,19 @@ class BaseRoom {
     clearTimeout(this.timerId);
     this.onStopGame();
   }
-  gameTick() {
+  protected gameTick() {
     this.timePassed += this.timeIncrement;
     this.gameTickSequence++;
     if (this.timePassed > GAME_TIMEOUT_DURATION) {
       this.stopGame();
       emitToRoom(this.roomName, GAME_HAS_TIMEOUT, { roomId: this.instanceId });
     }
-    this.onGameTick();
+    if (this.finishedPlayersCount === this.roomPlayersManager.playersMap.size) {
+      this.stopGame();
+    }
   }
   public get roomName(): string {
     return `room-${this.instanceId}`;
-  }
-  public get isGameActive() {
-    return true;
   }
   protected onStartGame() {}
   protected onStopGame() {}

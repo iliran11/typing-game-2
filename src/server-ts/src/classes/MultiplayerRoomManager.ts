@@ -14,6 +14,7 @@ import {
 } from '../../../types/typesIndex';
 import PlayerManager from './PlayerManager';
 import { emitToRoom } from '../utilities';
+import BotPlayer from './BotPlayer';
 
 export default class MultiplayerRoomManager {
   private static instance: MultiplayerRoomManager;
@@ -27,23 +28,31 @@ export default class MultiplayerRoomManager {
   }
   allocateToRoom(
     socket: any,
-    userData: FacebookUserType,
+    userData: FacebookUserType | undefined,
     level: number,
     roomType: RoomType,
     playerType: PlayerType
   ) {
     const room = this.getAllocatedRoom();
-    const player = this.playerManager.getPlayer({
+    const playerOpts = {
       socket,
       userData,
       level,
       roomType,
-      playerType
-    });
-    room.addPlayer(player);
+      room
+    };
+    let player: BotPlayer | Player;
+    if (playerType === PlayerType.human) {
+      player = new Player(playerOpts);
+    } else {
+      player = new BotPlayer(playerOpts);
+      player.setRoomId(room.instanceId);
+    }
+    this.playerManager.addPlayer(player);
     const playerGameStatus = room.getPlayerGameStatus(player);
     if (playerType === PlayerType.human) {
       socket.join(room.roomName);
+      room.addPlayer(player);
       const response: JoiningRoomResponse = {
         roomId: room.instanceId,
         playersGameStatus: room.roomPlayersScores,
@@ -55,10 +64,11 @@ export default class MultiplayerRoomManager {
       socket.emit(YOU_JOINED_ROOM, response);
       socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, playerGameStatus);
     } else {
-      emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, {
-        playerGameStatus,
-        roomId: room.instanceId
-      });
+      console.log(
+        `[emit to ${room.roomName}]: ${playerGameStatus.playerId}) joined.`
+      );
+      room.addPlayer(player);
+      emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
     }
   }
   private getAllocatedRoom(): MultiplayerRoom {
@@ -86,7 +96,7 @@ export default class MultiplayerRoomManager {
   removePlayer(player: Player): MultiplayerRoom | null {
     return null;
   }
-  getRoomById(roomId: number): MultiplayerRoom {
+  getRoomById(roomId: string): MultiplayerRoom {
     // @ts-ignore
     return this.rooms.get(roomId);
   }

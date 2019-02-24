@@ -6,6 +6,7 @@ export class BotScheduler {
   onBotAddition: () => void;
   isTimerActive: boolean;
   constructor(onBotAddition: () => void) {
+    this.addBot = this.addBot.bind(this);
     this.botSpawnInterval = BOT_SPAWN_RATE;
     this.onBotAddition = onBotAddition;
     this.isTimerActive = true;

@@ -30,7 +30,7 @@ export class MultiplayerResultPage extends React.Component<
   }
   get sortedPlayerResults() {
     return this.props.players.sort((a, b) => {
-      if (a.score > b.score) {
+      if (a.wpm > b.wpm) {
         return -1;
       } else {
         return 1;
@@ -39,7 +39,7 @@ export class MultiplayerResultPage extends React.Component<
   }
   renderPlayerResult(player: PlayerGameStatus, index: number) {
     const scores: ScoreboardSectionData[] = [
-      { label: 'WPM', value: Math.floor(player.score) },
+      { label: 'WPM', value: Math.floor(player.wpm) },
       // @ts-ignore
       { label: 'ACCURACY', value: `${Math.floor(player.accuracy)}%` },
       // @ts-ignore
