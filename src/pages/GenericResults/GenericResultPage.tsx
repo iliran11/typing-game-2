@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import {
-  TypingGameInfoI,
   RoomType,
   PlayerGameStatus
 } from '../../types/typesIndex';
@@ -11,7 +10,7 @@ import Button from '@material-ui/core/Button';
 export interface GenericResultPageProps {
   roomType: RoomType;
   roomId: string;
-  players: PlayerGameStatus[] | TypingGameInfoI;
+  players: PlayerGameStatus[] | PlayerGameStatus;
   fetchReplay: any;
   myId: string;
 }

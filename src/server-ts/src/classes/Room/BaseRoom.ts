@@ -1,4 +1,8 @@
-import { GAME_TIMEOUT_DURATION, GAME_HAS_TIMEOUT } from '../../../../constants';
+import {
+  GAME_TIMEOUT_DURATION,
+  GAME_HAS_TIMEOUT,
+  SCORE_BROADCAST
+} from '../../../../constants';
 import {
   PlayerGameStatus,
   PlayerType,
@@ -167,6 +171,7 @@ class BaseRoom {
   protected gameTick() {
     this.timePassed += this.timeIncrement;
     this.gameTickSequence++;
+    this.server.in(this.roomName).emit(SCORE_BROADCAST, this.roomPlayersScores);
     if (this.timePassed > GAME_TIMEOUT_DURATION) {
       this.stopGame();
       emitToRoom(this.roomName, GAME_HAS_TIMEOUT, { roomId: this.instanceId });

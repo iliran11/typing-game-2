@@ -1,16 +1,10 @@
-import { PlayerSerialize } from './typesIndex';
-
-export interface TypingGameInfoI {
-  roomId: string;
-  words: string[];
-  isGameActive: boolean;
-  wpm: number;
-  cpm: number;
-  accuracy: number;
-  player: PlayerSerialize;
-}
+import { PlayerGameStatus } from './typesIndex';
 
 export interface ScoreboardSectionData {
   value: string | number;
   label: string;
+}
+
+export interface TypingTestInitGame extends PlayerGameStatus {
+  words: string[];
 }

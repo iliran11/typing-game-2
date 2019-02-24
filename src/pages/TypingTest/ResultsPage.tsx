@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { Title } from '../../components/Title/Title';
-import { TypingGameInfoI } from '../../types/typesIndex';
+import { PlayerGameStatus } from '../../types/typesIndex';
 import { TypingTestScoreboard } from '../../components/TypingTestScoreBoard/TypingTestScoreboard';
 import { getTypingTestScoreboardData } from '../../utilities';
 import Button from '@material-ui/core/Button';
 
 export interface TypingTestResultPageProps {
   roomId: string;
-  data: TypingGameInfoI;
+  data: PlayerGameStatus;
 }
 
 export function TypingTestResultPage(props: TypingTestResultPageProps) {

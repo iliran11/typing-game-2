@@ -7,10 +7,10 @@ import {
   ScoreBroadcastAction,
   Enviroments,
   RoomType,
-  TypingGameInfoI,
   RootState,
   NotificationTypes,
-  MultiplayerRoomActive
+  MultiplayerRoomActive,
+  TypingTestInitGame
 } from './types/typesIndex';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { AchievementsProgressI } from './types/AchievementsTypes';
@@ -120,16 +120,18 @@ const socketManager: any = {
       };
       this.dispatch(action);
     });
-    this.socket.on(SCORE_BROADCAST, (data: any) => {
+    this.socket.on(SCORE_BROADCAST, (data: PlayerGameStatus[]) => {
       const state: RootState = this.getState();
-      const action: ScoreBroadcastAction = {
-        type: SCORE_BROADCAST,
-        payload: {
-          players: data,
-          roomId: state.serverStatus.activeRoomId
-        }
-      };
-      this.dispatch(action);
+      if (data[0].roomType === RoomType.MULTIPLAYER) {
+        const action: ScoreBroadcastAction = {
+          type: SCORE_BROADCAST,
+          payload: {
+            players: data,
+            roomId: state.serverStatus.activeRoomId
+          }
+        };
+        this.dispatch(action);
+      }
     });
     this.socket.on(GAME_IS_ACTIVE, () => {
       const state: RootState = this.getState();
@@ -150,7 +152,7 @@ const socketManager: any = {
         payload: data
       });
     });
-    this.socket.on(TYPING_TEST_IS_ACTIVE, (data: TypingGameInfoI) => {
+    this.socket.on(TYPING_TEST_IS_ACTIVE, (data: TypingTestInitGame) => {
       const letters = data.words;
 
       this.dispatch({
@@ -158,11 +160,13 @@ const socketManager: any = {
         payload: { ...data, letters }
       });
     });
-    this.socket.on(TYPING_TEST_SCORE_BROADCAST, (data: TypingGameInfoI) => {
-      this.dispatch({
-        type: TYPING_TEST_SCORE_BROADCAST,
-        payload: data
-      });
+    this.socket.on(SCORE_BROADCAST, (data: PlayerGameStatus[]) => {
+      if (data[0].roomType === RoomType.TYPING_TEST) {
+        this.dispatch({
+          type: TYPING_TEST_SCORE_BROADCAST,
+          payload: data[0]
+        });
+      }
     });
     this.socket.on(GAME_HAS_TIMEOUT, () => {
       this.dispatch({

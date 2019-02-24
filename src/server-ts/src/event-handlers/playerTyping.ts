@@ -3,32 +3,18 @@ import PlayerManager from '../classes/PlayerManager';
 import { typingDb } from '../mongoIndex';
 import RoomManager from '../classes/MultiplayerRoomManager';
 import { RoomType } from '../../../types';
-// import { typingTestManager } from '../classes/TypingTestManager';
+import { typingTestManager } from '../classes/TypingTestManager';
 const playerManager = PlayerManager.getInstance();
+import { MultiplayerPlayerTyping } from './MultiplayerPlayerTyping';
 
 export default function playerTyping(socket: io.Socket, data) {
   if (data.roomType === RoomType.MULTIPLAYER) {
-    const { typingInput } = data;
-    const player = playerManager.getPlayer(socket);
-    const roomManager = RoomManager.getInstance();
-    const room = roomManager.getRoomById(player.roomId);
-    const challengeLetter = player.playerGame.currentChallengeLetter;
-    const game = player.playerGame.processNewTyping(typingInput);
-    if (player.isAuthenticated) {
-      typingDb.save({
-        typedLetter: typingInput,
-        playerId: player.playerId,
-        gameId: room.instanceId,
-        gameTimeStamp: Date.now() - room.roomStartTimestamp,
-        challengeLetter,
-        roomType: room.roomType
-      });
-    }
+    MultiplayerPlayerTyping(socket, data);
   }
   if (data.roomType === RoomType.TYPING_TEST) {
-    const room = null;
-    // if (room) {
-    //   room.player.playerGame.processNewTyping(data.typingInput);
-    // }
+    const room = typingTestManager.getRoom(socket);
+    if (room) {
+      room.player.playerGame.processNewTyping(data.typingInput);
+    }
   }
 }

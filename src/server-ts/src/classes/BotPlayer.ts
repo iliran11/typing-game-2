@@ -1,7 +1,7 @@
 import Player from './Player';
 import { PlayerType, RoomType } from '../../../types/typesIndex';
 import { PlayerConstructorOptions } from './Player';
-import playerTyping from '../event-handlers/playerTyping';
+import { multiplayerPlayerTyping } from '../event-handlers/MultiplayerPlayerTyping';
 import RoomManager from './MultiplayerRoomManager';
 import onGameFinished from '../event-handlers/onGameFinished';
 const random = require('lodash.random');
@@ -40,7 +40,7 @@ export default class BotPlayer extends Player {
       roomType: RoomType.MULTIPLAYER
     };
     // console.log(`${this.guestName} typed: ${typingData.typingInput}. next typing in: ${timeToNextLetter}`)
-    playerTyping(this.name, typingData);
+    multiplayerPlayerTyping(this.name, typingData);
     this.typingIndex++;
     // if there are more letters to type - type. else - annouce game finished.
     if (this.typingIndex < this.playerGame.getRawLetters.length) {

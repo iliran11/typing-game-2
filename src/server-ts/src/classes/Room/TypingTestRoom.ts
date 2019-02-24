@@ -2,9 +2,9 @@ import {
   TYPING_TEST_IS_ACTIVE,
   TYPING_TEST_SCORE_BROADCAST
 } from '../../../../constants';
-import { RoomType } from '../../../../types/typesIndex';
+import { RoomType, TypingTestInitGame } from '../../../../types/typesIndex';
 import { roomLogDb, roomSummaryDb } from '../../mongoIndex';
-import {BaseRoom} from './BaseRoom';
+import { BaseRoom } from './BaseRoom';
 
 export class TypingTestRoom extends BaseRoom {
   socket: any;
@@ -12,14 +12,17 @@ export class TypingTestRoom extends BaseRoom {
   constructor() {
     super(RoomType.TYPING_TEST);
     this.onGameEnd = this.onGameEnd.bind(this);
-    this.startGame();
   }
   get player() {
     return this.playersArray[0];
   }
   public startGame() {
     super.startGame();
-    this.player.getSocket().emit(TYPING_TEST_IS_ACTIVE, this.roomPlayersScores);
+    const initPayload: TypingTestInitGame = {
+      ...this.getPlayerGameStatus(this.player),
+      words: this.player.playerGame.words
+    };
+    this.player.getSocket().emit(TYPING_TEST_IS_ACTIVE, initPayload);
   }
   private onGameEnd() {
     roomSummaryDb.save(this.roomSummary);

@@ -29,6 +29,8 @@ export class TypingTestManager {
       roomType,
       room
     });
+    room.addPlayer(player);
+    room.startGame();
     this.rooms.set(socket, room);
     socket.join(room.roomName);
   }

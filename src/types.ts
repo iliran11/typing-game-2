@@ -3,7 +3,7 @@ import Letter from './store/classes/lettterData';
 import { AchievementsProgressReducer } from './types/AchievementsTypes';
 import { GameSummryDBI } from './types/schemasTypes';
 import { PlayerGameStatus } from './types/GameStatusType';
-import { TypingGameInfoI } from './types/typingTestTypes';
+import { TypingTestInitGame } from './types/typingTestTypes';
 export interface JoiningRoomResponse {
   roomId: string;
   playersGameStatus: PlayerGameStatus[];
@@ -216,7 +216,7 @@ export interface HighlightsMapping {
   [playerId: string]: HighlightsI;
 }
 export interface TypingTestGamesMapping {
-  [gameId: string]: TypingGameInfoI;
+  [gameId: string]: TypingTestInitGame;
 }
 
 export interface PROMOTION_DATA {

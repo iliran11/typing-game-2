@@ -57,7 +57,6 @@ export default class MultiplayerRoom extends BaseRoom {
   protected gameTick(): void {
     super.gameTick();
     const roomLog: PlayerGameStatus[] = this.roomPlayersScores;
-    this.server.in(this.roomName).emit(SCORE_BROADCAST, roomLog);
     if (this.isAnyoneStillPlaying === false) {
       super.stopGame();
     }

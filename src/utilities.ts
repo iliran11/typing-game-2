@@ -1,6 +1,6 @@
 import {
   ScoreboardSectionData,
-  TypingGameInfoI,
+  PlayerGameStatus,
   RootState
 } from './types/typesIndex';
 
@@ -74,7 +74,7 @@ export function userHasAchievements(state: RootState) {
 }
 
 export function getTypingTestScoreboardData(
-  data: TypingGameInfoI
+  data: PlayerGameStatus
 ): ScoreboardSectionData[] {
   const accuracy = (data.accuracy * 100).toFixed(0);
   return [

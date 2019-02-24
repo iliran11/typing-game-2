@@ -1,12 +1,7 @@
 import { connect } from 'react-redux';
 import { GenericResultPage } from './GenericResultPage';
 import { ROOM_ID_PARM, ROOM_TYPE_PARAM, MY_ID_PARAM } from '../../constants';
-import {
-  RootState,
-  RoomType,
-  TypingGameInfoI,
-  PlayerGameStatus
-} from '../../types/typesIndex';
+import { RootState, RoomType, PlayerGameStatus } from '../../types/typesIndex';
 import { fetchReplay } from '../../store/gameAction';
 
 const mapDispatchToProps = { fetchReplay };
@@ -31,7 +26,7 @@ function getPlayersStatus(
   state: RootState,
   roomId: string,
   roomType: RoomType
-): PlayerGameStatus[] | TypingGameInfoI {
+): PlayerGameStatus[] | PlayerGameStatus {
   if (roomType === RoomType.MULTIPLAYER) {
     const multiplayerRoom = state.multiplayerMapping[roomId];
     if (multiplayerRoom) {

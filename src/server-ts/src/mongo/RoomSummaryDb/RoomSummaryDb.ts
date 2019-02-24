@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-import { GameSummryDBI, TypingGameInfoI } from '../../../../types/typesIndex';
+import { GameSummryDBI } from '../../../../types/typesIndex';
 
 class RoomSummaryDb {
   private static instance: RoomSummaryDb;

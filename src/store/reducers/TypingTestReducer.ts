@@ -4,7 +4,8 @@ import {
 } from '../../constants';
 import {
   TypingTestGamesMapping,
-  TypingGameInfoI
+  PlayerGameStatus,
+  TypingTestInitGame
 } from '../../types/typesIndex';
 
 const initialState: TypingTestGamesMapping = {};
@@ -22,7 +23,7 @@ export default function GameReducer(state: any = initialState, action: any) {
 
 function activateTypingGame(
   state: TypingTestGamesMapping,
-  data: TypingGameInfoI
+  data: PlayerGameStatus
 ) {
   return {
     ...state,
@@ -33,7 +34,7 @@ function activateTypingGame(
 }
 function updateScoreBoard(
   state: TypingTestGamesMapping,
-  data: TypingGameInfoI
+  data: TypingTestInitGame
 ) {
   const nextGameObject = { ...data };
   // we don't want to change the reference of words object here to save re-rendering

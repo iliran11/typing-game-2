@@ -21,7 +21,7 @@ import {
   ServerStatusReducer,
   ScoreBroadcastAction,
   PlayerJoiningAction,
-  TypingGameInfoI
+  TypingTestInitGame
 } from '../../types/typesIndex';
 import { PlayerGameStatus } from '../../types/GameStatusType';
 
@@ -79,7 +79,10 @@ function youJoinedRoom(
   };
 }
 
-function typingTestActive(state: ServerStatusReducer, data: TypingGameInfoI) {
+function typingTestActive(
+  state: ServerStatusReducer,
+  data: TypingTestInitGame
+) {
   return {
     ...state,
     activeRoomId: data.roomId
