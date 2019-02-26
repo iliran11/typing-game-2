@@ -55,7 +55,7 @@ function getAnonymousAvatar(
       case 4:
         return <img style={style} src={avatar4} className={className} />;
       default:
-        return <img style={style} src={avatar1} className={className} />;
+        return null;
     }
   } else {
     switch (index) {
@@ -68,7 +68,7 @@ function getAnonymousAvatar(
       case 4:
         return <img style={style} src={bot15} className={className} />;
       default:
-        return <img style={style} src={bot1} className={className} />;
+        return null;
     }
   }
 }

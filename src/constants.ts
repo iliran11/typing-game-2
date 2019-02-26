@@ -25,7 +25,6 @@ export const GAME_IS_ACTIVE = 'game-is-active';
 export const TYPING_TEST_IS_ACTIVE = 'typing-test-is-active';
 export const LETTER_GROUP_SIZE = 20;
 export const GAME_START_DELAY = 5;
-export const BOT_SPAWN_RATE = 1000;
 export const EMPTY_COMPETITOR_SLOT = 'empty-competitor-slot';
 export const RANDOM_AVATAR_MAX_INDEX = 10;
 export const SHOW_NOTIFICATION = 'show-notification';
@@ -53,7 +52,7 @@ export const LOGOUT = 'log-out';
 
 export const USER_ID_PARAM = 'user-id-parm';
 export const ROOM_ID_PARM = 'room-id';
-export const MY_ID_PARAM = 'my-id-param'
+export const MY_ID_PARAM = 'my-id-param';
 export const ROOM_TYPE_PARAM = 'room-type';
 export const PLAYER_ID_PARAM = 'player-id-parm';
 export const LOAD_GAME_HISTORY_DATA = 'load-game-history-data';
@@ -66,5 +65,7 @@ export const LOAD_ACHIEVEMENT_PROGRESS = 'load-achievment-progress';
  * CONFIG
  */
 export const MAX_WPM_GAUGE = 80;
-export const MAX_PLAYERS_PER_ROOM = 4;
+export const MAX_PLAYERS_PER_ROOM = 3;
+export const BOT_SPAWN_RATE = 100000;
+
 // const words: string = "I went to the park and saw a tree";

@@ -1,7 +1,8 @@
 import {
   GAME_TIMEOUT_DURATION,
   GAME_HAS_TIMEOUT,
-  SCORE_BROADCAST
+  SCORE_BROADCAST,
+  COMPETITOR_DELETION
 } from '../../../../constants';
 import {
   PlayerGameStatus,
@@ -19,6 +20,8 @@ import PlayerManager from '../PlayerManager';
 import { multiplayerRoomManager } from '../MultiplayerRoomManager';
 import { RoomPlayersManager } from './RoomPlayersManager';
 import ServerManager from '../ServerManager';
+import { logger, RoomPersonChange } from '../../middlewares/Logger';
+
 class BaseRoom {
   instanceId: string = `Room-${uuid()}`;
   intervalId: any;
@@ -119,6 +122,11 @@ class BaseRoom {
     this.finishedPlayersCount++;
   }
   addPlayer(player: Player) {
+    logger.logRoomPersonChange(
+      this.instanceId,
+      player.playerId,
+      RoomPersonChange.ENTERED
+    );
     this.roomPlayersManager.addPlayer(player);
     player.onGameEnd;
     // bot should wait X time after a human is joined. so if a human has joined - start counting again.
@@ -163,6 +171,13 @@ class BaseRoom {
     this.roomStartTimestamp = Date.now();
     this.startPlayerGames();
     this.onStartGame();
+  }
+  removePlayer(player: Player) {
+    this.roomPlayersManager.removePlayer(player);
+    this.server.in(this.roomName).emit(COMPETITOR_DELETION, {
+      playerId: player.playerId,
+      roomId: this.instanceId
+    });
   }
   protected stopGame() {
     clearTimeout(this.timerId);

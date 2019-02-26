@@ -8,6 +8,9 @@ export class RoomPlayersManager {
   addPlayer(player: Player) {
     this.playersMap.set(player.playerId, player);
   }
+  removePlayer(player: Player) {
+    this.playersMap.delete(player.playerId);
+  }
   get playersArray() {
     const playersArray: (Player | BotPlayer)[] = [];
     this.playersMap.forEach(player => {

@@ -24,8 +24,8 @@ export default class MultiplayerRoom extends BaseRoom {
     super(roomType);
   }
   addPlayer(player: Player): void {
-    super.addPlayer(player);
     player.setAvatar(this.randomAvatarIndex);
+    super.addPlayer(player);
   }
   deletePlayer(player: Player): void {}
   async onPlayerHasFinished(finishedPlayer: Player) {
@@ -98,6 +98,6 @@ export default class MultiplayerRoom extends BaseRoom {
     }
   }
   private get randomAvatarIndex(): number {
-    return random(0, 11);
+    return random(1, 4);
   }
 }

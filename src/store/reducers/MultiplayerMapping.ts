@@ -4,7 +4,8 @@ import {
   COMPETITOR_JOINED_ROOM,
   SCORE_BROADCAST,
   GAME_HAS_STARTED,
-  GAME_IS_ACTIVE
+  GAME_IS_ACTIVE,
+  COMPETITOR_DELETION
 } from '../../constants';
 import {
   PlayerJoiningAction,
@@ -32,6 +33,8 @@ export function MultiplayerMappingReducer(
       gameHasStarted(state, action.payload);
     case GAME_IS_ACTIVE:
       return gameIsActive(state, action.payload);
+    case COMPETITOR_DELETION:
+      return deleteCompetitor(state, action.payload);
     default:
       return state;
   }
@@ -117,4 +120,14 @@ function gameIsActive(
       isGameActive: true
     }
   };
+}
+function deleteCompetitor(
+  state: MultiplayerRoomMappingI,
+  payload: any
+): MultiplayerRoomMappingI {
+  const nextState = { ...state };
+  const nextGame = { ...nextState[payload.roomId] };
+  delete nextGame.playersGameStatus[payload.playerId];
+  nextState[payload.roomId] = nextGame;
+  return nextState;
 }

@@ -49,7 +49,6 @@ export default class MultiplayerRoomManager {
       player.setRoomId(room.instanceId);
     }
     this.playerManager.addPlayer(player);
-    const playerGameStatus = room.getPlayerGameStatus(player);
     if (playerType === PlayerType.human) {
       socket.join(room.roomName);
       room.addPlayer(player);
@@ -61,13 +60,13 @@ export default class MultiplayerRoomManager {
         isGameActive: room.isGameActive,
         myId: player.playerId
       };
+
       socket.emit(YOU_JOINED_ROOM, response);
+      const playerGameStatus = room.getPlayerGameStatus(player);
       socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, playerGameStatus);
     } else {
-      console.log(
-        `[emit to ${room.roomName}]: ${playerGameStatus.playerId}) joined.`
-      );
       room.addPlayer(player);
+      const playerGameStatus = room.getPlayerGameStatus(player);
       emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
     }
   }

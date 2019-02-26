@@ -160,6 +160,15 @@ const socketManager: any = {
         payload: { ...data, letters }
       });
     });
+    this.socket.on(COMPETITOR_DELETION, (data: any) => {
+      dispatch({
+        type: COMPETITOR_DELETION,
+        payload: {
+          playerId: data.playerId,
+          roomId: data.roomId
+        }
+      });
+    });
     this.socket.on(SCORE_BROADCAST, (data: PlayerGameStatus[]) => {
       if (data[0].roomType === RoomType.TYPING_TEST) {
         this.dispatch({
@@ -223,12 +232,6 @@ function handleCompetitorleave(data: any) {
         }
       });
     } else {
-      dispatch({
-        type: COMPETITOR_DELETION,
-        payload: {
-          playerId: data.id
-        }
-      });
     }
   };
 }
