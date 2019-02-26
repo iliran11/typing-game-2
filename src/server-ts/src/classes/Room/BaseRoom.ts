@@ -172,6 +172,9 @@ class BaseRoom {
     this.startPlayerGames();
     this.onStartGame();
   }
+  setGameIsActive() {
+    this.isGameActive = true;
+  }
   removePlayer(player: Player) {
     this.roomPlayersManager.removePlayer(player);
     this.server.in(this.roomName).emit(COMPETITOR_DELETION, {

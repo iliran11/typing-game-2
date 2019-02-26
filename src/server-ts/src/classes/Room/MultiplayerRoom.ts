@@ -69,6 +69,7 @@ export default class MultiplayerRoom extends BaseRoom {
   }
   async startGame(): Promise<void> {
     // client still doesn't use the countdown socket being emmited to it.
+    super.setGameIsActive();
     const countdown = new Countdown(this.roomName);
     await countdown.initiateCountdown();
     super.startGame();
