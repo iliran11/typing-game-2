@@ -1,5 +1,3 @@
-import { ENTERED } from 'react-transition-group/Transition';
-
 const log4js = require('log4js');
 const ROOM_ACTIVITY = 'room-activity';
 export enum RoomPersonChange {
