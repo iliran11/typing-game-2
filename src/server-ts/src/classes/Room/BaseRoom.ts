@@ -36,6 +36,7 @@ class BaseRoom {
   public isClosed: boolean = false;
   public roomType: RoomType;
   public isGameActive: boolean = false;
+  public finalScores: { [playerId: string]: PlayerGameStatus } = {};
 
   public roomStartTimestamp: number = 0;
 
@@ -75,6 +76,9 @@ class BaseRoom {
   getPlayerGameStatus(player: Player | BotPlayer): PlayerGameStatus {
     const game = player.playerGame;
     const rank = this.roomPlayersManager.playerRank(player);
+    if (this.finalScores[player.playerId]) {
+      return this.finalScores[player.playerId];
+    }
     return {
       playerId: player.playerId,
       wpm: game.getWpmScore(),
@@ -119,6 +123,7 @@ class BaseRoom {
   }
   playerHasFinished(player: Player) {
     player.hasFinished = true;
+    this.finalScores[player.playerId] = this.getPlayerGameStatus(player);
     this.finishedPlayersCount++;
   }
   addPlayer(player: Player) {
@@ -192,7 +197,9 @@ class BaseRoom {
     this.server.in(this.roomName).emit(SCORE_BROADCAST, this.roomPlayersScores);
     if (this.timePassed > GAME_TIMEOUT_DURATION) {
       this.stopGame();
-      emitToRoom(this.roomName, GAME_HAS_TIMEOUT, { roomId: this.instanceId });
+      emitToRoom(this.roomName, GAME_HAS_TIMEOUT, {
+        roomId: this.instanceId
+      });
     }
     if (this.finishedPlayersCount === this.roomPlayersManager.playersMap.size) {
       this.stopGame();

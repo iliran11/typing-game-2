@@ -2,7 +2,6 @@ import { BaseRoom } from './BaseRoom';
 import {
   GAME_HAS_STARTED,
   NAVIGATE_RESULT,
-  SCORE_BROADCAST
 } from '../../../../constants';
 import {
   AchievementsProgressI,

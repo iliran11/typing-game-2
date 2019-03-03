@@ -65,7 +65,7 @@ export const LOAD_ACHIEVEMENT_PROGRESS = 'load-achievment-progress';
  * CONFIG
  */
 export const MAX_WPM_GAUGE = 80;
-export const MAX_PLAYERS_PER_ROOM = 3;
+export const MAX_PLAYERS_PER_ROOM = 2;
 export const BOT_SPAWN_RATE = 100000;
 
 // const words: string = "I went to the park and saw a tree";
