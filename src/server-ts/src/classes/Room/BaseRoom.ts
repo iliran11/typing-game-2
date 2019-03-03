@@ -22,6 +22,8 @@ import { RoomPlayersManager } from './RoomPlayersManager';
 import ServerManager from '../ServerManager';
 import { logger, RoomPersonChange } from '../../middlewares/Logger';
 
+// TODO: mark room has not-finished if all players left.
+
 class BaseRoom {
   instanceId: string = `Room-${uuid()}`;
   intervalId: any;
@@ -133,7 +135,6 @@ class BaseRoom {
       RoomPersonChange.ENTERED
     );
     this.roomPlayersManager.addPlayer(player);
-    player.onGameEnd;
     // bot should wait X time after a human is joined. so if a human has joined - start counting again.
     if (this.isRoomFull) {
       this.startGame();
@@ -189,7 +190,6 @@ class BaseRoom {
   }
   protected stopGame() {
     clearTimeout(this.timerId);
-    this.onStopGame();
   }
   protected gameTick() {
     this.timePassed += this.timeIncrement;

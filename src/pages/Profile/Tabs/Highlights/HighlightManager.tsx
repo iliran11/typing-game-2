@@ -25,7 +25,6 @@ export default class HighlightsManager extends React.Component<
     this.props.history.push(`/replay?${ROOM_ID_PARM}=${roomId}`);
   }
   public render() {
-    console.log(this.props.history);
     if (!this.props.highlights) {
       return (
         <div className="highlights-progress">

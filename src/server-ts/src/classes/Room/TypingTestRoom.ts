@@ -11,7 +11,6 @@ export class TypingTestRoom extends BaseRoom {
   intervalId: any;
   constructor() {
     super(RoomType.TYPING_TEST);
-    this.onGameEnd = this.onGameEnd.bind(this);
   }
   get player() {
     return this.playersArray[0];
@@ -24,9 +23,9 @@ export class TypingTestRoom extends BaseRoom {
     };
     this.player.getSocket().emit(TYPING_TEST_IS_ACTIVE, initPayload);
   }
-  private onGameEnd() {
+  protected stopGame() {
+    super.stopGame();
     roomSummaryDb.save(this.roomSummary);
-    this.stopGame();
   }
   protected onGameTick() {
     if (this.player.isAuthenticated) {
