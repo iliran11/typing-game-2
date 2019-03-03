@@ -55,6 +55,7 @@ export class MultiplayerResultPage extends React.Component<
         scores={scores}
         key={player.playerId}
         highlight={player.playerId === this.props.myId}
+        hasFinished={player.hasFinished}
       />
     );
   }

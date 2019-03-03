@@ -6,6 +6,8 @@ import {
   ScoreboardSectionData
 } from '../../types/typesIndex';
 import { ordinal } from '../../utilities';
+import checked from '../../assets/checked.svg';
+import { CSSTransition } from 'react-transition-group';
 
 export interface PlayerResultProps {
   playerAvatar: PlayerAvatar;
@@ -14,6 +16,7 @@ export interface PlayerResultProps {
   name: string;
   scores: ScoreboardSectionData[];
   highlight?: boolean;
+  hasFinished: boolean;
 }
 
 export function PlayerResult(props: PlayerResultProps) {
@@ -29,6 +32,18 @@ export function PlayerResult(props: PlayerResultProps) {
           </span>
         </span>
         <div className="player-result-avatar">
+          <CSSTransition
+            classNames="checked"
+            timeout={500}
+            appear={props.hasFinished}
+            in={props.hasFinished}
+          >
+            {() => {
+              return (
+                props.hasFinished && <img src={checked} className="checked" />
+              );
+            }}
+          </CSSTransition>
           <Avatar playerAvatar={props.playerAvatar} type={props.playerType} />
         </div>
         <span className="competitor-name-section capitalize">{props.name}</span>

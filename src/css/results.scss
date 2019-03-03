@@ -80,6 +80,24 @@
   .player-result-avatar {
     width: 40px;
     margin: 0px 5px;
+    position: relative;
+    .checked {
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      right: 0;
+      top: 0;
+      transform: translate(50%, -50%);
+      transition: all 500ms ease-out;
+    }
+    .checked-enter,
+    .checked-appear {
+      opacity: 0;
+    }
+    .checked-enter-active,
+    .checked-appear-active {
+      opacity: 1;
+    }
   }
   .score:not(:last-child) {
     .value:after {
