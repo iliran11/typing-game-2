@@ -152,6 +152,8 @@ input:focus {
   font-weight: 700;
   padding-left: 15px;
   transition: opacity 0.3s;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .word {
   display: inline-block;

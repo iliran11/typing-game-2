@@ -1,25 +1,15 @@
-import { AUTH_HEADER_NAME, AUTH_FACEBOOK_HEADER } from '../../constants';
-const request = require('request');
-var jwt = require('jsonwebtoken');
-var bodyParser = require('body-parser');
-import initMongo from './mongo/initMongo';
-import loginController from './ExpressControllers/loginController';
-import verifyLoginController from './ExpressControllers/verifyLoginController';
-import gamesHistoryController from './ExpressControllers/gamesHistoryController';
-import GamesHistoryController from './ExpressControllers/gameReplayController';
-import UserAchievement from './ExpressControllers/UserAchievementController';
-import HighlightsController from './ExpressControllers/HighlightsController';
-import versionController from './ExpressControllers/versionController';
-import ChangeUserLevel from './ExpressControllers/ChangeUserLevelController';
-
-import {
-  FacebookUserType,
-  HandShakeData,
-  LoginVerificationStatus
-} from '../../types';
-import { createUserInstance, User } from './mongo/User/UserModel';
 import ServerManager from './classes/ServerManager';
-import { getBase64FacebookPic } from './utilities';
+import ChangeUserLevel from './ExpressControllers/ChangeUserLevelController';
+import GamesHistoryController from './ExpressControllers/gameReplayController';
+import gamesHistoryController from './ExpressControllers/gamesHistoryController';
+import HighlightsController from './ExpressControllers/HighlightsController';
+import loginController from './ExpressControllers/loginController';
+import UserAchievement from './ExpressControllers/UserAchievementController';
+import verifyLoginController from './ExpressControllers/verifyLoginController';
+import versionController from './ExpressControllers/versionController';
+import initMongo from './mongo/initMongo';
+var bodyParser = require('body-parser');
+
 const cors = require('cors');
 // var packageJs = require('../package.json');
 const result = require('dotenv').config();

@@ -3,5 +3,5 @@
 // export const longtext =
 //   'man man of breeding and deilcacyman man of breeding and deilcacy';
 
-export const longtext = `hello world hello worldhello`;
+export const longtext = `I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short. I suppose I just jumped really high`;
 // export const longtext = 'hllo';
