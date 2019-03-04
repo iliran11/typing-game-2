@@ -12,7 +12,7 @@ const maxWpmGauge = 80;
 
 interface Props {
   id: string;
-  score: number;
+  wpm: number;
   // compeletedPercntage: number;
   completedPercentage: number;
   index: number;
@@ -47,8 +47,8 @@ class Competitor extends React.PureComponent<Props, State> {
     });
   }
   get normalizedWpmScore() {
-    if (this.props.score) {
-      return Math.floor(this.props.score);
+    if (this.props.wpm) {
+      return Math.floor(this.props.wpm);
     }
     return 0;
   }
@@ -118,7 +118,6 @@ class Competitor extends React.PureComponent<Props, State> {
   }
 
   render() {
-    // console.log(this.normalizedWpmScore,maxWpmGauge,this.normalizedWpmScore / maxWpmGauge);
     return (
       <div
         className={this.competitorClassNames}
