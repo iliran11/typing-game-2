@@ -4,7 +4,7 @@ import {
   ScoreboardSectionData
 } from '../../types/typesIndex';
 import { PlayerResult } from '../../components/PlayerResult/PlayerResult';
-import { ordinal } from '../../utilities';
+import { ordinal, millisecondsToTimeResult } from '../../utilities';
 import { Title } from '../../components/Title/Title';
 export interface MultiplayerResultPageProps {
   roomId: string;
@@ -41,9 +41,9 @@ export class MultiplayerResultPage extends React.Component<
     const scores: ScoreboardSectionData[] = [
       { label: 'WPM', value: Math.floor(player.wpm) },
       // @ts-ignore
-      { label: 'ACCURACY', value: `${Math.floor(player.accuracy)}%` },
+      { label: 'ACCURACY', value: `${Math.floor(player.accuracy * 100)}%` },
       // @ts-ignore
-      { label: 'TIME', value: '0:43' }
+      { label: 'TIME', value: millisecondsToTimeResult(player.gameDuration) }
     ];
     console.log(player.playerId, this.props.myId);
     return (
