@@ -87,6 +87,13 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
     AuthenticationManager.deleteToken();
     this.props.logout(this.props.history);
   }
+  get toolbarProps() {
+    return {
+      classes: {
+        root: 'tc-toolbar-root'
+      }
+    };
+  }
   render() {
     return (
       <div id="app-toolbar">
@@ -95,7 +102,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
           color="default"
           classes={{ colorDefault: 'toolbar-default-color' }}
         >
-          <Toolbar>
+          <Toolbar {...this.toolbarProps}>
             <DebugDialog />
             {this.shouldShowBackbutton && (
               <img
