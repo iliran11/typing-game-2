@@ -1,8 +1,5 @@
 import React, { Fragment } from 'react';
-import {
-  RoomType,
-  PlayerGameStatus
-} from '../../types/typesIndex';
+import { RoomType, PlayerGameStatus } from '../../types/typesIndex';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
 import { TypingTestResultPage, MultiplayerResultPage } from '../pagesIndex';
 import Button from '@material-ui/core/Button';
@@ -41,8 +38,7 @@ export class GenericResultPage extends React.Component<
         )}
         {this.props.roomType === RoomType.TYPING_TEST && (
           <TypingTestResultPage
-            // @ts-ignore
-            data={this.props.players}
+            data={this.props.players[0]}
             roomId={this.props.roomId}
           />
         )}

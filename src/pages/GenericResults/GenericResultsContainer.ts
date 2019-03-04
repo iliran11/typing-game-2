@@ -26,7 +26,7 @@ function getPlayersStatus(
   state: RootState,
   roomId: string,
   roomType: RoomType
-): PlayerGameStatus[] | PlayerGameStatus {
+): PlayerGameStatus[] {
   if (roomType === RoomType.MULTIPLAYER) {
     const multiplayerRoom = state.multiplayerMapping[roomId];
     if (multiplayerRoom) {
@@ -40,7 +40,7 @@ function getPlayersStatus(
   if (roomType === RoomType.TYPING_TEST) {
     const typingTestRoom = state.typingTest[roomId];
     if (typingTestRoom) {
-      return typingTestRoom;
+      return [typingTestRoom];
     }
   }
   const gameHistory = state.gamesHistory[roomId];

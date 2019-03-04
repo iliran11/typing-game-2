@@ -5,7 +5,11 @@ import { RoomType } from '../../types/typesIndex';
 import { TypingTestTimer } from '../../components/TimerRenderProps/TimerRenderProps';
 import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
 import '../../css/typing-test.scss';
-import { ROOM_ID_PARM, ROOM_TYPE_PARAM } from '../../constants';
+import {
+  ROOM_ID_PARM,
+  ROOM_TYPE_PARAM,
+  TYPING_TEST_DURATION
+} from '../../constants';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
 export interface TypingTestPageProps {
   gameWords: string[];
@@ -32,6 +36,9 @@ export default class TypingTestPage extends React.Component<
       }`
     );
   }
+  get gameDurationSeconds() {
+    return TYPING_TEST_DURATION / 10000;
+  }
   public render() {
     if (!this.props.roomId) {
       return <BoxLoader message="Thinking about your challenge ..." />;
@@ -43,7 +50,9 @@ export default class TypingTestPage extends React.Component<
             isActive={true}
             render={(timePassed: number) => {
               return (
-                <div className="typing-test-timer shadow-3dp">{timePassed}</div>
+                <div className="typing-test-timer shadow-3dp">
+                  {this.gameDurationSeconds - timePassed}
+                </div>
               );
             }}
           />

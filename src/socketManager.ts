@@ -1,45 +1,45 @@
 import * as socketIo from 'socket.io-client';
+import AuthenticationManager from './AuthenticationManager';
 import {
-  JoiningRoomResponse,
-  PlayerSerialize,
-  PlayerType,
-  PlayerJoiningAction,
-  ScoreBroadcastAction,
-  Enviroments,
-  RoomType,
-  RootState,
-  NotificationTypes,
-  MultiplayerRoomActive,
-  TypingTestInitGame
-} from './types/typesIndex';
-import { PlayerGameStatus } from './types/GameStatusType';
-import { AchievementsProgressI } from './types/AchievementsTypes';
-import {
-  LOAD_ACHIEVEMENT_PROGRESS,
-  YOU_JOINED_ROOM,
-  CONNECT_SERVER_SUCCESS,
-  COMPETITOR_JOINED_ROOM,
   BOT_JOINED_ROOM,
-  PLAYER_TYPING,
-  SET_GAME_LETTERS,
-  SCORE_BROADCAST,
-  GAME_HAS_STARTED,
-  COMPETITOR_LEFT,
   COMPETITOR_DELETION,
-  GAME_HAS_FINISHED,
   COMPETITOR_HAS_FINISHED,
+  COMPETITOR_JOINED_ROOM,
+  COMPETITOR_LEFT,
+  GAME_HAS_FINISHED,
+  GAME_HAS_STARTED,
+  GAME_HAS_TIMEOUT,
+  GAME_IS_ACTIVE,
+  NAVIGATE_RESULT,
+  PLAYER_TYPING,
+  REQUEST_TO_PLAY,
   RESTART_GAME,
+  ROOM_ID_PARM,
+  SCORE_BROADCAST,
+  SET_GAME_LETTERS,
   SHOW_NOTIFICATION,
   SOCKET_HAS_CONNECTED,
   SOCKET_HAS_DISCONNECTED,
-  REQUEST_TO_PLAY,
-  GAME_HAS_TIMEOUT,
-  NAVIGATE_RESULT,
-  GAME_IS_ACTIVE,
   TYPING_TEST_IS_ACTIVE,
-  TYPING_TEST_SCORE_BROADCAST
+  TYPING_TEST_SCORE_BROADCAST,
+  YOU_JOINED_ROOM,
+  ROOM_TYPE_PARAM
 } from './constants';
-import AuthenticationManager from './AuthenticationManager';
+import { PlayerGameStatus } from './types/GameStatusType';
+import {
+  Enviroments,
+  JoiningRoomResponse,
+  MultiplayerRoomActive,
+  NavigateToResultI,
+  NotificationTypes,
+  PlayerJoiningAction,
+  PlayerSerialize,
+  PlayerType,
+  RoomType,
+  RootState,
+  ScoreBroadcastAction,
+  TypingTestInitGame
+} from './types/typesIndex';
 
 const socketManager: any = {
   initSocket(dispatch: any, history: any, getState: () => RootState) {
@@ -185,19 +185,12 @@ const socketManager: any = {
         }
       });
     });
-    // this.socket.on(GAME_HAS_TIMEOUT, () => {
-    //   this.dispatch({
-    //     type: GAME_HAS_TIMEOUT
-    //   });
-    // });
-    this.socket.on(NAVIGATE_RESULT, (data: AchievementsProgressI) => {
-      // this.dispatch({
-      //   type: LOAD_ACHIEVEMENT_PROGRESS,
-      //   payload: data
-      // });
-      // window.setTimeout(() => {
-      //   this.history.push(`/achievements-progress/?room-id=${data.roomId}`);
-      // }, 2000);
+    this.socket.on(NAVIGATE_RESULT, (data: NavigateToResultI) => {
+      this.history.push(
+        `/results?${ROOM_ID_PARM}=${data.roomId}&${ROOM_TYPE_PARAM}=${
+          data.roomType
+        }`
+      );
     });
   },
   reconnect() {

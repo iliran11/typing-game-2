@@ -244,3 +244,8 @@ export enum RoomType {
 export interface MultiplayerRoomActive {
   roomId: string;
 }
+
+export interface NavigateToResultI {
+  roomId: string;
+  roomType: RoomType;
+}
