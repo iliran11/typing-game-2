@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { RoomType, PlayerGameStatus } from '../../types/typesIndex';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
 import { TypingTestResultPage, MultiplayerResultPage } from '../pagesIndex';
+import { ROOM_TYPE_PARAM } from '../../constants';
 import Button from '@material-ui/core/Button';
 
 export interface GenericResultPageProps {
@@ -10,6 +11,7 @@ export interface GenericResultPageProps {
   players: PlayerGameStatus[] | PlayerGameStatus;
   fetchReplay: any;
   myId: string;
+  history: any;
 }
 
 export class GenericResultPage extends React.Component<
@@ -19,6 +21,14 @@ export class GenericResultPage extends React.Component<
   constructor(props: GenericResultPageProps) {
     super(props);
     props.fetchReplay(props.roomId, props.myId);
+    this.navigateToMultiplayer = this.navigateToMultiplayer.bind(this);
+    this.navigateToHome = this.navigateToHome.bind(this);
+  }
+  navigateToMultiplayer() {
+    this.props.history.push(`/game?${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`);
+  }
+  navigateToHome() {
+    this.props.history.push(`/`);
   }
   public render() {
     if (Array.isArray(this.props.players) && this.props.players.length === 0)
@@ -56,9 +66,23 @@ export class GenericResultPage extends React.Component<
             </span>
           </FooterButton>
           <p>Check your skills in front of people in real time</p>
-          <FooterButton rootClass="color-1 multiplayer-button">
-            Multiplayer
-          </FooterButton>
+
+          {this.props.roomType === RoomType.TYPING_TEST && (
+            <FooterButton
+              rootClass="color-1 multiplayer-button"
+              onClick={this.navigateToMultiplayer}
+            >
+              Multiplayer
+            </FooterButton>
+          )}
+          {this.props.roomType === RoomType.MULTIPLAYER && (
+            <FooterButton
+              rootClass="color-1 multiplayer-button"
+              onClick={this.navigateToHome}
+            >
+              Done
+            </FooterButton>
+          )}
         </section>
       </div>
     );
@@ -67,13 +91,19 @@ export class GenericResultPage extends React.Component<
 interface FooterButtonProps {
   children: any;
   rootClass?: string;
+  onClick?: any;
 }
 function FooterButton(props: FooterButtonProps) {
   const buttonClasses = {
     root: `footer-button ${props.rootClass || ''}`
   };
   return (
-    <Button variant="contained" fullWidth classes={buttonClasses}>
+    <Button
+      variant="contained"
+      fullWidth
+      classes={buttonClasses}
+      onClick={props.onClick}
+    >
       {props.children}
     </Button>
   );
