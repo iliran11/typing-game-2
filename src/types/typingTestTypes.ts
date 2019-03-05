@@ -8,3 +8,6 @@ export interface ScoreboardSectionData {
 export interface TypingTestInitGame extends PlayerGameStatus {
   words: string[];
 }
+export interface StartTypingTestGameI {
+  roomId: string;
+}

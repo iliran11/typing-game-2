@@ -46,6 +46,7 @@ export const AUTH_FACEBOOK_HEADER = 'facebookToken';
 export const SERVER_HANDSHAKE_RECIEVED = 'server-handshake-recieved';
 export const GAME_HAS_TIMEOUT = 'game-has-timeout';
 export const GAME_TIMEOUT_DURATION = 180000; // 3 minutes
+export const START_TYPING_TEST_GAME = 'start-typing-test-game';
 export const LOGOUT = 'log-out';
 
 // ------ GAME HISTORIES ------- //
@@ -67,5 +68,5 @@ export const LOAD_ACHIEVEMENT_PROGRESS = 'load-achievment-progress';
 export const MAX_WPM_GAUGE = 80;
 export const MAX_PLAYERS_PER_ROOM = 4;
 export const BOT_SPAWN_RATE = 5000;
-export const TYPING_TEST_DURATION = 60000;
+export const TYPING_TEST_DURATION = 5000;
 // const words: string = "I went to the park and saw a tree";

@@ -27,6 +27,11 @@ export class TypingTestTimer extends React.Component<
       this.activateTimer();
     }
   }
+  componentDidUpdate(prevProps: TypingTestTimerProps) {
+    if (prevProps.isActive === false && this.props.isActive) {
+      this.activateTimer();
+    }
+  }
   get timePassSeconds(): number {
     return Math.floor(this.state.timePassed / 1000);
   }

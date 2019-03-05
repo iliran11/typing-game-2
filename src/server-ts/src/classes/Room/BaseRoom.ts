@@ -1,26 +1,22 @@
 import {
-  GAME_TIMEOUT_DURATION,
+  COMPETITOR_DELETION,
   GAME_HAS_TIMEOUT,
-  SCORE_BROADCAST,
-  COMPETITOR_DELETION
+  GAME_TIMEOUT_DURATION,
+  MAX_PLAYERS_PER_ROOM,
+  SCORE_BROADCAST
 } from '../../../../constants';
 import {
-  PlayerGameStatus,
-  PlayerType,
   GameSummryDBI,
+  PlayerGameStatus,
   RoomType
 } from '../../../../types/typesIndex';
-import Player from '../Player';
-import BotPlayer from '../BotPlayer';
-import { BotScheduler } from './BotScheduler';
-import { emitToRoom } from '../../utilities';
-const uuid = require('uuid/v4');
-import { MAX_PLAYERS_PER_ROOM } from '../../../../constants';
-import PlayerManager from '../PlayerManager';
-import { multiplayerRoomManager } from '../MultiplayerRoomManager';
-import { RoomPlayersManager } from './RoomPlayersManager';
-import ServerManager from '../ServerManager';
 import { logger, RoomPersonChange } from '../../middlewares/Logger';
+import { emitToRoom } from '../../utilities';
+import BotPlayer from '../BotPlayer';
+import Player from '../Player';
+import ServerManager from '../ServerManager';
+import { RoomPlayersManager } from './RoomPlayersManager';
+const uuid = require('uuid/v4');
 
 // TODO: mark room has not-finished if all players left.
 
@@ -30,10 +26,10 @@ class BaseRoom {
   public readonly maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM;
   protected timePassed: number = 0;
   protected timerId: any;
-  protected timeIncrement: number = 1000;
+  protected readonly timeIncrement: number = 1000;
   protected gameTickSequence: number = -1;
   protected roomPlayersManager: RoomPlayersManager = new RoomPlayersManager();
-  protected botScheduler: BotScheduler;
+  protected enableTimeout: boolean = true;
   private finishedPlayersCount: number = 0;
   public isClosed: boolean = false;
   public roomType: RoomType;
@@ -43,9 +39,6 @@ class BaseRoom {
   public roomStartTimestamp: number = 0;
 
   constructor(roomType: RoomType) {
-    this.addBot = this.addBot.bind(this);
-    this.botScheduler = new BotScheduler(this.addBot);
-    this.botScheduler.startCountdownBot();
     this.roomType = roomType;
   }
   protected get passedTimeMinutes() {
@@ -129,38 +122,12 @@ class BaseRoom {
     this.finishedPlayersCount++;
   }
   addPlayer(player: Player) {
+    this.roomPlayersManager.addPlayer(player);
     logger.logRoomPersonChange(
       this.instanceId,
       player.playerId,
       RoomPersonChange.ENTERED
     );
-    this.roomPlayersManager.addPlayer(player);
-    // bot should wait X time after a human is joined. so if a human has joined - start counting again.
-    if (this.isRoomFull) {
-      this.startGame();
-      this.isClosed = true;
-    } else {
-      this.botScheduler.restartCountdownBot();
-    }
-  }
-  addBot() {
-    const player = new BotPlayer({
-      level: 99,
-      roomType: this.roomType,
-      // @ts-ignore
-      room: this
-    });
-    PlayerManager.getInstance().addPlayer(player);
-    multiplayerRoomManager.allocateToRoom(
-      player.getSocket(),
-      undefined,
-      1,
-      this.roomType,
-      PlayerType.bot
-    );
-    if (this.roomPlayersManager.playersMap.size === this.maxPlayersInRoom) {
-      this.botScheduler.stopCountDown();
-    }
   }
   startPlayerGames() {
     this.roomPlayersManager.playersMap.forEach((player: Player) => {
@@ -172,11 +139,9 @@ class BaseRoom {
   }
   startGame() {
     this.isGameActive = true;
-    this.botScheduler.stopCountDown();
     this.timerId = setInterval(this.gameTick.bind(this), this.timeIncrement);
     this.roomStartTimestamp = Date.now();
     this.startPlayerGames();
-    this.onStartGame();
   }
   setGameIsActive() {
     this.isGameActive = true;
@@ -195,7 +160,7 @@ class BaseRoom {
     this.timePassed += this.timeIncrement;
     this.gameTickSequence++;
     this.server.in(this.roomName).emit(SCORE_BROADCAST, this.roomPlayersScores);
-    if (this.timePassed > GAME_TIMEOUT_DURATION) {
+    if (this.timePassed > GAME_TIMEOUT_DURATION && this.enableTimeout) {
       this.stopGame();
       emitToRoom(this.roomName, GAME_HAS_TIMEOUT, {
         roomId: this.instanceId
@@ -208,9 +173,6 @@ class BaseRoom {
   public get roomName(): string {
     return `room-${this.instanceId}`;
   }
-  protected onStartGame() {}
-  protected onStopGame() {}
-  protected onGameTick() {}
 }
 
 export { BaseRoom };

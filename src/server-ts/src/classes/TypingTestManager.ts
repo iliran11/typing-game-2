@@ -30,12 +30,15 @@ export class TypingTestManager {
       room
     });
     room.addPlayer(player);
-    room.startGame();
     this.rooms.set(socket, room);
     socket.join(room.roomName);
   }
-  getRoom(socket): TypingTestRoom | undefined {
-    return this.rooms.get(socket);
+  getRoom(socket): TypingTestRoom {
+    const result = this.rooms.get(socket);
+    if (!result) {
+      throw new Error('room does not exist');
+    }
+    return result;
   }
   static getInstance() {
     if (!TypingTestManager.instance) {

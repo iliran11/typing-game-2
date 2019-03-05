@@ -13,6 +13,7 @@ export class TypingTestRoom extends BaseRoom {
   intervalId: any;
   constructor() {
     super(RoomType.TYPING_TEST);
+    super.enableTimeout = false;
   }
   get player() {
     return this.playersArray[0];
@@ -21,16 +22,23 @@ export class TypingTestRoom extends BaseRoom {
     return this.player.getSocket();
   }
   public startGame() {
-    super.startGame();
+    if (this.isGameActive === false) {
+      super.startGame();
+    } else {
+      throw new Error('trying to start an already started game');
+    }
+  }
+  protected stopGame() {
+    super.stopGame();
+    roomSummaryDb.save(this.roomSummary);
+  }
+  addPlayer(player) {
+    super.addPlayer(player);
     const initPayload: TypingTestInitGame = {
       ...this.getPlayerGameStatus(this.player),
       words: this.player.playerGame.words
     };
     this.player.getSocket().emit(TYPING_TEST_IS_ACTIVE, initPayload);
-  }
-  protected stopGame() {
-    super.stopGame();
-    roomSummaryDb.save(this.roomSummary);
   }
   protected gameTick() {
     super.gameTick();

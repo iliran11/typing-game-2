@@ -17,17 +17,31 @@ export interface TypingTestPageProps {
   history: any;
 }
 
-export interface TypingTestPageState {}
+export interface TypingTestPageState {
+  timerActive: boolean;
+}
 
 export default class TypingTestPage extends React.Component<
   TypingTestPageProps,
   TypingTestPageState
 > {
+  firstTyping: boolean = false;
   constructor(props: TypingTestPageProps) {
     super(props);
     socketManager.emitRequestToPlay(RoomType.TYPING_TEST);
-    this.state = {};
+    this.state = {
+      timerActive: false
+    };
     this.onFinish = this.onFinish.bind(this);
+    this.onFirstInput = this.onFirstInput.bind(this);
+  }
+  componentDidUpdate(
+    prevProps: TypingTestPageProps,
+    prevState: TypingTestPageState
+  ) {
+    if (prevState.timerActive === false && this.state.timerActive) {
+      socketManager.emitStartTypingTest(this.props.roomId);
+    }
   }
   onFinish() {
     this.props.history.push(
@@ -37,7 +51,14 @@ export default class TypingTestPage extends React.Component<
     );
   }
   get gameDurationSeconds() {
-    return TYPING_TEST_DURATION / 10000;
+    return TYPING_TEST_DURATION / 1000;
+  }
+  onFirstInput() {
+    if (this.state.timerActive === false) {
+      this.setState({
+        timerActive: true
+      });
+    }
   }
   public render() {
     if (!this.props.roomId) {
@@ -47,7 +68,7 @@ export default class TypingTestPage extends React.Component<
       <div id="game-page" className="typing-test-scope page">
         <div className="typing-test-timer-row">
           <TypingTestTimer
-            isActive={true}
+            isActive={this.state.timerActive}
             render={(timePassed: number) => {
               return (
                 <div className="typing-test-timer shadow-3dp">
@@ -61,6 +82,7 @@ export default class TypingTestPage extends React.Component<
         <GameController
           gameActive={true}
           words={this.props.gameWords}
+          onInput={this.onFirstInput}
           // gameActive={this.props.gameInfo.isGameActive}
           gameType={RoomType.TYPING_TEST}
           onFinish={this.onFinish}

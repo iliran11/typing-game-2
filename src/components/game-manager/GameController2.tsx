@@ -9,6 +9,7 @@ export interface IAppProps {
   gameType: RoomType;
   gameActive: boolean;
   onFinish: () => void;
+  onInput?: () => void;
 }
 
 export interface IAppState {}
@@ -43,6 +44,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
     if (this.props.gameActive === false) return;
     gameDomManager.onInput(event.target.value);
     socketManager.emitTyping(event.target.value, this.props.gameType);
+    this.props.onInput && this.props.onInput();
   }
 
   public render() {

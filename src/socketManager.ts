@@ -23,7 +23,8 @@ import {
   TYPING_TEST_IS_ACTIVE,
   TYPING_TEST_SCORE_BROADCAST,
   YOU_JOINED_ROOM,
-  ROOM_TYPE_PARAM
+  ROOM_TYPE_PARAM,
+  START_TYPING_TEST_GAME
 } from './constants';
 import { PlayerGameStatus } from './types/GameStatusType';
 import {
@@ -38,7 +39,8 @@ import {
   RoomType,
   RootState,
   ScoreBroadcastAction,
-  TypingTestInitGame
+  TypingTestInitGame,
+  StartTypingTestGameI
 } from './types/typesIndex';
 
 const socketManager: any = {
@@ -208,6 +210,10 @@ const socketManager: any = {
   },
   emitGameRestart() {
     this.socket.emit(RESTART_GAME);
+  },
+  emitStartTypingTest(roomId: string) {
+    const payload: StartTypingTestGameI = { roomId };
+    this.socket.emit(START_TYPING_TEST_GAME, payload);
   },
   close() {
     this.socket.close();

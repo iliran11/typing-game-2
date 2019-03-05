@@ -13,9 +13,15 @@ import {
   CONNECT_SERVER_SUCCESS,
   GAME_HAS_FINISHED,
   RESTART_GAME,
-  REQUEST_TO_PLAY
+  REQUEST_TO_PLAY,
+  START_TYPING_TEST_GAME
 } from '../../../constants';
-import { FacebookUserType, RoomType, PlayerType } from '../../../types';
+import {
+  FacebookUserType,
+  RoomType,
+  PlayerType,
+  StartTypingTestGameI
+} from '../../../types/typesIndex';
 import { getSocketAuthentication } from '../utilities';
 import LevelManager from '../classes/LevelManager';
 const get = require('lodash.get');
@@ -62,6 +68,10 @@ export default function onConnect(socket: io.Socket): void {
     });
     socket.on(RESTART_GAME, () => {
       onGameRestart(socket);
+    });
+    socket.on(START_TYPING_TEST_GAME, (data: StartTypingTestGameI) => {
+      const room = typingTestManager.getRoom(socket);
+      room.startGame();
     });
   });
 }
