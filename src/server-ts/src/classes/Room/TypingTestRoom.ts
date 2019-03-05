@@ -4,7 +4,11 @@ import {
   NAVIGATE_RESULT,
   TYPING_TEST_DURATION
 } from '../../../../constants';
-import { RoomType, TypingTestInitGame } from '../../../../types/typesIndex';
+import {
+  RoomType,
+  TypingTestInitGame,
+  NavigateToResultI
+} from '../../../../types/typesIndex';
 import { roomLogDb, roomSummaryDb } from '../../mongoIndex';
 import { BaseRoom } from './BaseRoom';
 import { emitToRoom } from '../../utilities';
@@ -43,10 +47,11 @@ export class TypingTestRoom extends BaseRoom {
   protected gameTick() {
     super.gameTick();
     if (this.timePassed > TYPING_TEST_DURATION) {
-      emitToRoom(this.roomName, NAVIGATE_RESULT, {
+      const payload: NavigateToResultI = {
         roomId: this.instanceId,
-        RoomType: RoomType.TYPING_TEST
-      });
+        roomType: RoomType.TYPING_TEST
+      };
+      emitToRoom(this.roomName, NAVIGATE_RESULT, payload);
       this.stopGame();
     }
     if (this.player.isAuthenticated) {
