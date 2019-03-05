@@ -62,7 +62,7 @@ export interface ServerStatusReducer {
   readonly socketConnected: boolean;
   readonly initialSocketConnection: boolean;
   readonly gameHasTimeout: boolean;
-  readonly activeRoomId: string;
+  readonly activeRoomId: string | null;
 }
 export interface MultiplayerRoomInfoI {
   readonly roomId: string;
@@ -248,4 +248,8 @@ export interface MultiplayerRoomActive {
 export interface NavigateToResultI {
   roomId: string;
   roomType: RoomType;
+}
+
+export interface GAME_IS_ACTIVE_PAYLOAD {
+  roomId: string;
 }

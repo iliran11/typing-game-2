@@ -1,29 +1,15 @@
 import {
   CONNECT_SERVER_SUCCESS,
-  YOU_JOINED_ROOM,
-  COMPETITOR_JOINED_ROOM,
-  BOT_JOINED_ROOM,
-  SCORE_BROADCAST,
-  GAME_HAS_STARTED,
-  COMPETITOR_LEFT,
-  COMPETITOR_DELETION,
-  COMPETITOR_HAS_FINISHED,
-  RESTART_GAME,
+  LEAVE_GAME,
   SOCKET_HAS_CONNECTED,
   SOCKET_HAS_DISCONNECTED,
-  GAME_HAS_TIMEOUT,
-  LEAVE_GAME,
-  GAME_IS_ACTIVE,
-  TYPING_TEST_IS_ACTIVE
+  TYPING_TEST_IS_ACTIVE,
+  YOU_JOINED_ROOM
 } from '../../constants';
 import {
-  PlayerSerialize,
   ServerStatusReducer,
-  ScoreBroadcastAction,
-  PlayerJoiningAction,
   TypingTestInitGame
 } from '../../types/typesIndex';
-import { PlayerGameStatus } from '../../types/GameStatusType';
 
 export const initialState: ServerStatusReducer = {
   isConnected: false,
@@ -56,6 +42,8 @@ export default function ServerStatus(
       };
     case TYPING_TEST_IS_ACTIVE:
       return typingTestActive(state, action.payload);
+    case LEAVE_GAME:
+      return leaveGame(state);
     default:
       return state;
   }
@@ -87,4 +75,7 @@ function typingTestActive(
     ...state,
     activeRoomId: data.roomId
   };
+}
+function leaveGame(state: ServerStatusReducer): ServerStatusReducer {
+  return { ...state, activeRoomId: null };
 }

@@ -45,7 +45,6 @@ export class MultiplayerResultPage extends React.Component<
       // @ts-ignore
       { label: 'TIME', value: millisecondsToTimeResult(player.gameDuration) }
     ];
-    console.log(player.playerId, this.props.myId);
     return (
       <PlayerResult
         playerAvatar={player.avatar}

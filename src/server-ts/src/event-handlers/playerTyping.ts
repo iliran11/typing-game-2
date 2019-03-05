@@ -12,9 +12,11 @@ export default function playerTyping(socket: io.Socket, data) {
     MultiplayerPlayerTyping(socket, data);
   }
   if (data.roomType === RoomType.TYPING_TEST) {
-    const room = typingTestManager.getRoom(socket);
-    if (room) {
+    try {
+      const room = typingTestManager.getRoom(socket);
       room.player.playerGame.processNewTyping(data.typingInput);
+    } catch (e) {
+      // do nothing. it means the player kept typing some time after the game was closed on server.
     }
   }
 }

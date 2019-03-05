@@ -3,10 +3,8 @@ import { RootState } from '../../types';
 import MultiplayerPage from './Multiplayerpage';
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
-  const words = state.gameData.words;
-  const roomId = state.serverStatus.activeRoomId;
-  const isGameActive = state.multiplayerMapping[roomId]
-    ? state.multiplayerMapping[roomId].isGameActive
+  const isGameActive = state.multiplayerMapping[props.roomId]
+    ? state.multiplayerMapping[props.roomId].isGameActive
     : false;
   return {
     isGameActive,

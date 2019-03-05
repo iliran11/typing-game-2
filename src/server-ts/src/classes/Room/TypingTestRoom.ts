@@ -12,6 +12,7 @@ import {
 import { roomLogDb, roomSummaryDb } from '../../mongoIndex';
 import { BaseRoom } from './BaseRoom';
 import { emitToRoom } from '../../utilities';
+import { typingTestManager } from '../TypingTestManager';
 
 export class TypingTestRoom extends BaseRoom {
   intervalId: any;
@@ -33,6 +34,8 @@ export class TypingTestRoom extends BaseRoom {
     }
   }
   protected stopGame() {
+    const socket = this.player.getSocket();
+    typingTestManager.deleteRoom(socket);
     super.stopGame();
     roomSummaryDb.save(this.roomSummary);
   }

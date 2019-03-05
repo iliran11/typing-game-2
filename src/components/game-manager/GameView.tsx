@@ -23,21 +23,30 @@ export default class GameView extends React.PureComponent<any, State> {
       input: []
     };
     this.renderWords = this.renderWords.bind(this);
+    this.initDomManager = this.initDomManager.bind(this);
   }
   renderWords(word: string, index: number) {
     return <Word letters={word.split('')} key={index} />;
   }
-  componentDidUpdate(prevProps: GameViewProps) {
-    if (prevProps.gameActive === false && this.props.gameActive) {
-      this.props.gameDomManager.activateGame();
-    }
-  }
-  componentDidMount() {
+  initDomManager() {
     this.props.gameDomManager.init(
       this.props.words,
       this.props.gameActive,
       this.props.onFinish
     );
+  }
+  componentDidUpdate(prevProps: GameViewProps) {
+    if (prevProps.gameActive === false && this.props.gameActive) {
+      this.props.gameDomManager.activateGame();
+    }
+    if (prevProps.words.length === 0 && this.props.words.length > 0) {
+      this.initDomManager();
+    }
+  }
+  componentDidMount() {
+    if (this.props.words.length > 0) {
+      this.initDomManager();
+    }
   }
   render() {
     return (

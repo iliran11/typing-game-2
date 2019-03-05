@@ -1,4 +1,5 @@
 import { emitToRoom } from '../utilities';
+import { GAME_IS_ACTIVE_PAYLOAD } from '../../../types';
 import { COUNDOWN_CYCLE, GAME_IS_ACTIVE } from '../../../constants';
 
 class Countdown {
@@ -9,7 +10,10 @@ class Countdown {
   constructor(roomName: string) {
     this.intervalId = 0;
     this.roomName = roomName;
-    emitToRoom(this.roomName, GAME_IS_ACTIVE);
+    const payload: GAME_IS_ACTIVE_PAYLOAD = {
+      roomId: roomName
+    };
+    emitToRoom(this.roomName, GAME_IS_ACTIVE, payload);
   }
   initiateCountdown(): Promise<void> {
     return new Promise((resolve, reject) => {

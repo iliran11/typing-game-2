@@ -4,7 +4,6 @@ import socketManager from '../../socketManager';
 import GameController from '../../components/game-manager/GameController2';
 import ScoreBoardContainer from '../../components/CompetitorList/CometitorListContainer';
 import CountDown from '../../components/CountDown/CountDown';
-import { BoxLoader } from '../../components/boxLoader/boxLoader';
 import { RoomType } from '../../types';
 import { ROOM_ID_PARM, ROOM_TYPE_PARAM, MY_ID_PARAM } from '../../constants';
 
@@ -15,6 +14,7 @@ interface Props {
   words: string[];
   roomId: string;
   myId: string;
+  onGameFinish: (roomId: string) => {};
 }
 interface State {
   gameActive: boolean;
@@ -25,13 +25,15 @@ class MultiplayerPage extends PureComponent<Props, State> {
   currentInput: string = '';
   constructor(props: any) {
     super(props);
-    socketManager.emitRequestToPlay(RoomType.MULTIPLAYER);
     this.state = {
       timerActive: false,
       gameActive: false
     };
     this.onTimerFinish = this.onTimerFinish.bind(this);
     this.onGameFinish = this.onGameFinish.bind(this);
+  }
+  componentWillUnmount() {
+    console.log('unmount');
   }
   componentDidUpdate(prevProps: Props) {
     // game has become active on server - turn on the timer!;
@@ -53,12 +55,10 @@ class MultiplayerPage extends PureComponent<Props, State> {
         RoomType.MULTIPLAYER
       }&${MY_ID_PARAM}=${this.props.myId}`
     );
-    socketManager.emitFinishedGame();
+    this.props.onGameFinish(this.props.roomId);
   }
   render() {
-    if (!this.props.roomId || this.props.words.length === 0) {
-      return <BoxLoader message="Thinking about your challenge ..." />;
-    }
+    console.log('render multiple page');
     return (
       <div className="page full-width">
         {this.state.timerActive && (

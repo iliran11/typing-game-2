@@ -5,7 +5,6 @@ import { getTypingTestScoreboardData } from '../../utilities';
 
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
-  if (!props.roomId) return { data: [] };
   const data = getTypingTestScoreboardData(state.typingTest[props.roomId]);
   return { data };
 };

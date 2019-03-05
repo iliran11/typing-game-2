@@ -1,5 +1,7 @@
 import React from 'react';
 import './homepage.scss';
+import { RoomType } from '../../types/typesIndex';
+import { ROOM_TYPE_PARAM } from '../../constants';
 import Keyboard from '../../components/keyboard/keyboard';
 const baseSteps = [
   {
@@ -67,10 +69,10 @@ export default class Home extends React.Component<Props, State> {
     );
   }
   navigateToGame() {
-    this.props.history.push('/game');
+    this.props.history.push(`/game?${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`);
   }
   navigateToTypingTest() {
-    this.props.history.push('/typing-test');
+    this.props.history.push(`/game?${ROOM_TYPE_PARAM}=${RoomType.TYPING_TEST}`);
   }
   render() {
     const text = 'text';

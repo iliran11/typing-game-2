@@ -68,6 +68,20 @@ class BaseRoom {
   finishedPlayersCountIncrement() {
     this.finishedPlayersCount++;
   }
+
+  /**
+   * Scores methods
+   */
+  private sendScoreBoard() {
+    this.server.in(this.roomName).emit(SCORE_BROADCAST, this.roomPlayersScores);
+  }
+  public get roomPlayersScores(): PlayerGameStatus[] {
+    return this.roomPlayersManager.playersArray.map(
+      (player: Player | BotPlayer) => {
+        return this.getPlayerGameStatus(player);
+      }
+    );
+  }
   getPlayerGameStatus(player: Player | BotPlayer): PlayerGameStatus {
     const game = player.playerGame;
     const rank = this.roomPlayersManager.playerRank(player);
@@ -97,13 +111,6 @@ class BaseRoom {
   }
   protected get server() {
     return ServerManager.getInstance().serverObject;
-  }
-  public get roomPlayersScores(): PlayerGameStatus[] {
-    return this.roomPlayersManager.playersArray.map(
-      (player: Player | BotPlayer) => {
-        return this.getPlayerGameStatus(player);
-      }
-    );
   }
   public get roomSummary(): GameSummryDBI {
     return {
@@ -159,7 +166,7 @@ class BaseRoom {
   protected gameTick() {
     this.timePassed += this.timeIncrement;
     this.gameTickSequence++;
-    this.server.in(this.roomName).emit(SCORE_BROADCAST, this.roomPlayersScores);
+    this.sendScoreBoard();
     if (this.timePassed > GAME_TIMEOUT_DURATION && this.enableTimeout) {
       this.stopGame();
       emitToRoom(this.roomName, GAME_HAS_TIMEOUT, {
@@ -171,7 +178,7 @@ class BaseRoom {
     }
   }
   public get roomName(): string {
-    return `room-${this.instanceId}`;
+    return this.instanceId;
   }
 }
 

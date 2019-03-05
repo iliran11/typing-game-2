@@ -60,18 +60,18 @@ export default function onConnect(socket: io.Socket): void {
       }
       socket.emit(CONNECT_SERVER_SUCCESS);
     });
-    socket.on(PLAYER_TYPING, data => {
-      playerTyping(socket, data);
-    });
-    socket.on(GAME_HAS_FINISHED, () => {
-      onGameFinished(socket);
-    });
-    socket.on(RESTART_GAME, () => {
-      onGameRestart(socket);
-    });
-    socket.on(START_TYPING_TEST_GAME, (data: StartTypingTestGameI) => {
-      const room = typingTestManager.getRoom(socket);
-      room.startGame();
-    });
+  });
+  socket.on(PLAYER_TYPING, data => {
+    playerTyping(socket, data);
+  });
+  socket.on(GAME_HAS_FINISHED, () => {
+    onGameFinished(socket);
+  });
+  socket.on(RESTART_GAME, () => {
+    onGameRestart(socket);
+  });
+  socket.on(START_TYPING_TEST_GAME, (data: StartTypingTestGameI) => {
+    const room = typingTestManager.getRoom(socket);
+    room.startGame();
   });
 }

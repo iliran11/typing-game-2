@@ -8,15 +8,13 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppToolbar from './components/AppToolBar/AppToolBarContainer';
 import GlobalBlockingAlerts from './components/BlockingAlert/GlobalBlockingAlertsContainer';
 import {
-  MultiplayerPageContainer,
-  // ResultPageContainer,
+  GameRouterContainer,
   MyProfilePageContainer,
   HomePageContainer,
   ReplayContainer,
   LoginPageContainer,
   AchievementProgressPageContainer,
   RenderlessInitiatorContainer,
-  TypingTestPageContainer,
   GenericResultsContainer
 } from './pages/pagesIndex';
 
@@ -32,11 +30,7 @@ class App extends React.Component {
             <Route path="/" component={RenderlessInitiatorContainer} />
             <Route path="/" component={AppToolbar} />
             <Route exact={true} path="/" component={HomePageContainer} />
-            <Route
-              xact={true}
-              path="/game"
-              component={MultiplayerPageContainer}
-            />
+            <Route xact={true} path="/game" component={GameRouterContainer} />
             {/* <Route
               exact={true}
               path="/result"
@@ -52,11 +46,6 @@ class App extends React.Component {
             <Route
               path="/achievements-progress"
               component={AchievementProgressPageContainer}
-            />
-            <Route
-              exact
-              path="/typing-test"
-              component={TypingTestPageContainer}
             />
             <Route path="/results" component={GenericResultsContainer} />
           </Fragment>

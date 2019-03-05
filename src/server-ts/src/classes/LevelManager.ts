@@ -6,7 +6,6 @@ import { UserAchievementsI } from '../../../types/AchievementsTypes';
 import { PROMOTION_EVENT } from '../../../constants';
 import { longtext } from '../longtext';
 
-console.log(longtext);
 interface LevelsMap {
   [level: string]: LevelRulesI;
 }

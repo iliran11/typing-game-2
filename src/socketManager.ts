@@ -40,6 +40,7 @@ import {
   RootState,
   ScoreBroadcastAction,
   TypingTestInitGame,
+  GAME_IS_ACTIVE_PAYLOAD,
   StartTypingTestGameI
 } from './types/typesIndex';
 
@@ -129,16 +130,16 @@ const socketManager: any = {
           type: SCORE_BROADCAST,
           payload: {
             players: data,
-            roomId: state.serverStatus.activeRoomId
+            roomId: data[0].roomId
           }
         };
         this.dispatch(action);
       }
     });
-    this.socket.on(GAME_IS_ACTIVE, () => {
+    this.socket.on(GAME_IS_ACTIVE, (data: GAME_IS_ACTIVE_PAYLOAD) => {
       const state: RootState = this.getState();
       const payload: MultiplayerRoomActive = {
-        roomId: state.serverStatus.activeRoomId
+        roomId: data.roomId
       };
       this.dispatch({
         type: GAME_IS_ACTIVE,

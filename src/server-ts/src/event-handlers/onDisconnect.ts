@@ -25,6 +25,7 @@ export default function onDisconnect(socket: io.Socket): void {
     if (player.hasFinished === false) {
       player.hasLeft = true;
       if (room.isGameActive) {
+        // TODO: add to BaseRoom a check if there are humans left in the game.
         room.finishedPlayersCountIncrement();
         emitToRoom(room.roomName, COMPETITOR_LEFT, player.serializable);
         console.log(`${player.playerId} disconnected ${room.instanceId}`);

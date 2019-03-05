@@ -47,6 +47,9 @@ export class TypingTestManager {
     }
     return TypingTestManager.instance;
   }
+  deleteRoom(socket: io.Socket) {
+    this.rooms.delete(socket);
+  }
 }
 
 export const typingTestManager = TypingTestManager.getInstance(); // do something with the instance...
