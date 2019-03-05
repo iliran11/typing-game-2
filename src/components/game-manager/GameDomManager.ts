@@ -9,13 +9,12 @@ class GameDomManager {
   private letterRects: any;
   private wordsBoxRef: any;
   private wordsBoxRect: any;
-  private static instance: GameDomManager;
   private markerRef: any;
   private toolTipRef: any;
   private tooltipPlaceholderRef: any;
   private onFinish: any;
 
-  private constructor() {
+  constructor() {
     this.input = [];
     this.letters = [];
     this.index = 0;
@@ -37,6 +36,7 @@ class GameDomManager {
     return this.letterRects[this.index - 1];
   }
   init(words: string[], gameActive: boolean, onFinish: () => void) {
+    console.log('hi');
     this.letterRefs = document.querySelectorAll('.letter');
     this.markerRef = document.querySelector('#marker');
     this.toolTipRef = document.querySelector('#tooltip');
@@ -124,13 +124,6 @@ class GameDomManager {
   public activateGame() {
     this.wordsBoxRef.classList.remove('disabled');
   }
-  static getInstance() {
-    if (!GameDomManager.instance) {
-      GameDomManager.instance = new GameDomManager();
-      // ... any one time initialization goes here ...
-    }
-    return GameDomManager.instance;
-  }
 }
 
-export const gameDomManager = GameDomManager.getInstance();
+export { GameDomManager };

@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import { Word } from './Word';
 import Marker, { markerProps } from '../Marker';
-import { gameDomManager } from './GameDomManager';
+import { GameDomManager } from './GameDomManager';
 import ToolTip from '../tooltip';
 import './game.css';
 
 interface GameViewProps {
   words: string[];
   gameActive: boolean;
+  gameDomManager: GameDomManager;
   onFinish: () => void;
 }
 
@@ -28,18 +29,17 @@ export default class GameView extends React.PureComponent<any, State> {
   }
   componentDidUpdate(prevProps: GameViewProps) {
     if (prevProps.gameActive === false && this.props.gameActive) {
-      gameDomManager.activateGame();
+      this.props.gameDomManager.activateGame();
     }
   }
   componentDidMount() {
-    gameDomManager.init(
+    this.props.gameDomManager.init(
       this.props.words,
       this.props.gameActive,
       this.props.onFinish
     );
   }
   render() {
-    console.log('game view');
     return (
       <Fragment>
         <div id="words-box">

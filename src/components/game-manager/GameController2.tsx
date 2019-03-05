@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import GameView from './GameView';
-import { gameDomManager } from './GameDomManager';
+import { GameDomManager } from './GameDomManager';
 import socketManager from '../../socketManager';
 import { RoomType } from '../../types';
 
@@ -17,6 +17,7 @@ export interface IAppState {}
 export default class IApp extends React.Component<IAppProps, IAppState> {
   private inputRef: any;
   private bodyElement: any;
+  private gameDomManager: GameDomManager;
   constructor(props: IAppProps) {
     super(props);
     this.onInput = this.onInput.bind(this);
@@ -27,6 +28,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
     if (this.bodyElement) {
       this.bodyElement.addEventListener('click', this.onBodyClick);
     }
+    this.gameDomManager = new GameDomManager();
   }
   componentWillUnmount() {
     this.bodyElement.removeEventListener('click', this.onBodyClick);
@@ -42,7 +44,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
   }
   onInput(event: any) {
     if (this.props.gameActive === false) return;
-    gameDomManager.onInput(event.target.value);
+    this.gameDomManager.onInput(event.target.value);
     socketManager.emitTyping(event.target.value, this.props.gameType);
     this.props.onInput && this.props.onInput();
   }
@@ -63,6 +65,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
           words={this.props.words}
           gameActive={this.props.gameActive}
           onFinish={this.props.onFinish}
+          gameDomManager={this.gameDomManager}
         />
       </Fragment>
     );
