@@ -35,6 +35,9 @@ export class TypingTestTimer extends React.Component<
   get timePassSeconds(): number {
     return Math.floor(this.state.timePassed / 1000);
   }
+  componentWillUnmount() {
+    clearInterval(this.intervalTimer);
+  }
   activateTimer() {
     this.startTime = Date.now();
     this.intervalTimer = setInterval(() => {
