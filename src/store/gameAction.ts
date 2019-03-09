@@ -1,4 +1,4 @@
-import socketManager from '../Managers/socketManager';
+import { SocketManager } from '../Managers/socketManager';
 import axios from 'axios';
 import {
   ROOM_ID_PARM,
@@ -23,7 +23,7 @@ export function restartGame(history: any) {
       type: RESTART_GAME
     });
 
-    socketManager.emitGameRestart();
+    SocketManager.getInstance().emitGameRestart();
     history.push('game');
   };
 }
@@ -68,4 +68,3 @@ export function leaveGame() {
     });
   };
 }
-

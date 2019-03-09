@@ -1,11 +1,9 @@
-import React, { PureComponent, Fragment } from 'react';
-import { connect } from 'react-redux';
-import socketManager from '../../Managers/socketManager';
-import GameController from '../../components/game-manager/GameController2';
+import React, { PureComponent } from 'react';
 import ScoreBoardContainer from '../../components/CompetitorList/CometitorListContainer';
 import CountDown from '../../components/CountDown/CountDown';
+import GameController from '../../components/game-manager/GameController2';
+import { MY_ID_PARAM, ROOM_ID_PARM, ROOM_TYPE_PARAM } from '../../constants';
 import { RoomType } from '../../types';
-import { ROOM_ID_PARM, ROOM_TYPE_PARAM, MY_ID_PARAM } from '../../constants';
 
 interface Props {
   isGameActive: boolean;

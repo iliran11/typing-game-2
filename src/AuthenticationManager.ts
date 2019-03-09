@@ -24,7 +24,7 @@ import {
 } from './constants';
 import get from 'lodash.get';
 import { networkManager } from './NetworkManager';
-import socketManager from './Managers/socketManager';
+import { SocketManager } from './Managers/socketManager';
 
 class AuthenticationManager {
   dispatch: any;
@@ -68,7 +68,7 @@ class AuthenticationManager {
         localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
         localStorage.setItem(PLAYER_ID_KEY, loginResponse.data.facebookId);
         this.setAxiosAuth();
-        socketManager.reconnect();
+        SocketManager.getInstance().reconnect();
         this.dispatch({
           type: LOGGED_IN
         });

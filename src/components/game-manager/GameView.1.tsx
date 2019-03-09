@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import socketManager from '../../Managers/socketManager';
+import { SocketManager } from '../../Managers/socketManager';
 import LetterUi from '../letterUi';
 import Marker, { markerProps } from '../Marker';
 import './game.css';
@@ -154,7 +154,7 @@ export default class GameView extends React.Component<any, State> {
        * in purpose of letting our people know that u are finished.
        */
       if (this.props.notifyServerOnFinish) {
-        socketManager.emitFinishedGame();
+        SocketManager.getInstance().emitFinishedGame();
       }
     }
   }

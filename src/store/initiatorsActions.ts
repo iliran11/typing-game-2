@@ -1,6 +1,5 @@
 import AuthenticationManager from '../AuthenticationManager';
-import socketManager from '../Managers/socketManager';
-import { Socket } from 'dgram';
+import { SocketManager } from '../Managers/socketManager';
 import { SET_TOUCH_PLATFORM, SET_WEB_PLATFORM } from '../constants';
 import { RootState, PlaformEnum } from '../types/typesIndex';
 
@@ -11,9 +10,8 @@ export function initAuthenticationManager(history: any) {
 }
 
 export function initSocketManager(history: any) {
-  return function(dispatch: any, getState: RootState) {
-    const result = socketManager.initSocket(dispatch, history, getState);
-    return result;
+  return function(dispatch: any, getState: () => RootState): void {
+    SocketManager.initiateSocketManager(dispatch, history, getState);
   };
 }
 // https://stackoverflow.com/a/22058552/2631086

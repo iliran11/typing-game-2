@@ -9,7 +9,7 @@ import {
   TypingTestPageContainer
 } from '../pagesIndex';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
-import socketManager from '../../Managers/socketManager';
+import { SocketManager } from '../../Managers/socketManager';
 import { RoomType } from '../../types';
 
 export interface GameRouterProps {
@@ -22,13 +22,13 @@ export interface GameRouterProps {
 export class GameRouter extends React.Component<GameRouterProps, any> {
   constructor(props: GameRouterProps) {
     super(props);
-    socketManager.emitRequestToPlay(props.roomType);
+    SocketManager.getInstance().emitRequestToPlay(props.roomType);
   }
   componentWillUnmount() {
     this.props.leaveGame();
   }
   onGameFinished() {
-    socketManager.emitFinishedGame();
+    SocketManager.getInstance().emitFinishedGame();
   }
   get gameProps() {
     return {

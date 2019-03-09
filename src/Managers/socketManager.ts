@@ -44,206 +44,224 @@ import {
   StartTypingTestGameI
 } from '../types/typesIndex';
 
-const socketManager: any = {
-  initSocket(dispatch: any, history: any, getState: () => RootState) {
-    // this.socket = socketIo.connect('http://localhost:4001');
+class SocketManager {
+  private static instance: SocketManager;
+  dispatch: any;
+  history: any;
+  socket: SocketIOClient.Socket;
+  url: string = SocketManager.getServerUrl();
+  getState: () => RootState;
+  static initiateSocketManager(
+    dispatch: any,
+    history: any,
+    getState: () => RootState
+  ) {
+    SocketManager.instance = new SocketManager(dispatch, history, getState);
+  }
+  constructor(dispatch: any, history: any, getState: () => RootState) {
     this.dispatch = dispatch;
     this.history = history;
     this.getState = getState;
-    const url = getServerUrl();
+    this.socket = this.connect();
+    this.socket.on(GAME_HAS_STARTED, this.gameHasStarted.bind(this));
+    this.socket.on(SCORE_BROADCAST, this.scorebroadCast.bind(this));
+    this.socket.on(GAME_IS_ACTIVE, this.gameIsActive.bind(this));
+    this.socket.on(COMPETITOR_LEFT, this.competitorLeft.bind(this));
+    this.socket.on(
+      COMPETITOR_HAS_FINISHED,
+      this.competitorHasFinished.bind(this)
+    );
+    this.socket.on(TYPING_TEST_IS_ACTIVE, this.typingTestIsActive.bind(this));
+    this.socket.on(COMPETITOR_DELETION, this.competitorDeletion.bind(this));
+    this.socket.on(GAME_HAS_TIMEOUT, this.gameTimeout.bind(this));
+    this.socket.on(NAVIGATE_RESULT, this.navigateResult.bind(this));
+  }
+  connect(): SocketIOClient.Socket {
     const token = AuthenticationManager.appToken || null;
     const query = token ? { token } : {};
-    this.socket = socketIo.connect(
-      url,
+    const socket = socketIo.connect(
+      this.url,
       {
         query,
         reconnection: false
       }
     );
-    this.socket.on('error', () => {
-      console.log('error!!!');
+    return socket;
+  }
+  static getServerUrl() {
+    if (process.env.REACT_APP_ENV === Enviroments.LOCAL) {
+      return 'http://localhost:4001';
+    }
+    if (process.env.REACT_APP_ENV === Enviroments.STAGING) {
+      return 'https://typing-dev-2.herokuapp.com/';
+    }
+    return '';
+  }
+  onConnect() {
+    this.dispatch({
+      type: SOCKET_HAS_CONNECTED
     });
-    this.socket.on('connect', () => {
-      this.dispatch({
-        type: SOCKET_HAS_CONNECTED
-      });
+  }
+  onDisconnect() {
+    this.dispatch({
+      type: SOCKET_HAS_DISCONNECTED
     });
-    this.socket.on('connect_timeout', () => {
-      console.log('connect timeout!');
+    this.dispatch({
+      type: SHOW_NOTIFICATION,
+      payload: {
+        notificationType: NotificationTypes.SOCKET_DISCONNECT
+      }
     });
-    this.socket.on('disconnect', () => {
-      this.dispatch({
-        type: SOCKET_HAS_DISCONNECTED
-      });
-      this.dispatch({
-        type: SHOW_NOTIFICATION,
+  }
+  youJoinedRoom(data: JoiningRoomResponse) {
+    const { roomId, playersGameStatus, roomSize, isGameActive, myId } = data;
+    this.dispatch({
+      type: YOU_JOINED_ROOM,
+      payload: {
+        roomId,
+        playersGameStatus,
+        roomSize,
+        isGameActive,
+        myId
+      }
+    });
+    const words = data.words;
+    this.dispatch({
+      type: SET_GAME_LETTERS,
+      payload: {
+        words
+      }
+    });
+  }
+  competitorJoinedRoom(playerObject: PlayerGameStatus) {
+    const type =
+      playerObject.type === PlayerType.human
+        ? COMPETITOR_JOINED_ROOM
+        : BOT_JOINED_ROOM;
+    const action: PlayerJoiningAction = {
+      type,
+      payload: { ...playerObject }
+    };
+    this.dispatch(action);
+  }
+  gameHasStarted(payload: any) {
+    const action = {
+      type: GAME_HAS_STARTED,
+      payload: {
+        gameStartTimestamp: payload.startTimeStamp,
+        roomId: payload.roomId
+      }
+    };
+    this.dispatch(action);
+  }
+  scorebroadCast(data: PlayerGameStatus[]) {
+    const state: RootState = this.getState();
+    if (data[0].roomType === RoomType.MULTIPLAYER) {
+      const action: ScoreBroadcastAction = {
+        type: SCORE_BROADCAST,
         payload: {
-          notificationType: NotificationTypes.SOCKET_DISCONNECT
+          players: data,
+          roomId: data[0].roomId
         }
-      });
-    });
-    this.socket.on(YOU_JOINED_ROOM, (data: JoiningRoomResponse) => {
-      const { roomId, playersGameStatus, roomSize, isGameActive, myId } = data;
-      this.dispatch({
-        type: YOU_JOINED_ROOM,
-        payload: {
-          roomId,
-          playersGameStatus,
-          roomSize,
-          isGameActive,
-          myId
-        }
-      });
-      const words = data.words;
-      this.dispatch({
-        type: SET_GAME_LETTERS,
-        payload: {
-          words
-        }
-      });
-    });
-    this.socket.on(COMPETITOR_JOINED_ROOM, (playerObject: PlayerGameStatus) => {
-      const type =
-        playerObject.type === PlayerType.human
-          ? COMPETITOR_JOINED_ROOM
-          : BOT_JOINED_ROOM;
-      const action: PlayerJoiningAction = {
-        type,
-        payload: { ...playerObject }
       };
       this.dispatch(action);
+    }
+    if (data[0].roomType === RoomType.TYPING_TEST) {
+      this.dispatch({
+        type: TYPING_TEST_SCORE_BROADCAST,
+        payload: data[0]
+      });
+    }
+  }
+  gameIsActive(data: GAME_IS_ACTIVE_PAYLOAD) {
+    const state: RootState = this.getState();
+    const payload: MultiplayerRoomActive = {
+      roomId: data.roomId
+    };
+    this.dispatch({
+      type: GAME_IS_ACTIVE,
+      payload
     });
-    this.socket.on(GAME_HAS_STARTED, (payload: any) => {
-      const action = {
-        type: GAME_HAS_STARTED,
-        payload: {
-          gameStartTimestamp: payload.startTimeStamp,
-          roomId: payload.roomId
-        }
-      };
-      this.dispatch(action);
-    });
-    this.socket.on(SCORE_BROADCAST, (data: PlayerGameStatus[]) => {
-      const state: RootState = this.getState();
-      if (data[0].roomType === RoomType.MULTIPLAYER) {
-        const action: ScoreBroadcastAction = {
-          type: SCORE_BROADCAST,
+  }
+  competitorLeft(data: PlayerSerialize) {
+    this.dispatch(this.handleCompetitorleave(data));
+  }
+  handleCompetitorleave(data: any) {
+    return function(dispatch: any, getState: any) {
+      const state = getState();
+      if (state.serverStatus.isGameActive) {
+        dispatch({
+          type: COMPETITOR_LEFT,
           payload: {
-            players: data,
-            roomId: data[0].roomId
+            playerId: data.id
           }
-        };
-        this.dispatch(action);
-      }
-    });
-    this.socket.on(GAME_IS_ACTIVE, (data: GAME_IS_ACTIVE_PAYLOAD) => {
-      const state: RootState = this.getState();
-      const payload: MultiplayerRoomActive = {
-        roomId: data.roomId
-      };
-      this.dispatch({
-        type: GAME_IS_ACTIVE,
-        payload
-      });
-    });
-    this.socket.on(COMPETITOR_LEFT, (data: PlayerSerialize) => {
-      this.dispatch(handleCompetitorleave(data));
-    });
-    this.socket.on(COMPETITOR_HAS_FINISHED, (data: PlayerSerialize) => {
-      this.dispatch({
-        type: COMPETITOR_HAS_FINISHED,
-        payload: data
-      });
-    });
-    this.socket.on(TYPING_TEST_IS_ACTIVE, (data: TypingTestInitGame) => {
-      const letters = data.words;
-
-      this.dispatch({
-        type: TYPING_TEST_IS_ACTIVE,
-        payload: { ...data, letters }
-      });
-    });
-    this.socket.on(COMPETITOR_DELETION, (data: any) => {
-      dispatch({
-        type: COMPETITOR_DELETION,
-        payload: {
-          playerId: data.playerId,
-          roomId: data.roomId
-        }
-      });
-    });
-    this.socket.on(SCORE_BROADCAST, (data: PlayerGameStatus[]) => {
-      if (data[0].roomType === RoomType.TYPING_TEST) {
-        this.dispatch({
-          type: TYPING_TEST_SCORE_BROADCAST,
-          payload: data[0]
         });
+      } else {
+      }
+    };
+  }
+  competitorHasFinished(data: PlayerSerialize) {
+    this.dispatch({
+      type: COMPETITOR_HAS_FINISHED,
+      payload: data
+    });
+  }
+  typingTestIsActive(data: TypingTestInitGame) {
+    const letters = data.words;
+    this.dispatch({
+      type: TYPING_TEST_IS_ACTIVE,
+      payload: { ...data, letters }
+    });
+  }
+  competitorDeletion(data: any) {
+    this.dispatch({
+      type: COMPETITOR_DELETION,
+      payload: {
+        playerId: data.playerId,
+        roomId: data.roomId
       }
     });
-    this.socket.on(GAME_HAS_TIMEOUT, () => {
-      this.dispatch({
-        type: SHOW_NOTIFICATION,
-        payload: {
-          notificationType: NotificationTypes.GAME_TIMEOUT_NOTIFICATION
-        }
-      });
+  }
+  gameTimeout(data: PlayerGameStatus[]) {
+    this.dispatch({
+      type: SHOW_NOTIFICATION,
+      payload: {
+        notificationType: NotificationTypes.GAME_TIMEOUT_NOTIFICATION
+      }
     });
-    this.socket.on(NAVIGATE_RESULT, (data: NavigateToResultI) => {
-      this.history.push(
-        `/results?${ROOM_ID_PARM}=${data.roomId}&${ROOM_TYPE_PARAM}=${
-          data.roomType
-        }`
-      );
-    });
-  },
+  }
+  navigateResult(data: NavigateToResultI) {
+    this.history.push(
+      `/results?${ROOM_ID_PARM}=${data.roomId}&${ROOM_TYPE_PARAM}=${
+        data.roomType
+      }`
+    );
+  }
   reconnect() {
-    this.initSocket(this.dispatch, this.history);
-  },
+    this.connect();
+  }
   emitTyping(typingInput: string, roomType: RoomType) {
     this.socket.emit(PLAYER_TYPING, { typingInput, roomType });
-  },
+  }
   emitFinishedGame() {
     this.socket.emit(GAME_HAS_FINISHED);
-  },
+  }
   emitRequestToPlay(roomType: RoomType) {
     const state: RootState = this.getState();
     this.socket.emit(REQUEST_TO_PLAY, roomType, state.myData.platform);
-  },
+  }
   emitGameRestart() {
     this.socket.emit(RESTART_GAME);
-  },
+  }
   emitStartTypingTest(roomId: string) {
     const payload: StartTypingTestGameI = { roomId };
     this.socket.emit(START_TYPING_TEST_GAME, payload);
-  },
+  }
   close() {
     this.socket.close();
   }
-};
-
-function handleCompetitorleave(data: any) {
-  return function(dispatch: any, getState: any) {
-    const state = getState();
-    if (state.serverStatus.isGameActive) {
-      dispatch({
-        type: COMPETITOR_LEFT,
-        payload: {
-          playerId: data.id
-        }
-      });
-    } else {
-    }
-  };
-}
-
-export default socketManager;
-
-function getServerUrl() {
-  if (process.env.REACT_APP_ENV === Enviroments.LOCAL) {
-    return 'http://localhost:4001';
+  static getInstance(): SocketManager {
+    return SocketManager.instance;
   }
-  if (process.env.REACT_APP_ENV === Enviroments.STAGING) {
-    return 'https://typing-dev-2.herokuapp.com/';
-  }
-  return '';
 }
+export { SocketManager };

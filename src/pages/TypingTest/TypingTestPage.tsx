@@ -1,5 +1,5 @@
 import * as React from 'react';
-import socketManager from '../../Managers/socketManager';
+import { SocketManager } from '../../Managers/socketManager';
 import GameController from '../../components/game-manager/GameController2';
 import { RoomType } from '../../types/typesIndex';
 import { TypingTestTimer } from '../../components/TimerRenderProps/TypingTestTimer';
@@ -28,7 +28,7 @@ export default class TypingTestPage extends React.Component<
   firstTyping: boolean = false;
   constructor(props: TypingTestPageProps) {
     super(props);
-    socketManager.emitRequestToPlay(RoomType.TYPING_TEST);
+    SocketManager.getInstance().emitRequestToPlay(RoomType.TYPING_TEST);
     this.state = {
       timerActive: false
     };
@@ -40,7 +40,7 @@ export default class TypingTestPage extends React.Component<
     prevState: TypingTestPageState
   ) {
     if (prevState.timerActive === false && this.state.timerActive) {
-      socketManager.emitStartTypingTest(this.props.roomId);
+      SocketManager.getInstance().emitStartTypingTest(this.props.roomId);
     }
   }
   onFinish() {

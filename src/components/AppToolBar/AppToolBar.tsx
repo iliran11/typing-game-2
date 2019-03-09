@@ -7,7 +7,7 @@ import LoginButton from '../login-button/LoginButtonContainer';
 import { LoginStatus, PageProps } from '../../types';
 import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContainer';
 import backbutton from '../../assets/backbutton.svg';
-import socketManager from '../../Managers/socketManager';
+import { SocketManager } from '../../Managers/socketManager';
 import AuthenticationManager from '../../AuthenticationManager';
 import tcLogo from '../../assets/TClogo.svg';
 export interface AppToolBarProps extends PageProps {
@@ -43,7 +43,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
   }
   onLeaveGame() {
     this.props.leaveGame();
-    socketManager.close();
+    SocketManager.getInstance().close();
   }
   get isLogged() {
     return this.props.picture && this.props.loggedIn === LoginStatus.loggedIn;

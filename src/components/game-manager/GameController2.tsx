@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import GameView from './GameView';
 import { GameDomManager } from './GameDomManager';
-import socketManager from '../../Managers/socketManager';
+import { SocketManager } from '../../Managers/socketManager';
 import { RoomType } from '../../types';
 
 export interface IAppProps {
@@ -45,7 +45,10 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
   onInput(event: any) {
     if (this.props.gameActive === false) return;
     this.gameDomManager.onInput(event.target.value);
-    socketManager.emitTyping(event.target.value, this.props.gameType);
+    SocketManager.getInstance().emitTyping(
+      event.target.value,
+      this.props.gameType
+    );
     this.props.onInput && this.props.onInput();
   }
 
