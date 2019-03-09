@@ -24,7 +24,7 @@ import {
 } from './constants';
 import get from 'lodash.get';
 import { networkManager } from './NetworkManager';
-import socketManager from './socketManager';
+import socketManager from './Managers/socketManager';
 
 class AuthenticationManager {
   dispatch: any;

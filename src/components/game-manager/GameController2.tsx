@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import GameView from './GameView';
 import { GameDomManager } from './GameDomManager';
-import socketManager from '../../socketManager';
+import socketManager from '../../Managers/socketManager';
 import { RoomType } from '../../types';
 
 export interface IAppProps {

@@ -1,5 +1,5 @@
 import AuthenticationManager from '../AuthenticationManager';
-import socketManager from '../socketManager';
+import socketManager from '../Managers/socketManager';
 import { Socket } from 'dgram';
 import { SET_TOUCH_PLATFORM, SET_WEB_PLATFORM } from '../constants';
 import { RootState, PlaformEnum } from '../types/typesIndex';

@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import socketManager from '../../socketManager';
+import socketManager from '../../Managers/socketManager';
 import GameController from '../../components/game-manager/GameController2';
 import ScoreBoardContainer from '../../components/CompetitorList/CometitorListContainer';
 import CountDown from '../../components/CountDown/CountDown';

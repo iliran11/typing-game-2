@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import socketManager from '../../socketManager';
+import socketManager from '../../Managers/socketManager';
 import LetterUi from '../letterUi';
 import Marker, { markerProps } from '../Marker';
 import './game.css';

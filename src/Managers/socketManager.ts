@@ -1,5 +1,5 @@
 import * as socketIo from 'socket.io-client';
-import AuthenticationManager from './AuthenticationManager';
+import AuthenticationManager from '../AuthenticationManager';
 import {
   BOT_JOINED_ROOM,
   COMPETITOR_DELETION,
@@ -25,8 +25,8 @@ import {
   YOU_JOINED_ROOM,
   ROOM_TYPE_PARAM,
   START_TYPING_TEST_GAME
-} from './constants';
-import { PlayerGameStatus } from './types/GameStatusType';
+} from '../constants';
+import { PlayerGameStatus } from '../types/GameStatusType';
 import {
   Enviroments,
   JoiningRoomResponse,
@@ -42,7 +42,7 @@ import {
   TypingTestInitGame,
   GAME_IS_ACTIVE_PAYLOAD,
   StartTypingTestGameI
-} from './types/typesIndex';
+} from '../types/typesIndex';
 
 const socketManager: any = {
   initSocket(dispatch: any, history: any, getState: () => RootState) {
