@@ -64,9 +64,14 @@ class SocketManager {
     this.getState = getState;
     this.socket = this.connect();
     this.socket.on(GAME_HAS_STARTED, this.gameHasStarted.bind(this));
+    this.socket.on(
+      COMPETITOR_JOINED_ROOM,
+      this.competitorJoinedRoom.bind(this)
+    );
     this.socket.on(SCORE_BROADCAST, this.scorebroadCast.bind(this));
     this.socket.on(GAME_IS_ACTIVE, this.gameIsActive.bind(this));
     this.socket.on(COMPETITOR_LEFT, this.competitorLeft.bind(this));
+    this.socket.on(YOU_JOINED_ROOM, this.youJoinedRoom.bind(this));
     this.socket.on(
       COMPETITOR_HAS_FINISHED,
       this.competitorHasFinished.bind(this)
