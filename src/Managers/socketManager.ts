@@ -63,6 +63,18 @@ class SocketManager {
     this.history = history;
     this.getState = getState;
     this.socket = this.connect();
+  }
+  connect(): SocketIOClient.Socket {
+    const token = AuthenticationManager.appToken || null;
+    const query = token ? { token } : {};
+    const socket = socketIo.connect(
+      this.url,
+      {
+        query,
+        reconnection: false
+      }
+    );
+    this.socket = socket;
     this.socket.on(GAME_HAS_STARTED, this.gameHasStarted.bind(this));
     this.socket.on(
       COMPETITOR_JOINED_ROOM,
@@ -80,17 +92,6 @@ class SocketManager {
     this.socket.on(COMPETITOR_DELETION, this.competitorDeletion.bind(this));
     this.socket.on(GAME_HAS_TIMEOUT, this.gameTimeout.bind(this));
     this.socket.on(NAVIGATE_RESULT, this.navigateResult.bind(this));
-  }
-  connect(): SocketIOClient.Socket {
-    const token = AuthenticationManager.appToken || null;
-    const query = token ? { token } : {};
-    const socket = socketIo.connect(
-      this.url,
-      {
-        query,
-        reconnection: false
-      }
-    );
     return socket;
   }
   static getServerUrl() {
@@ -243,7 +244,8 @@ class SocketManager {
     );
   }
   reconnect() {
-    this.connect();
+    const socket = this.connect();
+    this.socket = socket;
   }
   emitTyping(typingInput: string, roomType: RoomType) {
     this.socket.emit(PLAYER_TYPING, { typingInput, roomType });
