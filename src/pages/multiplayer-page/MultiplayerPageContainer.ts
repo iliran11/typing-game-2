@@ -6,7 +6,6 @@ const mapStateToProps = (state: RootState, props: any) => {
   const isGameActive = state.multiplayerMapping[props.roomId]
     ? state.multiplayerMapping[props.roomId].isGameActive
     : false;
-  console.log(isGameActive);
   return {
     isGameActive,
     isSocketConnected: state.serverStatus.socketConnected,
