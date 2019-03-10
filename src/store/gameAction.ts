@@ -1,4 +1,4 @@
-import { SocketManager } from '../Managers/socketManager';
+import { SocketManager } from '../middlewares/socketManager';
 import axios from 'axios';
 import {
   ROOM_ID_PARM,

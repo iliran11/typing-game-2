@@ -3,7 +3,7 @@ import ScoreBoardContainer from '../../components/CompetitorList/CometitorListCo
 import CountDown from '../../components/CountDown/CountDown';
 import GameController from '../../components/game-manager/GameController2';
 import { MY_ID_PARAM, ROOM_ID_PARM, ROOM_TYPE_PARAM } from '../../constants';
-import { SocketManager } from '../../Managers/socketManager';
+import { SocketManager } from '../../middlewares/socketManager';
 import { RoomType } from '../../types';
 
 interface Props {

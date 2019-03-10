@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SocketManager } from '../../Managers/socketManager';
+import { SocketManager } from '../../middlewares/socketManager';
 import GameController from '../../components/game-manager/GameController2';
 import { RoomType } from '../../types/typesIndex';
 import { TypingTestTimer } from '../../components/TimerRenderProps/TypingTestTimer';

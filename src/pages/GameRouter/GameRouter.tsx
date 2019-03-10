@@ -9,7 +9,7 @@ import {
   TypingTestPageContainer
 } from '../pagesIndex';
 import { BoxLoader } from '../../components/boxLoader/boxLoader';
-import { SocketManager } from '../../Managers/socketManager';
+import { SocketManager } from '../../middlewares/socketManager';
 import { RoomType } from '../../types';
 
 export interface GameRouterProps {

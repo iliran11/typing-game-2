@@ -1,5 +1,5 @@
 import AuthenticationManager from '../AuthenticationManager';
-import { SocketManager } from '../Managers/socketManager';
+import { SocketManager } from '../middlewares/socketManager';
 import { SET_TOUCH_PLATFORM, SET_WEB_PLATFORM } from '../constants';
 import { RootState, PlaformEnum } from '../types/typesIndex';
 
