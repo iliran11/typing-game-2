@@ -7,7 +7,7 @@ import {
 import {
   RoomType,
   TypingTestInitGame,
-  NavigateToResultI
+  RoomInfo
 } from '../../../../types/typesIndex';
 import { roomLogDb, roomSummaryDb } from '../../mongoIndex';
 import { BaseRoom } from './BaseRoom';
@@ -50,7 +50,7 @@ export class TypingTestRoom extends BaseRoom {
   protected gameTick() {
     super.gameTick();
     if (this.timePassed > TYPING_TEST_DURATION) {
-      const payload: NavigateToResultI = {
+      const payload: RoomInfo = {
         roomId: this.instanceId,
         roomType: RoomType.TYPING_TEST
       };

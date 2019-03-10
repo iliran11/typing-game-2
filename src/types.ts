@@ -245,7 +245,7 @@ export interface MultiplayerRoomActive {
   roomId: string;
 }
 
-export interface NavigateToResultI {
+export interface RoomInfo {
   roomId: string;
   roomType: RoomType;
 }

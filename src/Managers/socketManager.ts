@@ -24,14 +24,15 @@ import {
   TYPING_TEST_SCORE_BROADCAST,
   YOU_JOINED_ROOM,
   ROOM_TYPE_PARAM,
-  START_TYPING_TEST_GAME
+  START_TYPING_TEST_GAME,
+  LEAVE_GAME
 } from '../constants';
 import { PlayerGameStatus } from '../types/GameStatusType';
 import {
   Enviroments,
   JoiningRoomResponse,
   MultiplayerRoomActive,
-  NavigateToResultI,
+  RoomInfo,
   NotificationTypes,
   PlayerJoiningAction,
   PlayerSerialize,
@@ -80,7 +81,10 @@ class SocketManager {
       COMPETITOR_JOINED_ROOM,
       this.competitorJoinedRoom.bind(this)
     );
+    this.socket.on('connect', this.onConnect.bind(this));
+    this.socket.on('disconnect', this.onDisconnect.bind(this));
     this.socket.on(SCORE_BROADCAST, this.scorebroadCast.bind(this));
+    // this.socket.on(GAME_IS_ACTIVE, this.gameIsActive.bind(this));
     this.socket.on(GAME_IS_ACTIVE, this.gameIsActive.bind(this));
     this.socket.on(COMPETITOR_LEFT, this.competitorLeft.bind(this));
     this.socket.on(YOU_JOINED_ROOM, this.youJoinedRoom.bind(this));
@@ -184,6 +188,7 @@ class SocketManager {
     const payload: MultiplayerRoomActive = {
       roomId: data.roomId
     };
+    console.log(this.dispatch);
     this.dispatch({
       type: GAME_IS_ACTIVE,
       payload
@@ -236,7 +241,7 @@ class SocketManager {
       }
     });
   }
-  navigateResult(data: NavigateToResultI) {
+  navigateResult(data: RoomInfo) {
     this.history.push(
       `/results?${ROOM_ID_PARM}=${data.roomId}&${ROOM_TYPE_PARAM}=${
         data.roomType
@@ -263,6 +268,10 @@ class SocketManager {
   emitStartTypingTest(roomId: string) {
     const payload: StartTypingTestGameI = { roomId };
     this.socket.emit(START_TYPING_TEST_GAME, payload);
+  }
+  emitLeaveGame(roomId: string, roomType: RoomType) {
+    const payload: RoomInfo = { roomId, roomType };
+    this.socket.emit(LEAVE_GAME, payload);
   }
   close() {
     this.socket.close();

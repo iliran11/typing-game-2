@@ -14,13 +14,15 @@ import {
   GAME_HAS_FINISHED,
   RESTART_GAME,
   REQUEST_TO_PLAY,
-  START_TYPING_TEST_GAME
+  START_TYPING_TEST_GAME,
+  LEAVE_GAME
 } from '../../../constants';
 import {
   FacebookUserType,
   RoomType,
   PlayerType,
-  StartTypingTestGameI
+  StartTypingTestGameI,
+  RoomInfo
 } from '../../../types/typesIndex';
 import { getSocketAuthentication } from '../utilities';
 import LevelManager from '../classes/LevelManager';
@@ -73,5 +75,8 @@ export default function onConnect(socket: io.Socket): void {
   socket.on(START_TYPING_TEST_GAME, (data: StartTypingTestGameI) => {
     const room = typingTestManager.getRoom(socket);
     room.startGame();
+  });
+  socket.on(LEAVE_GAME, (payload: RoomInfo) => {
+    onDisconnect(socket);
   });
 }

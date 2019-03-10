@@ -3,6 +3,7 @@ import ScoreBoardContainer from '../../components/CompetitorList/CometitorListCo
 import CountDown from '../../components/CountDown/CountDown';
 import GameController from '../../components/game-manager/GameController2';
 import { MY_ID_PARAM, ROOM_ID_PARM, ROOM_TYPE_PARAM } from '../../constants';
+import { SocketManager } from '../../Managers/socketManager';
 import { RoomType } from '../../types';
 
 interface Props {
@@ -24,14 +25,19 @@ class MultiplayerPage extends PureComponent<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      timerActive: false,
+      timerActive: props.isGameActive,
       gameActive: false
     };
     this.onTimerFinish = this.onTimerFinish.bind(this);
     this.onGameFinish = this.onGameFinish.bind(this);
   }
   componentWillUnmount() {
-    console.log('unmount');
+    if (!this.props.history.location.pathname.includes('/results')) {
+      SocketManager.getInstance().emitLeaveGame(
+        this.props.roomId,
+        RoomType.MULTIPLAYER
+      );
+    }
   }
   componentDidUpdate(prevProps: Props) {
     // game has become active on server - turn on the timer!;
@@ -56,7 +62,6 @@ class MultiplayerPage extends PureComponent<Props, State> {
     this.props.onGameFinish(this.props.roomId);
   }
   render() {
-    console.log('render multiple page');
     return (
       <div className="page full-width">
         {this.state.timerActive && (
