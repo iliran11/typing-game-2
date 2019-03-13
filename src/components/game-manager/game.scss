@@ -24,7 +24,7 @@
 }
 #competitor-list {
   flex: none;
-  margin-top: 23px;
+  margin-top: 56px;
 }
 input {
   width: 100%;
@@ -149,11 +149,14 @@ input:focus {
   overflow: hidden;
   position: relative;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 500;
   padding-left: 15px;
   transition: opacity 0.3s;
   padding-top: 5px;
   padding-bottom: 5px;
+  @media (min-width: 992px) {
+    margin-top: 56px;
+  }
 }
 .word {
   display: inline-block;

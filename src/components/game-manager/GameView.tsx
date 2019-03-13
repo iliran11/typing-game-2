@@ -3,7 +3,7 @@ import { Word } from './Word';
 import Marker, { markerProps } from '../Marker';
 import { GameDomManager } from './GameDomManager';
 import ToolTip from '../tooltip';
-import './game.css';
+import './game.scss';
 
 interface GameViewProps {
   words: string[];

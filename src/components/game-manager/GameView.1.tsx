@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { SocketManager } from '../../middlewares/socketManager';
 import LetterUi from '../letterUi';
 import Marker, { markerProps } from '../Marker';
-import './game.css';
+import './game.scss';
 // no updated definitions for this library. that's a way to workaround it.
 const scrollIntoView = require('scroll-into-view');
 
