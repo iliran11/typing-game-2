@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import './css/App.css';
+import './css/App.scss';
 import './css/shadows.css';
 import './css/gradients.css';
 import './css/utilities.scss';

@@ -2,21 +2,22 @@ import React from 'react';
 import './homepage.scss';
 import { RoomType } from '../../types/typesIndex';
 import { ROOM_TYPE_PARAM } from '../../constants';
+import Button from '@material-ui/core/Button';
 import Keyboard from '../../components/keyboard/keyboard';
 const baseSteps = [
   {
     text: 'y',
     keyboard: [0, 5]
   },
-  { text: 't', keyboard: [0, 9] },
-  { text: 'ty', keyboard: [0, 7] },
-  { text: 'typ', keyboard: [0, 3] },
-  { text: 'typi', keyboard: [3, 3] },
-  { text: 'typin', keyboard: [1, 3] },
-  { text: 'typing', keyboard: [0, 3] },
-  { text: 'typing s', keyboard: [0, 8] },
-  { text: 'typing sk', keyboard: [0, 2] },
-  { text: 'typing skil', keyboard: [2, 6] },
+  { text: 't         ', keyboard: [0, 9] },
+  { text: 'ty          ', keyboard: [0, 7] },
+  { text: 'typ         ', keyboard: [0, 3] },
+  { text: 'typi        ', keyboard: [3, 3] },
+  { text: 'typin       ', keyboard: [1, 3] },
+  { text: 'typing      ', keyboard: [0, 3] },
+  { text: 'typing s    ', keyboard: [0, 8] },
+  { text: 'typing sk   ', keyboard: [0, 2] },
+  { text: 'typing skil ', keyboard: [2, 6] },
   { text: 'typing skill', keyboard: [1, 2] },
   { text: 'typing skills', keyboard: [1, 1] }
 ];
@@ -24,9 +25,12 @@ const baseSteps = [
 const BaseTitle = (props: any) => {
   return (
     <p>
-      <span>improve your &nbsp;</span>
+      <span>Improve your</span>
       <span />
-      <span>{props.text}</span>
+      <span>
+        <br />
+        {props.text}
+      </span>
     </p>
   );
 };
@@ -74,6 +78,9 @@ export default class Home extends React.Component<Props, State> {
   navigateToTypingTest() {
     this.props.history.push(`/game?${ROOM_TYPE_PARAM}=${RoomType.TYPING_TEST}`);
   }
+  classes = {
+    root: 'home-page-button'
+  };
   render() {
     const text = 'text';
     const currentStep = baseSteps[this.state.step];
@@ -84,20 +91,22 @@ export default class Home extends React.Component<Props, State> {
           row={currentStep.keyboard[0]}
           letter={currentStep.keyboard[1]}
         />
-        <button
-          className="button-large home-page-buttons"
-          id="typing-test"
-          onClick={this.navigateToGame}
-        >
-          Multiplayer
-        </button>
-        <button
-          id="compete-now"
-          className="button-large home-page-buttons"
-          onClick={this.navigateToTypingTest}
-        >
-          Typing Test
-        </button>
+        <div className="buttons">
+          <Button
+            variant="raised"
+            classes={this.classes}
+            onClick={this.navigateToGame}
+          >
+            Multiplayer
+          </Button>
+          <Button
+            variant="raised"
+            classes={this.classes}
+            onClick={this.navigateToTypingTest}
+          >
+            Typing Test
+          </Button>
+        </div>
       </div>
     );
   }

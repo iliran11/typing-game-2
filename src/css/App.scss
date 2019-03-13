@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+#root {
+  #app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    height: 100%;
+  }
+  #app-toolbar {
+    width: 100%;
+  }
+  .toolbar-default-color {
+    background-color: #fdffff;
+  }
+  #logo-toolbar {
+    width: 120px;
+    margin: auto;
+    transform: translateX(16px);
+  }
+  .conffeti-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+  button {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+  }
+}

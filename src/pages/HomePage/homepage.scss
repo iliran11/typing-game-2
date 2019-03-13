@@ -1,76 +1,111 @@
 @import '../../css/colors.scss';
-
-#home-page {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  .home-page-buttons {
-    max-width: 600px;
-    background-color: #f5f5f5;
+#root {
+  #home-page {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    .home-page-buttons {
+      max-width: 600px;
+      background-color: #f5f5f5;
+      color: $color1;
+    }
+  }
+  #sign-up {
     color: $color1;
   }
-}
-
-#home-page p {
-  font-size: 22px;
-  color: $color1;
-  max-width: 320px;
-  margin-top: 15px;
-  font-weight: 900;
-  margin-bottom: 0px;
-  min-height:66px;
-}
-#keyboard {
-  width: 300px;
-  margin-top: 12px;
-}
-#compete-now {
-  margin-top: 24px;
-}
-#typing-test {
-  margin-top: 20px;
-}
-
-#keyboard .keyboard-row:not(:first-child) {
-  margin-top: 10px;
-}
-.keyboard-row {
-  display: flex;
-  justify-content: center;
-  height: 30px;
-}
-.keyboard-row .keyboard-letter:not(:last-child) {
-  margin-right: 5px;
-}
-.keyboard-letter.highlight-letter {
-  background-color: #4dc74d;
-  color: white;
-}
-.keyboard-letter {
-  flex: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.23921568627451);
-  color: rgba(51, 51, 51, 0.698039215686274);
-  font-size: 20px;
-  line-height: 1;
-}
-#space {
-  flex: 15 1 auto;
-}
-@media (min-width: 992px) {
   #home-page p {
-    font-size: 44px;
-    max-width: initial;
-    margin-top: 60px;
+    font-size: 40px;
+    color: $color1;
+    font-weight: bold;
+    max-width: 320px;
+    margin-top: 28px;
+    margin-bottom: 0px;
+    font-weight: 700;
+    min-height: 120px;
+    line-height: 56px;
   }
   #keyboard {
-    width: 600px;
+    width: 300px;
+    margin-top: 12px;
+  }
+  #compete-now {
+    margin-top: 24px;
+  }
+  #typing-test {
+    margin-top: 20px;
+  }
+
+  #keyboard .keyboard-row:not(:first-child) {
+    margin-top: 10px;
   }
   .keyboard-row {
-    height: 60px;
+    display: flex;
+    justify-content: center;
+    height: 30px;
+  }
+  .keyboard-row .keyboard-letter:not(:last-child) {
+    margin-right: 5px;
+  }
+  .keyboard-letter.highlight-letter {
+    background-color: #4dc74d;
+    color: white;
+  }
+  .keyboard-letter {
+    flex: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.23921568627451);
+    color: rgba(51, 51, 51, 0.698039215686274);
+    font-size: 20px;
+    line-height: 1;
+  }
+  #space {
+    flex: 15 1 auto;
+  }
+
+  .buttons {
+    margin-top: 40px;
+    width: 82%;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-page-button {
+    background-color: $color9;
+    color: $color1;
+    margin-top: 24px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 16px 16px;
+    &:first-child {
+      margin-top: 0px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #root {
+    width: auto;
+
+    #home-page {
+      width: auto;
+      p {
+        font-size: 44px;
+        max-width: initial;
+        margin-top: 60px;
+      }
+    }
+    #keyboard {
+      width: 600px;
+    }
+    .keyboard-row {
+      height: 60px;
+    }
+    .buttons {
+      width: 100%;
+    }
   }
 }
