@@ -22,7 +22,7 @@ export const levelsMap: LevelsMap = {
     totalWordsTyped: 0,
     totalCharsTyped: 0,
     text:
-      'I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short.'
+      'capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on'
   },
   level1: {
     level: 1,
@@ -31,7 +31,7 @@ export const levelsMap: LevelsMap = {
     totalWordsTyped: 2,
     totalCharsTyped: 2,
     text:
-      'I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short.'
+      'capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on'
   },
   level2: {
     level: 10,
@@ -40,7 +40,7 @@ export const levelsMap: LevelsMap = {
     totalWordsTyped: 10,
     totalCharsTyped: 20,
     text:
-      'I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short.'
+      'capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on'
   },
   level3: {
     level: 2,
@@ -49,7 +49,7 @@ export const levelsMap: LevelsMap = {
     totalWordsTyped: 50,
     totalCharsTyped: 100,
     text:
-      'I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short.'
+      'capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on'
   },
   level4: {
     level: 3,
@@ -58,7 +58,7 @@ export const levelsMap: LevelsMap = {
     totalWordsTyped: 100,
     totalCharsTyped: 150,
     text:
-      'I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short.'
+      'capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on'
   },
   level99: {
     level: 99,
