@@ -1,5 +1,5 @@
 import React from 'react';
-import './homepage.scss';
+import 'src/css/pages/homepage.scss';
 import { RoomType } from '../../types/typesIndex';
 import { ROOM_TYPE_PARAM } from '../../constants';
 import Button from '@material-ui/core/Button';

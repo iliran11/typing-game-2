@@ -1,10 +1,10 @@
 import * as React from 'react';
-import './profilePage.scss';
+import 'src/css/pages/profile-page.scss';
 import ProfileHeader from './ProfileHeaderContainer';
 import ProgressBar from './ProgressBarContainer';
 import ProfileTabs from './ProfileTabs';
 import { ProfileEmptyState } from './ProfileEmptyState';
-import { BoxLoader } from '../../components/boxLoader/boxLoader';
+import { BoxLoader } from 'src/components/boxLoader/boxLoader';
 export interface ProfilePageProps {
   profileMainLoad: any;
   isDataPopulated: boolean;

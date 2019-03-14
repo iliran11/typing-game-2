@@ -1,5 +1,5 @@
 import React from 'react';
-import './spinner.css';
+import 'src/css/components/spinner.scss';
 
 // more spinners at : https://github.com/jlong/css-spinners/blob/master/css/spinner/spinner.css
 

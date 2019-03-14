@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
-import './loginPage.scss';
-import AuthenticationManager from '../../AuthenticationManager';
-import { LoginStatus } from '../../types';
-import { BoxLoader } from '../../components/boxLoader/boxLoader';
+import 'src/css/pages/login-page.scss';
+import AuthenticationManager from 'src/AuthenticationManager';
+import { LoginStatus } from 'src/types';
+import { BoxLoader } from 'src/components/boxLoader/boxLoader';
 
 export interface LoginPageProps {
   history: any;

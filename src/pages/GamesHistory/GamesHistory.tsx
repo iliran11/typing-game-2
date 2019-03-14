@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import GamesHistoryItem from './GamesHistoryItem';
-import { GameSummryDBI } from '../../types/schemasTypes';
-import '../../css/game-history.scss';
+import GamesHistoryItem from 'src/pages/GamesHistory/GamesHistoryItem.tsx';
+import { GameSummryDBI } from 'src/types/schemasTypes';
+import 'src/css/pages/game-history.scss';
 
 interface Props {
   isFetched: boolean;

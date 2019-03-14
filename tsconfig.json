@@ -15,6 +15,11 @@
     "jsx": "preserve",
     "suppressImplicitAnyIndexErrors": true
   },
-  "include": ["src"],
-  "exclude": ["src/server-ts/**"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/server-ts/**"
+  ],
+  "extends": "./tsconfig.paths.json"
 }

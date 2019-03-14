@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
 #root {
+  .toolbar-icons {
+    height: 25px;
+    width: 25px;
+  }
   #app-container {
     display: flex;
     flex-direction: column;
@@ -17,11 +22,6 @@
     width: 120px;
     margin: auto;
     transform: translateX(16px);
-  }
-  .conffeti-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
   }
   button {
     font-family: 'Roboto', sans-serif;

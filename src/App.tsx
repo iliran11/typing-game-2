@@ -1,12 +1,8 @@
 import React, { Fragment } from 'react';
-import './css/App.scss';
-import './css/shadows.css';
-import './css/gradients.css';
-import './css/utilities.scss';
-import './css/results.scss';
+import 'src/css/main.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import AppToolbar from './components/AppToolBar/AppToolBarContainer';
-import GlobalBlockingAlerts from './components/BlockingAlert/GlobalBlockingAlertsContainer';
+import AppToolbar from 'src/components/AppToolBar/AppToolBarContainer';
+import GlobalBlockingAlerts from 'src/components/BlockingAlert/GlobalBlockingAlertsContainer';
 import {
   GameRouterContainer,
   MyProfilePageContainer,
@@ -16,7 +12,7 @@ import {
   AchievementProgressPageContainer,
   RenderlessInitiatorContainer,
   GenericResultsContainer
-} from './pages/pagesIndex';
+} from 'src/pages/pagesIndex';
 
 class App extends React.Component {
   constructor(props: any) {

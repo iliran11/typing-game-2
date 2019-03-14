@@ -4,7 +4,7 @@ import GameController from '../../components/game-manager/GameController2';
 import { RoomType } from '../../types/typesIndex';
 import { TypingTestTimer } from '../../components/TimerRenderProps/TypingTestTimer';
 import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
-import '../../css/typing-test.scss';
+import 'src/css/pages/typing-test.scss';
 import {
   ROOM_ID_PARM,
   ROOM_TYPE_PARAM,

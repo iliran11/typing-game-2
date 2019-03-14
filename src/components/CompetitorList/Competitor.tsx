@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './competitor.css';
+import 'src/css/components/competitor.scss';
 import { EMPTY_COMPETITOR_SLOT, MAX_WPM_GAUGE } from '../../constants';
 import Spinner from '../spinner/spinner';
 import CircularProgress from '../CircularProgress';

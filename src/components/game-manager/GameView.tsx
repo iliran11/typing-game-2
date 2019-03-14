@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { Word } from './Word';
-import Marker, { markerProps } from '../Marker';
+import Marker, { markerProps } from 'src/components/Marker';
 import { GameDomManager } from './GameDomManager';
-import ToolTip from '../tooltip';
-import './game.scss';
+import ToolTip from 'src/components/tooltip';
+import 'src/css/components/game-view.scss';
 
 interface GameViewProps {
   words: string[];

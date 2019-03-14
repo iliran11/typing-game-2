@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './box-loader.scss';
+import 'src/css/components/box-loader.scss';
 
 export interface BoxLoaderProps {
   message: string;

@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { Title } from '../../components/Title/Title';
-import { PlayerGameStatus } from '../../types/typesIndex';
-import { TypingTestScoreboard } from '../../components/TypingTestScoreBoard/TypingTestScoreboard';
-import { getTypingTestScoreboardData } from '../../utilities';
-import Button from '@material-ui/core/Button';
+import { Title } from 'src/components/Title/Title';
+import { PlayerGameStatus } from 'src/types/typesIndex';
+import { TypingTestScoreboard } from 'src/components/TypingTestScoreBoard/TypingTestScoreboard';
+import { getTypingTestScoreboardData } from 'src/utilities';
+import 'src/css/pages/results-page.scss'
 
 export interface TypingTestResultPageProps {
   roomId: string;

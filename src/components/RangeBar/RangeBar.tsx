@@ -1,7 +1,8 @@
 import * as React from 'react';
-import './RangeBar.scss';
+import 'src/css/components/range-bar.scss';
+
 import { Arrow } from './Arrow';
-import checkedIcon from '../../assets/checked.svg';
+import checkedIcon from 'src/assets/checked.svg';
 
 export interface RangeBarProps {
   initialValue: number;
