@@ -1,5 +1,12 @@
 import ServerManager from './models/ServerManager';
 const image2base64 = require('image-to-base64');
+import { PlayerType } from '../../types/typesIndex';
+import {
+  HumanPlayer,
+  LinearBotPlayer,
+  BasePlayersOptions,
+  HumanPlayerOptions
+} from './models/Player/players-index';
 
 export function getServer() {
   return ServerManager.getInstance().serverObject;
@@ -24,4 +31,22 @@ export function getBase64FacebookPic(url: string) {
         throw error;
       });
   });
+}
+
+export function PlayerFactory(
+  playerType: PlayerType.bot,
+  options: BasePlayersOptions
+): LinearBotPlayer;
+export function PlayerFactory(
+  playerType: PlayerType.human,
+  options: HumanPlayerOptions
+);
+export function PlayerFactory(playerType: PlayerType, options) {
+  if (playerType === PlayerType.human) {
+    return new HumanPlayer(options);
+  }
+  if (playerType === PlayerType.bot) {
+    return new LinearBotPlayer(options);
+  }
+  throw new Error('unknown player type!');
 }

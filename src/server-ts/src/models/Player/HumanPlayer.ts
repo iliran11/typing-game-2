@@ -11,13 +11,11 @@ export interface HumanPlayerOptions extends BasePlayersOptions {
 }
 
 export class HumanPlayer extends BasePlayer {
-  isAuthenticated: boolean;
   userData?: FacebookUserType;
   identifier: io.Socket;
   constructor(options: HumanPlayerOptions) {
     super(options);
     this.userData = options.userData;
-    this.isAuthenticated = Boolean(this.userData);
   }
 
   get playerType(): PlayerType {
@@ -29,6 +27,9 @@ export class HumanPlayer extends BasePlayer {
     }
     return super.avatar;
   }
+  get isAuthenticated() {
+    return Boolean(this.userData);
+  }
   get playerId(): string {
     if (this.userData) {
       return this.userData.id;
@@ -37,5 +38,8 @@ export class HumanPlayer extends BasePlayer {
   }
   get name() {
     return `${this.playerType} ${BasePlayer.playerCounter}`;
+  }
+  getSocket(): io.Socket {
+    return this.identifier;
   }
 }

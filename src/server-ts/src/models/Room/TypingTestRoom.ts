@@ -10,6 +10,7 @@ import {
   RoomInfo
 } from '../../../../types/typesIndex';
 import { roomLogDb, roomSummaryDb } from '../../mongoIndex';
+import { HumanPlayer } from '../Player/players-index';
 import { BaseRoom } from './BaseRoom';
 import { emitToRoom } from '../../utilities';
 import { typingTestManager } from '../TypingTestManager';
@@ -20,8 +21,13 @@ export class TypingTestRoom extends BaseRoom {
     super(RoomType.TYPING_TEST);
     super.enableTimeout = false;
   }
-  get player() {
-    return this.playersArray[0];
+  get player(): HumanPlayer {
+    const player = this.playersArray[0];
+    if (player instanceof HumanPlayer) {
+      return player;
+    } else {
+      throw new Error('non-human player in typing test. must be a mistake');
+    }
   }
   get socket() {
     return this.player.getSocket();

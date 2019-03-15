@@ -35,6 +35,7 @@ export abstract class BasePlayer {
       this.game = new Game(99, this);
     }
   }
+  public abstract get isAuthenticated(): boolean;
   abstract get playerType(): PlayerType;
   get avatar(): PlayerAvatar {
     return { picture: this.anonymousAvatar, isAnonymous: true };
@@ -61,5 +62,11 @@ export abstract class BasePlayer {
   }
   get playerId() {
     return `${BasePlayer.playerCounter}`;
+  }
+  get roomId() {
+    return this.room.instanceId;
+  }
+  get roomType() {
+    return this.room.roomType;
   }
 }

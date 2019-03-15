@@ -7,11 +7,14 @@ import {
 } from '../../../../types/typesIndex';
 import { roomLogDb, roomSummaryDb, userGameHistoryDb } from '../../mongoIndex';
 import { emitToRoom } from '../../utilities';
-import BotPlayer from '../BotPlayer';
+import {
+  HumanPlayer,
+  BasePlayer,
+  LinearBotPlayer
+} from '../Player/players-index';
 import { Countdown } from '../Countdown';
 import LevelManager from '../LevelManager';
 import { multiplayerRoomManager } from '../MultiplayerRoomManager';
-import Player from '../Player';
 import PlayerManager from '../PlayerManager';
 import { BaseRoom } from './BaseRoom';
 import { BotScheduler } from './BotScheduler';
@@ -27,7 +30,7 @@ export default class MultiplayerRoom extends BaseRoom {
     this.botScheduler = new BotScheduler(this.addBot);
     this.botScheduler.startCountdownBot();
   }
-  addPlayer(player: Player): void {
+  addPlayer(player: BasePlayer): void {
     super.addPlayer(player);
     player.setAvatar(this.randomAvatarIndex);
     // bot should wait X time after a human is joined. so if a human has joined - start counting again.
@@ -38,31 +41,37 @@ export default class MultiplayerRoom extends BaseRoom {
       this.botScheduler.restartCountdownBot();
     }
   }
-  deletePlayer(player: Player): void {}
-  async onPlayerHasFinished(finishedPlayer: Player) {
+  deletePlayer(player: BasePlayer): void {}
+  async onPlayerHasFinished(finishedPlayer: BasePlayer) {
     super.playerHasFinished(finishedPlayer);
     const gameResultRecord = super.getPlayerGameStatus(finishedPlayer);
-    if (finishedPlayer.isAuthenticated) {
-      const stats = await LevelManager.getPlayerStats(finishedPlayer.playerId);
-      const nextStats = LevelManager.calculateNextStats(
-        stats,
-        gameResultRecord
-      );
-      const playerProgress: AchievementsProgressI = {
-        prevAchievement: stats,
-        nextachievement: nextStats,
-        roomId: this.instanceId,
-        timestamp: Date.now()
-      };
-      finishedPlayer.getSocket().emit(NAVIGATE_RESULT, playerProgress);
-      // userPorgressDb.createResult(playerProgress);
-      userGameHistoryDb.save(gameResultRecord);
-      await LevelManager.processNewResult(
-        finishedPlayer.playerId,
-        finishedPlayer.getSocket()
-      );
-    } else if (finishedPlayer.playerType === PlayerType.human) {
-      finishedPlayer.getSocket().emit(NAVIGATE_RESULT);
+    if (finishedPlayer instanceof HumanPlayer) {
+      if (finishedPlayer.isAuthenticated) {
+        const stats = await LevelManager.getPlayerStats(
+          finishedPlayer.playerId
+        );
+        const nextStats = LevelManager.calculateNextStats(
+          stats,
+          gameResultRecord
+        );
+        const playerProgress: AchievementsProgressI = {
+          prevAchievement: stats,
+          nextachievement: nextStats,
+          roomId: this.instanceId,
+          timestamp: Date.now()
+        };
+        if (finishedPlayer instanceof HumanPlayer) {
+          finishedPlayer.getSocket().emit(NAVIGATE_RESULT, playerProgress);
+        }
+        // userPorgressDb.createResult(playerProgress);
+        userGameHistoryDb.save(gameResultRecord);
+        await LevelManager.processNewResult(
+          finishedPlayer.playerId,
+          finishedPlayer.getSocket()
+        );
+      } else if (finishedPlayer.playerType === PlayerType.human) {
+        finishedPlayer.getSocket().emit(NAVIGATE_RESULT);
+      }
     }
   }
   protected gameTick(): void {
@@ -79,15 +88,14 @@ export default class MultiplayerRoom extends BaseRoom {
     );
   }
   addBot() {
-    const player = new BotPlayer({
+    const player = new LinearBotPlayer({
       level: 99,
-      roomType: this.roomType,
       // @ts-ignore
       room: this
     });
     PlayerManager.getInstance().addPlayer(player);
     multiplayerRoomManager.allocateToRoom(
-      player.getSocket(),
+      player.identifier,
       undefined,
       1,
       this.roomType,

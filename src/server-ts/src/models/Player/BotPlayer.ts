@@ -19,6 +19,9 @@ export abstract class BotPlayer extends BasePlayer {
   // gets the current time(X), and returns the current WPM(y)
   // basically represent the equation of the wpm;
   abstract calculateCurrentWpm(timeFraction: number): number;
+  get isAuthenticated() {
+    return false;
+  }
   protected get timeFraction(): number {
     return this.timeElapsed / this.timeToTarget;
   }

@@ -1,7 +1,7 @@
 import LetterData from '../../../store/classes/lettterData';
 const uuid = require('uuid/v4');
 import LevelManager from './LevelManager';
-import BasePlayer from './Player/BasePlayer';
+import { BasePlayer } from './Player/BasePlayer';
 
 export default class Game {
   private index: number;

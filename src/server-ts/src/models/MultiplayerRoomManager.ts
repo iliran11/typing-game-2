@@ -1,8 +1,16 @@
 import { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } from '../../../constants';
-import { FacebookUserType, JoiningRoomResponse, PlayerType, RoomType } from '../../../types/typesIndex';
+import {
+  FacebookUserType,
+  JoiningRoomResponse,
+  PlayerType,
+  RoomType
+} from '../../../types/typesIndex';
 import { emitToRoom } from '../utilities';
-import BotPlayer from './BotPlayer';
-import Player from './Player';
+import {
+  LinearBotPlayer,
+  HumanPlayer,
+  BasePlayer
+} from './Player/players-index';
 import PlayerManager from './PlayerManager';
 import MultiplayerRoom from './Room/MultiplayerRoom';
 
@@ -31,33 +39,39 @@ export default class MultiplayerRoomManager {
       roomType,
       room
     };
-    let player: BotPlayer | Player;
-    if (playerType === PlayerType.human) {
-      player = new Player(playerOpts);
-    } else {
-      player = new BotPlayer(playerOpts);
-      player.setRoomId(room.instanceId);
-    }
-    this.playerManager.addPlayer(player);
-    if (playerType === PlayerType.human) {
-      socket.join(room.roomName);
-      room.addPlayer(player);
-      const response: JoiningRoomResponse = {
-        roomId: room.instanceId,
-        playersGameStatus: room.roomPlayersScores,
-        words: player.playerGame.words,
-        roomSize: room.maxPlayersInRoom,
-        isGameActive: room.isGameActive,
-        myId: player.playerId
-      };
 
-      socket.emit(YOU_JOINED_ROOM, response);
-      const playerGameStatus = room.getPlayerGameStatus(player);
-      socket.to(room.roomName).emit(COMPETITOR_JOINED_ROOM, playerGameStatus);
-    } else {
-      room.addPlayer(player);
-      const playerGameStatus = room.getPlayerGameStatus(player);
-      emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
+    switch (playerType) {
+      case PlayerType.human:
+        {
+          const player = new HumanPlayer(playerOpts);
+          this.playerManager.addPlayer(player);
+          socket.join(room.roomName);
+          room.addPlayer(player);
+          const response: JoiningRoomResponse = {
+            roomId: room.instanceId,
+            playersGameStatus: room.roomPlayersScores,
+            words: player.playerGame.words,
+            roomSize: room.maxPlayersInRoom,
+            isGameActive: room.isGameActive,
+            myId: player.playerId
+          };
+          socket.emit(YOU_JOINED_ROOM, response);
+          const playerGameStatus = room.getPlayerGameStatus(player);
+          socket
+            .to(room.roomName)
+            .emit(COMPETITOR_JOINED_ROOM, playerGameStatus);
+        }
+        break;
+      case PlayerType.bot: {
+        const player = new LinearBotPlayer(playerOpts);
+        this.playerManager.addPlayer(player);
+        room.addPlayer(player);
+        const playerGameStatus = room.getPlayerGameStatus(player);
+        emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
+      }
+      default:
+        throw new Error(`${playerType} is not handled!`);
+        break;
     }
   }
   private getAllocatedRoom(): MultiplayerRoom {
@@ -82,7 +96,7 @@ export default class MultiplayerRoomManager {
     return room;
   }
 
-  removePlayer(player: Player): MultiplayerRoom | null {
+  removePlayer(player: BasePlayer): MultiplayerRoom | null {
     return null;
   }
   getRoomById(roomId: string): MultiplayerRoom {

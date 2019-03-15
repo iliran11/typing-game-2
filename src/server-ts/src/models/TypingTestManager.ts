@@ -4,7 +4,7 @@ import {
   PlayerType,
   RoomType
 } from '../../../types/typesIndex';
-import Player from '../models/Player';
+import { HumanPlayer } from './Player/players-index';
 import { TypingTestRoom } from './Room/TypingTestRoom';
 
 const uuid = require('uuid/v4');
@@ -22,11 +22,10 @@ export class TypingTestManager {
     playerType: PlayerType
   ) {
     const room = new TypingTestRoom();
-    const player = new Player({
+    const player = new HumanPlayer({
       socket,
       userData,
       level,
-      roomType,
       room
     });
     room.addPlayer(player);

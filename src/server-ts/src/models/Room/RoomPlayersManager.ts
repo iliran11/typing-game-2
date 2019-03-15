@@ -1,18 +1,17 @@
-import Player from '../Player';
-import BotPlayer from '../BotPlayer';
+import { BasePlayer } from '../Player/players-index';
 import { PlayerType } from '../../../../types';
 
 export class RoomPlayersManager {
-  public playersMap: Map<string, Player | BotPlayer> = new Map();
+  public playersMap: Map<string, BasePlayer> = new Map();
   constructor() {}
-  addPlayer(player: Player) {
+  addPlayer(player: BasePlayer) {
     this.playersMap.set(player.playerId, player);
   }
-  removePlayer(player: Player) {
+  removePlayer(player: BasePlayer) {
     this.playersMap.delete(player.playerId);
   }
   get playersArray() {
-    const playersArray: (Player | BotPlayer)[] = [];
+    const playersArray: (BasePlayer)[] = [];
     this.playersMap.forEach(player => {
       playersArray.push(player);
     });
@@ -34,7 +33,7 @@ export class RoomPlayersManager {
     });
     return sortedPlayersArray;
   }
-  playerRank(player: Player) {
+  playerRank(player: BasePlayer) {
     const rank = this.sortedPlayersArray.findIndex(currentPlayer => {
       return player.playerId === currentPlayer.playerId;
     });

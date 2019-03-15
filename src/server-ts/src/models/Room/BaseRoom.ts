@@ -12,7 +12,7 @@ import {
 } from '../../../../types/typesIndex';
 import { logger, RoomPersonChange } from '../../middlewares/Logger';
 import { emitToRoom } from '../../utilities';
-import BotPlayer from '../BotPlayer';
+import { BotPlayer } from '../Player/players-index';
 import { BasePlayer } from '../Player/BasePlayer';
 import ServerManager from '../ServerManager';
 import { RoomPlayersManager } from './RoomPlayersManager';
@@ -76,13 +76,11 @@ class BaseRoom {
     this.server.in(this.roomName).emit(SCORE_BROADCAST, this.roomPlayersScores);
   }
   public get roomPlayersScores(): PlayerGameStatus[] {
-    return this.roomPlayersManager.playersArray.map(
-      (player: Player | BotPlayer) => {
-        return this.getPlayerGameStatus(player);
-      }
-    );
+    return this.roomPlayersManager.playersArray.map((player: BasePlayer) => {
+      return this.getPlayerGameStatus(player);
+    });
   }
-  getPlayerGameStatus(player: Player | BotPlayer): PlayerGameStatus {
+  getPlayerGameStatus(player: BasePlayer): PlayerGameStatus {
     const game = player.playerGame;
     const rank = this.roomPlayersManager.playerRank(player);
     if (this.finalScores[player.playerId]) {
@@ -106,7 +104,7 @@ class BaseRoom {
       roomId: this.instanceId,
       isAuthenticated: player.isAuthenticated,
       roomType: this.roomType,
-      name: player.getName
+      name: player.name
     };
   }
   protected get server() {
@@ -128,7 +126,7 @@ class BaseRoom {
     this.finalScores[player.playerId] = this.getPlayerGameStatus(player);
     this.finishedPlayersCount++;
   }
-  addPlayer(player: Player) {
+  addPlayer(player: BasePlayer) {
     this.roomPlayersManager.addPlayer(player);
     logger.logRoomPersonChange(
       this.instanceId,
@@ -137,7 +135,7 @@ class BaseRoom {
     );
   }
   startPlayerGames() {
-    this.roomPlayersManager.playersMap.forEach((player: Player) => {
+    this.roomPlayersManager.playersMap.forEach((player: BasePlayer) => {
       if (player instanceof BotPlayer) {
         player.onGameStart();
       }
@@ -153,7 +151,7 @@ class BaseRoom {
   setGameIsActive() {
     this.isGameActive = true;
   }
-  removePlayer(player: Player) {
+  removePlayer(player: BasePlayer) {
     this.roomPlayersManager.removePlayer(player);
     this.server.in(this.roomName).emit(COMPETITOR_DELETION, {
       playerId: player.playerId,
