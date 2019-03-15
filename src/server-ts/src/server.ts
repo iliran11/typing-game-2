@@ -37,3 +37,5 @@ app.get('/user-achievement', UserAchievementController);
 app.get('/games-highlights', HighlightsController);
 app.post('/change-level', ChangeUserLevel);
 app.get('/version', VersionController);
+
+const serverManager = ServerManager.getInstance(server);

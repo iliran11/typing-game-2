@@ -28,7 +28,7 @@ export abstract class BotPlayer extends BasePlayer {
   protected get timeElapsed(): number {
     return this.room.timeElapsed;
   }
-  private type() {
+  private type = () => {
     const currentTargetWpm = this.calculateCurrentWpm(this.timeFraction);
     const timeToNextLetter = this.timeToNextLetter(currentTargetWpm);
     // const timeToNextLetter = 400
@@ -46,7 +46,7 @@ export abstract class BotPlayer extends BasePlayer {
       // console.log(`${this.getName} is Done typing in room-${this.getRoomId}!`);
       onGameFinished(this.name);
     }
-  }
+  };
   private timeToNextLetter(wpmTarget) {
     // wpm assume 5 chars per word.
     const cpmTarget = wpmTarget * 5;
@@ -56,14 +56,14 @@ export abstract class BotPlayer extends BasePlayer {
     return 1000 * lps;
   }
   // holding the typing operation until the delay is over.
-  private typingScheduler() {
+  private typingScheduler = () => {
     if (this.timeElapsed > 0) {
       this.type();
       return;
     }
     // the countdown is not finished - check again.
     setTimeout(this.typingScheduler, 500);
-  }
+  };
   public onGameStart() {
     this.typingScheduler();
   }

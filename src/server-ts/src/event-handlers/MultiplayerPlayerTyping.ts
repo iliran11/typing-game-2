@@ -2,7 +2,7 @@ import * as io from 'socket.io';
 import RoomManager from '../models/MultiplayerRoomManager';
 import PlayerManager from '../models/PlayerManager';
 import { typingDb } from '../mongoIndex';
-import { HumanPlayer } from 'src/models/Player/HumanPlayer';
+import { HumanPlayer } from '../models/Player/players-index';
 const playerManager = PlayerManager.getInstance();
 
 export function MultiplayerPlayerTyping(socket: io.Socket, data) {
@@ -25,8 +25,6 @@ export function MultiplayerPlayerTyping(socket: io.Socket, data) {
       });
     }
   } else {
-    throw new Error(
-      'non-human got into a function that accepts sockets. probably a bot.s'
-    );
+    // do nothing special for others than human.
   }
 }

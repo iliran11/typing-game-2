@@ -68,6 +68,7 @@ export default class MultiplayerRoomManager {
         room.addPlayer(player);
         const playerGameStatus = room.getPlayerGameStatus(player);
         emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
+        break;
       }
       default:
         throw new Error(`${playerType} is not handled!`);

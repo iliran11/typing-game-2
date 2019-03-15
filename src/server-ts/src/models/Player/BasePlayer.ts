@@ -27,13 +27,13 @@ export abstract class BasePlayer {
   constructor(playerConstructorOptions: BasePlayersOptions) {
     const { socket, level, room } = playerConstructorOptions;
     this.room = room;
-    BasePlayer.playerCounter++;
     const roomType = this.room.roomType;
     if (roomType === RoomType.MULTIPLAYER) {
       this.game = new Game(1, this);
     } else {
       this.game = new Game(99, this);
     }
+    BasePlayer.playerCounter++;
   }
   public abstract get isAuthenticated(): boolean;
   abstract get playerType(): PlayerType;
