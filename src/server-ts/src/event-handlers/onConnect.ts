@@ -1,31 +1,31 @@
 import * as io from 'socket.io';
-import RoomManager from '../classes/MultiplayerRoomManager';
-import { typingTestManager } from '../classes/TypingTestManager';
-import PlayerManager from '../classes/PlayerManager';
-import Player from '../classes/Player';
-import onDisconnect from './onDisconnect';
-import { multiplayerRoomManager } from '../classes/MultiplayerRoomManager';
-import playerTyping from './playerTyping';
-import onGameFinished from './onGameFinished';
-import onGameRestart from './onGameRestart';
 import {
-  PLAYER_TYPING,
   CONNECT_SERVER_SUCCESS,
   GAME_HAS_FINISHED,
-  RESTART_GAME,
+  LEAVE_GAME,
+  PLAYER_TYPING,
   REQUEST_TO_PLAY,
-  START_TYPING_TEST_GAME,
-  LEAVE_GAME
+  RESTART_GAME,
+  START_TYPING_TEST_GAME
 } from '../../../constants';
 import {
   FacebookUserType,
-  RoomType,
   PlayerType,
-  StartTypingTestGameI,
-  RoomInfo
+  RoomInfo,
+  RoomType,
+  StartTypingTestGameI
 } from '../../../types/typesIndex';
+import LevelManager from '../models/LevelManager';
+import RoomManager, {
+  multiplayerRoomManager
+} from '../models/MultiplayerRoomManager';
+import PlayerManager from '../models/PlayerManager';
+import { typingTestManager } from '../models/TypingTestManager';
 import { getSocketAuthentication } from '../utilities';
-import LevelManager from '../classes/LevelManager';
+import onDisconnect from './onDisconnect';
+import onGameFinished from './onGameFinished';
+import onGameRestart from './onGameRestart';
+import playerTyping from './playerTyping';
 const get = require('lodash.get');
 
 const roomManager = RoomManager.getInstance();

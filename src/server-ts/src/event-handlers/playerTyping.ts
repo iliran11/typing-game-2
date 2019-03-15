@@ -1,11 +1,9 @@
 import * as io from 'socket.io';
-import PlayerManager from '../classes/PlayerManager';
-import { typingDb } from '../mongoIndex';
-import RoomManager from '../classes/MultiplayerRoomManager';
 import { RoomType } from '../../../types';
-import { typingTestManager } from '../classes/TypingTestManager';
-const playerManager = PlayerManager.getInstance();
+import PlayerManager from '../models/PlayerManager';
+import { typingTestManager } from '../models/TypingTestManager';
 import { MultiplayerPlayerTyping } from './MultiplayerPlayerTyping';
+const playerManager = PlayerManager.getInstance();
 
 export default function playerTyping(socket: io.Socket, data) {
   if (data.roomType === RoomType.MULTIPLAYER) {

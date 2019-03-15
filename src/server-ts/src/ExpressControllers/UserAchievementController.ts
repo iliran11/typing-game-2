@@ -1,9 +1,7 @@
-import LevelManager from '../classes/LevelManager';
 import { PLAYER_ID_PARAM } from '../../../constants';
 import { UserAchievementsI } from '../../../types/AchievementsTypes';
-import { levelsMap } from '../classes/LevelManager';
+import LevelManager, { levelsMap } from '../models/LevelManager';
 import { RankingsApp } from '../middlewares/RankingManager';
-import { promises } from 'fs';
 
 export default function(req, res) {
   const levelManager = LevelManager.getInstance();

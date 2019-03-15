@@ -1,9 +1,7 @@
 import * as io from 'socket.io';
-import PlayerManager from '../classes/PlayerManager';
+import RoomManager from '../models/MultiplayerRoomManager';
+import PlayerManager from '../models/PlayerManager';
 import { typingDb } from '../mongoIndex';
-import RoomManager from '../classes/MultiplayerRoomManager';
-import { RoomType } from '../../../types';
-import { typingTestManager } from '../classes/TypingTestManager';
 const playerManager = PlayerManager.getInstance();
 
 export function MultiplayerPlayerTyping(socket: io.Socket, data) {

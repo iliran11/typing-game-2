@@ -1,4 +1,4 @@
-import ServerManager from './classes/ServerManager';
+import ServerManager from './models/ServerManager';
 import ChangeUserLevel from './ExpressControllers/ChangeUserLevelController';
 import GamesHistoryController from './ExpressControllers/gameReplayController';
 import gamesHistoryController from './ExpressControllers/gamesHistoryController';

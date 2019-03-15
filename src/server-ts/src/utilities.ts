@@ -1,11 +1,10 @@
-import ServerManager from './classes/ServerManager';
+import ServerManager from './models/ServerManager';
 const image2base64 = require('image-to-base64');
 
 export function getServer() {
   return ServerManager.getInstance().serverObject;
 }
 export function emitToRoom(roomName, eventName, data?) {
-  
   getServer()
     .in(roomName)
     .emit(eventName, data);

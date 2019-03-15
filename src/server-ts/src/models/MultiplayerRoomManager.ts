@@ -1,20 +1,10 @@
-import MultiplayerRoom from './Room/MultiplayerRoom';
-import * as socketIo from 'socket.io';
-import Player from './Player';
-import {
-  MAX_PLAYERS_PER_ROOM,
-  YOU_JOINED_ROOM,
-  COMPETITOR_JOINED_ROOM
-} from '../../../constants';
-import {
-  RoomType,
-  PlayerType,
-  JoiningRoomResponse,
-  FacebookUserType
-} from '../../../types/typesIndex';
-import PlayerManager from './PlayerManager';
+import { COMPETITOR_JOINED_ROOM, YOU_JOINED_ROOM } from '../../../constants';
+import { FacebookUserType, JoiningRoomResponse, PlayerType, RoomType } from '../../../types/typesIndex';
 import { emitToRoom } from '../utilities';
 import BotPlayer from './BotPlayer';
+import Player from './Player';
+import PlayerManager from './PlayerManager';
+import MultiplayerRoom from './Room/MultiplayerRoom';
 
 export default class MultiplayerRoomManager {
   private static instance: MultiplayerRoomManager;

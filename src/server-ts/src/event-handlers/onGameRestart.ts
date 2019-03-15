@@ -1,6 +1,3 @@
-import PlayerManager from '../classes/PlayerManager';
-import RoomManager from '../classes/MultiplayerRoomManager';
-import { RoomType } from '../../../types';
 import * as io from 'socket.io';
 
 export default function onGameFinished(socket: io.Socket) {

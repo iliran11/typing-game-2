@@ -1,8 +1,4 @@
 import * as io from 'socket.io';
-import PlayerManager from '../classes/PlayerManager';
-import RoomManager from '../classes/MultiplayerRoomManager';
-import { COMPETITOR_HAS_FINISHED } from '../../../constants';
-import { getServer } from '../utilities';
 export default function onGameFinished(socket: io.Socket) {
   // const playerManager = PlayerManager.getInstance();
   // const roomManager = RoomManager.getInstance();

@@ -1,6 +1,5 @@
 import { ChangeLevelPayload } from '../../../types';
-import LevelManager from '../classes/LevelManager';
-import { resolve } from 'dns';
+import LevelManager from '../models/LevelManager';
 
 export default function ChangeUserLevel(req, res) {
   const levelManager = LevelManager.getInstance();

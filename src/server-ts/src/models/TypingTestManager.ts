@@ -1,11 +1,11 @@
 import * as io from 'socket.io';
-import Player from '../classes/Player';
-import { TypingTestRoom } from './Room/TypingTestRoom';
 import {
   FacebookUserType,
-  RoomType,
-  PlayerType
+  PlayerType,
+  RoomType
 } from '../../../types/typesIndex';
+import Player from '../models/Player';
+import { TypingTestRoom } from './Room/TypingTestRoom';
 
 const uuid = require('uuid/v4');
 export class TypingTestManager {

@@ -1,13 +1,10 @@
 import * as io from 'socket.io';
-import RoomManager, {
-  multiplayerRoomManager
-} from '../classes/MultiplayerRoomManager';
-import PlayerManager from '../classes/PlayerManager';
-import MultiplayerRoom from '../classes/Room/MultiplayerRoom';
+import { COMPETITOR_LEFT } from '../../../constants';
 import { RoomType } from '../../../types/typesIndex';
-import { MAX_PLAYERS_PER_ROOM, COMPETITOR_LEFT } from '../../../constants';
+import RoomManager from '../models/MultiplayerRoomManager';
+import PlayerManager from '../models/PlayerManager';
+import { logger, RoomPersonChange } from '../middlewares/Logger';
 import { emitToRoom } from '../utilities';
-import { RoomPersonChange, logger } from '../middlewares/Logger';
 
 const playerManager = PlayerManager.getInstance();
 const roomManager = RoomManager.getInstance();
