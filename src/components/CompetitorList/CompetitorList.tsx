@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CompetitorContainer } from './CompetitorContainer';
+import { CompetitorContainer } from './competitorContainer';
 import { PlayerAvatar } from '../../types';
 import { PlayerGameStatus } from '../../types/GameStatusType';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';

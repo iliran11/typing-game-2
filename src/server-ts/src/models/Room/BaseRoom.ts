@@ -13,7 +13,7 @@ import {
 import { logger, RoomPersonChange } from '../../middlewares/Logger';
 import { emitToRoom } from '../../utilities';
 import BotPlayer from '../BotPlayer';
-import Player from '../Player';
+import { BasePlayer } from '../Player/BasePlayer';
 import ServerManager from '../ServerManager';
 import { RoomPlayersManager } from './RoomPlayersManager';
 const uuid = require('uuid/v4');
@@ -123,7 +123,7 @@ class BaseRoom {
       }
     };
   }
-  playerHasFinished(player: Player) {
+  playerHasFinished(player: BasePlayer) {
     player.hasFinished = true;
     this.finalScores[player.playerId] = this.getPlayerGameStatus(player);
     this.finishedPlayersCount++;

@@ -1,7 +1,7 @@
 import LetterData from '../../../store/classes/lettterData';
 const uuid = require('uuid/v4');
 import LevelManager from './LevelManager';
-import Player from './Player';
+import BasePlayer from './Player/BasePlayer';
 
 export default class Game {
   private index: number;
@@ -14,9 +14,9 @@ export default class Game {
   static gameCounter: number = 1;
   private startTimestamp: number = -1;
   private endTimestamp: number = -1;
-  private player: Player;
+  private player: BasePlayer;
 
-  constructor(level: number, player: Player) {
+  constructor(level: number, player: BasePlayer) {
     this.rawLetters = LevelManager.getText(level);
     this.letters = LevelManager.getText(level)
       .split('')
