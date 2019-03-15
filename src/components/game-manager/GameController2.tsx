@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import GameView from './GameView';
+import { RoomType } from 'src/types';
+import { GameView } from './GameView';
 import { GameDomManager } from './GameDomManager';
 import { SocketManager } from '../../middlewares/socketManager';
-import { RoomType } from '../../types';
 
-export interface IAppProps {
+export interface GameControllerProps {
   words: string[];
   gameType: RoomType;
   gameActive: boolean;
@@ -12,13 +12,16 @@ export interface IAppProps {
   onInput?: () => void;
 }
 
-export interface IAppState {}
+export interface GameControllerState {}
 
-export default class IApp extends React.Component<IAppProps, IAppState> {
+export class GameController extends React.Component<
+  GameControllerProps,
+  GameControllerState
+> {
   private inputRef: any;
   private bodyElement: any;
   private gameDomManager: GameDomManager;
-  constructor(props: IAppProps) {
+  constructor(props: GameControllerProps) {
     super(props);
     this.onInput = this.onInput.bind(this);
     this.onBodyClick = this.onBodyClick.bind(this);
@@ -36,7 +39,7 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
   componentDidMount() {
     this.inputRef.current.focus();
   }
-  componentDidUpdate(prevProps: IAppProps) {}
+  componentDidUpdate(prevProps: GameControllerProps) {}
   onBodyClick() {
     if (this.inputRef.current) {
       this.inputRef.current.focus();

@@ -20,7 +20,7 @@ const mapStateToProps = (state: RootState, props: any) => {
     ...alertProps
   };
 };
-export default connect(
+export const GlobalBlockingAlerts = connect(
   mapStateToProps,
   mapDispatchToProps
 )(BlockingAlert);

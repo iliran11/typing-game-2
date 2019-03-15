@@ -1,6 +1,5 @@
-import * as React from "react";
-import cx from "classnames";
-import WhiteSpace from "./whitespace";
+import * as React from 'react';
+import cx from 'classnames';
 
 export interface LetterUiProps {
   letter: string;
@@ -17,7 +16,7 @@ export enum LetterStatus {
   Untyped
 }
 
-class Letter extends React.PureComponent<LetterUiProps, State> {
+export class Letter extends React.PureComponent<LetterUiProps, State> {
   letterRef: any;
   constructor(props: any) {
     super(props);
@@ -44,30 +43,29 @@ class Letter extends React.PureComponent<LetterUiProps, State> {
       isMounted: true
     });
   }
-  get inputLowerCase(){
+  get inputLowerCase() {
     return this.props.input && this.props.input.toLowerCase();
   }
   get letterLowerCase() {
     return this.props.letter && this.props.letter.toLowerCase();
-
   }
   get letterClassNames() {
-
-    return cx("letter animated", {
+    return cx('letter animated', {
       success: this.inputLowerCase === this.letterLowerCase,
-      "is-selected": this.props.isSelected
+      'is-selected': this.props.isSelected
     });
   }
   get letterDisplay() {
-    return this.props.letter.toLowerCase()
+    return this.props.letter.toLowerCase();
   }
 
-    render() {  
+  render() {
     return (
       <div className={this.letterClassNames} ref={this.props.onRefReceive}>
-        <span ref={this.letterRef}>{this.props.letter===" " ?  <WhiteSpace /> : this.letterDisplay}</span>
+        <span ref={this.letterRef}>
+          {this.props.letter === ' ' ? <span>&nbsp;</span> : this.letterDisplay}
+        </span>
       </div>
     );
   }
 }
-export default Letter;

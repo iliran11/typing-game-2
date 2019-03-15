@@ -7,10 +7,10 @@ import * as React from 'react';
 import {
   MultiplayerPageContainer,
   TypingTestPageContainer
-} from '../pagesIndex';
-import { BoxLoader } from '../../components/boxLoader/boxLoader';
-import { SocketManager } from '../../middlewares/socketManager';
-import { RoomType } from '../../types';
+} from 'src/pages/pagesIndex';
+import { BoxLoader } from 'src/components/ComponentsIndex';
+import { SocketManager } from 'src/middlewares/socketManager';
+import { RoomType } from 'src/types';
 
 export interface GameRouterProps {
   activeRoomId: string | null;

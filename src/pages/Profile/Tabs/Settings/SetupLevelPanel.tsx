@@ -8,7 +8,7 @@ import { levelConfig, getExampleByLevel } from './LevelConfig';
 import {
   SimpleSnackbarWrapper,
   SimpleSnackbarWrapperProps
-} from '../../../../components/SimpleSnackbarWrapper/SimpleSnackbarWrapper';
+} from 'src/components/ComponentsIndex';
 import classes from '*.module.css';
 
 export interface SetupLevelProps {

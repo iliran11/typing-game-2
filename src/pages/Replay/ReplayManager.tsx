@@ -1,10 +1,8 @@
 import * as React from 'react';
-import CompetitorList from '../../components/CompetitorList/CompetitorList';
-import { ReplayPageProps } from './ReplayPage';
+import { GameView, CompetitorList } from 'src/components/ComponentsIndex';
 import { PlayerAvatar } from '../../types';
-import GameView from '../../components/game-manager/GameView';
+import { ReplayPageProps } from './ReplayPage';
 import TypingInputSimulator from './TypingInputSimulator';
-import ToolTip from '../../components/tooltip';
 
 export interface ReplayManagerProps extends ReplayPageProps {
   avatars: PlayerAvatar[];

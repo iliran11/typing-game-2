@@ -12,7 +12,7 @@ interface Props {
   row: number;
 }
 
-export default function Keyboard(props: Props) {
+export function Keyboard(props: Props) {
   return (
     <div id="keyboard">
       {lettersArray.map((keyboardRow: any[], rowindex: number) => {

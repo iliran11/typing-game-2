@@ -11,7 +11,7 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
   return { picture };
 };
 
-export default connect(
+export const ActiveUserAvatarContainer =  connect(
   mapStateToProps,
   null
 )(UserAvatar);

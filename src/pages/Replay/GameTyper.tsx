@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import GameView from '../../components/game-manager/GameView';
 import { TypingModelI } from '../../types';
 
 interface Props {

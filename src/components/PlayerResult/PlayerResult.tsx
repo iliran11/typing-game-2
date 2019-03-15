@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Avatar from '../CompetitorList/Avatar';
+import { CSSTransition } from 'react-transition-group';
+import { Avatar } from 'src/components/ComponentsIndex';
 import {
   PlayerAvatar,
   PlayerType,
   ScoreboardSectionData
-} from '../../types/typesIndex';
-import { ordinal } from '../../utilities';
-import checked from '../../assets/checked.svg';
-import { CSSTransition } from 'react-transition-group';
+} from 'src/types/typesIndex';
+import { ordinal } from 'src/utilities';
+import checked from 'src/assets/checked.svg';
 
 export interface PlayerResultProps {
   playerAvatar: PlayerAvatar;

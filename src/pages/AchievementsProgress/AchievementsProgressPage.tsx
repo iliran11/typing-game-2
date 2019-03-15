@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { AchievementsProgressI } from '../../types/AchievementsTypes';
-import { RangeBar, RangeBarProps } from '../../components/RangeBar/RangeBar';
 import Confetti from 'react-dom-confetti';
+import { RangeBar, RangeBarProps } from 'src/components/ComponentsIndex';
 
 export interface AchievementsProgressPageProps {
   roomId: string;

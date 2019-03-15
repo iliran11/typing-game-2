@@ -1,9 +1,9 @@
 import React from 'react';
 import 'src/css/pages/homepage.scss';
-import { RoomType } from '../../types/typesIndex';
-import { ROOM_TYPE_PARAM } from '../../constants';
 import Button from '@material-ui/core/Button';
-import Keyboard from '../../components/keyboard/keyboard';
+import { RoomType } from 'src/types/typesIndex';
+import { ROOM_TYPE_PARAM } from 'src/constants';
+import { Keyboard } from 'src/components/ComponentsIndex';
 const baseSteps = [
   {
     text: 'y',

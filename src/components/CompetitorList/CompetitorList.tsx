@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Competitor from './competitorContainer';
+import { CompetitorContainer } from './CompetitorContainer';
 import { PlayerAvatar } from '../../types';
 import { PlayerGameStatus } from '../../types/GameStatusType';
 import { EMPTY_COMPETITOR_SLOT } from '../../constants';
@@ -12,7 +12,7 @@ interface Props {
   avatars?: PlayerAvatar[];
 }
 
-class CompetitorList extends React.PureComponent<Props, object> {
+export class CompetitorList extends React.PureComponent<Props, object> {
   constructor(props: any) {
     super(props);
     this.renderCompetitor = this.renderCompetitor.bind(this);
@@ -61,7 +61,7 @@ class CompetitorList extends React.PureComponent<Props, object> {
   renderCompetitor(value: void, index: number): JSX.Element {
     const competitorProps = this.getCompetitorProps(index);
     return (
-      <Competitor
+      <CompetitorContainer
         {...competitorProps}
         index={index}
         key={index}
@@ -84,5 +84,3 @@ class CompetitorList extends React.PureComponent<Props, object> {
     }
   }
 }
-
-export default CompetitorList;

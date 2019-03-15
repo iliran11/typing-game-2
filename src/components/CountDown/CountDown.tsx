@@ -8,7 +8,7 @@ export interface Props {
   onTimerFinish: () => void;
 }
 
-export default class CountDown extends React.Component<Props, State> {
+export class CountDown extends React.Component<Props, State> {
   textStack: string[];
   intervalTimer: any;
   fadeoutTimer: any;

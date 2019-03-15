@@ -5,7 +5,6 @@ import { EMPTY_COMPETITOR_SLOT } from '../../constants';
 import { PlayerAvatar } from '../../types';
 
 const mapStateToProps = (state: RootState, props: any) => {
-
   const emptyAvatar: PlayerAvatar = {
     isAnonymous: true,
     picture: -1
@@ -17,7 +16,7 @@ const mapStateToProps = (state: RootState, props: any) => {
   return {};
 };
 
-export default connect(
+export const CompetitorContainer = connect(
   mapStateToProps,
   null
 )(Competitor);

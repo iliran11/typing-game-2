@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContainer';
+import { ActiveUserAvatarContainer } from 'src/components/ComponentsIndex';
 
 interface ProfileHeaderProps {
   level: number;
@@ -13,7 +13,7 @@ const ProfileHeader: React.SFC<ProfileHeaderProps> = props => {
         <span className="big-header">{`Level ${props.level}`}</span>
         <span className="info-footer">the difficulty of the text</span>
       </div>
-      <ActiveUserAvatar onClick={() => {}} height={90} />
+      <ActiveUserAvatarContainer onClick={() => {}} height={90} />
       <div className="ranking-section">
         <span className="big-header">{props.rank}</span>
         <span className="info-footer">Your rank in app</span>

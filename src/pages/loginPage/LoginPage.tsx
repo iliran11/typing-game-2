@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import 'src/css/pages/login-page.scss';
 import AuthenticationManager from 'src/AuthenticationManager';
 import { LoginStatus } from 'src/types';
-import { BoxLoader } from 'src/components/boxLoader/boxLoader';
+import { BoxLoader } from 'src/components/ComponentsIndex';
 
 export interface LoginPageProps {
   history: any;

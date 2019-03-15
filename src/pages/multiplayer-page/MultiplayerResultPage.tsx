@@ -3,9 +3,8 @@ import {
   PlayerGameStatus,
   ScoreboardSectionData
 } from '../../types/typesIndex';
-import { PlayerResult } from '../../components/PlayerResult/PlayerResult';
+import { PlayerResult, Title } from 'src/components/ComponentsIndex';
 import { ordinal, millisecondsToTimeResult } from '../../utilities';
-import { Title } from '../../components/Title/Title';
 export interface MultiplayerResultPageProps {
   roomId: string;
   players: PlayerGameStatus[];

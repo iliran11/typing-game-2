@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { SocketManager } from '../../middlewares/socketManager';
-import GameController from '../../components/game-manager/GameController2';
-import { RoomType } from '../../types/typesIndex';
-import { TypingTestTimer } from '../../components/TimerRenderProps/TypingTestTimer';
+import { SocketManager } from 'src/middlewares/socketManager';
+import { RoomType } from 'src/types/typesIndex';
 import { TypingTestScoreboardContainer } from './TypingTestScoreboardContainer';
 import 'src/css/pages/typing-test.scss';
 import {
   ROOM_ID_PARM,
   ROOM_TYPE_PARAM,
   TYPING_TEST_DURATION
-} from '../../constants';
-import { BoxLoader } from '../../components/boxLoader/boxLoader';
+} from 'src/constants';
+import {
+  BoxLoader,
+  GameController,
+  TypingTestTimer
+} from 'src/components/ComponentsIndex';
 export interface TypingTestPageProps {
   gameWords: string[];
   roomId: string;

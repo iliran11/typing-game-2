@@ -7,7 +7,7 @@ const mapStateToProps = (state: RootState) => {
     isLogged: state.authentication.loggedIn
   };
 };
-export default connect(
+export const LoginButtonContainer = connect(
   mapStateToProps,
   null
 )(LoginButton);

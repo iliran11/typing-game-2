@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CompetitorList from './CompetitorList';
+import { CompetitorList } from './CompetitorList';
 import { RootState, PlayerAvatar } from '../../types';
 import { PlayerGameStatus } from '../../types/GameStatusType';
 
@@ -24,4 +24,4 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
   };
 };
 
-export default connect(mapStateToProps)(CompetitorList);
+export const CompetitorListContainer = connect(mapStateToProps)(CompetitorList);

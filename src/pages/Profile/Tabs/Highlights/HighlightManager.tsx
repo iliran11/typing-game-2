@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { HighlightsI } from 'src/types/typesIndex';
+import { ROOM_ID_PARM } from 'src/constants';
+import { InlineLoader } from 'src/components/ComponentsIndex';
 import { HighlightsList } from './HighlightsList';
-import { HighlightsI } from '../../../../types';
-import { ROOM_ID_PARM } from '../../../../constants';
-import { InlineLoader } from '../../../../components/inlineLoader/InlineLoader';
 export interface HighlightsManagerProps {
   fetchHighlights: any;
   highlights: HighlightsI;

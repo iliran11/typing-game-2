@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import AppToolBar, { AppToolBarProps } from './AppToolBar';
+import { AppToolBar, AppToolBarProps } from './AppToolBar';
 import { RootState } from '../../types';
 import { pictureByFacebookId, userHasAchievements } from '../../utilities';
 import { leaveGame } from '../../store/gameAction';

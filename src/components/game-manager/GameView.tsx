@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Word } from './Word';
-import Marker, { markerProps } from 'src/components/Marker';
+import Marker, { markerProps } from './Marker';
 import { GameDomManager } from './GameDomManager';
-import ToolTip from 'src/components/tooltip';
+import ToolTip from './tooltip';
 import 'src/css/components/game-view.scss';
 
 interface GameViewProps {
@@ -16,7 +16,7 @@ interface State {
   input: string[];
 }
 
-export default class GameView extends React.PureComponent<any, State> {
+export class GameView extends React.PureComponent<any, State> {
   constructor(props: GameViewProps) {
     super(props);
     this.state = {

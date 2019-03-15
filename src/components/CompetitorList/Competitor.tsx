@@ -1,12 +1,13 @@
 import * as React from 'react';
 import 'src/css/components/competitor.scss';
-import { EMPTY_COMPETITOR_SLOT, MAX_WPM_GAUGE } from '../../constants';
-import Spinner from '../spinner/spinner';
-import CircularProgress from '../CircularProgress';
-import Avatar from './Avatar';
-import { PlayerType, PlayerAvatar } from '../../types';
-import checkedIcon from '../../assets/checked.svg';
-
+import { EMPTY_COMPETITOR_SLOT, MAX_WPM_GAUGE } from 'src/constants';
+import { PlayerType, PlayerAvatar } from 'src/types';
+import checkedIcon from 'src/assets/checked.svg';
+import {
+  Spinner,
+  CircularProgress,
+  Avatar
+} from 'src/components/ComponentsIndex';
 // wpm of maximum progress in circular progress.
 const maxWpmGauge = 80;
 

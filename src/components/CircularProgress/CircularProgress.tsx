@@ -2,14 +2,14 @@ import React from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-export default function CircularProgress(props: any) {
+export function CircularProgress(props: any) {
   // const percent = 25;
 
   const percent = props.percentage * 100;
   const styles = {
-    text: { fontSize: 42,stroke:'#365902' },
+    text: { fontSize: 42, stroke: '#365902' },
     path: { stroke: getCircleColor(percent) },
-    trail: { stroke: 'transparent' },
+    trail: { stroke: 'transparent' }
   };
   return (
     <CircularProgressbar

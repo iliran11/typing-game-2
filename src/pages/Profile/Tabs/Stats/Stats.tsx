@@ -1,6 +1,6 @@
 import * as React from 'react';
-import checked from '../../../../assets/checked2.svg';
-import { Title } from '../../../../components/Title/Title';
+import checked from 'src/assets/checked2.svg';
+import { Title } from 'src/components/ComponentsIndex';
 
 export interface StatsProps {
   currentWpm: number;

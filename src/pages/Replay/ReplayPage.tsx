@@ -1,8 +1,8 @@
 import * as React from 'react';
 import ReplayManager from './ReplayManager';
-import { PlayerAvatar, GameRecordsModel, TypingModelI } from '../../types';
-import { GameSummryDBI } from '../../types/schemasTypes';
-import { BoxLoader } from '../../components/boxLoader/boxLoader';
+import { PlayerAvatar, GameRecordsModel, TypingModelI } from 'src/types';
+import { GameSummryDBI } from 'src/types/typesIndex';
+import { BoxLoader } from 'src/components/ComponentsIndex';
 
 export interface ReplayPageProps {
   roomId: number;

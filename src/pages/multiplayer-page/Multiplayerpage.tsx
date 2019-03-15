@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
-import ScoreBoardContainer from '../../components/CompetitorList/CometitorListContainer';
-import CountDown from '../../components/CountDown/CountDown';
-import GameController from '../../components/game-manager/GameController2';
+import {
+  GameController,
+  CountDown,
+  CompetitorListContainer
+} from 'src/components/ComponentsIndex';
 import { MY_ID_PARAM, ROOM_ID_PARM, ROOM_TYPE_PARAM } from '../../constants';
 import { SocketManager } from '../../middlewares/socketManager';
 import { RoomType } from '../../types';
@@ -73,7 +75,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
           words={this.props.words}
           onFinish={this.onGameFinish}
         />
-        <ScoreBoardContainer
+        <CompetitorListContainer
           history={this.props.history}
           roomId={this.props.roomId}
         />

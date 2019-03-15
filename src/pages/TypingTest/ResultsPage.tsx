@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
-import { Title } from 'src/components/Title/Title';
+import { Title, TypingTestScoreboard } from 'src/components/ComponentsIndex';
 import { PlayerGameStatus } from 'src/types/typesIndex';
-import { TypingTestScoreboard } from 'src/components/TypingTestScoreBoard/TypingTestScoreboard';
 import { getTypingTestScoreboardData } from 'src/utilities';
-import 'src/css/pages/results-page.scss'
+import 'src/css/pages/results-page.scss';
 
 export interface TypingTestResultPageProps {
   roomId: string;

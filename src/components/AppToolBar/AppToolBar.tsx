@@ -1,15 +1,16 @@
-import * as React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import * as React from 'react';
+import {
+  LoginButtonContainer,
+  ActiveUserAvatarContainer
+} from 'src/components/ComponentsIndex';
+import backbutton from 'src/assets/backbutton.svg';
+import tcLogo from 'src/assets/TClogo.svg';
+import AuthenticationManager from 'src/AuthenticationManager';
+import { SocketManager } from 'src/middlewares/socketManager';
+import { LoginStatus, PageProps } from 'src/types/typesIndex';
 import DebugDialog from './DebugDialog/DebugDialog';
-import LoginButton from '../login-button/LoginButtonContainer';
-import { LoginStatus, PageProps } from '../../types';
-import ActiveUserAvatar from '../../components/UserAvatar/ActiveUserAvatarContainer';
-import backbutton from '../../assets/backbutton.svg';
-import { SocketManager } from '../../middlewares/socketManager';
-import AuthenticationManager from '../../AuthenticationManager';
-import tcLogo from '../../assets/TClogo.svg';
 export interface AppToolBarProps extends PageProps {
   firstName: string;
   lastName: string;
@@ -22,7 +23,7 @@ export interface AppToolBarProps extends PageProps {
   logout: any;
 }
 
-export default class AppToolBar extends React.Component<AppToolBarProps, any> {
+export class AppToolBar extends React.Component<AppToolBarProps, any> {
   constructor(props: AppToolBarProps) {
     super(props);
     this.onLeaveGame = this.onLeaveGame.bind(this);
@@ -115,7 +116,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
               <img src={tcLogo} id="logo-toolbar" />
               {this.props.loggedIn === LoginStatus.loggedIn &&
                 this.shouldShowAvatar && (
-                  <ActiveUserAvatar
+                  <ActiveUserAvatarContainer
                     onClick={this.isLogged ? this.navigateToProfile : () => {}}
                   />
                 )}
@@ -123,7 +124,7 @@ export default class AppToolBar extends React.Component<AppToolBarProps, any> {
                 <div onClick={this.onLogout}>Log Out</div>
               )}
               {this.props.loggedIn === LoginStatus.loggedOut && (
-                <LoginButton history={this.props.history} />
+                <LoginButtonContainer history={this.props.history} />
               )}
             </div>
           </Toolbar>

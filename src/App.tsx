@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import 'src/css/main.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import AppToolbar from 'src/components/AppToolBar/AppToolBarContainer';
-import GlobalBlockingAlerts from 'src/components/BlockingAlert/GlobalBlockingAlertsContainer';
+import {
+  GlobalBlockingAlerts,
+  AppToolBar
+} from 'src/components/ComponentsIndex';
 import {
   GameRouterContainer,
   MyProfilePageContainer,
@@ -24,7 +26,7 @@ class App extends React.Component {
         <Router>
           <Fragment>
             <Route path="/" component={RenderlessInitiatorContainer} />
-            <Route path="/" component={AppToolbar} />
+            <Route path="/" component={AppToolBar} />
             <Route exact={true} path="/" component={HomePageContainer} />
             <Route xact={true} path="/game" component={GameRouterContainer} />
             {/* <Route

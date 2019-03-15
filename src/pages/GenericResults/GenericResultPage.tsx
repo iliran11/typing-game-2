@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
-import { RoomType, PlayerGameStatus } from '../../types/typesIndex';
-import { BoxLoader } from '../../components/boxLoader/boxLoader';
-import { TypingTestResultPage, MultiplayerResultPage } from '../pagesIndex';
-import { ROOM_TYPE_PARAM } from '../../constants';
 import Button from '@material-ui/core/Button';
+import React from 'react';
+import { BoxLoader } from 'src/components/ComponentsIndex';
+import { ROOM_TYPE_PARAM } from 'src/constants';
+import { MultiplayerResultPage, TypingTestResultPage } from 'src/pages/pagesIndex';
+import { PlayerGameStatus, RoomType } from 'src/types/typesIndex';
 
 export interface GenericResultPageProps {
   roomType: RoomType;
