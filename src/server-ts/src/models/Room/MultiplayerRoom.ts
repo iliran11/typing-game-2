@@ -61,16 +61,16 @@ export default class MultiplayerRoom extends BaseRoom {
           timestamp: Date.now()
         };
         if (finishedPlayer instanceof HumanPlayer) {
-          finishedPlayer.getSocket().emit(NAVIGATE_RESULT, playerProgress);
+          finishedPlayer.socket.emit(NAVIGATE_RESULT, playerProgress);
         }
         // userPorgressDb.createResult(playerProgress);
         userGameHistoryDb.save(gameResultRecord);
         await LevelManager.processNewResult(
           finishedPlayer.playerId,
-          finishedPlayer.getSocket()
+          finishedPlayer.socket
         );
       } else if (finishedPlayer.playerType === PlayerType.human) {
-        finishedPlayer.getSocket().emit(NAVIGATE_RESULT);
+        finishedPlayer.socket.emit(NAVIGATE_RESULT);
       }
     }
   }

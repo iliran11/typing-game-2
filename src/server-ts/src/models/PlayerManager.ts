@@ -1,5 +1,6 @@
 import * as io from 'socket.io';
 import { BasePlayer } from './Player/players-index';
+import { HumanPlayer } from './Player/HumanPlayer';
 
 export default class PlayerManager {
   private static instance: PlayerManager;
@@ -8,7 +9,11 @@ export default class PlayerManager {
     this.players = new Map();
   }
   addPlayer(player: BasePlayer): void {
-    this.players.set(player.identifier, player);
+    if (player instanceof HumanPlayer) {
+      this.players.set(player.socket, player);
+    } else {
+      this.players.set(player.playerId, player);
+    }
   }
   getPlayer(socket: io.Socket): BasePlayer {
     // @ts-ignore

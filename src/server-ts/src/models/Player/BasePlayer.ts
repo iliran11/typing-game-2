@@ -22,7 +22,6 @@ export abstract class BasePlayer {
   public hasLeft: boolean = false;
   public hasFinished: boolean = false;
   public room: BaseRoom;
-  public abstract identifier;
   protected counterNumber: number;
 
   constructor(playerConstructorOptions: BasePlayersOptions) {
@@ -63,7 +62,7 @@ export abstract class BasePlayer {
     this.anonymousAvatar = avatarIndex;
   }
   get playerId() {
-    return `${this.counterNumber}`;
+    return `${this.playerType} ${this.counterNumber}`;
   }
   get roomId() {
     return this.room.instanceId;

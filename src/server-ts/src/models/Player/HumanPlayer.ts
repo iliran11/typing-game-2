@@ -12,10 +12,11 @@ export interface HumanPlayerOptions extends BasePlayersOptions {
 
 export class HumanPlayer extends BasePlayer {
   userData?: FacebookUserType;
-  identifier: io.Socket;
+  socket: io.Socket;
   constructor(options: HumanPlayerOptions) {
     super(options);
     this.userData = options.userData;
+    this.socket = options.socket;
   }
 
   get playerType(): PlayerType {
@@ -42,8 +43,5 @@ export class HumanPlayer extends BasePlayer {
     } else {
       return super.name;
     }
-  }
-  getSocket(): io.Socket {
-    return this.identifier;
   }
 }

@@ -30,7 +30,7 @@ export class TypingTestRoom extends BaseRoom {
     }
   }
   get socket() {
-    return this.player.getSocket();
+    return this.player.socket;
   }
   public startGame() {
     if (this.isGameActive === false) {
@@ -40,7 +40,7 @@ export class TypingTestRoom extends BaseRoom {
     }
   }
   protected stopGame() {
-    const socket = this.player.getSocket();
+    const socket = this.player.socket;
     typingTestManager.deleteRoom(socket);
     super.stopGame();
     roomSummaryDb.save(this.roomSummary);
@@ -51,7 +51,7 @@ export class TypingTestRoom extends BaseRoom {
       ...this.getPlayerGameStatus(this.player),
       words: this.player.playerGame.words
     };
-    this.player.getSocket().emit(TYPING_TEST_IS_ACTIVE, initPayload);
+    this.player.socket.emit(TYPING_TEST_IS_ACTIVE, initPayload);
   }
   protected gameTick() {
     super.gameTick();

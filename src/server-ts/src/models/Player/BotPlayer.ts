@@ -4,13 +4,11 @@ import { MultiplayerPlayerTyping } from '../../event-handlers/MultiplayerPlayerT
 import onGameFinished from '../../event-handlers/onGameFinished';
 
 export abstract class BotPlayer extends BasePlayer {
-  identifier: string;
   private typingIndex: number = 0;
   private timeToTarget: number = 50000;
 
   constructor(options: BasePlayersOptions) {
     super(options);
-    this.identifier = `${this.playerType} ${this.counterNumber}`;
   }
   get playerType() {
     return PlayerType.bot;
