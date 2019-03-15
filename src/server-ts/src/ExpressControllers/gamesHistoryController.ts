@@ -1,6 +1,5 @@
-import { roomSummaryDb } from '../mongo/RoomSummaryDb/RoomSummaryDb';
 import { USER_ID_PARAM } from '../../../constants';
-import { GameSummryDBI } from '../../../types/schemasTypes';
+import { roomSummaryDb } from '../mongo/RoomSummaryDb/RoomSummaryDb';
 
 export default async function GamesHistoryController(req, res) {
   const searchParamaer = req.query[USER_ID_PARAM];

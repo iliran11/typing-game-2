@@ -3,7 +3,7 @@ import { PLAYER_ID_PARAM } from '../../../constants';
 import { HighlightsMapping, HighlightsI } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 
-export default function GameHighlights(req, res) {
+export function HighlightsController(req, res) {
   const highlights: HighlightsI = {};
   function getUsedRoomIds() {
     // @ts-ignore

@@ -4,7 +4,7 @@ import { ROOM_ID_PARM, PLAYER_ID_PARAM } from '../../../constants';
 import { ReplayEndPointResponseI } from '../../../types';
 const isNil = require('lodash.isnil');
 
-export default function GamesHistoryController(req, res) {
+export function GamesHistoryController(req, res) {
   const roomIdParam = req.query[ROOM_ID_PARM];
   const playerIdParam = req.query[PLAYER_ID_PARAM];
   if (isNil(roomIdParam) || isNil(playerIdParam)) {

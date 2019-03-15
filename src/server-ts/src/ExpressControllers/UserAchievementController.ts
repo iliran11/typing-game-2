@@ -1,9 +1,9 @@
 import { PLAYER_ID_PARAM } from '../../../constants';
 import { UserAchievementsI } from '../../../types/AchievementsTypes';
-import LevelManager, { levelsMap } from '../models/LevelManager';
 import { RankingsApp } from '../middlewares/RankingManager';
+import LevelManager, { levelsMap } from '../models/LevelManager';
 
-export default function(req, res) {
+export function UserAchievementController(req, res) {
   const levelManager = LevelManager.getInstance();
   const playerIdParam = req.query[PLAYER_ID_PARAM];
   if (!playerIdParam) {

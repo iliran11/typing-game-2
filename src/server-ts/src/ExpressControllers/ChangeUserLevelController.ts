@@ -1,7 +1,7 @@
 import { ChangeLevelPayload } from '../../../types';
 import LevelManager from '../models/LevelManager';
 
-export default function ChangeUserLevel(req, res) {
+export function ChangeUserLevel(req, res) {
   const levelManager = LevelManager.getInstance();
   const bodyPayload: ChangeLevelPayload = req.body;
   const { level, playerId } = bodyPayload;

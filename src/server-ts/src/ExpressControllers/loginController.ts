@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 import { getBase64FacebookPic } from '../utilities';
 import { createUserInstance, User } from '../mongo/User/UserModel';
 
-export default function loginController(req, res) {
+export function loginController(req, res) {
   const facebookToken = req.body[AUTH_FACEBOOK_HEADER];
   const fields = 'id,first_name,last_name,picture.width(100)';
   var path = `https://graph.facebook.com/v3.2/me?fields=${fields}&access_token=${facebookToken}`;
