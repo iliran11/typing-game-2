@@ -88,14 +88,8 @@ export default class MultiplayerRoom extends BaseRoom {
     );
   }
   addBot() {
-    const player = new LinearBotPlayer({
-      level: 99,
-      // @ts-ignore
-      room: this
-    });
-    PlayerManager.getInstance().addPlayer(player);
     multiplayerRoomManager.allocateToRoom(
-      player.identifier,
+      null,
       undefined,
       1,
       this.roomType,

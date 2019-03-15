@@ -10,7 +10,7 @@ export abstract class BotPlayer extends BasePlayer {
 
   constructor(options: BasePlayersOptions) {
     super(options);
-    this.identifier = `${this.playerType} ${BasePlayer.playerCounter}`;
+    this.identifier = `${this.playerType} ${this.counterNumber}`;
   }
   get playerType() {
     return PlayerType.bot;

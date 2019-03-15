@@ -37,7 +37,11 @@ export class HumanPlayer extends BasePlayer {
     return super.playerId;
   }
   get name() {
-    return `${this.playerType} ${BasePlayer.playerCounter}`;
+    if (this.userData) {
+      return `${this.userData.firstName} ${this.userData.lastName}`;
+    } else {
+      return super.name;
+    }
   }
   getSocket(): io.Socket {
     return this.identifier;

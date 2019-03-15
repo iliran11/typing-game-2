@@ -23,6 +23,7 @@ export abstract class BasePlayer {
   public hasFinished: boolean = false;
   public room: BaseRoom;
   public abstract identifier;
+  protected counterNumber: number;
 
   constructor(playerConstructorOptions: BasePlayersOptions) {
     const { socket, level, room } = playerConstructorOptions;
@@ -33,10 +34,14 @@ export abstract class BasePlayer {
     } else {
       this.game = new Game(99, this);
     }
+    this.counterNumber = BasePlayer.playerCounter;
     BasePlayer.playerCounter++;
   }
   public abstract get isAuthenticated(): boolean;
   abstract get playerType(): PlayerType;
+  get name() {
+    return `${this.playerType} ${this.counterNumber}`;
+  }
   get avatar(): PlayerAvatar {
     return { picture: this.anonymousAvatar, isAnonymous: true };
   }
@@ -54,14 +59,11 @@ export abstract class BasePlayer {
   public get playerGame() {
     return this.game;
   }
-  public get name() {
-    return `${this.playerType} ${BasePlayer.playerCounter}`;
-  }
   setAvatar(avatarIndex: number) {
     this.anonymousAvatar = avatarIndex;
   }
   get playerId() {
-    return `${BasePlayer.playerCounter}`;
+    return `${this.counterNumber}`;
   }
   get roomId() {
     return this.room.instanceId;
