@@ -3,7 +3,7 @@ import 'src/css/main.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {
   GlobalBlockingAlerts,
-  AppToolBar
+  AppToolBarContainer
 } from 'src/components/ComponentsIndex';
 import {
   GameRouterContainer,
@@ -26,7 +26,7 @@ class App extends React.Component {
         <Router>
           <Fragment>
             <Route path="/" component={RenderlessInitiatorContainer} />
-            <Route path="/" component={AppToolBar} />
+            <Route path="/" component={AppToolBarContainer} />
             <Route exact={true} path="/" component={HomePageContainer} />
             <Route xact={true} path="/game" component={GameRouterContainer} />
             {/* <Route

@@ -1,6 +1,6 @@
 export * from './CircularProgress/CircularProgress';
 export * from './LetterUi/letterUi';
-export * from './AppToolBar/AppToolBar';
+export * from './AppToolBar/AppToolBarContainer';
 export * from './BlockingAlert/GlobalBlockingAlertsContainer';
 export * from './boxLoader/boxLoader';
 export * from './game-manager/GameController2';

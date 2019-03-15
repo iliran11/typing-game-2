@@ -21,7 +21,7 @@ const mapDispatchToProps = {
   leaveGame,
   logout
 };
-export default connect(
+export const AppToolBarContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(AppToolBar);
