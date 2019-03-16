@@ -1,57 +1,47 @@
 import React, { Fragment } from 'react';
+import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import 'src/css/main.scss';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  AchievementProgressPageContainer,
+  GameRouterContainer,
+  GenericResultsContainer,
+  HomePageContainer,
+  LoginPageContainer,
+  MyProfilePageContainer,
+  RenderlessInitiatorContainer,
+  ReplayContainer
+} from 'src/pages/pagesIndex';
 import {
   GlobalBlockingAlerts,
   AppToolBarContainer
 } from 'src/components/ComponentsIndex';
-import {
-  GameRouterContainer,
-  MyProfilePageContainer,
-  HomePageContainer,
-  ReplayContainer,
-  LoginPageContainer,
-  AchievementProgressPageContainer,
-  RenderlessInitiatorContainer,
-  GenericResultsContainer
-} from 'src/pages/pagesIndex';
-
-class App extends React.Component {
+class App extends React.Component<RouteComponentProps> {
   constructor(props: any) {
     super(props);
+    console.log(props);
   }
   render() {
     return (
-      <div className="gradient-6" id="app-container">
-        <Router>
-          <Fragment>
-            <Route path="/" component={RenderlessInitiatorContainer} />
-            <Route path="/" component={AppToolBarContainer} />
-            <Route exact={true} path="/" component={HomePageContainer} />
-            <Route xact={true} path="/game" component={GameRouterContainer} />
-            {/* <Route
-              exact={true}
-              path="/result"
-              component={ResultPageContainer}
-            /> */}
-            <Route
-              exact={true}
-              path="/my-profile"
-              component={MyProfilePageContainer}
-            />
-            <Route exact={true} path="/replay" component={ReplayContainer} />
-            <Route exact={true} path="/login" component={LoginPageContainer} />
-            <Route
-              path="/achievements-progress"
-              component={AchievementProgressPageContainer}
-            />
-            <Route path="/results" component={GenericResultsContainer} />
-          </Fragment>
-        </Router>
+      <Fragment>
+        <Route path="/" component={RenderlessInitiatorContainer} />
+        <Route path="/" component={AppToolBarContainer} />
+        <Route exact={true} path="/" component={HomePageContainer} />
+        <Route exact={true} path="/game" component={GameRouterContainer} />
+        <Route
+          exact={true}
+          path="/my-profile"
+          component={MyProfilePageContainer}
+        />
+        <Route exact={true} path="/replay" component={ReplayContainer} />
+        <Route exact={true} path="/login" component={LoginPageContainer} />
+        <Route
+          path="/achievements-progress"
+          component={AchievementProgressPageContainer}
+        />
+        <Route path="/results" component={GenericResultsContainer} />
         <GlobalBlockingAlerts />
-      </div>
+      </Fragment>
     );
   }
 }
-
-export default App;
+export default withRouter(App);

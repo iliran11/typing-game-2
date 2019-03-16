@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './AppContainer';
+import RouterWrapper from './RouterWrapper';
 import configureStore from './store/store';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
@@ -20,7 +20,7 @@ Sentry.init({
 const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <RouterWrapper />
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
