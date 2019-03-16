@@ -44,21 +44,23 @@ class App extends React.Component<AppProps> {
     return (
       <Fragment>
         <Route path="/" component={AppToolBarContainer} />
-        <Route exact={true} path="/" component={HomePageContainer} />
-        <Route exact={true} path="/game" component={GameRouterContainer} />
-        <Route
-          exact={true}
-          path="/my-profile"
-          component={MyProfilePageContainer}
-        />
-        <Route exact={true} path="/replay" component={ReplayContainer} />
-        <Route exact={true} path="/login" component={LoginPageContainer} />
-        <Route
-          path="/achievements-progress"
-          component={AchievementProgressPageContainer}
-        />
-        <Route path="/results" component={GenericResultsContainer} />
-        <GlobalBlockingAlerts />
+        <Switch>
+          <Route exact={true} path="/" component={HomePageContainer} />
+          <Route exact={true} path="/game" component={GameRouterContainer} />
+          <Route
+            exact={true}
+            path="/my-profile"
+            component={MyProfilePageContainer}
+          />
+          <Route exact={true} path="/replay" component={ReplayContainer} />
+          <Route exact={true} path="/login" component={LoginPageContainer} />
+          <Route
+            path="/achievements-progress"
+            component={AchievementProgressPageContainer}
+          />
+          <Route path="/results" component={GenericResultsContainer} />
+          <GlobalBlockingAlerts />
+        </Switch>
       </Fragment>
     );
   }
