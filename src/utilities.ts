@@ -1,8 +1,10 @@
 import {
   ScoreboardSectionData,
   PlayerGameStatus,
-  RootState
+  RootState,
+  PlaformEnum
 } from './types/typesIndex';
+import { SET_TOUCH_PLATFORM, SET_WEB_PLATFORM } from 'src/constants';
 
 export function loadFbSdk(appId: string) {
   return new Promise(resolve => {
@@ -117,4 +119,31 @@ export function millisecondsToTimeResult(milliseconds: number): string {
 function number2Digits(number: number): string {
   if (number < 10) return `0${number}`;
   return `${number}`;
+}
+
+export function initTouchFlag(dispatch: any, getState: () => RootState) {
+  const platform = getState().myData.platform;
+  if (platform === PlaformEnum.WEB || platform === PlaformEnum.MOBILE) {
+    return;
+  }
+  const body = document.querySelector('body');
+  const detectMouse = function(e: any) {
+    if (e.type === 'mousedown') {
+      // alert('mouse');
+      dispatch({
+        type: SET_WEB_PLATFORM
+      });
+    } else if (e.type === 'touchstart') {
+      // alert('touch');
+      dispatch({
+        type: SET_TOUCH_PLATFORM
+      });
+    }
+    // remove event bindings, so it only runs once
+    body!.removeEventListener('mousedown', detectMouse);
+    body!.removeEventListener('touchstart', detectMouse);
+  };
+  // attach both events to body
+  body!.addEventListener('mousedown', detectMouse);
+  body!.addEventListener('touchstart', detectMouse);
 }

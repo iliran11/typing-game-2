@@ -1,5 +1,10 @@
 import React, { Fragment } from 'react';
-import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
+import {
+  Route,
+  RouteComponentProps,
+  withRouter,
+  Switch
+} from 'react-router-dom';
 import 'src/css/main.scss';
 import {
   AchievementProgressPageContainer,
@@ -8,22 +13,36 @@ import {
   HomePageContainer,
   LoginPageContainer,
   MyProfilePageContainer,
-  RenderlessInitiatorContainer,
   ReplayContainer
 } from 'src/pages/pagesIndex';
 import {
   GlobalBlockingAlerts,
   AppToolBarContainer
 } from 'src/components/ComponentsIndex';
-class App extends React.Component<RouteComponentProps> {
-  constructor(props: any) {
+import { Store } from 'src/middlewares/Store';
+import { SocketManager } from './middlewares/socketManager';
+import AuthenticationManager from './AuthenticationManager';
+import { initTouchFlag } from './utilities';
+
+interface AppProps extends RouteComponentProps {}
+class App extends React.Component<AppProps> {
+  constructor(props: AppProps) {
     super(props);
-    console.log(props);
+    SocketManager.initiateSocketManager(
+      Store.store.dispatch,
+      this.props.history,
+      Store.store.getState
+    );
+    AuthenticationManager.initManager(
+      Store.store.dispatch,
+      Store.store.getState,
+      this.props.history
+    );
+    initTouchFlag(Store.store.dispatch, Store.store.getState);
   }
   render() {
     return (
       <Fragment>
-        <Route path="/" component={RenderlessInitiatorContainer} />
         <Route path="/" component={AppToolBarContainer} />
         <Route exact={true} path="/" component={HomePageContainer} />
         <Route exact={true} path="/game" component={GameRouterContainer} />
@@ -44,4 +63,5 @@ class App extends React.Component<RouteComponentProps> {
     );
   }
 }
+
 export default withRouter(App);

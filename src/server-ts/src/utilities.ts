@@ -7,7 +7,6 @@ import {
   BasePlayersOptions,
   HumanPlayerOptions
 } from './models/Player/players-index';
-
 export function getServer() {
   return ServerManager.getInstance().serverObject;
 }

@@ -5,6 +5,7 @@ import configureStore from './store/store';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import * as Sentry from '@sentry/browser';
+import { Store } from 'src/middlewares/Store';
 
 Sentry.init({
   dsn: 'https://f56a1efc23bc47abb7b9807bf2fbf077@sentry.io/1374851',
@@ -17,9 +18,10 @@ Sentry.init({
   ]
 });
 
-const store = configureStore();
+Store.setStore(configureStore());
+console.log(Store.store);
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={Store.store}>
     <RouterWrapper />
   </Provider>,
   document.getElementById('root') as HTMLElement

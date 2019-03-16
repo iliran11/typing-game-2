@@ -5,8 +5,6 @@ export * from './loginPage/LoginPageContainer';
 export * from './GameRouter/GameRouterContainer';
 export * from './Profile/ProfilePageContainer';
 export * from './Replay/ReplayContainer';
-// export * from './ResultPage/ResultPageContainer';
-export * from './RenderlessInitiator/RenderlessInitiatorContainer';
 export * from './TypingTest/TypingTestPageContainer';
 export * from './TypingTest/ResultsPage';
 export * from './GenericResults/GenericResultsContainer';
