@@ -1,5 +1,5 @@
 import * as React from 'react';
-import checked from 'src/assets/checked2.svg';
+import checked from 'src/assets/checked2/checked2.svg';
 import { Title } from 'src/components/ComponentsIndex';
 
 export interface StatsProps {

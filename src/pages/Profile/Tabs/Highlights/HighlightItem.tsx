@@ -1,5 +1,5 @@
 import * as React from 'react';
-import videoPlayer from '../../../../assets/play.svg';
+import videoPlayer from 'src/assets/play/play.svg';
 
 export interface HighlightItemProps {
   firstRow: string;

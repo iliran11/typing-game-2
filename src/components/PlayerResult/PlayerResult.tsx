@@ -7,7 +7,7 @@ import {
   ScoreboardSectionData
 } from 'src/types/typesIndex';
 import { ordinal } from 'src/utilities';
-import checked from 'src/assets/checked.svg';
+import checked from 'src/assets/checked/checked.svg';
 
 export interface PlayerResultProps {
   playerAvatar: PlayerAvatar;

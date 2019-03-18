@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'src/css/components/competitor.scss';
 import { EMPTY_COMPETITOR_SLOT, MAX_WPM_GAUGE } from 'src/constants';
 import { PlayerType, PlayerAvatar } from 'src/types';
-import checkedIcon from 'src/assets/checked.svg';
+import checkedIcon from 'src/assets/checked/checked.svg';
 import {
   Spinner,
   CircularProgress,

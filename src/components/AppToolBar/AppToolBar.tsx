@@ -5,8 +5,8 @@ import {
   LoginButtonContainer,
   ActiveUserAvatarContainer
 } from 'src/components/ComponentsIndex';
-import backbutton from 'src/assets/backbutton.svg';
-import tcLogo from 'src/assets/TClogo.svg';
+import backbutton from 'src/assets/backbutton/backbutton.svg';
+import tcLogo from 'src/assets/logo/TClogo.svg';
 import AuthenticationManager from 'src/AuthenticationManager';
 import { SocketManager } from 'src/middlewares/socketManager';
 import { LoginStatus, PageProps } from 'src/types/typesIndex';
