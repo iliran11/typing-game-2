@@ -12,9 +12,9 @@ class RoomLogDb {
   private constructor() {
     this.scheme = new mongoose.Schema(
       {},
-      { collection: 'room-log', strict: false }
+      { collection: 'roomLog', strict: false }
     );
-    this.model = mongoose.model('room-log', this.scheme);
+    this.model = mongoose.model('roomLog', this.scheme);
   }
   async save<T>(
     results: T,

@@ -8,9 +8,9 @@ class RoomSummaryDb {
   private constructor() {
     this.scheme = new mongoose.Schema(
       {},
-      { strict: false, collection: 'game-summary' }
+      { strict: false, collection: 'gameSummary' }
     );
-    this.model = mongoose.model('game-summary', this.scheme);
+    this.model = mongoose.model('gameSummary', this.scheme);
   }
   async save(data: GameSummryDBI) {
     try {
@@ -19,6 +19,21 @@ class RoomSummaryDb {
     } catch (error) {
       throw new Error(error);
     }
+  }
+  async updatePlayerFinishedStatus(
+    roomId: string,
+    playerId: string,
+    status: boolean
+  ) {
+    const result = await this.model.update(
+      { roomId, 'finalResult.results.playerId': playerId },
+      { $set: { 'finalResult.results.$.hasFinished': status } }
+    );
+  }
+  async updateRoomCompletion(roomId: string, status) {
+    console.log(this.model.find({ roomId }));
+    const result = await this.model.updateOne({ roomId }, { roomHasFinished: true });
+    console.log(result);
   }
   async updateById(searchParam: object, document: object): Promise<void> {
     return this.model.updateOne(searchParam, document);

@@ -7,6 +7,7 @@ export interface GameSummryDBI {
   players: PlayerGameStatus[];
   roomId: string;
   roomType: RoomType;
+  roomHasFinished: false;
   finalResult: {
     results: PlayerGameStatus[];
   };

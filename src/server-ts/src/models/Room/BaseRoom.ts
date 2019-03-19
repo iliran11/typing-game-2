@@ -16,6 +16,7 @@ import { BotPlayer } from '../Player/players-index';
 import { BasePlayer } from '../Player/BasePlayer';
 import ServerManager from '../ServerManager';
 import { RoomPlayersManager } from './RoomPlayersManager';
+import { roomSummaryDb } from '../../mongoIndex';
 const uuid = require('uuid/v4');
 
 // TODO: mark room has not-finished if all players left.
@@ -118,13 +119,19 @@ class BaseRoom {
       roomType: this.roomType,
       finalResult: {
         results: this.roomPlayersScores
-      }
+      },
+      roomHasFinished: false
     };
   }
   playerHasFinished(player: BasePlayer) {
     player.hasFinished = true;
     this.finalScores[player.playerId] = this.getPlayerGameStatus(player);
     this.finishedPlayersCount++;
+    roomSummaryDb.updatePlayerFinishedStatus(
+      this.instanceId,
+      player.playerId,
+      true
+    );
   }
   addPlayer(player: BasePlayer) {
     this.roomPlayersManager.addPlayer(player);
@@ -159,6 +166,7 @@ class BaseRoom {
     });
   }
   protected stopGame() {
+    roomSummaryDb.updateRoomCompletion(this.instanceId, true);
     clearTimeout(this.timerId);
   }
   protected gameTick() {
