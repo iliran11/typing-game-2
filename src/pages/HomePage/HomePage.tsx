@@ -86,6 +86,7 @@ export default class Home extends React.Component<Props, State> {
     const currentStep = baseSteps[this.state.step];
     return (
       <div id="home-page" className="page">
+        <img src={`${process.env.REACT_APP_PUBLIC_URL}/img/logo.png'`} />
         <BaseTitle text={currentStep[text]} />
         <Keyboard
           row={currentStep.keyboard[0]}

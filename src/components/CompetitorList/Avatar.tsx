@@ -5,10 +5,10 @@ import avatar1 from 'src/assets/145851-young-avatar-collection/svg/avatar1.svg';
 import avatar2 from 'src/assets/145851-young-avatar-collection/svg/avatar2.svg';
 import avatar3 from 'src/assets/145851-young-avatar-collection/svg/avatar3.svg';
 import avatar4 from 'src/assets/145851-young-avatar-collection/svg/avatar4.svg';
-import bot1 from 'src/assets/740063-robot-avatars/svg/bot1.svg';
-import bot19 from 'src/assets/740063-robot-avatars/svg/bot19.svg';
-import bot3 from 'src/assets/740063-robot-avatars/svg/bot3.svg';
-import bot15 from 'src/assets/740063-robot-avatars/svg/bot15.svg';
+// import bot1 from 'src/assets/740063-robot-avatars/svg/bot1.svg';
+// import bot19 from 'src/assets/740063-robot-avatars/svg/bot19.svg';
+// import bot3 from 'src/assets/740063-robot-avatars/svg/bot3.svg';
+// import bot15 from 'src/assets/740063-robot-avatars/svg/bot15.svg';
 
 interface Props {
   type: PlayerType;
@@ -59,14 +59,6 @@ function getAnonymousAvatar(
     }
   } else {
     switch (index) {
-      case 1:
-        return <img style={style} src={bot1} className={className} />;
-      case 2:
-        return <img style={style} src={bot19} className={className} />;
-      case 3:
-        return <img style={style} src={bot3} className={className} />;
-      case 4:
-        return <img style={style} src={bot15} className={className} />;
       default:
         return null;
     }
