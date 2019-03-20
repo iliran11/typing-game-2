@@ -43,7 +43,6 @@ export class TypingTestRoom extends BaseRoom {
     const socket = this.player.socket;
     typingTestManager.deleteRoom(socket);
     super.stopGame();
-    roomSummaryDb.save(this.roomSummary);
   }
   addPlayer(player) {
     super.addPlayer(player);
@@ -60,6 +59,7 @@ export class TypingTestRoom extends BaseRoom {
         roomId: this.instanceId,
         roomType: RoomType.TYPING_TEST
       };
+      this.playerHasFinished(this.player);
       emitToRoom(this.roomName, NAVIGATE_RESULT, payload);
       this.stopGame();
     }

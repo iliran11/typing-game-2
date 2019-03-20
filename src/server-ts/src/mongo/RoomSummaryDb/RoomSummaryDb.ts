@@ -30,14 +30,14 @@ class RoomSummaryDb {
       { $set: { 'finalResult.results.$.hasFinished': status } }
     );
   }
-  async updateRoomCompletion(roomId: string, status) {
-    const result = await this.model.updateOne(
-      { roomId },
-      { roomHasFinished: true }
-    );
-  }
-  async updateById(searchParam: object, document: object): Promise<void> {
-    return this.model.updateOne(searchParam, document);
+  // async updateRoomCompletion(roomId: string, status) {
+  //   const result = await this.model.updateOne(
+  //     { roomId },
+  //     { roomHasFinished: true }
+  //   );
+  // }
+  async updateById(roomId: string, document: GameSummryDBI): Promise<void> {
+    return this.model.updateOne({ roomId }, document);
   }
 
   async getGamesByUserId(userId: string): Promise<GameSummryDBI[]> {

@@ -64,7 +64,6 @@ export default class MultiplayerRoom extends BaseRoom {
           finishedPlayer.socket.emit(NAVIGATE_RESULT, playerProgress);
         }
         // userPorgressDb.createResult(playerProgress);
-        userGameHistoryDb.save(gameResultRecord);
         await LevelManager.processNewResult(
           finishedPlayer.playerId,
           finishedPlayer.socket
@@ -122,12 +121,6 @@ export default class MultiplayerRoom extends BaseRoom {
         this.instanceId,
         this.gameTickSequence,
         this.roomType
-      );
-      roomSummaryDb.updateById(
-        { roomId: this.instanceId },
-        {
-          finalResult: finalResultDocument
-        }
       );
     }
   }

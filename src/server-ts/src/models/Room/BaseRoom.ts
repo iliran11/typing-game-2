@@ -16,7 +16,7 @@ import { BotPlayer } from '../Player/players-index';
 import { BasePlayer } from '../Player/BasePlayer';
 import ServerManager from '../ServerManager';
 import { RoomPlayersManager } from './RoomPlayersManager';
-import { roomSummaryDb } from '../../mongoIndex';
+import { roomSummaryDb, userGameHistoryDb } from '../../mongoIndex';
 const uuid = require('uuid/v4');
 
 // TODO: mark room has not-finished if all players left.
@@ -37,7 +37,7 @@ class BaseRoom {
   public isGameActive: boolean = false;
   public finalScores: { [playerId: string]: PlayerGameStatus } = {};
 
-  public roomStartTimestamp: number = 0;
+  public roomStartTimestamp: number = Date.now();
 
   constructor(roomType: RoomType) {
     this.roomType = roomType;
@@ -127,6 +127,7 @@ class BaseRoom {
     player.hasFinished = true;
     this.finalScores[player.playerId] = this.getPlayerGameStatus(player);
     this.finishedPlayersCount++;
+    userGameHistoryDb.save(this.getPlayerGameStatus(player));
     roomSummaryDb.updatePlayerFinishedStatus(
       this.instanceId,
       player.playerId,
@@ -153,6 +154,7 @@ class BaseRoom {
     this.isGameActive = true;
     this.timerId = setInterval(this.gameTick.bind(this), this.timeIncrement);
     this.roomStartTimestamp = Date.now();
+    roomSummaryDb.save(this.roomSummary);
     this.startPlayerGames();
   }
   setGameIsActive() {
@@ -166,8 +168,8 @@ class BaseRoom {
     });
   }
   protected stopGame() {
-    roomSummaryDb.updateRoomCompletion(this.instanceId, true);
     clearTimeout(this.timerId);
+    roomSummaryDb.updateById(this.instanceId, this.roomSummary);
   }
   protected gameTick() {
     this.timePassed += this.timeIncrement;
