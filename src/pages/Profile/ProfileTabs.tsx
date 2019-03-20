@@ -34,7 +34,12 @@ export default class ProfileTabs extends React.PureComponent<
     const { tabValue } = this.state;
     return (
       <div id="profile-tabs">
-        <Tabs value={tabValue} centered onChange={this.onTabChange}>
+        <Tabs
+          value={tabValue}
+          centered
+          onChange={this.onTabChange}
+          classes={{ indicator: 'tabs-indicator' }}
+        >
           <Tab label="Multiplayer" />
           {/* <Tab label="Progress" /> */}
           <Tab label="Typing Test" />

@@ -4,7 +4,6 @@ import { RankingsApp } from '../middlewares/RankingManager';
 import LevelManager, { levelsMap } from '../models/LevelManager';
 
 export function UserAchievementController(req, res) {
-  const levelManager = LevelManager.getInstance();
   const playerIdParam = req.query[PLAYER_ID_PARAM];
   if (!playerIdParam) {
     res.send(400);

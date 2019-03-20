@@ -92,7 +92,7 @@ class LevelManager {
     const playerModel: Promise<any> = User.findById(playerId);
     const playerMaxWpm: Promise<number> = userGameHistoryDb.maxField(
       playerId,
-      'score'
+      'wpm'
     );
     const playerAccuracy: Promise<number> = userGameHistoryDb.maxField(
       playerId,

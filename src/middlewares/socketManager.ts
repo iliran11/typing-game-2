@@ -95,7 +95,7 @@ class SocketManager {
     this.socket.on(TYPING_TEST_IS_ACTIVE, this.typingTestIsActive.bind(this));
     this.socket.on(COMPETITOR_DELETION, this.competitorDeletion.bind(this));
     this.socket.on(GAME_HAS_TIMEOUT, this.gameTimeout.bind(this));
-    this.socket.on(NAVIGATE_RESULT, this.navigateResult.bind(this));
+    // this.socket.on(NAVIGATE_RESULT, this.navigateResult.bind(this));
     return socket;
   }
   static getServerUrl() {
@@ -244,13 +244,13 @@ class SocketManager {
       }
     });
   }
-  navigateResult(data: RoomInfo) {
-    this.history.push(
-      `/results?${ROOM_ID_PARM}=${data.roomId}&${ROOM_TYPE_PARAM}=${
-        data.roomType
-      }`
-    );
-  }
+  // navigateResult(data: RoomInfo) {
+  //   this.history.push(
+  //     `/results?${ROOM_ID_PARM}=${data.roomId}&${ROOM_TYPE_PARAM}=${
+  //       data.roomType
+  //     }`
+  //   );
+  // }
   reconnect() {
     const socket = this.connect();
     this.socket = socket;
