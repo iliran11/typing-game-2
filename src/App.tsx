@@ -24,6 +24,7 @@ import { SocketManager } from './middlewares/socketManager';
 import AuthenticationManager from './AuthenticationManager';
 import { initTouchFlag } from './utilities';
 import { iosShowKeyboard } from 'src/middlewares/IosShowKeyboard';
+import { TCNavigator } from 'src/middlewares/TCNavigations';
 
 interface AppProps extends RouteComponentProps {}
 class App extends React.Component<AppProps> {
@@ -40,6 +41,7 @@ class App extends React.Component<AppProps> {
       this.props.history
     );
     initTouchFlag(Store.store.dispatch, Store.store.getState);
+    TCNavigator.initNavigators(this.props.history);
   }
   componentDidMount() {
     iosShowKeyboard.init();

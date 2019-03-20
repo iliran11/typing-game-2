@@ -5,6 +5,7 @@ import { RoomType } from 'src/types/typesIndex';
 import { ROOM_TYPE_PARAM } from 'src/constants';
 import { Keyboard } from 'src/components/ComponentsIndex';
 import { iosShowKeyboard } from 'src/middlewares/IosShowKeyboard';
+import { TCNavigator } from 'src/middlewares/TCNavigations';
 
 const baseSteps = [
   {
@@ -75,18 +76,10 @@ export default class Home extends React.Component<Props, State> {
     );
   }
   navigateToGame() {
-    iosShowKeyboard.showKeyboard(() =>
-      this.props.history.push(
-        `/game?${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`
-      )
-    );
+    TCNavigator.getInstance().navigateToMultiplayer();
   }
   navigateToTypingTest() {
-    iosShowKeyboard.showKeyboard(() => {
-      this.props.history.push(
-        `/game?${ROOM_TYPE_PARAM}=${RoomType.TYPING_TEST}`
-      );
-    });
+    TCNavigator.getInstance().navigateToTypingTest();
   }
   classes = {
     root: 'home-page-button'

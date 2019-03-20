@@ -1,7 +1,7 @@
 import * as React from 'react';
-import typing from '../../assets/typing.svg';
 import Button from '@material-ui/core/Button';
-
+import { iosShowKeyboard } from 'src/middlewares/IosShowKeyboard';
+import { TCNavigator } from 'src/middlewares/TCNavigations';
 export interface ProfileEmptyStateProps {
   navigateToGame: any;
 }
@@ -16,7 +16,7 @@ export function ProfileEmptyState(props: ProfileEmptyStateProps) {
       <Button
         variant="contained"
         color="primary"
-        onClick={props.navigateToGame}
+        onClick={TCNavigator.getInstance().navigateToMultiplayer}
         fullWidth
       >
         Play
