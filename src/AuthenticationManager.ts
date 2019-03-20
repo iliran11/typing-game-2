@@ -35,6 +35,7 @@ class AuthenticationManager {
     this.dispatch = dispatch;
     this.getState = getState;
     this.history = history;
+    this.initialAuthentication();
   }
   async initialAuthentication() {
     const appId = getAppId();

@@ -25,11 +25,12 @@ export default class ServerManager {
                   socket.handshake.userData = decoded;
                   return next();
                 } else {
+                  throw new Error('user with token not found!');
                   return next();
                 }
               })
               .catch(err => {
-                console.error(err);
+                throw new Error('user with a token has no been found!');
                 return next();
               });
           }

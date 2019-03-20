@@ -31,9 +31,10 @@ class RoomSummaryDb {
     );
   }
   async updateRoomCompletion(roomId: string, status) {
-    console.log(this.model.find({ roomId }));
-    const result = await this.model.updateOne({ roomId }, { roomHasFinished: true });
-    console.log(result);
+    const result = await this.model.updateOne(
+      { roomId },
+      { roomHasFinished: true }
+    );
   }
   async updateById(searchParam: object, document: object): Promise<void> {
     return this.model.updateOne(searchParam, document);
