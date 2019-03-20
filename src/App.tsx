@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import 'src/css/main.scss';
 import {
-  AchievementProgressPageContainer,
   GameRouterContainer,
   GenericResultsContainer,
   HomePageContainer,
@@ -61,10 +60,10 @@ class App extends React.Component<AppProps> {
           />
           <Route exact={true} path="/replay" component={ReplayContainer} />
           <Route exact={true} path="/login" component={LoginPageContainer} />
-          <Route
+          {/* <Route
             path="/achievements-progress"
             component={AchievementProgressPageContainer}
-          />
+          /> */}
           <Route path="/results" component={GenericResultsContainer} />
           <GlobalBlockingAlerts />
         </Switch>

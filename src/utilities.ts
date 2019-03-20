@@ -69,11 +69,11 @@ export function pictureByFacebookId(facebookId: string, height: number = 30) {
   return `https://res.cloudinary.com/dujbozubz/image/facebook/w_${height},h_${height}/${facebookId}.jpg`;
 }
 
-export function userHasAchievements(state: RootState) {
-  const playerId = state.authentication.playerId;
-  const userAchievements = state.userAchievments[playerId];
-  return userAchievements && userAchievements.wpm > -1;
-}
+// export function userHasAchievements(state: RootState) {
+//   const playerId = state.authentication.playerId;
+//   const userAchievements = state.userAchievments[playerId];
+//   return userAchievements && userAchievements.wpm > -1;
+// }
 
 export function getTypingTestScoreboardData(
   data: PlayerGameStatus

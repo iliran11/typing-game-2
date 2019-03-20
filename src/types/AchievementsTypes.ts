@@ -14,13 +14,8 @@ export interface AchievementsProgressI {
 }
 
 export interface UserAchievementsI {
-  wpm: number;
-  accuracy: number;
-  totalWordsTyped: number;
-  totalCharsTyped: number;
-  level: number;
-  currentLevelRules: LevelRulesI;
-  ranking: number;
+  totalGames: number;
+  totalWins: number;
 }
 // export interface AchievementsI {
 //   wpm: number;

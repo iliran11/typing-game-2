@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { ActiveUserAvatarContainer } from 'src/components/ComponentsIndex';
 
-interface ProfileHeaderProps {
-  level: number;
-  rank: number;
-}
+interface ProfileHeaderProps {}
 
 const ProfileHeader: React.SFC<ProfileHeaderProps> = props => {
   return (

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ProfileHeader from './ProfileHeaderContainer';
-import ProgressBar from './ProgressBarContainer';
+// import ProgressBar from './ProgressBarContainer';
 import ProfileTabs from './ProfileTabs';
 import { ProfileEmptyState } from './ProfileEmptyState';
 import 'src/css/pages/profile-page.scss';

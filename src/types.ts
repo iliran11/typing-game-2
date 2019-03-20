@@ -255,3 +255,8 @@ export interface RoomInfo {
 export interface GAME_IS_ACTIVE_PAYLOAD {
   roomId: string;
 }
+
+export interface ProfilePayload {
+  totalGames: number;
+  totalWins: number;
+}

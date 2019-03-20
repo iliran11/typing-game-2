@@ -17,6 +17,20 @@ class UserGameHistoryDb {
     const document = new this.model(data);
     return document.save();
   }
+  //get number of wins and number of games
+  async numberWinsNumberGames(playerId: string) {
+    const playerSearch = {
+      playerId: playerId,
+      hasFinished: true
+    };
+    const numberOfGames = this.model.find(playerSearch);
+    const numberOfWins = this.model.find({ ...playerSearch, rank: 1 });
+    const result = await Promise.all([numberOfGames, numberOfWins]);
+    return {
+      totalGames: result[0],
+      wins: result[1]
+    };
+  }
   async maxField(playerId: string, fieldName: string): Promise<number> {
     try {
       const result = await this.model

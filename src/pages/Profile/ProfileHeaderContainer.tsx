@@ -5,10 +5,7 @@ import { RootState } from '../../types';
 const mapStateToProps = (state: RootState) => {
   const playerId = state.authentication.playerId;
   const userAchievments = state.userAchievments[playerId];
-  return {
-    level: userAchievments.level,
-    rank: userAchievments.ranking
-  };
+  return {};
 };
 
 const mapDispatchToProps = {};

@@ -1,4 +1,4 @@
-export * from './AchievementsProgress/AchievementsProgressPageContainer';
+// export * from './AchievementsProgress/AchievementsProgressPageContainer';
 export * from './GamesHistory/GamesHistoryContainer';
 export * from './HomePage/HomePageContainer';
 export * from './loginPage/LoginPageContainer';
