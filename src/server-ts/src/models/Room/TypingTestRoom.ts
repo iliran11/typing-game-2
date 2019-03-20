@@ -63,14 +63,6 @@ export class TypingTestRoom extends BaseRoom {
       emitToRoom(this.roomName, NAVIGATE_RESULT, payload);
       this.stopGame();
     }
-    if (this.player.isAuthenticated) {
-      roomLogDb.save(
-        this.roomPlayersScores,
-        this.instanceId,
-        this.gameTickSequence,
-        RoomType.TYPING_TEST
-      );
-    }
     this.socket.emit(TYPING_TEST_SCORE_BROADCAST, this.roomPlayersScores);
   }
 }

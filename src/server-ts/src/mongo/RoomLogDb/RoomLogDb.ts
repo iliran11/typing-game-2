@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 import {
   GameRecordsModel,
-  PlayerGameStatus,
-  RoomType
+  RoomType,
+  PlayerGameStatus
 } from '../../../../types/typesIndex';
 
 class RoomLogDb {
@@ -16,8 +16,8 @@ class RoomLogDb {
     );
     this.model = mongoose.model('roomLog', this.scheme);
   }
-  async save<T>(
-    results: T,
+  async save(
+    results: PlayerGameStatus[],
     instanceId: string,
     gameTickSequenceId: number,
     roomType: RoomType

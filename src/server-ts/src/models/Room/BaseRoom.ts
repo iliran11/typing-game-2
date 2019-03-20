@@ -11,12 +11,12 @@ import {
   RoomType
 } from '../../../../types/typesIndex';
 import { logger, RoomPersonChange } from '../../middlewares/Logger';
+import { roomSummaryDb, userGameHistoryDb, roomLogDb } from '../../mongoIndex';
 import { emitToRoom } from '../../utilities';
-import { BotPlayer } from '../Player/players-index';
 import { BasePlayer } from '../Player/BasePlayer';
+import { BotPlayer } from '../Player/players-index';
 import ServerManager from '../ServerManager';
 import { RoomPlayersManager } from './RoomPlayersManager';
-import { roomSummaryDb, userGameHistoryDb } from '../../mongoIndex';
 const uuid = require('uuid/v4');
 
 // TODO: mark room has not-finished if all players left.
@@ -175,6 +175,13 @@ class BaseRoom {
     this.timePassed += this.timeIncrement;
     this.gameTickSequence++;
     this.sendScoreBoard();
+    roomLogDb.save(
+      this.roomPlayersScores,
+      this.instanceId,
+      this.gameTickSequence,
+      this.roomType
+    );
+
     if (this.timePassed > GAME_TIMEOUT_DURATION && this.enableTimeout) {
       this.stopGame();
       emitToRoom(this.roomName, GAME_HAS_TIMEOUT, {

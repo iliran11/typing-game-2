@@ -79,12 +79,6 @@ export default class MultiplayerRoom extends BaseRoom {
     if (this.isAnyoneStillPlaying === false) {
       super.stopGame();
     }
-    roomLogDb.save(
-      roomLog,
-      this.instanceId,
-      this.gameTickSequence,
-      this.roomType
-    );
   }
   addBot() {
     multiplayerRoomManager.allocateToRoom(
@@ -114,15 +108,6 @@ export default class MultiplayerRoom extends BaseRoom {
   }
   protected async onStopGame(finalResult?: PlayerGameStatus[]) {
     console.log(`${this.roomName} has finished!`);
-    //TODO: if there is no final result - delete or update accordingly this game on db.
-    if (this.shouldSaveOnStop) {
-      const finalResultDocument = await roomLogDb.save(
-        this.roomPlayersScores,
-        this.instanceId,
-        this.gameTickSequence,
-        this.roomType
-      );
-    }
   }
   private get randomAvatarIndex(): number {
     return random(1, 4);
