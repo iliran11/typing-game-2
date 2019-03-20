@@ -3,7 +3,8 @@ import {
   PlayerAvatar,
   PlayerSerialize,
   PlayerType,
-  RoomType
+  RoomType,
+  DeviceType
 } from '../../../../types/typesIndex';
 import Game from '../Game';
 import { BaseRoom } from '../Room/BaseRoom';
@@ -13,6 +14,7 @@ export interface BasePlayersOptions {
   // userData?: FacebookUserType;
   level: number;
   room: BaseRoom;
+  deviceType: DeviceType;
 }
 
 export abstract class BasePlayer {
@@ -23,10 +25,12 @@ export abstract class BasePlayer {
   public hasFinished: boolean = false;
   public room: BaseRoom;
   protected counterNumber: number;
+  deviceType: DeviceType;
 
   constructor(playerConstructorOptions: BasePlayersOptions) {
     const { socket, level, room } = playerConstructorOptions;
     this.room = room;
+    this.deviceType = playerConstructorOptions.deviceType;
     const roomType = this.room.roomType;
     if (roomType === RoomType.MULTIPLAYER) {
       this.game = new Game(1, this);

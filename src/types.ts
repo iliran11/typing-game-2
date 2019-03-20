@@ -240,6 +240,11 @@ export enum RoomType {
   MULTIPLAYER = 'multiplayer',
   TYPING_TEST = 'typing-test'
 }
+export enum DeviceType {
+  DESKTOP = 'desktop',
+  MOBILE = 'mobile',
+  UNKNOWN = 'unknown'
+}
 
 export interface MultiplayerRoomActive {
   roomId: string;

@@ -3,7 +3,8 @@ import {
   FacebookUserType,
   JoiningRoomResponse,
   PlayerType,
-  RoomType
+  RoomType,
+  DeviceType
 } from '../../../types/typesIndex';
 import { emitToRoom } from '../utilities';
 import {
@@ -29,15 +30,17 @@ export default class MultiplayerRoomManager {
     userData: FacebookUserType | undefined,
     level: number,
     roomType: RoomType,
-    playerType: PlayerType
+    playerType: PlayerType,
+    deviceType: DeviceType
   ) {
-    const room = this.getAllocatedRoom();
+    const room = this.getAllocatedRoom(deviceType);
     const playerOpts = {
       socket,
       userData,
       level,
       roomType,
-      room
+      room,
+      deviceType
     };
 
     switch (playerType) {
@@ -75,24 +78,27 @@ export default class MultiplayerRoomManager {
         break;
     }
   }
-  private getAllocatedRoom(): MultiplayerRoom {
+  private getAllocatedRoom(deviceType: DeviceType): MultiplayerRoom {
     let room: MultiplayerRoom;
-    if (this.openRooms !== '') {
-      room = this.getExistingRoom();
+    if (this.openRooms(deviceType) !== '') {
+      room = this.getExistingRoom(deviceType);
     } else {
-      room = this.getNewRoom(RoomType.MULTIPLAYER);
+      room = this.getNewRoom(RoomType.MULTIPLAYER, deviceType);
     }
     return room;
   }
-  private getExistingRoom(): MultiplayerRoom {
+  private getExistingRoom(deviceType: DeviceType): MultiplayerRoom {
     // @ts-ignore
     const selectedRoom: MultiplayerRoom = this.rooms.get(
-      this.availableRoomNumber
+      this.availableRoomNumber(deviceType)
     );
     return selectedRoom;
   }
-  private getNewRoom(roomType: RoomType): MultiplayerRoom {
-    const room = this.createNewRoom(roomType);
+  private getNewRoom(
+    roomType: RoomType,
+    deviceType: DeviceType
+  ): MultiplayerRoom {
+    const room = this.createNewRoom(roomType, deviceType);
 
     return room;
   }
@@ -104,26 +110,30 @@ export default class MultiplayerRoomManager {
     // @ts-ignore
     return this.rooms.get(roomId);
   }
-  private get openRooms(): string {
-    if (this.openRoomsIds.length > 0) {
-      return this.openRoomsIds[0];
+  private openRooms(deviceType: DeviceType): string {
+    const openRoomsIds = this.getOpenRoomsIds(deviceType).length > 0;
+    if (openRoomsIds) {
+      return openRoomsIds[0];
     }
     return '';
   }
-  private get availableRoomNumber(): string {
-    return this.openRoomsIds[0];
+  private availableRoomNumber(deviceType: DeviceType): string {
+    return this.getOpenRoomsIds(deviceType)[0];
   }
 
-  private createNewRoom(roomType: RoomType): MultiplayerRoom {
-    const room = new MultiplayerRoom(RoomType.MULTIPLAYER);
+  private createNewRoom(
+    roomType: RoomType,
+    deviceType: DeviceType
+  ): MultiplayerRoom {
+    const room = new MultiplayerRoom(RoomType.MULTIPLAYER, deviceType);
     this.rooms.set(room.instanceId, room);
     return room;
   }
-  get openRoomsIds(): string[] {
+  getOpenRoomsIds(deviceType: DeviceType): string[] {
     const openRooms: string[] = [];
     this.rooms.forEach(
       (room: MultiplayerRoom): void => {
-        if (!room.isClosed) {
+        if (!room.isClosed && room.roomDeviceType === deviceType) {
           openRooms.push(room.instanceId);
         }
       }

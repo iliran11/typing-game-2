@@ -67,6 +67,6 @@ export const LOAD_ACHIEVEMENT_PROGRESS = 'load-achievment-progress';
  */
 export const MAX_WPM_GAUGE = 80;
 export const MAX_PLAYERS_PER_ROOM = 4;
-export const BOT_SPAWN_RATE = 5000;
-export const TYPING_TEST_DURATION = 60000;
+export const BOT_SPAWN_RATE = 1;
+export const TYPING_TEST_DURATION = 2000;
 // const words: string = "I went to the park and saw a tree";

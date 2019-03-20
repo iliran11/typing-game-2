@@ -3,7 +3,8 @@ import {
   AchievementsProgressI,
   PlayerGameStatus,
   PlayerType,
-  RoomType
+  RoomType,
+  DeviceType
 } from '../../../../types/typesIndex';
 import { roomLogDb, roomSummaryDb, userGameHistoryDb } from '../../mongoIndex';
 import { emitToRoom } from '../../utilities';
@@ -24,8 +25,8 @@ export default class MultiplayerRoom extends BaseRoom {
   // measure game length duration - not sure if needed.
   private avatarIndexes: number = 0;
   protected botScheduler: BotScheduler;
-  constructor(roomType: RoomType) {
-    super(roomType);
+  constructor(roomType: RoomType, deviceType: DeviceType) {
+    super(roomType, deviceType);
     this.addBot = this.addBot.bind(this);
     this.botScheduler = new BotScheduler(this.addBot);
     this.botScheduler.startCountdownBot();
@@ -86,7 +87,8 @@ export default class MultiplayerRoom extends BaseRoom {
       undefined,
       1,
       this.roomType,
-      PlayerType.bot
+      PlayerType.bot,
+      this.roomDeviceType
     );
     if (this.roomPlayersManager.playersMap.size === this.maxPlayersInRoom) {
       this.botScheduler.stopCountDown();

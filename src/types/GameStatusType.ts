@@ -1,4 +1,4 @@
-import { PlayerType, PlayerAvatar, RoomType } from '../types';
+import { PlayerType, PlayerAvatar, RoomType, DeviceType } from '../types';
 
 export interface PlayerGameStatus {
   playerId: string;
@@ -19,4 +19,5 @@ export interface PlayerGameStatus {
   isAuthenticated: boolean;
   roomType: RoomType;
   name: string;
+  deviceType: DeviceType;
 }

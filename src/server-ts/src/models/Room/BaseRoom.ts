@@ -8,7 +8,8 @@ import {
 import {
   GameSummryDBI,
   PlayerGameStatus,
-  RoomType
+  RoomType,
+  DeviceType
 } from '../../../../types/typesIndex';
 import { logger, RoomPersonChange } from '../../middlewares/Logger';
 import { roomSummaryDb, userGameHistoryDb, roomLogDb } from '../../mongoIndex';
@@ -36,11 +37,13 @@ class BaseRoom {
   public roomType: RoomType;
   public isGameActive: boolean = false;
   public finalScores: { [playerId: string]: PlayerGameStatus } = {};
+  public roomDeviceType: DeviceType;
 
   public roomStartTimestamp: number = Date.now();
 
-  constructor(roomType: RoomType) {
+  constructor(roomType: RoomType, deviceType: DeviceType) {
     this.roomType = roomType;
+    this.roomDeviceType = deviceType;
   }
   protected get passedTimeMinutes() {
     return this.timePassed / 60000;
@@ -105,7 +108,8 @@ class BaseRoom {
       roomId: this.instanceId,
       isAuthenticated: player.isAuthenticated,
       roomType: this.roomType,
-      name: player.name
+      name: player.name,
+      deviceType: player.deviceType
     };
   }
   protected get server() {

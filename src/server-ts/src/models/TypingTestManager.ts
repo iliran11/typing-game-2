@@ -1,9 +1,5 @@
 import * as io from 'socket.io';
-import {
-  FacebookUserType,
-  PlayerType,
-  RoomType
-} from '../../../types/typesIndex';
+import { FacebookUserType, DeviceType } from '../../../types/typesIndex';
 import { HumanPlayer } from './Player/players-index';
 import { TypingTestRoom } from './Room/TypingTestRoom';
 
@@ -18,15 +14,15 @@ export class TypingTestManager {
     socket: any,
     userData: FacebookUserType,
     level: number,
-    roomType: RoomType,
-    playerType: PlayerType
+    deviceType: DeviceType
   ) {
-    const room = new TypingTestRoom();
+    const room = new TypingTestRoom(deviceType);
     const player = new HumanPlayer({
       socket,
       userData,
       level,
-      room
+      room,
+      deviceType
     });
     room.addPlayer(player);
     this.rooms.set(socket, room);

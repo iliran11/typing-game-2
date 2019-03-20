@@ -13,7 +13,8 @@ import {
   PlayerType,
   RoomInfo,
   RoomType,
-  StartTypingTestGameI
+  StartTypingTestGameI,
+  DeviceType
 } from '../../../types/typesIndex';
 import LevelManager from '../models/LevelManager';
 import RoomManager, {
@@ -35,7 +36,7 @@ export default function onConnect(socket: io.Socket): void {
   socket.on('disconnect', () => {
     onDisconnect(socket);
   });
-  socket.on(REQUEST_TO_PLAY, (roomType: RoomType) => {
+  socket.on(REQUEST_TO_PLAY, (roomType: RoomType, deviceType: DeviceType) => {
     const userData: FacebookUserType = getSocketAuthentication(socket);
     const levelManager = LevelManager.getInstance();
     const playerId = get(userData, ['id']);
@@ -48,17 +49,12 @@ export default function onConnect(socket: io.Socket): void {
           userData,
           level,
           roomType,
-          PlayerType.human
+          PlayerType.human,
+          deviceType
         );
       }
       if (roomType === RoomType.TYPING_TEST) {
-        typingTestManager.initGame(
-          socket,
-          userData,
-          level,
-          roomType,
-          PlayerType.human
-        );
+        typingTestManager.initGame(socket, userData, level, deviceType);
       }
       socket.emit(CONNECT_SERVER_SUCCESS);
     });

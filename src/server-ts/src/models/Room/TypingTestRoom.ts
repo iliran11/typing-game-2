@@ -7,7 +7,8 @@ import {
 import {
   RoomType,
   TypingTestInitGame,
-  RoomInfo
+  RoomInfo,
+  DeviceType
 } from '../../../../types/typesIndex';
 import { roomLogDb, roomSummaryDb } from '../../mongoIndex';
 import { HumanPlayer } from '../Player/players-index';
@@ -17,8 +18,8 @@ import { typingTestManager } from '../TypingTestManager';
 
 export class TypingTestRoom extends BaseRoom {
   intervalId: any;
-  constructor() {
-    super(RoomType.TYPING_TEST);
+  constructor(deviceType: DeviceType) {
+    super(RoomType.TYPING_TEST, deviceType);
     super.enableTimeout = false;
   }
   get player(): HumanPlayer {
