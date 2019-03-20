@@ -42,7 +42,7 @@ export default class MultiplayerRoom extends BaseRoom {
     }
   }
   deletePlayer(player: BasePlayer): void {}
-  async onPlayerHasFinished(finishedPlayer: BasePlayer) {
+  async playerHasFinished(finishedPlayer: BasePlayer) {
     super.playerHasFinished(finishedPlayer);
     const gameResultRecord = super.getPlayerGameStatus(finishedPlayer);
     if (finishedPlayer instanceof HumanPlayer) {

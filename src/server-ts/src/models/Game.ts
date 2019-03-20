@@ -86,6 +86,7 @@ export default class Game {
     return this.index / this.letters.length;
   }
   public getAccuracy() {
+    if (this.numberOfTypings === 0) return 0;
     return this.index / this.numberOfTypings;
   }
   public get currentChallengeLetter() {

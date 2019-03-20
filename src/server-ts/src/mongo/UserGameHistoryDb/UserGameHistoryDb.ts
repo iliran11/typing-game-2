@@ -9,9 +9,9 @@ class UserGameHistoryDb {
   private constructor() {
     this.scheme = new mongoose.Schema(
       {},
-      { collection: 'user-game-history', strict: false }
+      { collection: 'userGameHistory', strict: false }
     );
-    this.model = mongoose.model('user-game-history', this.scheme);
+    this.model = mongoose.model('userGameHistory', this.scheme);
   }
   async save(data: PlayerGameStatus) {
     const document = new this.model(data);
@@ -28,7 +28,7 @@ class UserGameHistoryDb {
         return 0;
       }
       const maxField = result[0]._doc[fieldName];
-      return maxField
+      return maxField;
     } catch (error) {
       throw new Error(error);
     }

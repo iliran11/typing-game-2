@@ -5,6 +5,7 @@ import RoomManager from '../models/MultiplayerRoomManager';
 import PlayerManager from '../models/PlayerManager';
 import { logger, RoomPersonChange } from '../middlewares/Logger';
 import { emitToRoom } from '../utilities';
+import { userGameHistoryDb } from '../mongoIndex';
 
 const playerManager = PlayerManager.getInstance();
 const roomManager = RoomManager.getInstance();
@@ -21,6 +22,7 @@ export default function onDisconnect(socket: io.Socket): void {
     );
     if (player.hasFinished === false) {
       player.hasLeft = true;
+      userGameHistoryDb.save(room.getPlayerGameStatus(player));
       if (room.isGameActive) {
         // TODO: add to BaseRoom a check if there are humans left in the game.
         room.finishedPlayersCountIncrement();

@@ -101,7 +101,7 @@ class BaseRoom {
       numberOfTypings: game.numberOfTypings,
       numberOfLetters: game.getRawLetters.length,
       numberOfWords: game.words.length,
-      rank: rank + 1,
+      rank: rank,
       roomId: this.instanceId,
       isAuthenticated: player.isAuthenticated,
       roomType: this.roomType,
