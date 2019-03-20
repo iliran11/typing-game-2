@@ -64,6 +64,7 @@ export class GameController extends React.Component<
           autoCorrect="off"
           autoCapitalize="none"
           autoFocus={true}
+          id="game-input"
           // id="game-input"
           ref={this.inputRef}
         />

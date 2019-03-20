@@ -23,6 +23,7 @@ import { Store } from 'src/middlewares/Store';
 import { SocketManager } from './middlewares/socketManager';
 import AuthenticationManager from './AuthenticationManager';
 import { initTouchFlag } from './utilities';
+import { iosShowKeyboard } from 'src/middlewares/IosShowKeyboard';
 
 interface AppProps extends RouteComponentProps {}
 class App extends React.Component<AppProps> {
@@ -40,9 +41,13 @@ class App extends React.Component<AppProps> {
     );
     initTouchFlag(Store.store.dispatch, Store.store.getState);
   }
+  componentDidMount() {
+    iosShowKeyboard.init();
+  }
   render() {
     return (
       <Fragment>
+        <input id="dummy-input" />
         <Route path="/" component={AppToolBarContainer} />
         <Switch>
           <Route exact={true} path="/" component={HomePageContainer} />

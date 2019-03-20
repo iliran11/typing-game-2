@@ -208,8 +208,10 @@ class AuthenticationManager {
 
 function getAppId(): string {
   switch (process.env.REACT_APP_ENV) {
+    case Enviroments.TEST:
     case Enviroments.LOCAL:
       return '544172982736878';
+
     case Enviroments.STAGING:
       return '653846344985974';
     default:

@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import { RoomType } from 'src/types/typesIndex';
 import { ROOM_TYPE_PARAM } from 'src/constants';
 import { Keyboard } from 'src/components/ComponentsIndex';
+import { iosShowKeyboard } from 'src/middlewares/IosShowKeyboard';
+
 const baseSteps = [
   {
     text: 'y',
@@ -73,10 +75,18 @@ export default class Home extends React.Component<Props, State> {
     );
   }
   navigateToGame() {
-    this.props.history.push(`/game?${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`);
+    iosShowKeyboard.showKeyboard(() =>
+      this.props.history.push(
+        `/game?${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`
+      )
+    );
   }
   navigateToTypingTest() {
-    this.props.history.push(`/game?${ROOM_TYPE_PARAM}=${RoomType.TYPING_TEST}`);
+    iosShowKeyboard.showKeyboard(() => {
+      this.props.history.push(
+        `/game?${ROOM_TYPE_PARAM}=${RoomType.TYPING_TEST}`
+      );
+    });
   }
   classes = {
     root: 'home-page-button'
@@ -86,7 +96,6 @@ export default class Home extends React.Component<Props, State> {
     const currentStep = baseSteps[this.state.step];
     return (
       <div id="home-page" className="page">
-        <img src={`${process.env.REACT_APP_PUBLIC_URL}/img/logo.png'`} />
         <BaseTitle text={currentStep[text]} />
         <Keyboard
           row={currentStep.keyboard[0]}

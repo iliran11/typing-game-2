@@ -2,8 +2,12 @@ import Button from '@material-ui/core/Button';
 import React from 'react';
 import { BoxLoader } from 'src/components/ComponentsIndex';
 import { ROOM_TYPE_PARAM } from 'src/constants';
-import { MultiplayerResultPage, TypingTestResultPage } from 'src/pages/pagesIndex';
+import {
+  MultiplayerResultPage,
+  TypingTestResultPage
+} from 'src/pages/pagesIndex';
 import { PlayerGameStatus, RoomType } from 'src/types/typesIndex';
+import { iosShowKeyboard } from 'src/middlewares/IosShowKeyboard';
 
 export interface GenericResultPageProps {
   roomType: RoomType;
@@ -25,7 +29,11 @@ export class GenericResultPage extends React.Component<
     this.navigateToHome = this.navigateToHome.bind(this);
   }
   navigateToMultiplayer() {
-    this.props.history.push(`/game?${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`);
+    iosShowKeyboard.showKeyboard(() => {
+      this.props.history.push(
+        `/game?${ROOM_TYPE_PARAM}=${RoomType.MULTIPLAYER}`
+      );
+    });
   }
   navigateToHome() {
     this.props.history.push(`/`);

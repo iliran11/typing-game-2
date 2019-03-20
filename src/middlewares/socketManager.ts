@@ -105,6 +105,9 @@ class SocketManager {
     if (process.env.REACT_APP_ENV === Enviroments.STAGING) {
       return 'https://typing-dev-2.herokuapp.com/';
     }
+    if (process.env.REACT_APP_ENV === Enviroments.TEST) {
+      return 'https://calm-ravine-85126.herokuapp.com/';
+    }
     return '';
   }
   onConnect() {

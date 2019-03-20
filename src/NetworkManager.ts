@@ -16,6 +16,8 @@ class NetworkManager {
         return `/${endpoint}`;
       case Enviroments.STAGING:
         return `https://typing-dev-2.herokuapp.com/${endpoint}`;
+      case Enviroments.TEST:
+        return `https://calm-ravine-85126.herokuapp.com/${endpoint}`;
       default:
         return '/';
     }
