@@ -30,6 +30,7 @@ export default class MultiplayerRoom extends BaseRoom {
     this.addBot = this.addBot.bind(this);
     this.botScheduler = new BotScheduler(this.addBot);
     this.botScheduler.startCountdownBot();
+    this.maxPlayersInRoom = deviceType === DeviceType.DESKTOP ? 4 : 2;
   }
   addPlayer(player: BasePlayer): void {
     super.addPlayer(player);

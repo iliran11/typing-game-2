@@ -2,7 +2,7 @@ import {
   ScoreboardSectionData,
   PlayerGameStatus,
   RootState,
-  PlaformEnum
+  DeviceType
 } from './types/typesIndex';
 import { SET_TOUCH_PLATFORM, SET_WEB_PLATFORM } from 'src/constants';
 
@@ -123,7 +123,7 @@ function number2Digits(number: number): string {
 
 export function initTouchFlag(dispatch: any, getState: () => RootState) {
   const platform = getState().myData.platform;
-  if (platform === PlaformEnum.WEB || platform === PlaformEnum.MOBILE) {
+  if (platform === DeviceType.DESKTOP || platform === DeviceType.MOBILE) {
     return;
   }
   const body = document.querySelector('body');

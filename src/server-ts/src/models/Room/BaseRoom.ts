@@ -2,7 +2,8 @@ import {
   COMPETITOR_DELETION,
   GAME_HAS_TIMEOUT,
   GAME_TIMEOUT_DURATION,
-  MAX_PLAYERS_PER_ROOM,
+  MAX_PLAYERS_PER_ROOM_WEB,
+  MAX_PLAYERS_PER_ROOM_MOBILE,
   SCORE_BROADCAST
 } from '../../../../constants';
 import {
@@ -25,7 +26,7 @@ const uuid = require('uuid/v4');
 class BaseRoom {
   instanceId: string = `Room-${uuid()}`;
   intervalId: any;
-  public readonly maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM;
+  protected maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM_WEB;
   protected timePassed: number = 0;
   protected timerId: any;
   protected readonly timeIncrement: number = 1000;

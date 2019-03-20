@@ -6,7 +6,7 @@ import {
 import {
   MyDataReducer,
   HandShakeData,
-  PlaformEnum
+  DeviceType
 } from '../../types/typesIndex';
 import { platform } from 'os';
 
@@ -15,7 +15,7 @@ const initialState: MyDataReducer = {
   lastName: '',
   facebookId: '',
   level: -1,
-  platform: PlaformEnum.UNDECIDED
+  platform: DeviceType.UNKNOWN
 };
 
 export default function myDataReducer(
@@ -28,12 +28,12 @@ export default function myDataReducer(
     case SET_TOUCH_PLATFORM:
       return {
         ...state,
-        platform: PlaformEnum.MOBILE
+        platform: DeviceType.MOBILE
       };
     case SET_WEB_PLATFORM:
       return {
         ...state,
-        platform: PlaformEnum.WEB
+        platform: DeviceType.DESKTOP
       };
     default:
       //TODO: Add LOGGED OUT CASE HERE.
