@@ -38,10 +38,14 @@ export default class ActiveUserAvatar extends React.Component<
     return (
       <React.Fragment>
         {this.state.isPictureLoaded === false && (
-          <img src={avatarPlaceholder} onClick={this.props.onClick} />
+          <img
+            src={avatarPlaceholder}
+            onClick={this.props.onClick}
+            className="toolbar-avatar"
+          />
         )}
         <img
-          className={`active-user-avatar ${
+          className={`toolbar-avatar ${
             this.state.isPictureLoaded ? '' : 'hidden'
           }`}
           src={this.props.picture}
