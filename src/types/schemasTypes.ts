@@ -1,12 +1,13 @@
 import { PlayerSerialize } from '../types';
 import { PlayerGameStatus } from './GameStatusType';
-import { RoomType } from './typesIndex';
+import { RoomType, DeviceType } from './typesIndex';
 
 export interface GameSummryDBI {
   letters: string[];
   players: PlayerGameStatus[];
   roomId: string;
   roomType: RoomType;
+  deviceType: DeviceType;
   roomHasFinished: false;
   finalResult: {
     results: PlayerGameStatus[];

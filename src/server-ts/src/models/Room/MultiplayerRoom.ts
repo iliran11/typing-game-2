@@ -70,7 +70,7 @@ export default class MultiplayerRoom extends BaseRoom {
           finishedPlayer.socket
         );
       } else if (finishedPlayer.playerType === PlayerType.human) {
-        finishedPlayer.socket.emit(NAVIGATE_RESULT);
+        // finishedPlayer.socket.emit(NAVIGATE_RESULT,{});
       }
     }
   }

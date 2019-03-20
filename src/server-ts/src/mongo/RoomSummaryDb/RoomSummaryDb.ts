@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-import { GameSummryDBI } from '../../../../types/typesIndex';
+import { GameSummryDBI, DeviceType } from '../../../../types/typesIndex';
 
 class RoomSummaryDb {
   private static instance: RoomSummaryDb;
@@ -30,12 +30,6 @@ class RoomSummaryDb {
       { $set: { 'finalResult.results.$.hasFinished': status } }
     );
   }
-  // async updateRoomCompletion(roomId: string, status) {
-  //   const result = await this.model.updateOne(
-  //     { roomId },
-  //     { roomHasFinished: true }
-  //   );
-  // }
   async updateById(roomId: string, document: GameSummryDBI): Promise<void> {
     return this.model.updateOne({ roomId }, document);
   }

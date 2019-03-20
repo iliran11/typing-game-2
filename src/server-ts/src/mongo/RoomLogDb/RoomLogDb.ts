@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 import {
   GameRecordsModel,
   RoomType,
-  PlayerGameStatus
+  PlayerGameStatus,
+  DeviceType
 } from '../../../../types/typesIndex';
 
 class RoomLogDb {
@@ -20,13 +21,15 @@ class RoomLogDb {
     results: PlayerGameStatus[],
     instanceId: string,
     gameTickSequenceId: number,
-    roomType: RoomType
+    roomType: RoomType,
+    deviceType: DeviceType
   ): Promise<void> {
     const documentInstance = new this.model({
       results: results,
       gameInstanceId: instanceId,
       gameTickSequenceId,
-      roomType
+      roomType,
+      deviceType
     });
     return documentInstance.save();
   }

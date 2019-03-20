@@ -121,6 +121,7 @@ class BaseRoom {
       players: this.roomPlayersScores,
       roomId: this.instanceId,
       roomType: this.roomType,
+      deviceType: this.roomDeviceType,
       finalResult: {
         results: this.roomPlayersScores
       },
@@ -183,7 +184,8 @@ class BaseRoom {
       this.roomPlayersScores,
       this.instanceId,
       this.gameTickSequence,
-      this.roomType
+      this.roomType,
+      this.roomDeviceType
     );
 
     if (this.timePassed > GAME_TIMEOUT_DURATION && this.enableTimeout) {
