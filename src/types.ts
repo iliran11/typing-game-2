@@ -183,6 +183,7 @@ export interface TypingModelI {
   gameId: string;
   roomType: RoomType;
   gameTimeStamp: number;
+  deviceType: DeviceType;
 }
 
 export interface ReplayEndPointResponseI {

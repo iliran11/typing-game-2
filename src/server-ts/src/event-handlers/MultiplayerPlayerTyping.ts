@@ -21,7 +21,8 @@ export function MultiplayerPlayerTyping(socket: io.Socket, data) {
         gameId: room.instanceId,
         gameTimeStamp: Date.now() - room.roomStartTimestamp,
         challengeLetter,
-        roomType: room.roomType
+        roomType: room.roomType,
+        deviceType: player.deviceType
       });
     }
   } else {

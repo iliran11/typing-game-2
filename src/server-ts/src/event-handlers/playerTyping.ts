@@ -24,7 +24,8 @@ export default function playerTyping(socket: io.Socket, data) {
           gameId: room.instanceId,
           gameTimeStamp: Date.now() - room.roomStartTimestamp,
           challengeLetter,
-          roomType: room.roomType
+          roomType: room.roomType,
+          deviceType: player.deviceType
         });
       }
     } catch (e) {
