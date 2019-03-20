@@ -9,15 +9,11 @@ interface ProfileHeaderProps {
 const ProfileHeader: React.SFC<ProfileHeaderProps> = props => {
   return (
     <div id="ranking">
-      <div className="ranking-section">
-        <span className="big-header">{`Level ${props.level}`}</span>
-        <span className="info-footer">the difficulty of the text</span>
-      </div>
-      <ActiveUserAvatarContainer onClick={() => {}} height={90} />
-      <div className="ranking-section">
-        <span className="big-header">{props.rank}</span>
-        <span className="info-footer">Your rank in app</span>
-      </div>
+      <ActiveUserAvatarContainer
+        onClick={() => {}}
+        height={90}
+        className="active-user-avatar"
+      />
     </div>
   );
 };

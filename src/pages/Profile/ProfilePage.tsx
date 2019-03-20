@@ -44,7 +44,7 @@ export default class ProfilePage extends React.Component<
         <section id="profile-info-section">
           <h1>{this.props.fullName}</h1>
           <ProfileHeader />
-          <ProgressBar />
+          {/* <ProgressBar /> */}
         </section>
         {this.props.isDataPopulated && (
           <ProfileTabs history={this.props.history} />
