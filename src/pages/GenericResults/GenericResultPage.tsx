@@ -64,16 +64,18 @@ export class GenericResultPage extends React.Component<
           id="results-page-footer"
           className="result-page-padding flex-center flex-column"
         >
-          <p>
+          <p className="small-text">
             In registration, you will be able to preserve the results of the
             tests and the results of the game.
           </p>
           <FooterButton rootClass="facebook-background color-white">
-            <span>
+            <span className="small-text">
               Sign up with <span className="bold">Facebook</span>
             </span>
           </FooterButton>
-          <p>Check your skills in front of people in real time</p>
+          <p className="small-text">
+            Check your skills in front of people in real time
+          </p>
 
           {this.props.roomType === RoomType.TYPING_TEST && (
             <FooterButton

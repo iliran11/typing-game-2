@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {
-  PlayerGameStatus,
-  ScoreboardSectionData
-} from '../../types/typesIndex';
+import { PlayerGameStatus, ScoreSectionsData } from '../../types/typesIndex';
 import { PlayerResult, Title } from 'src/components/ComponentsIndex';
 import { ordinal, millisecondsToTimeResult } from '../../utilities';
 export interface MultiplayerResultPageProps {
@@ -37,7 +34,7 @@ export class MultiplayerResultPage extends React.Component<
     });
   }
   renderPlayerResult(player: PlayerGameStatus, index: number) {
-    const scores: ScoreboardSectionData[] = [
+    const scores: ScoreSectionsData[] = [
       { label: 'WPM', value: Math.floor(player.wpm) },
       // @ts-ignore
       { label: 'ACCURACY', value: `${Math.floor(player.accuracy * 100)}%` },

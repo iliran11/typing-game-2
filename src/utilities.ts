@@ -1,5 +1,5 @@
 import {
-  ScoreboardSectionData,
+  ScoreSectionsData,
   PlayerGameStatus,
   RootState,
   DeviceType
@@ -77,7 +77,7 @@ export function pictureByFacebookId(facebookId: string, height: number = 30) {
 
 export function getTypingTestScoreboardData(
   data: PlayerGameStatus
-): ScoreboardSectionData[] {
+): ScoreSectionsData[] {
   const accuracy = (data.accuracy * 100).toFixed(0);
   return [
     {

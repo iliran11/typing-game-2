@@ -4,7 +4,7 @@ import { Avatar } from 'src/components/ComponentsIndex';
 import {
   PlayerAvatar,
   PlayerType,
-  ScoreboardSectionData
+  ScoreSectionsData
 } from 'src/types/typesIndex';
 import { ordinal } from 'src/utilities';
 import checked from 'src/assets/checked/checked.svg';
@@ -14,7 +14,7 @@ export interface PlayerResultProps {
   playerType: PlayerType;
   position: number;
   name: string;
-  scores: ScoreboardSectionData[];
+  scores: ScoreSectionsData[];
   highlight?: boolean;
   hasFinished: boolean;
 }

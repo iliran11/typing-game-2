@@ -7,7 +7,6 @@ export default class RouterWrapper extends React.Component {
     super(props);
   }
   render() {
-    console.log(this.props);
     return (
       <div className="gradient-6" id="app-container">
         <Router>

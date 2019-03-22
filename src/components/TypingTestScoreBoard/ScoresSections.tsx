@@ -1,17 +1,18 @@
 import * as React from 'react';
-import { ScoreboardSectionData } from '../../types/typesIndex';
+import { ScoreSectionsData } from '../../types/typesIndex';
+import 'src/css/components/score-sections.scss';
 
-export interface TypingTestScoreboardProps {
-  data: ScoreboardSectionData[];
+export interface ScoreSections {
+  data: ScoreSectionsData[];
 }
 interface ScoreDivisionProps {
-  data: ScoreboardSectionData;
+  data: ScoreSectionsData;
   hasBorder: boolean;
 }
 
-export function TypingTestScoreboard(props: TypingTestScoreboardProps) {
+export function TypingTestScoreboard(props: ScoreSections) {
   return (
-    <div id="typing-test-scoreboard">
+    <div className="score-sections">
       {props.data.map((data, index) => {
         const hasBorder = index !== props.data.length - 1;
         return <ScoreDivision key={index} data={data} hasBorder={hasBorder} />;

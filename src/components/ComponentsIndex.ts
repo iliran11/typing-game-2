@@ -19,5 +19,6 @@ export * from './RangeBar/RangeBar';
 export * from './SimpleSnackbarWrapper/SimpleSnackbarWrapper';
 export * from './TimerRenderProps/TypingTestTimer';
 export * from './Title/Title';
-export * from './TypingTestScoreBoard/TypingTestScoreboard';
+export * from './TypingTestScoreBoard/ScoresSections';
 export * from './spinner/spinner';
+export * from './Card/Card';

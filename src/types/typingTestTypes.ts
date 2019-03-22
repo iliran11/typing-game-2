@@ -1,6 +1,6 @@
 import { PlayerGameStatus } from './typesIndex';
 
-export interface ScoreboardSectionData {
+export interface ScoreSectionsData {
   value: string | number;
   label: string;
 }

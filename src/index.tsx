@@ -19,7 +19,6 @@ Sentry.init({
 });
 
 Store.setStore(configureStore());
-console.log(Store.store);
 ReactDOM.render(
   <Provider store={Store.store}>
     <RouterWrapper />

@@ -1,6 +1,7 @@
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
+import { Stats2Container } from 'src/pages/Profile/Stats2/Stats2Container';
 
 export interface ProfileTabsProps {
   history: any;
@@ -41,7 +42,7 @@ export default class ProfileTabs extends React.PureComponent<
           <Tab label="Typing Test" />
         </Tabs>
 
-        {tabValue === 0 && <div>hello</div>}
+        {tabValue === 0 && <Stats2Container />}
         {/* {tabValue === 1 && <Progress history={this.props.history} />} */}
         {/* {tabValue === 1 && <Highlights history={this.props.history} />} */}
       </div>

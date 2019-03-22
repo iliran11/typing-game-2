@@ -10,7 +10,7 @@ const mapStateToProps = (state: RootState, props: any) => {
     totalGames
   };
 };
-export default connect(
+export const Stats2Container = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Stats2Tab);

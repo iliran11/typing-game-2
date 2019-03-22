@@ -54,6 +54,23 @@
       right: 0;
     }
   }
+  .bottom-border {
+    position:relative;
+    &:after {
+      content: '';
+      background: -webkit-linear-gradient(
+        left,
+        #365902 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      display: block;
+      height: 2px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
   .display-flex {
     display: flex;
   }
@@ -72,6 +89,9 @@
   }
   .non-flex {
     flex: none;
+  }
+  .position-relative {
+    position: relative;
   }
 
   .color-white {

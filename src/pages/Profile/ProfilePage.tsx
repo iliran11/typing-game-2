@@ -40,7 +40,7 @@ export default class ProfilePage extends React.Component<
       return <BoxLoader message="Calculating your achievments so far" />;
     }
     return (
-      <div id="profile-page">
+      <div id="profile-page" className="page">
         <section id="profile-info-section">
           <h1>{this.props.fullName}</h1>
           <ProfileHeader />
