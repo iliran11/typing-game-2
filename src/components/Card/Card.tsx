@@ -10,7 +10,7 @@ export interface TCCardProps {
 export function TCCard(props: TCCardProps) {
   return (
     <div className={cx('tc-card', props.className)}>
-      <h5 className="bottom-border ">{props.title}</h5>
+      <h5 className="bottom-border card-title ">{props.title}</h5>
       <div className="content gradient-6 shadow-4dp">{props.children}</div>
     </div>
   );

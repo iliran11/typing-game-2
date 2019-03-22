@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { ScoreSections } from 'src/components/ComponentsIndex';
 import { TCCard } from 'src/components/ComponentsIndex';
 import { CompareResults } from './CompareResults';
+import { ReplayContainer } from 'src/pages/pagesIndex';
 
 export interface Stats2TabProps {}
 
