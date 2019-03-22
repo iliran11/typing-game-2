@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { ScoreSections } from 'src/components/ComponentsIndex';
 import { TCCard } from 'src/components/ComponentsIndex';
+import { CompareResults } from './CompareResults';
 
 export interface Stats2TabProps {}
 
@@ -14,19 +15,6 @@ export default class Stats2Tab extends React.Component<
     super(props);
 
     this.state = {};
-  }
-  renderWinRate() {
-    return (
-      <TCCard title="Your best scores" className="profile-card">
-        <ScoreSections
-          data={[
-            { value: 34, label: 'WORDS/MIN' },
-            { value: 64, label: 'CHARS' },
-            { value: '94%', label: 'ACCURACY' }
-          ]}
-        />
-      </TCCard>
-    );
   }
   renderWinRatio() {
     return (
@@ -49,7 +37,7 @@ export default class Stats2Tab extends React.Component<
     return (
       <Fragment>
         {this.renderWinRatio()}
-        {this.renderWinRate()}
+        <CompareResults wordsMin={40} charsMin={30} accuracy={0.4} />
       </Fragment>
     );
   }

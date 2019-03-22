@@ -1,6 +1,9 @@
 @import 'src/css/base/colors.scss';
 
 #profile-page {
+  #profile-info-section {
+    margin-top: 20px;
+  }
   .win-ratio-container {
     width: 82%;
     margin-right: auto;
@@ -17,6 +20,17 @@
   }
   .profile-card {
     margin-top: 20px;
+  }
+  .comparison-avatars-list {
+    display: flex;
+    padding: 0px 15px;
+    margin-top: 15px;
+  }
+  .comparison-avatar {
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+    &.filled {
+    }
   }
   h1:first-child {
     margin: 0px;
