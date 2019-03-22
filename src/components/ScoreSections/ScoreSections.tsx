@@ -10,7 +10,7 @@ interface ScoreDivisionProps {
   hasBorder: boolean;
 }
 
-export function TypingTestScoreboard(props: ScoreSections) {
+export function ScoreSections(props: ScoreSections) {
   return (
     <div className="score-sections">
       {props.data.map((data, index) => {

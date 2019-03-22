@@ -3,10 +3,6 @@
 .score-sections {
   color: $color1;
   flex: none;
-  margin-top: 16px;
-  @media (min-width: 992px) {
-    margin-top: 48px;
-  }
   .score-division {
     flex: auto;
     position: relative;

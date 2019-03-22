@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { TypingTestScoreboard } from 'src/components/ComponentsIndex';
+import { ScoreSections } from 'src/components/ComponentsIndex';
 import { TCCard } from 'src/components/ComponentsIndex';
 
 export interface Stats2TabProps {}
@@ -15,12 +15,25 @@ export default class Stats2Tab extends React.Component<
 
     this.state = {};
   }
+  renderWinRate() {
+    return (
+      <TCCard title="Your best scores" className="profile-card">
+        <ScoreSections
+          data={[
+            { value: 34, label: 'WORDS/MIN' },
+            { value: 64, label: 'CHARS' },
+            { value: '94%', label: 'ACCURACY' }
+          ]}
+        />
+      </TCCard>
+    );
+  }
   renderWinRatio() {
     return (
       <TCCard title="Your win rate" className="profile-card">
         <div className="win-ratio-container position-relative">
           <div className="win-ratio-details  position-relative bottom-border">
-            <TypingTestScoreboard
+            <ScoreSections
               data={[
                 { value: 50, label: 'Won' },
                 { value: 302, label: 'Games' }
@@ -33,6 +46,11 @@ export default class Stats2Tab extends React.Component<
     );
   }
   public render() {
-    return this.renderWinRatio();
+    return (
+      <Fragment>
+        {this.renderWinRatio()}
+        {this.renderWinRate()}
+      </Fragment>
+    );
   }
 }
