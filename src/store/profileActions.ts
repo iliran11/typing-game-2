@@ -1,5 +1,5 @@
 import { RootState } from '../types';
-import { UserAchievementsI } from '../types/AchievementsTypes';
+import { ProfilePayload } from '../types/typesIndex';
 import {
   PLAYER_ID_PARAM,
   LOAD_PROFILE_ACHIEVEMENTS,
@@ -19,7 +19,7 @@ export function profileMainLoad(playerId: string) {
         }
       })
       .then(result => {
-        const data: UserAchievementsI = result.data;
+        const data: ProfilePayload = result.data;
         dispatch({
           type: LOAD_PROFILE_ACHIEVEMENTS,
           payload: { playerId, data: result.data }

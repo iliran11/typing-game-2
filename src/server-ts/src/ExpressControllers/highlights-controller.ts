@@ -3,7 +3,7 @@ import { PLAYER_ID_PARAM } from '../../../constants';
 import { HighlightsMapping, HighlightsI } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 
-export function HighlightsController(req, res) {
+export async function HighlightsController(playerId) {
   const highlights: HighlightsI = {};
   function getUsedRoomIds() {
     // @ts-ignore
@@ -17,22 +17,20 @@ export function HighlightsController(req, res) {
     });
     return roomIds;
   }
-  const playerId = req.query[PLAYER_ID_PARAM];
-  if (!playerId) {
-    res.send(400);
-    return;
-  }
   const maxSpeed = new Promise((resolve, reject) => {
     userGameHistoryDb
       .getMaxOneDocumentByQuery(
         {
-           playerId
+          playerId
         },
         { score: -1 }
       )
       .then(result => {
         if (result) {
-          highlights.highestSpeed = { roomId: result.roomId, data: result };
+          highlights.highestSpeed = {
+            roomId: result.roomId,
+            data: result
+          };
         }
         resolve();
       })
@@ -44,7 +42,7 @@ export function HighlightsController(req, res) {
     maxSpeed.then(result => {
       userGameHistoryDb
         .getMaxOneDocumentByQuery(
-          { playerId, roomId: { $nin: getUsedRoomIds() }, rankAtFinish: 1 },
+          { playerId, roomId: { $nin: getUsedRoomIds() }, rank: 1 },
           { rank: -1 }
         )
         .then(result => {
@@ -77,11 +75,10 @@ export function HighlightsController(req, res) {
         });
     });
   });
-  Promise.all([maxSpeed, firstPlace, fastestGame]).then(values => {
-    // we are sending a map to be prepared for sending highlights of multiple players.
-    const response: HighlightsMapping = {
-      [playerId]: highlights
-    };
-    res.send(response);
-  });
+  await Promise.all([maxSpeed, firstPlace, fastestGame]);
+  // we are sending a map to be prepared for sending highlights of multiple players.
+  const response: HighlightsMapping = {
+    [playerId]: highlights
+  };
+  return response;
 }

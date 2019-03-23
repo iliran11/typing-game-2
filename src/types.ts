@@ -259,4 +259,5 @@ export interface GAME_IS_ACTIVE_PAYLOAD {
 export interface ProfilePayload {
   totalGames: number;
   totalWins: number;
+  highlights: HighlightsMapping;
 }

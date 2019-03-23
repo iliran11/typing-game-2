@@ -76,7 +76,7 @@ class UserGameHistoryDb {
       if (result.length === 0) {
         return null;
       }
-      return result[0];
+      return result[0]._doc;
     } catch (error) {
       throw new Error(error);
     }
