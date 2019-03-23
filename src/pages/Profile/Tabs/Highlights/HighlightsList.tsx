@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { HighlightItem } from './HighlightItem';
 import { HighlightsI, HightLightItemI } from '../../../../types';
-import { format } from 'date-fns';
+import { TimeManager } from 'src/middlewares/TimeManager';
 
 export interface HighlightsListProps {
   highlights: HighlightsI;
@@ -59,7 +59,7 @@ function processHighestSpeed(item: HightLightItemI) {
     item.data.gameDuration / 1000
   )} secs`;
   // @ts-ignore
-  const createdDate = format(item.data.finishedTimeStamp);
+  const createdDate = TimeManager.formattedTime(item.data.creationTimestamp);
   return {
     firstRow,
     secondRow,
@@ -77,7 +77,7 @@ function processFirstPlace(item: HightLightItemI) {
     // @ts-ignore
     item.data.gameDuration / 1000
   )}secs`;
-  const createdDate = 'Invalid Date';
+  const createdDate = TimeManager.formattedTime(item.data.creationTimestamp);
   return {
     firstRow,
     secondRow,
@@ -93,7 +93,7 @@ function processTypedTheMost(item: HightLightItemI) {
   )} Seconds`;
   const secondRow = `Your Speed: ${Math.floor(item.data.wpm)} WPM`;
   const thirdRow = `You took ${numberSuffix(item.data.rank)} Place`;
-  const createdDate = `Invalid Date`;
+  const createdDate = TimeManager.formattedTime(item.data.creationTimestamp);
   return {
     firstRow,
     secondRow,

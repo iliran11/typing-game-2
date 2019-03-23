@@ -23,7 +23,7 @@ export function HighlightItem(props: HighlightItemProps) {
         <h3>{props.firstRow}</h3>
         <p>{props.secondRow}</p>
         <p>{props.thirdRow}</p>
-        <p>{props.createdDate}</p>
+        <p className="highlight-creation-date">{props.createdDate}</p>
       </div>
     </section>
   );

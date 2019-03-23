@@ -60,6 +60,7 @@
   flex-direction: column;
   height: 100%;
   position: relative;
+  padding-bottom: 30px;
 }
 #ranking {
   display: flex;
@@ -219,6 +220,13 @@
 }
 .highlight-info {
   padding-left: 15px;
+  width: 300px;
+}
+.highlight-creation-date {
+  font-weight: normal;
+  font-size: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
 .highlight-image-container {
   display: flex;
