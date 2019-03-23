@@ -14,7 +14,6 @@ import {
   LinearBotPlayer
 } from '../Player/players-index';
 import { Countdown } from '../Countdown';
-import LevelManager from '../LevelManager';
 import { multiplayerRoomManager } from '../MultiplayerRoomManager';
 import PlayerManager from '../PlayerManager';
 import { BaseRoom } from './BaseRoom';
@@ -46,34 +45,6 @@ export default class MultiplayerRoom extends BaseRoom {
   deletePlayer(player: BasePlayer): void {}
   async playerHasFinished(finishedPlayer: BasePlayer) {
     super.playerHasFinished(finishedPlayer);
-    const gameResultRecord = super.getPlayerGameStatus(finishedPlayer);
-    if (finishedPlayer instanceof HumanPlayer) {
-      if (finishedPlayer.isAuthenticated) {
-        const stats = await LevelManager.getPlayerStats(
-          finishedPlayer.playerId
-        );
-        const nextStats = LevelManager.calculateNextStats(
-          stats,
-          gameResultRecord
-        );
-        const playerProgress: AchievementsProgressI = {
-          prevAchievement: stats,
-          nextachievement: nextStats,
-          roomId: this.instanceId,
-          timestamp: Date.now()
-        };
-        if (finishedPlayer instanceof HumanPlayer) {
-          finishedPlayer.socket.emit(NAVIGATE_RESULT, playerProgress);
-        }
-        // userPorgressDb.createResult(playerProgress);
-        await LevelManager.processNewResult(
-          finishedPlayer.playerId,
-          finishedPlayer.socket
-        );
-      } else if (finishedPlayer.playerType === PlayerType.human) {
-        // finishedPlayer.socket.emit(NAVIGATE_RESULT,{});
-      }
-    }
   }
   protected gameTick(): void {
     super.gameTick();
@@ -86,7 +57,6 @@ export default class MultiplayerRoom extends BaseRoom {
     multiplayerRoomManager.allocateToRoom(
       null,
       undefined,
-      1,
       this.roomType,
       PlayerType.bot,
       this.roomDeviceType

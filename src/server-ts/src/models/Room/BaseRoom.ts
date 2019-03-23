@@ -26,7 +26,7 @@ const uuid = require('uuid/v4');
 class BaseRoom {
   instanceId: string = `Room-${uuid()}`;
   intervalId: any;
-  protected maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM_WEB;
+  public maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM_WEB;
   protected timePassed: number = 0;
   protected timerId: any;
   protected readonly timeIncrement: number = 1000;

@@ -2,7 +2,6 @@ import ServerManager from './models/ServerManager';
 // import gamesHistoryController from './ExpressControllers/gamesHistoryController';
 import {
   loginController,
-  ChangeUserLevel,
   GamesHistoryController,
   HighlightsController,
   UserAchievementController,
@@ -35,7 +34,6 @@ app.get('/verify-login', VerifyLoginController);
 app.get('/game-replay', GamesHistoryController);
 app.get('/user-achievement', UserAchievementController);
 app.get('/games-highlights', HighlightsController);
-app.post('/change-level', ChangeUserLevel);
 app.get('/version', VersionController);
 
 const serverManager = ServerManager.getInstance(server);

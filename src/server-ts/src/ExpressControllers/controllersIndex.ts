@@ -1,5 +1,4 @@
 export * from './login-controller';
-export * from './change-user-level-controller';
 export * from './game-replay-controller';
 export * from './highlights-controller';
 export * from './user-achievements-controller';

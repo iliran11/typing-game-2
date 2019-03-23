@@ -28,7 +28,6 @@ export default class MultiplayerRoomManager {
   allocateToRoom(
     socket: any,
     userData: FacebookUserType | undefined,
-    level: number,
     roomType: RoomType,
     playerType: PlayerType,
     deviceType: DeviceType
@@ -37,7 +36,6 @@ export default class MultiplayerRoomManager {
     const playerOpts = {
       socket,
       userData,
-      level,
       roomType,
       room,
       deviceType

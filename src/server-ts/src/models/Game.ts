@@ -1,6 +1,5 @@
 import LetterData from '../../../store/classes/lettterData';
 const uuid = require('uuid/v4');
-import LevelManager from './LevelManager';
 import { BasePlayer } from './Player/BasePlayer';
 
 export default class Game {
@@ -17,10 +16,8 @@ export default class Game {
   private player: BasePlayer;
 
   constructor(level: number, player: BasePlayer) {
-    this.rawLetters = LevelManager.getText(level);
-    this.letters = LevelManager.getText(level)
-      .split('')
-      .map(word => new LetterData(word));
+    this.rawLetters = 'liran';
+    this.letters = 'liran'.split('').map(word => new LetterData(word));
     this.index = 0;
     this.gameId = Game.gameCounter;
     this.numberOfTypings = 0;

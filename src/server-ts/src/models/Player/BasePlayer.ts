@@ -12,7 +12,6 @@ import { BaseRoom } from '../Room/BaseRoom';
 export interface BasePlayersOptions {
   socket?: io.Socket | string;
   // userData?: FacebookUserType;
-  level: number;
   room: BaseRoom;
   deviceType: DeviceType;
 }
@@ -28,7 +27,7 @@ export abstract class BasePlayer {
   deviceType: DeviceType;
 
   constructor(playerConstructorOptions: BasePlayersOptions) {
-    const { socket, level, room } = playerConstructorOptions;
+    const { socket, room } = playerConstructorOptions;
     this.room = room;
     this.deviceType = playerConstructorOptions.deviceType;
     const roomType = this.room.roomType;

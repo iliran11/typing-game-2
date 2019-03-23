@@ -16,7 +16,6 @@ import {
   StartTypingTestGameI,
   DeviceType
 } from '../../../types/typesIndex';
-import LevelManager from '../models/LevelManager';
 import RoomManager, {
   multiplayerRoomManager
 } from '../models/MultiplayerRoomManager';
@@ -38,26 +37,22 @@ export default function onConnect(socket: io.Socket): void {
   });
   socket.on(REQUEST_TO_PLAY, (roomType: RoomType, deviceType: DeviceType) => {
     const userData: FacebookUserType = getSocketAuthentication(socket);
-    const levelManager = LevelManager.getInstance();
     const playerId = get(userData, ['id']);
-    levelManager.getPlayerLevel(playerId).then(level => {
-      // const player = new Player({socket, userData, level,roomType};
-      // playerManager.addPlayer(player);
-      if (roomType === RoomType.MULTIPLAYER) {
-        multiplayerRoomManager.allocateToRoom(
-          socket,
-          userData,
-          level,
-          roomType,
-          PlayerType.human,
-          deviceType
-        );
-      }
-      if (roomType === RoomType.TYPING_TEST) {
-        typingTestManager.initGame(socket, userData, level, deviceType);
-      }
-      socket.emit(CONNECT_SERVER_SUCCESS);
-    });
+    // const player = new Player({socket, userData, level,roomType};
+    // playerManager.addPlayer(player);
+    if (roomType === RoomType.MULTIPLAYER) {
+      multiplayerRoomManager.allocateToRoom(
+        socket,
+        userData,
+        roomType,
+        PlayerType.human,
+        deviceType
+      );
+    }
+    if (roomType === RoomType.TYPING_TEST) {
+      typingTestManager.initGame(socket, userData, deviceType);
+    }
+    socket.emit(CONNECT_SERVER_SUCCESS);
   });
   socket.on(PLAYER_TYPING, data => {
     playerTyping(socket, data);

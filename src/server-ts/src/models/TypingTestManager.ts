@@ -10,17 +10,11 @@ export class TypingTestManager {
   private constructor() {
     this.rooms = new Map();
   }
-  initGame(
-    socket: any,
-    userData: FacebookUserType,
-    level: number,
-    deviceType: DeviceType
-  ) {
+  initGame(socket: any, userData: FacebookUserType, deviceType: DeviceType) {
     const room = new TypingTestRoom(deviceType);
     const player = new HumanPlayer({
       socket,
       userData,
-      level,
       room,
       deviceType
     });
