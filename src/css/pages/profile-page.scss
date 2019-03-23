@@ -58,7 +58,6 @@
   margin-top: 25px;
   display: flex;
   flex-direction: column;
-  height: 100%;
   position: relative;
   padding-bottom: 30px;
 }
@@ -205,6 +204,7 @@
   flex-direction: column;
 }
 .highlight-item {
+  position: relative;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -216,6 +216,15 @@
   }
   h3 {
     margin: 0;
+  }
+  .replay-duration {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 10px;
+    margin-left:5px;
+    margin-bottom:2px;
+    
   }
 }
 .highlight-info {
@@ -242,6 +251,8 @@
 
 .highlights-list-container {
   overflow: auto;
+  padding-left: 10px;
+  padding-bottom:10px;
 }
 .highlights-progress {
   position: absolute;

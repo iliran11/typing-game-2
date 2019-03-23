@@ -60,12 +60,16 @@ function processHighestSpeed(item: HightLightItemI) {
   )} secs`;
   // @ts-ignore
   const createdDate = TimeManager.formattedTime(item.data.creationTimestamp);
+  const durationTime = TimeManager.millisecondsToTimeFormat(
+    item.data.gameDuration
+  );
   return {
     firstRow,
     secondRow,
     thirdRow,
     createdDate,
-    roomId: item.data.roomId
+    roomId: item.data.roomId,
+    durationTime
   };
 }
 
@@ -78,12 +82,16 @@ function processFirstPlace(item: HightLightItemI) {
     item.data.gameDuration / 1000
   )}secs`;
   const createdDate = TimeManager.formattedTime(item.data.creationTimestamp);
+  const durationTime = TimeManager.millisecondsToTimeFormat(
+    item.data.gameDuration
+  );
   return {
     firstRow,
     secondRow,
     thirdRow,
     createdDate,
-    roomId: item.data.roomId
+    roomId: item.data.roomId,
+    durationTime
   };
 }
 function processTypedTheMost(item: HightLightItemI) {
@@ -94,12 +102,16 @@ function processTypedTheMost(item: HightLightItemI) {
   const secondRow = `Your Speed: ${Math.floor(item.data.wpm)} WPM`;
   const thirdRow = `You took ${numberSuffix(item.data.rank)} Place`;
   const createdDate = TimeManager.formattedTime(item.data.creationTimestamp);
+  const durationTime = TimeManager.millisecondsToTimeFormat(
+    item.data.gameDuration
+  );
   return {
     firstRow,
     secondRow,
     thirdRow,
     createdDate,
-    roomId: item.data.roomId
+    roomId: item.data.roomId,
+    durationTime
   };
 }
 

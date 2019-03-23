@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { PlayerGameStatus, ScoreSectionsData } from '../../types/typesIndex';
+import { PlayerGameStatus, ScoreSectionsData } from 'src/types/typesIndex';
 import { PlayerResult, Title } from 'src/components/ComponentsIndex';
-import { ordinal, millisecondsToTimeResult } from '../../utilities';
+import { ordinal } from 'src/utilities';
+import { TimeManager } from 'src/middlewares/TimeManager';
 export interface MultiplayerResultPageProps {
   roomId: string;
   players: PlayerGameStatus[];
@@ -39,7 +40,10 @@ export class MultiplayerResultPage extends React.Component<
       // @ts-ignore
       { label: 'ACCURACY', value: `${Math.floor(player.accuracy * 100)}%` },
       // @ts-ignore
-      { label: 'TIME', value: millisecondsToTimeResult(player.gameDuration) }
+      {
+        label: 'TIME',
+        value: TimeManager.millisecondsToTimeFormat(player.gameDuration)
+      }
     ];
     return (
       <PlayerResult

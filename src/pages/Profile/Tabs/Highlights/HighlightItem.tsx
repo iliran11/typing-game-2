@@ -8,6 +8,7 @@ export interface HighlightItemProps {
   thirdRow: string;
   createdDate: string;
   roomId: string;
+  durationTime: string;
 }
 
 export function HighlightItem(props: HighlightItemProps) {
@@ -18,6 +19,7 @@ export function HighlightItem(props: HighlightItemProps) {
     <section className="highlight-item" onClick={onClick}>
       <div className="highlight-image-container shadow-4dp">
         <img src={videoPlayer} />
+        <span className="replay-duration">{props.durationTime}</span>
       </div>
       <div className="highlight-info">
         <h3>{props.firstRow}</h3>

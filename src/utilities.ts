@@ -109,18 +109,6 @@ export function ordinal(d: number) {
   }
 }
 
-export function millisecondsToTimeResult(milliseconds: number): string {
-  const minutes = Math.floor(milliseconds / 60000);
-  const remainedMilliseconds = milliseconds - minutes * 60000;
-  const seconds = Math.floor(remainedMilliseconds / 1000);
-  return `${number2Digits(minutes)}:${number2Digits(seconds)}`;
-}
-
-function number2Digits(number: number): string {
-  if (number < 10) return `0${number}`;
-  return `${number}`;
-}
-
 export function initTouchFlag(dispatch: any, getState: () => RootState) {
   const platform = getState().myData.platform;
   if (platform === DeviceType.DESKTOP || platform === DeviceType.MOBILE) {
