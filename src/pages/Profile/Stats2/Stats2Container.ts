@@ -5,9 +5,11 @@ const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
   const activeUser = state.authentication.playerId;
   const { totalWins, totalGames } = state.userAchievments[activeUser];
+  const highlights = state.highlights[state.authentication.playerId];
   return {
     totalWins,
-    totalGames
+    totalGames,
+    highlights
   };
 };
 export const Stats2Container = connect(

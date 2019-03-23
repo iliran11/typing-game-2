@@ -1,7 +1,7 @@
 /**
  *  helper class for doing common navigation operations.
  */
-import { ROOM_TYPE_PARAM } from 'src/constants';
+import { ROOM_TYPE_PARAM, ROOM_ID_PARM } from 'src/constants';
 import { iosShowKeyboard } from 'src/middlewares/IosShowKeyboard';
 import { RoomType } from 'src/types/typesIndex';
 
@@ -21,6 +21,9 @@ export class TCNavigator {
       this.history.push(`/game?${ROOM_TYPE_PARAM}=${RoomType.TYPING_TEST}`);
     });
   };
+  navigateToReplay(roomId: string) {
+    this.history.push(`/replay?${ROOM_ID_PARM}=${roomId}`);
+  }
   static initNavigators(history: any) {
     TCNavigator.instance = new TCNavigator(history);
   }

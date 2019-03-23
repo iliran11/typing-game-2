@@ -16,6 +16,7 @@ export interface AchievementsProgressI {
 export interface UserAchievementsI {
   totalGames: number;
   totalWins: number;
+  playerId: string;
 }
 // export interface AchievementsI {
 //   wpm: number;

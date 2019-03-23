@@ -206,7 +206,9 @@ export interface HightLightItemI {
 }
 
 export interface HighlightsI {
-  [highlightName: string]: HightLightItemI;
+  highestSpeed: HightLightItemI;
+  firstPlace: HightLightItemI;
+  fastestGame: HightLightItemI;
 }
 
 export interface HighlightsMapping {

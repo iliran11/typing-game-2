@@ -21,6 +21,6 @@ function loadSingleUserAchievements(
 ) {
   return {
     ...state,
-    [payload.playerId]: payload.data
+    [payload.playerId]: payload
   };
 }

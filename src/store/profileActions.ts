@@ -1,5 +1,5 @@
 import { RootState } from '../types';
-import { ProfilePayload } from '../types/typesIndex';
+import { ProfilePayload, UserAchievementsI } from '../types/typesIndex';
 import {
   PLAYER_ID_PARAM,
   LOAD_PROFILE_ACHIEVEMENTS,
@@ -12,6 +12,7 @@ import { resolve } from 'url';
 
 export function profileMainLoad(playerId: string) {
   return function(dispatch: any, getState: () => RootState) {
+    const state = getState();
     return axios
       .get(networkManager.prefixedPath('user-achievement'), {
         params: {
@@ -20,9 +21,18 @@ export function profileMainLoad(playerId: string) {
       })
       .then(result => {
         const data: ProfilePayload = result.data;
+        const achievementsPayload: UserAchievementsI = {
+          totalGames: data.totalGames,
+          totalWins: data.totalWins,
+          playerId: state.authentication.playerId
+        };
         dispatch({
           type: LOAD_PROFILE_ACHIEVEMENTS,
-          payload: { playerId, data: result.data }
+          payload: achievementsPayload
+        });
+        dispatch({
+          type: LOAD_HIGHLIGHTS,
+          payload: data.highlights
         });
       });
   };

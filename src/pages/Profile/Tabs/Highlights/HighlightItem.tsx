@@ -1,5 +1,6 @@
 import * as React from 'react';
 import videoPlayer from 'src/assets/play/play.svg';
+import { TCNavigator } from 'src/middlewares/TCNavigations';
 
 export interface HighlightItemProps {
   firstRow: string;
@@ -12,7 +13,7 @@ export interface HighlightItemProps {
 
 export function HighlightItem(props: HighlightItemProps) {
   const onClick = function() {
-    props.onClick(props.roomId);
+    TCNavigator.getInstance().navigateToReplay(props.roomId);
   };
   return (
     <section className="highlight-item" onClick={onClick}>

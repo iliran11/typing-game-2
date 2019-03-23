@@ -2,9 +2,14 @@ import React, { Fragment } from 'react';
 import { ScoreSections } from 'src/components/ComponentsIndex';
 import { TCCard } from 'src/components/ComponentsIndex';
 import { CompareResults } from './CompareResults';
-import { ReplayContainer } from 'src/pages/pagesIndex';
+import { HighlightsI } from 'src/types/typesIndex';
+import { HighlightsList } from 'src/pages/Profile/Tabs/Highlights/HighlightsList';
 
-export interface Stats2TabProps {}
+export interface Stats2TabProps {
+  totalWins: number;
+  totalGames: number;
+  highlights: HighlightsI;
+}
 
 export interface Stats2TabState {}
 
@@ -39,6 +44,9 @@ export default class Stats2Tab extends React.Component<
       <Fragment>
         {this.renderWinRatio()}
         <CompareResults wordsMin={40} charsMin={30} accuracy={0.4} />
+        <HighlightsList
+          highlights={this.props.highlights}
+        />
       </Fragment>
     );
   }

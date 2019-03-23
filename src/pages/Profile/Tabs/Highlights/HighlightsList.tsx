@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 
 export interface HighlightsListProps {
   highlights: HighlightsI;
-  onItemClick: any;
 }
 
 const data = [
