@@ -19,10 +19,6 @@ export default class HighlightsManager extends React.Component<
     super(props);
     this.state = {};
     props.fetchHighlights();
-    this.onHighlightItemClick = this.onHighlightItemClick.bind(this);
-  }
-  onHighlightItemClick(roomId: string) {
-    this.props.history.push(`/replay?${ROOM_ID_PARM}=${roomId}`);
   }
   public render() {
     if (!this.props.highlights) {
@@ -34,10 +30,7 @@ export default class HighlightsManager extends React.Component<
     }
     return (
       <div id="highlights-tab">
-        <HighlightsList
-          highlights={this.props.highlights}
-          onItemClick={this.onHighlightItemClick}
-        />
+        <HighlightsList highlights={this.props.highlights} />
       </div>
     );
   }

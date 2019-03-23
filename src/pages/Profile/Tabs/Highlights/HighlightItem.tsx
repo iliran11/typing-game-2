@@ -8,7 +8,6 @@ export interface HighlightItemProps {
   thirdRow: string;
   createdDate: string;
   roomId: string;
-  onClick: any;
 }
 
 export function HighlightItem(props: HighlightItemProps) {

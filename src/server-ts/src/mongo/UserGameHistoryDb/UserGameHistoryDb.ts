@@ -34,7 +34,7 @@ class UserGameHistoryDb {
   async maxField(playerId: string, fieldName: string): Promise<number> {
     try {
       const result = await this.model
-        .find({ playerId })
+        .find({ playerId, hasFinished: true })
         .sort({ [fieldName]: -1 })
         .limit(1);
 
@@ -49,7 +49,7 @@ class UserGameHistoryDb {
   }
   async totalField(playerId: string, fieldName: string): Promise<number> {
     try {
-      const match = { $match: { playerId } };
+      const match = { $match: { playerId, hasFinished: true } };
       const group = {
         $group: {
           _id: null,
@@ -72,7 +72,9 @@ class UserGameHistoryDb {
     sortObject
   ): Promise<PlayerGameStatus | null> {
     try {
-      const result = await this.model.find(queryObject).sort(sortObject);
+      const result = await this.model
+        .find({ ...queryObject, hasFinished: true })
+        .sort(sortObject);
       if (result.length === 0) {
         return null;
       }
@@ -82,6 +84,7 @@ class UserGameHistoryDb {
     }
   }
   async getRankings(): Promise<any> {
+    throw new Error('not in use!');
     const group = {
       $group: {
         _id: '$id',

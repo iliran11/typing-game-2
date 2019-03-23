@@ -36,19 +36,14 @@ export function HighlightsList(props: HighlightsListProps) {
         {props.highlights.highestSpeed && (
           <HighlightItem
             {...processHighestSpeed(props.highlights.highestSpeed)}
-            onClick={props.onItemClick}
           />
         )}
         {props.highlights.firstPlace && (
-          <HighlightItem
-            {...processFirstPlace(props.highlights.firstPlace)}
-            onClick={props.onItemClick}
-          />
+          <HighlightItem {...processFirstPlace(props.highlights.firstPlace)} />
         )}
         {props.highlights.fastestGame && (
           <HighlightItem
             {...processTypedTheMost(props.highlights.fastestGame)}
-            onClick={props.onItemClick}
           />
         )}
       </div>
