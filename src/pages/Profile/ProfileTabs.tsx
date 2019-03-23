@@ -1,7 +1,11 @@
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
+import { GameType } from 'src/types/typesIndex';
 import { Stats2Container } from 'src/pages/Profile/Stats2/Stats2Container';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export interface ProfileTabsProps {
   history: any;
@@ -9,6 +13,7 @@ export interface ProfileTabsProps {
 
 export interface ProfileTabsState {
   tabValue: number;
+  platform: 'mobile' | 'desktop';
 }
 
 export default class ProfileTabs extends React.PureComponent<
@@ -18,7 +23,8 @@ export default class ProfileTabs extends React.PureComponent<
   constructor(props: ProfileTabsProps) {
     super(props);
     this.state = {
-      tabValue: 0
+      tabValue: 0,
+      platform: 'mobile'
     };
     this.onTabChange = this.onTabChange.bind(this);
   }
@@ -27,6 +33,25 @@ export default class ProfileTabs extends React.PureComponent<
       tabValue
     });
   }
+  handlePlatformChange = (event: any) => {
+    this.setState({
+      platform: event.target.value
+    });
+  };
+  renderPlatformChooser = () => {
+    return (
+      <RadioGroup
+        aria-label="Gender"
+        name="gender1"
+        value={this.state.platform}
+        classes={{ root: 'platform-chooser' }}
+        onChange={this.handlePlatformChange}
+      >
+        <FormControlLabel value="desktop" control={<Radio />} label="desktop" />
+        <FormControlLabel value="mobile" control={<Radio />} label="mobile" />
+      </RadioGroup>
+    );
+  };
   public render() {
     const { tabValue } = this.state;
     return (
@@ -41,10 +66,21 @@ export default class ProfileTabs extends React.PureComponent<
           {/* <Tab label="Progress" /> */}
           <Tab label="Typing Test" />
         </Tabs>
-
-        {tabValue === 0 && <Stats2Container />}
-        {/* {tabValue === 1 && <Progress history={this.props.history} />} */}
-        {/* {tabValue === 1 && <Highlights history={this.props.history} />} */}
+        <div className="position-relative">
+          {this.renderPlatformChooser()}
+          {tabValue === 0 && (
+            <Stats2Container
+              platform={this.state.platform}
+              gameType={GameType.multiplayer}
+            />
+          )}
+          {tabValue === 0 && (
+            <Stats2Container
+              platform={this.state.platform}
+              gameType={GameType.multiplayer}
+            />
+          )}
+        </div>
       </div>
     );
   }

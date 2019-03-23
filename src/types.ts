@@ -273,3 +273,8 @@ export interface ProfilePayload {
   achievements: GameTypesAchivements;
   highlights: GameTypeHighlights;
 }
+
+export enum GameType {
+  typingTest = 'typingTest',
+  multiplayer = 'multiplayer'
+}

@@ -4,11 +4,12 @@ import { RootState } from 'src/types/typesIndex';
 const mapDispatchToProps = {};
 const mapStateToProps = (state: RootState, props: any) => {
   const activeUser = state.authentication.playerId;
-  const { totalWins, totalGames } = state.userAchievments[activeUser][
-    'multiplayer'
-  ]['desktop'];
-  const highlights =
-    state.highlights[state.authentication.playerId]['multiplayer']['desktop'];
+  const { userAchievments, authentication } = state;
+  const { gameType, platform } = props;
+  const { totalWins, totalGames } = userAchievments[activeUser][gameType][
+    platform
+  ];
+  const highlights = state.highlights[activeUser][gameType][platform];
   return {
     totalWins,
     totalGames,

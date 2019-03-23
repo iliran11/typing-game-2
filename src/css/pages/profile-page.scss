@@ -39,6 +39,11 @@
     color: $color1;
     text-align: center;
   }
+  .platform-chooser {
+    flex-direction: row;
+    position: absolute;
+    right: 0;
+  }
   .active-user-avatar {
     width: 90px;
     height: 90px;
@@ -222,9 +227,8 @@
     left: 0;
     bottom: 0;
     font-size: 10px;
-    margin-left:5px;
-    margin-bottom:2px;
-    
+    margin-left: 5px;
+    margin-bottom: 2px;
   }
 }
 .highlight-info {
@@ -252,7 +256,7 @@
 .highlights-list-container {
   overflow: auto;
   padding-left: 10px;
-  padding-bottom:10px;
+  padding-bottom: 10px;
 }
 .highlights-progress {
   position: absolute;
