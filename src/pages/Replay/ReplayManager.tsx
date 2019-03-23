@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { GameView, CompetitorList } from 'src/components/ComponentsIndex';
 import { PlayerAvatar } from '../../types';
+import { GameDomManager } from 'src/components/game-manager/GameDomManager';
 import { ReplayPageProps } from './ReplayPage';
-import TypingInputSimulator from './TypingInputSimulator';
 
 export interface ReplayManagerProps extends ReplayPageProps {
   avatars: PlayerAvatar[];
+  words: string[];
 }
 
 enum DOCUMENT_TYPE {
@@ -24,8 +25,8 @@ export default class ReplayManager extends React.Component<
 > {
   tooltipTimer: any;
   allReplayDocuments: any;
-  typingInputSimulator: TypingInputSimulator;
   timelineMap: TimelineMapI[];
+  domManager: GameDomManager;
   constructor(props: ReplayManagerProps) {
     super(props);
     this.timelineMap = [...this.props.typingData, ...this.props.replay]
@@ -44,42 +45,17 @@ export default class ReplayManager extends React.Component<
       });
     this.state = {
       stepIndex: 0,
-      competitorReplayInstance: this.props.replay[0].results,
-      input: [],
-      letters: [],
-      lettersIndex: 0,
-      toolTipX: 0,
-      toolTipY: 0,
-      tooltipInput: '',
-      isOpen: false
+      competitorReplayInstance: this.props.replay[0].results
     };
-    this.typingInputSimulator = new TypingInputSimulator(
-      this.props.gameInfo.letters
-    );
+    this.domManager = new GameDomManager();
     this.replayTick = this.replayTick.bind(this);
-    this.handleTypingDocument = this.handleTypingDocument.bind(this);
     this.handleCompetitorReplay = this.handleCompetitorReplay.bind(this);
-    this.closeTooltip = this.closeTooltip.bind(this);
-    this.scheduleTooltipClosure = this.scheduleTooltipClosure.bind(this);
-    this.changeToolTipPosition = this.changeToolTipPosition.bind(this);
   }
   componentDidMount() {
-    this.setState(
-      {
-        letters: this.props.gameInfo.letters
-      },
-      this.replayTick
-    );
+    this.replayTick();
   }
   get currentDocument(): TimelineMapI {
     return this.timelineMap[this.state.stepIndex];
-  }
-  get previousDocument(): TimelineMapI | null {
-    const previousIndex = this.state.stepIndex - 1;
-    if (previousIndex < 0) {
-      return null;
-    }
-    return this.timelineMap[this.state.stepIndex - 1];
   }
   get nextDocument(): TimelineMapI | null {
     const nextIndex = this.state.stepIndex + 1;
@@ -98,14 +74,6 @@ export default class ReplayManager extends React.Component<
     }
     return -1;
   }
-  handleTypingDocument() {
-    const nextTypingState = this.typingInputSimulator.nexTypingState(
-      this.currentDocument.document
-    );
-    return {
-      ...nextTypingState
-    };
-  }
   handleCompetitorReplay() {
     return {
       competitorReplayInstance: this.currentDocument.document.results
@@ -114,7 +82,7 @@ export default class ReplayManager extends React.Component<
   replayTick() {
     let nextState = { ...this.state };
     if (this.currentDocument.documentType === DOCUMENT_TYPE.TYPING) {
-      nextState = { ...nextState, ...this.handleTypingDocument() };
+      this.domManager.onInput(this.currentDocument.document.typedLetter);
     }
     if (this.currentDocument.documentType === DOCUMENT_TYPE.COMPETITOR) {
       nextState = { ...nextState, ...this.handleCompetitorReplay() };
@@ -133,29 +101,6 @@ export default class ReplayManager extends React.Component<
       }
     );
   }
-  // TODO: MOVE TO HOC
-  changeToolTipPosition(toolTipX: number, toolTipY: number, input: string) {
-    // we want that the arrow (not the most left border of the tooltip) will point exactly on the coordinate supplied
-    const arrowOffset = 22 / 2;
-    clearTimeout(this.tooltipTimer);
-    this.setState(
-      {
-        toolTipX: toolTipX - arrowOffset,
-        toolTipY,
-        isOpen: true,
-        tooltipInput: input
-      },
-      this.scheduleTooltipClosure
-    );
-  }
-  scheduleTooltipClosure() {
-    this.tooltipTimer = setTimeout(this.closeTooltip, 1000);
-  }
-  closeTooltip() {
-    this.setState({
-      isOpen: false
-    });
-  }
   // END OF MOVE TO HOC
   render() {
     return (
@@ -167,22 +112,7 @@ export default class ReplayManager extends React.Component<
           myId={this.props.myId}
           history={this.props.history}
         />
-        <GameView
-          letters={this.state.letters}
-          input={this.state.input}
-          gameActive={true}
-          changeToolTipPosition={this.changeToolTipPosition}
-          closeTooltip={this.scheduleTooltipClosure}
-          index={this.state.inputIndex}
-          gameIsFinished={() => {}}
-          notifyServerOnFinish={false}
-        />
-        {/* <ToolTip
-          x={this.state.toolTipX}
-          y={this.state.toolTipY}
-          isOpen={this.state.isOpen}
-          input={this.state.tooltipInput}
-        /> */}
+        <GameView words={this.props.words} gameDomManager={this.domManager} />
       </div>
     );
   }

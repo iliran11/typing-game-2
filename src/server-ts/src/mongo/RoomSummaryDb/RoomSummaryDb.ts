@@ -8,9 +8,9 @@ class RoomSummaryDb {
   private constructor() {
     this.scheme = new mongoose.Schema(
       {},
-      { strict: false, collection: 'gameSummary' }
+      { strict: false, collection: 'roomSummary' }
     );
-    this.model = mongoose.model('gameSummary', this.scheme);
+    this.model = mongoose.model('roomSummary', this.scheme);
   }
   async save(data: GameSummryDBI) {
     try {

@@ -65,7 +65,7 @@ class BaseRoom {
     return result;
   }
   get roomLetters() {
-    return this.roomPlayersManager.playersArray[0].playerGame.getRawLetters;
+    return this.roomPlayersManager.playersArray[0].playerGame.words;
   }
   get playersArray() {
     return this.roomPlayersManager.playersArray;
@@ -118,7 +118,7 @@ class BaseRoom {
   }
   public get roomSummary(): GameSummryDBI {
     return {
-      letters: this.roomLetters,
+      words: this.roomLetters,
       players: this.roomPlayersScores,
       roomId: this.instanceId,
       roomType: this.roomType,

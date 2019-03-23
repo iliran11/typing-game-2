@@ -3,7 +3,7 @@ import { PlayerGameStatus } from './GameStatusType';
 import { RoomType, DeviceType } from './typesIndex';
 
 export interface GameSummryDBI {
-  letters: string[];
+  words: string[];
   players: PlayerGameStatus[];
   roomId: string;
   roomType: RoomType;

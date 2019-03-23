@@ -16,8 +16,9 @@ export default class Game {
   private player: BasePlayer;
 
   constructor(level: number, player: BasePlayer) {
-    this.rawLetters = 'liran';
-    this.letters = 'liran'.split('').map(word => new LetterData(word));
+    this.rawLetters =
+      'in the comparison between flutter vs react native, flutter takes more';
+    this.letters = this.rawLetters.split('').map(word => new LetterData(word));
     this.index = 0;
     this.gameId = Game.gameCounter;
     this.numberOfTypings = 0;
