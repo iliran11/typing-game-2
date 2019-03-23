@@ -39,14 +39,19 @@ export default class Stats2Tab extends React.Component<
       </TCCard>
     );
   }
+  renderHighlightLists() {
+    return (
+      <TCCard title="Your Highlights" className="profile-card">
+        <HighlightsList highlights={this.props.highlights} />
+      </TCCard>
+    );
+  }
   public render() {
     return (
       <Fragment>
         {this.renderWinRatio()}
         <CompareResults wordsMin={40} charsMin={30} accuracy={0.4} />
-        <HighlightsList
-          highlights={this.props.highlights}
-        />
+        {this.renderHighlightLists()}
       </Fragment>
     );
   }

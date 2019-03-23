@@ -110,7 +110,8 @@ class BaseRoom {
       isAuthenticated: player.isAuthenticated,
       roomType: this.roomType,
       name: player.name,
-      deviceType: player.deviceType
+      deviceType: player.deviceType,
+      creationTimestamp: Date.now()
     };
   }
   protected get server() {

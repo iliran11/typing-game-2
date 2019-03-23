@@ -4,6 +4,7 @@ import { HighlightsMapping, HighlightsI } from '../../../types';
 import { PlayerGameStatus } from '../../../types/GameStatusType';
 
 export async function HighlightsController(playerId) {
+  // @ts-ignore
   const highlights: HighlightsI = {};
   function getUsedRoomIds() {
     // @ts-ignore

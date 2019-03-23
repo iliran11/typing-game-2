@@ -20,4 +20,5 @@ export interface PlayerGameStatus {
   roomType: RoomType;
   name: string;
   deviceType: DeviceType;
+  creationTimestamp: number;
 }
