@@ -1,5 +1,5 @@
 import { PLAYER_ID_PARAM } from '../../../constants';
-import { ProfilePayload } from '../../../types';
+import { ProfilePayload } from '../../../types/typesIndex';
 import { userGameHistoryDb } from '../mongoIndex';
 import { HighlightsController } from './highlights-controller';
 
@@ -14,9 +14,44 @@ export async function UserAchievementController(req, res) {
   );
   const highlights = await HighlightsController(playerIdParam);
   const serverResponse: ProfilePayload = {
-    totalGames: numberGamesWins.totalGames.length,
-    totalWins: numberGamesWins.wins.length,
-    highlights
+    achievements: {
+      typingTest: {
+        mobile: {
+          totalGames: numberGamesWins.totalGames.length,
+          totalWins: numberGamesWins.wins.length,
+          playerId: playerIdParam
+        },
+        desktop: {
+          totalGames: numberGamesWins.totalGames.length,
+          totalWins: numberGamesWins.wins.length,
+          playerId: playerIdParam
+        }
+      },
+      multiplayer: {
+        mobile: {
+          totalGames: numberGamesWins.totalGames.length,
+          totalWins: numberGamesWins.wins.length,
+          playerId: playerIdParam
+        },
+        desktop: {
+          totalGames: numberGamesWins.totalGames.length,
+          totalWins: numberGamesWins.wins.length,
+          playerId: playerIdParam
+        }
+      },
+      playerId: playerIdParam
+    },
+    highlights: {
+      typingTest: {
+        mobile: highlights,
+        desktop: highlights
+      },
+      multiplayer: {
+        mobile: highlights,
+        desktop: highlights
+      },
+      playerId: playerIdParam
+    }
   };
   res.send(serverResponse);
 }

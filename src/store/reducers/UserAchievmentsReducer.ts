@@ -1,5 +1,8 @@
 import { LOAD_PROFILE_ACHIEVEMENTS } from '../../constants';
-import { UserAchievmentsReducerI } from '../../types/AchievementsTypes';
+import {
+  UserAchievmentsReducerI,
+  GameTypesAchivements
+} from '../../types/AchievementsTypes';
 
 const initialState: UserAchievmentsReducerI = {};
 
@@ -17,7 +20,7 @@ export default function UserAchievementsReducer(
 
 function loadSingleUserAchievements(
   state: UserAchievmentsReducerI,
-  payload: any
+  payload: GameTypesAchivements
 ) {
   return {
     ...state,

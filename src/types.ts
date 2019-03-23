@@ -1,6 +1,9 @@
 import { UserAchievmentsReducerI } from './types/AchievementsTypes';
 import Letter from './store/classes/lettterData';
-import { AchievementsProgressReducer } from './types/AchievementsTypes';
+import {
+  AchievementsProgressReducer,
+  GameTypesAchivements
+} from './types/AchievementsTypes';
 import { GameSummryDBI } from './types/schemasTypes';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { TypingTestInitGame } from './types/typingTestTypes';
@@ -205,14 +208,23 @@ export interface HightLightItemI {
   data: PlayerGameStatus;
 }
 
+export interface HighlightsMapping {
+  [playerId: string]: GameTypeHighlights;
+}
+export interface GameTypeHighlights {
+  typingTest: PlatformsHighlights;
+  multiplayer: PlatformsHighlights;
+  playerId: string;
+}
+
+export interface PlatformsHighlights {
+  mobile: HighlightsI;
+  desktop: HighlightsI;
+}
 export interface HighlightsI {
   highestSpeed: HightLightItemI;
   firstPlace: HightLightItemI;
   fastestGame: HightLightItemI;
-}
-
-export interface HighlightsMapping {
-  [playerId: string]: HighlightsI;
 }
 export interface TypingTestGamesMapping {
   [gameId: string]: TypingTestInitGame;
@@ -257,9 +269,7 @@ export interface RoomInfo {
 export interface GAME_IS_ACTIVE_PAYLOAD {
   roomId: string;
 }
-
 export interface ProfilePayload {
-  totalGames: number;
-  totalWins: number;
-  highlights: HighlightsMapping;
+  achievements: GameTypesAchivements;
+  highlights: GameTypeHighlights;
 }

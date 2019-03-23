@@ -78,8 +78,5 @@ export async function HighlightsController(playerId) {
   });
   await Promise.all([maxSpeed, firstPlace, fastestGame]);
   // we are sending a map to be prepared for sending highlights of multiple players.
-  const response: HighlightsMapping = {
-    [playerId]: highlights
-  };
-  return response;
+  return highlights;
 }

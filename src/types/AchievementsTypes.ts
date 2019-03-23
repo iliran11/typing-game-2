@@ -1,10 +1,22 @@
-import { LevelRulesI } from '../types';
+import { HighlightsI } from '../types/typesIndex';
 
 export interface UserAchievmentsReducerI {
-  readonly [userId: string]: UserAchievementsI;
+  readonly [userId: string]: GameTypesAchivements;
 }
-export interface AchievementsProgressReducer {
-  [roomId: string]: AchievementsProgressI;
+
+export interface PlatformsAchievementsI {
+  mobile: UserAchievementsI;
+  desktop: UserAchievementsI;
+}
+export interface GameTypesAchivements {
+  typingTest: PlatformsAchievementsI;
+  multiplayer: PlatformsAchievementsI;
+  playerId:string;
+}
+export interface UserAchievementsI {
+  totalGames: number;
+  totalWins: number;
+  playerId: string;
 }
 export interface AchievementsProgressI {
   prevAchievement: UserAchievementsI;
@@ -13,11 +25,10 @@ export interface AchievementsProgressI {
   timestamp: any;
 }
 
-export interface UserAchievementsI {
-  totalGames: number;
-  totalWins: number;
-  playerId: string;
+export interface AchievementsProgressReducer {
+  [roomId: string]: AchievementsProgressI;
 }
+
 // export interface AchievementsI {
 //   wpm: number;
 //   accuracy: number;

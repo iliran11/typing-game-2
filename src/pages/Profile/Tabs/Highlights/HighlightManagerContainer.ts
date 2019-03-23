@@ -6,7 +6,7 @@ const mapDispatchToProps = { fetchHighlights };
 const mapStateToProps = (state: RootState, props: any) => {
   const playerId = state.authentication.playerId;
   return {
-    highlights: state.highlights[playerId]
+    highlights: state.highlights[playerId]['mobile']['multiplayer']
   };
 };
 export default connect(

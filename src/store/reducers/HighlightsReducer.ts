@@ -1,5 +1,5 @@
 import { LOAD_HIGHLIGHTS } from '../../constants';
-import { HighlightsI, HighlightsMapping } from '../../types';
+import { GameTypeHighlights, HighlightsMapping } from '../../types';
 
 const initialState: HighlightsMapping = {};
 
@@ -12,12 +12,12 @@ export default function GameReducer(state: any = initialState, action: any) {
   }
 }
 
-function loadHighlights(state: HighlightsMapping, payload: HighlightsMapping) {
+function loadHighlights(state: HighlightsMapping, payload: GameTypeHighlights) {
   const playerId = payload;
   // TODO: transform the player id from '10155286331682924' to 'Playerid-10155286331682924'
   // so it will be easier to know what the id actually means.
   return {
     ...state,
-    ...payload
+    [payload.playerId]: payload
   };
 }

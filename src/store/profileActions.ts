@@ -1,5 +1,5 @@
 import { RootState } from '../types';
-import { ProfilePayload, UserAchievementsI } from '../types/typesIndex';
+import { ProfilePayload, PlatformsAchievementsI } from '../types/typesIndex';
 import {
   PLAYER_ID_PARAM,
   LOAD_PROFILE_ACHIEVEMENTS,
@@ -21,11 +21,7 @@ export function profileMainLoad(playerId: string) {
       })
       .then(result => {
         const data: ProfilePayload = result.data;
-        const achievementsPayload: UserAchievementsI = {
-          totalGames: data.totalGames,
-          totalWins: data.totalWins,
-          playerId: state.authentication.playerId
-        };
+        const achievementsPayload = data.achievements;
         dispatch({
           type: LOAD_PROFILE_ACHIEVEMENTS,
           payload: achievementsPayload
