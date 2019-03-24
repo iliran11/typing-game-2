@@ -17,7 +17,7 @@ export default class Game {
 
   constructor(level: number, player: BasePlayer) {
     this.rawLetters =
-      'but he departed the government over disagreements regarding the';
+      'I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short.';
     this.letters = this.rawLetters.split('').map(word => new LetterData(word));
     this.index = 0;
     this.gameId = Game.gameCounter;
