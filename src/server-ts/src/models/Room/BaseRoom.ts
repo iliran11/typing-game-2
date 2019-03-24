@@ -2,8 +2,6 @@ import {
   COMPETITOR_DELETION,
   GAME_HAS_TIMEOUT,
   GAME_TIMEOUT_DURATION,
-  MAX_PLAYERS_PER_ROOM_WEB,
-  MAX_PLAYERS_PER_ROOM_MOBILE,
   SCORE_BROADCAST
 } from '../../../../constants';
 import {
@@ -26,7 +24,7 @@ const uuid = require('uuid/v4');
 class BaseRoom {
   instanceId: string = `Room-${uuid()}`;
   intervalId: any;
-  public maxPlayersInRoom: number = MAX_PLAYERS_PER_ROOM_WEB;
+  public maxPlayersInRoom: number;
   protected timePassed: number = 0;
   protected timerId: any;
   protected readonly timeIncrement: number = 1000;
@@ -45,6 +43,7 @@ class BaseRoom {
   constructor(roomType: RoomType, deviceType: DeviceType) {
     this.roomType = roomType;
     this.roomDeviceType = deviceType;
+    this.maxPlayersInRoom = deviceType === DeviceType.DESKTOP ? 4 : 2;
   }
   protected get passedTimeMinutes() {
     return this.timePassed / 60000;
