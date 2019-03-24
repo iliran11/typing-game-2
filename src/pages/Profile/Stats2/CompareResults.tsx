@@ -2,8 +2,8 @@ import * as React from 'react';
 import { TCCard } from 'src/components/ComponentsIndex';
 import { DeviceType } from 'src/types/typesIndex';
 import { ScoreSections } from 'src/components/ComponentsIndex';
-import { ReactComponent as FilledUser } from 'src/assets/user-avatar/filled-user.svg';
-import { ReactComponent as OutlineUser } from 'src/assets/user-avatar/outline-user.svg';
+import FilledUser from 'src/assets/user-avatar/filled-user.svg';
+import OutlineUser from 'src/assets/user-avatar/outline-user.svg';
 import cx from 'classnames';
 
 export interface CompareResultsProps {}
@@ -49,9 +49,9 @@ export class CompareResults extends React.Component<CompareResultsProps, any> {
   renderAvatar = (data: AvatarData, index: number) => {
     const className = cx('comparison-avatar', { filled: data.filled });
     if (data.filled) {
-      return <FilledUser className={className} key={index} />;
+      return <img src={FilledUser} className={className} key={index} />;
     } else {
-      return <OutlineUser className={className} key={index} />;
+      return <img src={OutlineUser} className={className} key={index} />;
     }
   };
   public render() {
