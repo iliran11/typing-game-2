@@ -1,9 +1,11 @@
+import { DeviceType, RoomType, HighlightsI } from '../../../types';
 import { userGameHistoryDb } from '../mongoIndex';
-import { PLAYER_ID_PARAM } from '../../../constants';
-import { HighlightsMapping, HighlightsI } from '../../../types';
-import { PlayerGameStatus } from '../../../types/GameStatusType';
 
-export async function HighlightsController(playerId) {
+export async function HighlightsController(
+  playerId,
+  roomType: RoomType,
+  deviceType: DeviceType
+) {
   // @ts-ignore
   const highlights: HighlightsI = {};
   function getUsedRoomIds() {
@@ -22,7 +24,9 @@ export async function HighlightsController(playerId) {
     userGameHistoryDb
       .getMaxOneDocumentByQuery(
         {
-          playerId
+          playerId,
+          roomType,
+          deviceType
         },
         { score: -1 }
       )
@@ -43,7 +47,13 @@ export async function HighlightsController(playerId) {
     maxSpeed.then(result => {
       userGameHistoryDb
         .getMaxOneDocumentByQuery(
-          { playerId, roomId: { $nin: getUsedRoomIds() }, rank: 1 },
+          {
+            playerId,
+            roomId: { $nin: getUsedRoomIds() },
+            rank: 1,
+            deviceType,
+            roomType
+          },
           { rank: -1 }
         )
         .then(result => {
@@ -62,7 +72,7 @@ export async function HighlightsController(playerId) {
       const roomsArray = getUsedRoomIds();
       userGameHistoryDb
         .getMaxOneDocumentByQuery(
-          { playerId, roomId: { $nin: roomsArray } },
+          { playerId, roomId: { $nin: roomsArray }, roomType, deviceType },
           { gameDuration: -1 }
         )
         .then(result => {

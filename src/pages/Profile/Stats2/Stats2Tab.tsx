@@ -22,6 +22,9 @@ export default class Stats2Tab extends React.Component<
 
     this.state = {};
   }
+  get winRatio() {
+    return `${(this.props.totalWins / this.props.totalGames) * 100}%`;
+  }
   renderWinRatio() {
     return (
       <TCCard title="Your win rate" className="profile-card">
@@ -29,12 +32,12 @@ export default class Stats2Tab extends React.Component<
           <div className="win-ratio-details  position-relative bottom-border">
             <ScoreSections
               data={[
-                { value: 50, label: 'Won' },
-                { value: 302, label: 'Games' }
+                { value: this.props.totalWins, label: 'Won' },
+                { value: this.props.totalGames, label: 'Games' }
               ]}
             />
           </div>
-          <div className="win-rate text-center"> 53% WIN RATE</div>
+          <div className="win-rate text-center"> {this.winRatio} WIN RATE</div>
         </div>
       </TCCard>
     );
@@ -47,6 +50,9 @@ export default class Stats2Tab extends React.Component<
     );
   }
   public render() {
+    if (this.props.totalGames === 0) {
+      return <div>Empty State</div>;
+    }
     return (
       <Fragment>
         {this.renderWinRatio()}

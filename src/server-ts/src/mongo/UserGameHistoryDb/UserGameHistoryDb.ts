@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
-import { PlayerGameStatus } from '../../../../types/typesIndex';
-import { resolve } from 'path';
-
+import {
+  PlayerGameStatus,
+  RoomType,
+  DeviceType
+} from '../../../../types/typesIndex';
+import Game from 'src/models/Game';
 class UserGameHistoryDb {
   private static instance: UserGameHistoryDb;
   private scheme: any;
@@ -18,10 +21,16 @@ class UserGameHistoryDb {
     return document.save();
   }
   //get number of wins and number of games
-  async numberWinsNumberGames(playerId: string) {
+  async numberWinsNumberGames(
+    playerId: string,
+    roomType: RoomType,
+    deviceType: DeviceType
+  ) {
     const playerSearch = {
       playerId: playerId,
-      hasFinished: true
+      hasFinished: true,
+      roomType,
+      deviceType
     };
     const numberOfGames = this.model.find(playerSearch);
     const numberOfWins = this.model.find({ ...playerSearch, rank: 1 });

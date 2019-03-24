@@ -74,10 +74,10 @@ export default class ProfileTabs extends React.PureComponent<
               gameType={GameType.multiplayer}
             />
           )}
-          {tabValue === 0 && (
+          {tabValue === 1 && (
             <Stats2Container
               platform={this.state.platform}
-              gameType={GameType.multiplayer}
+              gameType={GameType.typingTest}
             />
           )}
         </div>
