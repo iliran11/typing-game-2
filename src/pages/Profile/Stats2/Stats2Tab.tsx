@@ -5,6 +5,7 @@ import { CompareResults } from './CompareResults';
 import { HighlightsI, DeviceType } from 'src/types/typesIndex';
 import { HighlightsList } from 'src/pages/Profile/Tabs/Highlights/HighlightsList';
 import { GameType, ProfileBestGame } from 'src/types/typesIndex';
+import searching from 'src/assets/searching/searching.svg';
 
 export interface Stats2TabProps {
   totalWins: number;
@@ -72,7 +73,17 @@ export default class Stats2Tab extends React.Component<
   }
   public render() {
     if (this.props.totalGames === 0) {
-      return <div>Empty State</div>;
+      return (
+        <div className="profile-empty-tab">
+          <img src={searching} />
+          <span className="empty-state-paragraph">
+            No Data to show in{' '}
+            <span className="upper-case">
+              {this.props.gameType}/{this.props.platform}
+            </span>
+          </span>
+        </div>
+      );
     }
     return (
       <Fragment>
