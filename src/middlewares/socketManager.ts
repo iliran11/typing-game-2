@@ -191,7 +191,6 @@ class SocketManager {
     const payload: MultiplayerRoomActive = {
       roomId: data.roomId
     };
-    console.log(this.dispatch);
     this.dispatch({
       type: GAME_IS_ACTIVE,
       payload

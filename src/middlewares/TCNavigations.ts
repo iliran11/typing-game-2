@@ -8,6 +8,7 @@ import { RoomType } from 'src/types/typesIndex';
 export class TCNavigator {
   private static instance: TCNavigator;
   history: any;
+  navigationStack: string[] = [];
   private constructor(history: any) {
     this.history = history;
   }
@@ -23,6 +24,12 @@ export class TCNavigator {
   };
   navigateToReplay(roomId: string) {
     this.history.push(`/replay?${ROOM_ID_PARM}=${roomId}`);
+  }
+  navigateHome() {
+    this.history.push('/');
+  }
+  updateNavigationStack(path: string) {
+    this.navigationStack.push(path);
   }
   static initNavigators(history: any) {
     TCNavigator.instance = new TCNavigator(history);

@@ -45,6 +45,17 @@ class App extends React.Component<AppProps> {
   componentDidMount() {
     iosShowKeyboard.init();
   }
+  componentDidUpdate(prevProps: any) {
+    if (
+      prevProps.history.location.pathname !==
+      this.props.history.location.pathname
+    ) {
+      TCNavigator.getInstance().updateNavigationStack(
+        this.props.history.location.pathname
+      );
+    }
+  }
+
   render() {
     return (
       <Fragment>

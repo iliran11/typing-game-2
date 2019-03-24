@@ -10,18 +10,23 @@ import {
 } from 'src/pages/pagesIndex';
 import { BoxLoader } from 'src/components/ComponentsIndex';
 import { SocketManager } from 'src/middlewares/socketManager';
-import { RoomType } from 'src/types';
+import { RoomType, DeviceType } from 'src/types';
+import { TCNavigator } from 'src/middlewares/TCNavigations';
 
 export interface GameRouterProps {
   activeRoomId: string | null;
   roomType: RoomType;
   history: any;
   leaveGame: any;
+  platform: DeviceType;
 }
 
 export class GameRouter extends React.Component<GameRouterProps, any> {
   constructor(props: GameRouterProps) {
     super(props);
+    if (props.platform === DeviceType.UNKNOWN) {
+      TCNavigator.getInstance().navigateHome();
+    }
     SocketManager.getInstance().emitRequestToPlay(props.roomType);
   }
   componentWillUnmount() {

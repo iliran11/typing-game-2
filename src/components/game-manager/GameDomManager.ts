@@ -36,7 +36,6 @@ class GameDomManager {
     return this.letterRects[this.index - 1];
   }
   init(words: string[], gameActive: boolean, onFinish: () => void) {
-    console.log('hi');
     this.letterRefs = document.querySelectorAll('.letter');
     this.markerRef = document.querySelector('#marker');
     this.toolTipRef = document.querySelector('#tooltip');
