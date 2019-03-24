@@ -25,8 +25,19 @@ export async function UserAchievementController(req, res) {
   const highlightsPromises = queryMatrix.map(query => {
     return HighlightsController(playerIdParam, ...query);
   });
+  const bestGamesPromises = queryMatrix.map(query => {
+    return userGameHistoryDb.getMaxOneDocumentByQuery(
+      {
+        playerId: playerIdParam,
+        roomType: query[0],
+        deviceType: query[1]
+      },
+      { wpm: -1 }
+    );
+  });
   const numberGamesWinResults = await Promise.all(numberGamesWinPromises);
   const highlightsResult = await Promise.all(highlightsPromises);
+  const bestGames = await Promise.all(bestGamesPromises);
   const serverResponse: ProfilePayload = {
     achievements: {
       typingTest: {
@@ -63,6 +74,17 @@ export async function UserAchievementController(req, res) {
       multiplayer: {
         mobile: highlightsResult[2],
         desktop: highlightsResult[3]
+      },
+      playerId: playerIdParam
+    },
+    bestGame: {
+      typingTest: {
+        mobile: bestGames[0],
+        desktop: bestGames[1]
+      },
+      multiplayer: {
+        mobile: bestGames[2],
+        desktop: bestGames[3]
       },
       playerId: playerIdParam
     }

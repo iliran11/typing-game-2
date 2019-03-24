@@ -61,6 +61,7 @@ export const LOAD_TYPING = 'load-typing';
 export const LOAD_PROFILE_ACHIEVEMENTS = 'load-profile-achievements';
 export const LOAD_HIGHLIGHTS = 'load-highlights';
 export const LOAD_ACHIEVEMENT_PROGRESS = 'load-achievment-progress';
+export const LOAD_BEST_GAMES = 'load-best-games';
 
 /**
  * CONFIG

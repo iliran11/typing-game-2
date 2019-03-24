@@ -2,13 +2,17 @@ import React, { Fragment } from 'react';
 import { ScoreSections } from 'src/components/ComponentsIndex';
 import { TCCard } from 'src/components/ComponentsIndex';
 import { CompareResults } from './CompareResults';
-import { HighlightsI } from 'src/types/typesIndex';
+import { HighlightsI, DeviceType } from 'src/types/typesIndex';
 import { HighlightsList } from 'src/pages/Profile/Tabs/Highlights/HighlightsList';
+import { GameType, ProfileBestGame } from 'src/types/typesIndex';
 
 export interface Stats2TabProps {
   totalWins: number;
   totalGames: number;
   highlights: HighlightsI;
+  bestGame: ProfileBestGame;
+  platform: DeviceType;
+  gameType: GameType;
 }
 
 export interface Stats2TabState {}
@@ -49,6 +53,23 @@ export default class Stats2Tab extends React.Component<
       </TCCard>
     );
   }
+  renderBestGame() {
+    const { platform, gameType, bestGame } = this.props;
+    const playerGameStatus = bestGame[gameType][platform];
+    if (playerGameStatus) {
+      return (
+        <CompareResults
+          wordsMin={playerGameStatus.wpm}
+          charsMin={playerGameStatus.cpm}
+          accuracy={playerGameStatus.accuracy}
+          deviceType={this.props.platform}
+        />
+      );
+    } else {
+      // if there is no best game - nothing will be rendered anyway.
+      return null;
+    }
+  }
   public render() {
     if (this.props.totalGames === 0) {
       return <div>Empty State</div>;
@@ -56,7 +77,7 @@ export default class Stats2Tab extends React.Component<
     return (
       <Fragment>
         {this.renderWinRatio()}
-        <CompareResults wordsMin={40} charsMin={30} accuracy={0.4} />
+        {this.renderBestGame()}
         {this.renderHighlightLists()}
       </Fragment>
     );

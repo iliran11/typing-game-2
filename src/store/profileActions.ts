@@ -1,14 +1,13 @@
-import { RootState } from '../types';
-import { ProfilePayload, PlatformsAchievementsI } from '../types/typesIndex';
-import {
-  PLAYER_ID_PARAM,
-  LOAD_PROFILE_ACHIEVEMENTS,
-  LOAD_HIGHLIGHTS,
-  SHOW_NOTIFICATION
-} from '../constants';
 import axios from 'axios';
+import {
+  LOAD_BEST_GAMES,
+  LOAD_HIGHLIGHTS,
+  LOAD_PROFILE_ACHIEVEMENTS,
+  PLAYER_ID_PARAM
+} from '../constants';
 import { networkManager } from '../NetworkManager';
-import { resolve } from 'url';
+import { RootState } from '../types';
+import { ProfilePayload } from '../types/typesIndex';
 
 export function profileMainLoad(playerId: string) {
   return function(dispatch: any, getState: () => RootState) {
@@ -29,6 +28,10 @@ export function profileMainLoad(playerId: string) {
         dispatch({
           type: LOAD_HIGHLIGHTS,
           payload: data.highlights
+        });
+        dispatch({
+          type: LOAD_BEST_GAMES,
+          payload: data.bestGame
         });
       });
   };

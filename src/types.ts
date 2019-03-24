@@ -7,6 +7,7 @@ import {
 import { GameSummryDBI } from './types/schemasTypes';
 import { PlayerGameStatus } from './types/GameStatusType';
 import { TypingTestInitGame } from './types/typingTestTypes';
+import { BestGameReducerI } from './types/typesIndex';
 export interface JoiningRoomResponse {
   roomId: string;
   playersGameStatus: PlayerGameStatus[];
@@ -87,6 +88,7 @@ export interface RootState {
   readonly replays: ReplayReducer;
   readonly typing: TypingReducerI;
   readonly userAchievments: UserAchievmentsReducerI;
+  readonly bestGame: BestGameReducerI;
   readonly achievementsProgress: AchievementsProgressReducer;
   readonly highlights: HighlightsMapping;
   readonly notificationsManager: NotificationsReducerI;
@@ -216,6 +218,17 @@ export interface GameTypeHighlights {
   multiplayer: PlatformsHighlights;
   playerId: string;
 }
+export interface ProfileBestGame {
+  typingTest: {
+    mobile: PlayerGameStatus | null;
+    desktop: PlayerGameStatus | null;
+  };
+  multiplayer: {
+    mobile: PlayerGameStatus | null;
+    desktop: PlayerGameStatus | null;
+  };
+  playerId: string;
+}
 
 export interface PlatformsHighlights {
   mobile: HighlightsI;
@@ -272,6 +285,7 @@ export interface GAME_IS_ACTIVE_PAYLOAD {
 export interface ProfilePayload {
   achievements: GameTypesAchivements;
   highlights: GameTypeHighlights;
+  bestGame: ProfileBestGame;
 }
 
 export enum GameType {

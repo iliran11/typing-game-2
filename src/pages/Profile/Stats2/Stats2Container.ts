@@ -13,7 +13,8 @@ const mapStateToProps = (state: RootState, props: any) => {
   return {
     totalWins,
     totalGames,
-    highlights
+    highlights,
+    bestGame: state.bestGame[activeUser]
   };
 };
 export const Stats2Container = connect(

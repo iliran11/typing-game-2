@@ -1,7 +1,10 @@
-import { HighlightsI } from '../types/typesIndex';
+import { HighlightsI, ProfileBestGame } from '../types/typesIndex';
 
 export interface UserAchievmentsReducerI {
   readonly [userId: string]: GameTypesAchivements;
+}
+export interface BestGameReducerI {
+  readonly [userId: string]: ProfileBestGame;
 }
 
 export interface PlatformsAchievementsI {
@@ -11,7 +14,7 @@ export interface PlatformsAchievementsI {
 export interface GameTypesAchivements {
   typingTest: PlatformsAchievementsI;
   multiplayer: PlatformsAchievementsI;
-  playerId:string;
+  playerId: string;
 }
 export interface UserAchievementsI {
   totalGames: number;

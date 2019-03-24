@@ -12,7 +12,7 @@ import NotificationsReducer from '../../store/reducers/NotificationsReducer';
 import AchievementsProgressReducer from '../../store/reducers/AchievementsProgressReducer';
 import TypingTestReducer from '../../store/reducers/TypingTestReducer';
 import { MultiplayerMappingReducer } from '../../store/reducers/MultiplayerMapping';
-
+import BestGameReducer from 'src/store/reducers/BestGameReducer';
 export default combineReducers({
   gameData,
   serverStatus,
@@ -26,5 +26,6 @@ export default combineReducers({
   notificationsManager: NotificationsReducer,
   achievementsProgress: AchievementsProgressReducer,
   typingTest: TypingTestReducer,
-  multiplayerMapping: MultiplayerMappingReducer
+  multiplayerMapping: MultiplayerMappingReducer,
+  bestGame: BestGameReducer
 });

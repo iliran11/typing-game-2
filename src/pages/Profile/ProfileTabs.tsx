@@ -1,7 +1,7 @@
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import * as React from 'react';
-import { GameType } from 'src/types/typesIndex';
+import { GameType, DeviceType } from 'src/types/typesIndex';
 import { Stats2Container } from 'src/pages/Profile/Stats2/Stats2Container';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -13,7 +13,7 @@ export interface ProfileTabsProps {
 
 export interface ProfileTabsState {
   tabValue: number;
-  platform: 'mobile' | 'desktop';
+  platform: DeviceType;
 }
 
 export default class ProfileTabs extends React.PureComponent<
@@ -24,7 +24,7 @@ export default class ProfileTabs extends React.PureComponent<
     super(props);
     this.state = {
       tabValue: 0,
-      platform: 'mobile'
+      platform: DeviceType.MOBILE
     };
     this.onTabChange = this.onTabChange.bind(this);
   }
