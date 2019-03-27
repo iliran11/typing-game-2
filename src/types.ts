@@ -147,8 +147,7 @@ export interface FacebookUserType {
   lastName: string;
 }
 export interface PlayerAvatar {
-  isAnonymous: boolean;
-  picture: number | string;
+  url: string;   
 }
 
 export interface HandShakeData {
