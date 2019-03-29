@@ -31,6 +31,7 @@ REACT_APP_ENV=LOCAL
 # Debugging
 - watch server files : `npm run watch-server`
 - start server from vscode Debug
+- restart server with each server file change.
 ![app preview](https://i.imgur.com/smfSGyp.png "")
 
 
