@@ -24,6 +24,11 @@ NODE_PATH=./
 REACT_APP_ENV=LOCAL
 ```
 
+# Start Client And Server
+
+    1. start client - `npm start`
+    2. start server - `npm run watch-server`
+
 # Code Glossary
 
 ## User
