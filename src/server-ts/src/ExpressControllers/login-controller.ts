@@ -33,7 +33,7 @@ export async function loginController(req, res) {
       };
       let isAlreadyExist;
       try {
-        const isAlreadyExist = await user.isAlreadyExist();
+        isAlreadyExist = await user.isAlreadyExist();
       } catch (e) {
         throw new Error(e);
       }

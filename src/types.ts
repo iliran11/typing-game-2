@@ -36,10 +36,11 @@ export enum GameLevel {
   LEVEL5
 }
 
-export enum Enviroments {
+export enum EnviromentsEnum {
   LOCAL = 'LOCAL',
   STAGING = 'STAGING',
-  TEST = 'TEST'
+  TEST = 'TEST',
+  PUBLIC = 'PUBLIC'
 }
 export enum LoginStatus {
   loggedIn = 'connected',
