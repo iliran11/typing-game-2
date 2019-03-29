@@ -1,4 +1,41 @@
-# Glossary
+# Project Installation
+
+1. **Clone** : `git clone https://github.com/iliran11/typing-game-2.git`
+2. **Install** Both the server and the client: `npm run install-fullstack`
+3. **Create** `.env` file in root project. contents of the file below are **fully public.** So feel free to play and experiment.
+
+```
+###### PUBLIC .ENV FILE ######
+# Authentication Secret
+SERVER_AUTH_SECRET = QckT2tkEr4gs
+
+# DATABASE INFO
+SERVER_DB_PASSWORD = mZLjKKc9hJYEs6cP
+SERVER_DB_USER = admin
+SERVER_DB_URL = ds127376.mlab.com:27376/type-it-public
+# connect to database:
+# mongo ds127376.mlab.com:27376/type-it-public -u admin -p mZLjKKc9hJYEs6cP
+SERVER_ENVIROMENT = PUBLIC
+
+# REACT
+
+REACT_APP_PUBLIC_URL = http://localhost:3000
+NODE_PATH=./
+REACT_APP_ENV=LOCAL
+```
+
+# Start Client And Server
+- Start client : `npm start`
+- Start server: `npm run start-server`
+
+# Debugging
+- Watch server files : `npm run watch-server`
+- Start server from vscode Debug
+- Restart server with each server file change.
+![app preview](https://i.imgur.com/smfSGyp.png "")
+
+
+# Code Glossary
 
 ## User
 
@@ -25,5 +62,7 @@ holds the state of score, correct typings, wrong typings and other metrics for e
 ## Absolute imports with CRA-TS
 
     https://github.com/facebook/create-react-app/issues/5645#issuecomment-461999138
+
 ## Sass file structure
+
     inspired from: https://medium.com/@dannyhuang_75970/sass-project-structure-for-big-projects-8c4a740846ee

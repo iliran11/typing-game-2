@@ -28,7 +28,6 @@
     "lodash.get": "^4.4.2",
     "lodash.random": "^3.2.0",
     "node-sass": "^4.11.0",
-    "npm": "^6.4.1",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-circular-progressbar": "^1.0.0",
@@ -51,7 +50,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier-all": "prettier --write src/**/*.{js,jsx,scss}",
-    "watch-server": "npm run watch-ts --prefix ./src/server-ts/"
+    "watch-server": "npm run watch-ts --prefix ./src/server-ts/",
+    "start-server": "npm run build-ts --prefix ./src/server-ts/ && node src/server-ts/dist/server-ts/src/server.js",
+    "install-server": "npm install --prefix ./src/server-ts",
+    "install-fullstack": "npm install && npm run install-server "
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",

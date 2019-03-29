@@ -29,7 +29,6 @@ import {
 } from '../constants';
 import { PlayerGameStatus } from '../types/GameStatusType';
 import {
-  Enviroments,
   JoiningRoomResponse,
   MultiplayerRoomActive,
   RoomInfo,
@@ -44,13 +43,14 @@ import {
   GAME_IS_ACTIVE_PAYLOAD,
   StartTypingTestGameI
 } from '../types/typesIndex';
+import { EnviromentsManager } from 'src/middlewares/EnviromentsManager';
 
 class SocketManager {
   private static instance: SocketManager;
   dispatch: any;
   history: any;
   socket: SocketIOClient.Socket;
-  url: string = SocketManager.getServerUrl();
+  url: string = EnviromentsManager.getServerUrl();
   getState: () => RootState;
   static initiateSocketManager(
     dispatch: any,
@@ -97,18 +97,6 @@ class SocketManager {
     this.socket.on(GAME_HAS_TIMEOUT, this.gameTimeout.bind(this));
     this.socket.on(NAVIGATE_RESULT, this.navigateResult.bind(this));
     return socket;
-  }
-  static getServerUrl() {
-    if (process.env.REACT_APP_ENV === Enviroments.LOCAL) {
-      return 'http://localhost:4001';
-    }
-    if (process.env.REACT_APP_ENV === Enviroments.STAGING) {
-      return 'https://typing-dev-2.herokuapp.com/';
-    }
-    if (process.env.REACT_APP_ENV === Enviroments.TEST) {
-      return 'https://calm-ravine-85126.herokuapp.com/';
-    }
-    return '';
   }
   onConnect() {
     this.dispatch({
