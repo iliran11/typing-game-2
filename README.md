@@ -5,7 +5,7 @@
 3. create `.env` file in root project. contents of the file below are **fully public.** So feel free to play and experiment.
 
 ```
-###### PUBLIV .ENV FILE ######
+###### PUBLIC .ENV FILE ######
 # Authentication Secret
 SERVER_AUTH_SECRET = QckT2tkEr4gs
 
@@ -25,9 +25,8 @@ REACT_APP_ENV=LOCAL
 ```
 
 # Start Client And Server
-
-    1. start client - `npm start`
-    2. start server - `npm run watch-server`
+- start client : `npm start`
+- start server: `npm run watch-server`
 
 # Code Glossary
 
