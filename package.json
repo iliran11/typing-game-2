@@ -51,7 +51,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier-all": "prettier --write src/**/*.{js,jsx,scss}",
-    "watch-server": "npm run watch-ts --prefix ./src/server-ts/"
+    "watch-server": "npm run watch-ts --prefix ./src/server-ts/",
+    "install-server": "npm install --prefix ./src/server-ts",
+    "install-fullstack": "npm install && npm run install-server "
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
