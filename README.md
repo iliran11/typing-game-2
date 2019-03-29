@@ -1,8 +1,8 @@
 # Project Installation
 
-1. clone : `git clone https://github.com/iliran11/typing-game-2.git`
-2. install both the server and the client: `npm run install-fullstack`
-3. create `.env` file in root project. contents of the file below are **fully public.** So feel free to play and experiment.
+1. **Clone** : `git clone https://github.com/iliran11/typing-game-2.git`
+2. **Install** Both the server and the client: `npm run install-fullstack`
+3. **Create** `.env` file in root project. contents of the file below are **fully public.** So feel free to play and experiment.
 
 ```
 ###### PUBLIC .ENV FILE ######
@@ -25,13 +25,13 @@ REACT_APP_ENV=LOCAL
 ```
 
 # Start Client And Server
-- start client : `npm start`
-- start server: `npm run start-server`
+- Start client : `npm start`
+- Start server: `npm run start-server`
 
 # Debugging
-- watch server files : `npm run watch-server`
-- start server from vscode Debug
-- restart server with each server file change.
+- Watch server files : `npm run watch-server`
+- Start server from vscode Debug
+- Restart server with each server file change.
 ![app preview](https://i.imgur.com/smfSGyp.png "")
 
 
