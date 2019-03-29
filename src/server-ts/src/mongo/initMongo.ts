@@ -1,6 +1,13 @@
-import { Enviroments } from '../../../types';
+import { EnviromentsEnum } from '../../../types';
 const mongoose = require('mongoose');
 
+function initMongoGeneric() {
+  const dbPassword = process.env.SERVER_DB_PASSWORD;
+  const dbUser = process.env.SERVER_DB_USER;
+  const url = process.env.SERVER_DB_URL;
+  let fullUrl = `mongodb://${dbUser}:${dbPassword}@${url}`;
+  initMongoProcedure(fullUrl);
+}
 function initMongoProcedure(url) {
   let db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -10,20 +17,6 @@ function initMongoProcedure(url) {
   });
   mongoose.connect(url);
   mongoose.Promise = global.Promise;
-}
-
-function initMongoDev() {
-  const dbPassword = process.env.SERVER_DB_DEV_PASSWORD;
-  const dbUser = process.env.SERVER_DB_DEV_USER;
-  let url = `mongodb://${dbUser}:${dbPassword}@ds131784.mlab.com:31784/typing-game`;
-  initMongoProcedure(url);
-}
-
-function initMongoStaging() {
-  const dbPassword = process.env.SERVER_DB_STAGING_PASSWORD;
-  const dbUser = process.env.SERVER_DB_STAGING_USER;
-  let url = `mongodb://${dbUser}:${dbPassword}@ds121996.mlab.com:21996/typing-test-staging`;
-  initMongoProcedure(url);
 }
 
 /**
@@ -36,14 +29,17 @@ function initMongoStaging() {
 
 function initMongo() {
   switch (process.env.SERVER_ENVIROMENT) {
-    case Enviroments.LOCAL:
-      initMongoDev();
+    case EnviromentsEnum.LOCAL:
+    case EnviromentsEnum.PUBLIC:
+      initMongoGeneric();
       break;
-    case Enviroments.STAGING:
-      initMongoStaging();
+    case EnviromentsEnum.STAGING:
+      initMongoGeneric();
       break;
+    case EnviromentsEnum.PUBLIC:
+      initMongoGeneric();
     default:
-      initMongoDev();
+      throw new Error('uknown enviroment! check your .enum ');
   }
 }
 
@@ -51,4 +47,3 @@ export default initMongo;
 
 //mongo ds131784.mlab.com:31784/typing-game -u admin -p bEKqgqW38Ts5Naek
 //mongo ds121996.mlab.com:21996/typing-test-staging -u admin -p ttTL2HdEeDT2ddqh
-
