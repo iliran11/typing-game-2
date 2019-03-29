@@ -26,7 +26,13 @@ REACT_APP_ENV=LOCAL
 
 # Start Client And Server
 - start client : `npm start`
-- start server: `npm run watch-server`
+- start server: `npm run start-server`
+
+# Debugging
+- watch server files : `npm run watch-server`
+- start server from vscode Debug
+![app preview](https://i.imgur.com/smfSGyp.png "")
+
 
 # Code Glossary
 
