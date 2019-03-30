@@ -2,12 +2,17 @@ import { RoomType, PlayerType } from '../../../../types/typesIndex';
 import { BasePlayer, BasePlayersOptions } from './BasePlayer';
 import { MultiplayerPlayerTyping } from '../../event-handlers/MultiplayerPlayerTyping';
 import onGameFinished from '../../event-handlers/onGameFinished';
+import { string } from 'prop-types';
+
+export interface BotPlayerOptions extends BasePlayersOptions {
+  personaName: string;
+}
 
 export abstract class BotPlayer extends BasePlayer {
   private typingIndex: number = 0;
   private timeToTarget: number = 50000;
 
-  constructor(options: BasePlayersOptions) {
+  constructor(options: BotPlayerOptions) {
     super(options);
   }
   get playerType() {

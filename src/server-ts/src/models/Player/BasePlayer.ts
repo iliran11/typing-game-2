@@ -23,6 +23,7 @@ export abstract class BasePlayer {
   public hasLeft: boolean = false;
   public hasFinished: boolean = false;
   public room: BaseRoom;
+  abstract avatarUrl: string;
   protected counterNumber: number;
   deviceType: DeviceType;
 
@@ -44,12 +45,6 @@ export abstract class BasePlayer {
   get name() {
     return `${this.playerType} ${this.counterNumber}`;
   }
-  get avatar(): PlayerAvatar {
-    return {
-      url:
-        'https://res.cloudinary.com/dujbozubz/image/facebook/v1545297217/65646572251.jpg'
-    };
-  }
   public onGameEnd() {
     this.room.playerHasFinished(this);
   }
@@ -58,7 +53,7 @@ export abstract class BasePlayer {
       id: this.playerId,
       type: this.playerType,
       name: this.name,
-      avatar: this.avatar
+      avatar: { url: this.avatarUrl }
     };
   }
   public get playerGame() {
@@ -72,5 +67,8 @@ export abstract class BasePlayer {
   }
   get roomType() {
     return this.room.roomType;
+  }
+  get avatar() {
+    return { url: this.avatarUrl };
   }
 }

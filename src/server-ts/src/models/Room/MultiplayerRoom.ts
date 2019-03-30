@@ -11,7 +11,7 @@ import { BasePlayer, LinearBotPlayer } from '../Player/players-index';
 import { BaseRoom } from './BaseRoom';
 import { BotScheduler } from './BotScheduler';
 import PlayerManager from '../PlayerManager';
-import { BotManager } from './BotsManager/BotManager';
+import { BotManager } from './BotsManager/BotRecruiter';
 const random = require('lodash.random');
 
 export default class MultiplayerRoom extends BaseRoom {
