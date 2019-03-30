@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { Avatar } from 'src/components/ComponentsIndex';
+import { BreakdownName, Avatar } from 'src/components/ComponentsIndex';
 import {
   PlayerAvatar,
   PlayerType,
@@ -46,7 +46,9 @@ export function PlayerResult(props: PlayerResultProps) {
           </CSSTransition>
           <Avatar url={props.playerAvatar.url} />
         </div>
-        <span className="competitor-name-section capitalize">{props.name}</span>
+        <span className="competitor-name-section capitalize">
+          <BreakdownName name={props.name} />
+        </span>
       </section>
       <div className="scoreboard display-flex flex-auto">
         {props.scores.map((score, index) => {

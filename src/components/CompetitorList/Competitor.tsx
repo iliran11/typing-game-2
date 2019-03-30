@@ -6,7 +6,8 @@ import checkedIcon from 'src/assets/checked/checked.svg';
 import {
   Spinner,
   CircularProgress,
-  Avatar
+  Avatar,
+  BreakdownName
 } from 'src/components/ComponentsIndex';
 // wpm of maximum progress in circular progress.
 const maxWpmGauge = 80;
@@ -136,7 +137,7 @@ class Competitor extends React.PureComponent<Props, State> {
         onTransitionEnd={this.onTransitionEnd}
       >
         <div className="competitor-name-section">
-          <span>{this.name}</span>
+          {this.props.name && <BreakdownName name={this.props.name} />}
         </div>
         <div className="competitor-progress">
           <div className="progress-bar" ref={this.progressBarRef} />

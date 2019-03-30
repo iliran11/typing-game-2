@@ -22,3 +22,4 @@ export * from './Title/Title';
 export * from './ScoreSections/ScoreSections';
 export * from './spinner/spinner';
 export * from './Card/Card';
+export * from './BreakdownName/BreakdownName';
