@@ -14,8 +14,9 @@ export default class Game {
   private startTimestamp: number = -1;
   private endTimestamp: number = -1;
   private player: BasePlayer;
+  private forcedAccuracy: number | undefined;
 
-  constructor(level: number, player: BasePlayer) {
+  constructor(level: number, player: BasePlayer, forcedAccuracy?: number) {
     this.rawLetters =
       'I went to the park and saw a tree, it was a big tree and it was very green. I could see a red apple on a high branch so I reached up and picked it off. It was weird how I picked it off, as I am very short.';
     this.letters = this.rawLetters.split('').map(word => new LetterData(word));
@@ -26,6 +27,7 @@ export default class Game {
     this.instanceId = `GAME-${uuid()}`;
     this.gameHasEnded = false;
     this.player = player;
+    this.forcedAccuracy = forcedAccuracy;
   }
   private get isGameEnd() {
     return this.index === this.letters.length;
@@ -84,6 +86,9 @@ export default class Game {
     return this.index / this.letters.length;
   }
   public getAccuracy() {
+    if (this.forcedAccuracy) {
+      return this.forcedAccuracy;
+    }
     if (this.numberOfTypings === 0) return 0;
     return this.index / this.numberOfTypings;
   }

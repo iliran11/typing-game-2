@@ -23,8 +23,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
-      wpmRange: [3, 30],
-      accuracy: [90, 95],
+      wpmRange: [2, 17],
+      accuracy: [0.9, 0.95],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Government Employee',
@@ -33,12 +33,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [20, 40],
-      accuracy: [85, 95],
+      accuracy: [0.85, 0.95],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
       wpmRange: [10, 20],
-      accuracy: [85, 95],
+      accuracy: [0.85, 0.95],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Postal Clerk',
@@ -47,12 +47,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [30, 50],
-      accuracy: [85, 100],
+      accuracy: [0.85, 1],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
       wpmRange: [30, 50],
-      accuracy: [85, 100],
+      accuracy: [0.85, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Customer Services',
@@ -61,12 +61,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [40, 60],
-      accuracy: [87, 100],
+      accuracy: [0.87, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
-      wpmRange: [40, 60],
-      accuracy: [87, 100],
+      wpmRange: [17, 28],
+      accuracy: [0.87, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Receptionist',
@@ -75,12 +75,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [40, 60],
-      accuracy: [87, 100],
+      accuracy: [0.87, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
-      wpmRange: [40, 60],
-      accuracy: [87, 100],
+      wpmRange: [22, 34],
+      accuracy: [0.87, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Secretary',
@@ -89,12 +89,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [60, 80],
-      accuracy: [99, 99],
+      accuracy: [0.99, 0.99],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
-      wpmRange: [60, 80],
-      accuracy: [99, 99],
+      wpmRange: [34, 45],
+      accuracy: [0.99, 0.99],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Data Entry',
@@ -103,12 +103,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [70, 80],
-      accuracy: [90, 100],
+      accuracy: [0.9, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
       wpmRange: [70, 80],
-      accuracy: [90, 100],
+      accuracy: [0.9, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Medical Transcriptionists',
@@ -117,12 +117,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [80, 100],
-      accuracy: [70, 94],
+      accuracy: [0.7, 0.94],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
-      wpmRange: [80, 100],
-      accuracy: [70, 94],
+      wpmRange: [70, 94],
+      accuracy: [0.7, 0.94],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Administrative Assistant',
@@ -131,12 +131,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [80, 100],
-      accuracy: [80, 100],
+      accuracy: [0.8, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
-      wpmRange: [80, 100],
-      accuracy: [80, 100],
+      wpmRange: [45, 57],
+      accuracy: [0.8, 0.1],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Legal',
@@ -145,15 +145,43 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [100, 200],
-      accuracy: [99, 100],
+      accuracy: [0.99, 1],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
-      wpmRange: [100, 200],
-      accuracy: [99, 100],
+      wpmRange: [45, 57],
+      accuracy: [0.99, 1],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Court Reporter',
     avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${9}.png`
+  },
+  {
+    desktop: {
+      wpmRange: [60, 80],
+      accuracy: [0.2, 0.5],
+      speedFunction: BotsSpeedFunction.constants
+    },
+    mobile: {
+      wpmRange: [34, 45],
+      accuracy: [0.2, 0.5],
+      speedFunction: BotsSpeedFunction.constants
+    },
+    name: 'Drunk Guy',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${10}.png`
+  },
+  {
+    desktop: {
+      wpmRange: [70, 90],
+      accuracy: [0.9, 1],
+      speedFunction: BotsSpeedFunction.constants
+    },
+    mobile: {
+      wpmRange: [40, 51],
+      accuracy: [0.9, 1],
+      speedFunction: BotsSpeedFunction.constants
+    },
+    name: 'Mad Girl',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${11}.png`
   }
 ];

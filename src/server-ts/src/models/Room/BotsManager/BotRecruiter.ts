@@ -33,7 +33,8 @@ export class BotManager {
       deviceType: this.deviceType,
       room: this.room,
       startingPoint: random(botPersona.wpmRange[0], botPersona.wpmRange[1]),
-      slope: 0,
+      forcedAccuracy: random(botPersona.accuracy[0], botPersona.accuracy[1]),
+      slope: random(1, 10),
       avatarUrl: botPersonalitiesData[randomNumber].avatarUrl,
       personaName: botPersonalitiesData[randomNumber].name
     };

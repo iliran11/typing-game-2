@@ -14,6 +14,7 @@ export interface BasePlayersOptions {
   // userData?: FacebookUserType;
   room: BaseRoom;
   deviceType: DeviceType;
+  forcedAccuracy?: number;
 }
 
 export abstract class BasePlayer {
@@ -33,9 +34,9 @@ export abstract class BasePlayer {
     this.deviceType = playerConstructorOptions.deviceType;
     const roomType = this.room.roomType;
     if (roomType === RoomType.MULTIPLAYER) {
-      this.game = new Game(1, this);
+      this.game = new Game(1, this, playerConstructorOptions.forcedAccuracy);
     } else {
-      this.game = new Game(99, this);
+      this.game = new Game(99, this, playerConstructorOptions.forcedAccuracy);
     }
     this.counterNumber = BasePlayer.playerCounter;
     BasePlayer.playerCounter++;
