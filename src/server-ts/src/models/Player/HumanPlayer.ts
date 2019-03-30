@@ -24,7 +24,10 @@ export class HumanPlayer extends BasePlayer {
   }
   get avatar(): PlayerAvatar {
     if (this.userData) {
-      return { picture: this.userData.id, isAnonymous: false };
+      return {
+        url:
+          'https://res.cloudinary.com/dujbozubz/image/facebook/v1545297217/65646572251.jpg'
+      };
     }
     return super.avatar;
   }

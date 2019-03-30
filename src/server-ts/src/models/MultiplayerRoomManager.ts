@@ -63,16 +63,8 @@ export default class MultiplayerRoomManager {
             .emit(COMPETITOR_JOINED_ROOM, playerGameStatus);
         }
         break;
-      case PlayerType.bot: {
-        const player = new LinearBotPlayer(playerOpts);
-        this.playerManager.addPlayer(player);
-        room.addPlayer(player);
-        const playerGameStatus = room.getPlayerGameStatus(player);
-        emitToRoom(room.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
-        break;
-      }
       default:
-        throw new Error(`${playerType} is not handled!`);
+        throw new Error(`${playerType} is not handled here!`);
         break;
     }
   }

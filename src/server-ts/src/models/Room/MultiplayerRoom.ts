@@ -1,28 +1,23 @@
-import { GAME_HAS_STARTED, NAVIGATE_RESULT } from '../../../../constants';
+import { GAME_HAS_STARTED,COMPETITOR_JOINED_ROOM } from '../../../../constants';
 import {
-  AchievementsProgressI,
+  DeviceType,
   PlayerGameStatus,
-  PlayerType,
-  RoomType,
-  DeviceType
+  RoomType
 } from '../../../../types/typesIndex';
-import { roomLogDb, roomSummaryDb, userGameHistoryDb } from '../../mongoIndex';
+import { roomSummaryDb } from '../../mongoIndex';
 import { emitToRoom } from '../../utilities';
-import {
-  HumanPlayer,
-  BasePlayer,
-  LinearBotPlayer
-} from '../Player/players-index';
 import { Countdown } from '../Countdown';
-import { multiplayerRoomManager } from '../MultiplayerRoomManager';
-import PlayerManager from '../PlayerManager';
+import { BasePlayer, LinearBotPlayer } from '../Player/players-index';
 import { BaseRoom } from './BaseRoom';
 import { BotScheduler } from './BotScheduler';
+import PlayerManager from '../PlayerManager';
+import { BotManager } from './BotsManager/BotManager';
 const random = require('lodash.random');
 
 export default class MultiplayerRoom extends BaseRoom {
   // measure game length duration - not sure if needed.
   private avatarIndexes: number = 0;
+  private botManager: BotManager;
   protected botScheduler: BotScheduler;
   constructor(roomType: RoomType, deviceType: DeviceType) {
     super(roomType, deviceType);
@@ -30,10 +25,10 @@ export default class MultiplayerRoom extends BaseRoom {
     this.botScheduler = new BotScheduler(this.addBot);
     this.botScheduler.startCountdownBot();
     this.maxPlayersInRoom = deviceType === DeviceType.DESKTOP ? 4 : 2;
+    this.botManager = new BotManager(this.roomDeviceType, this);
   }
   addPlayer(player: BasePlayer): void {
     super.addPlayer(player);
-    player.setAvatar(this.randomAvatarIndex);
     // bot should wait X time after a human is joined. so if a human has joined - start counting again.
     if (this.isRoomFull) {
       this.startGame();
@@ -54,13 +49,11 @@ export default class MultiplayerRoom extends BaseRoom {
     }
   }
   addBot() {
-    multiplayerRoomManager.allocateToRoom(
-      null,
-      undefined,
-      this.roomType,
-      PlayerType.bot,
-      this.roomDeviceType
-    );
+    const player = this.botManager.addBot();
+    PlayerManager.getInstance().addPlayer(player);
+    this.addPlayer(player);
+    const playerGameStatus = this.getPlayerGameStatus(player);
+    emitToRoom(this.roomName, COMPETITOR_JOINED_ROOM, playerGameStatus);
     if (this.roomPlayersManager.playersMap.size === this.maxPlayersInRoom) {
       this.botScheduler.stopCountDown();
     }

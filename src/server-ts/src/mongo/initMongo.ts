@@ -31,6 +31,7 @@ function initMongo() {
   switch (process.env.SERVER_ENVIROMENT) {
     case EnviromentsEnum.LOCAL:
     case EnviromentsEnum.PUBLIC:
+    case EnviromentsEnum.TEST:
       initMongoGeneric();
       break;
     case EnviromentsEnum.STAGING:

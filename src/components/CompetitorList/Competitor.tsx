@@ -41,6 +41,7 @@ class Competitor extends React.PureComponent<Props, State> {
       isFinished: false
     };
     this.onTransitionEnd = this.onTransitionEnd.bind(this);
+    this.renderAvatar = this.renderAvatar.bind(this);
   }
   componentDidMount() {
     this.setState({
@@ -117,7 +118,16 @@ class Competitor extends React.PureComponent<Props, State> {
       });
     }
   }
-
+  renderAvatar() {
+    return (
+      <div className="avatar" style={this.avatarStyle}>
+        <Avatar url={this.props.playerAvatar.url} />
+        {this.state.isFinished && (
+          <img className="completed-icon" src={checkedIcon} />
+        )}
+      </div>
+    );
+  }
   render() {
     return (
       <div
@@ -130,12 +140,8 @@ class Competitor extends React.PureComponent<Props, State> {
         </div>
         <div className="competitor-progress">
           <div className="progress-bar" ref={this.progressBarRef} />
-          <div className="avatar" style={this.avatarStyle}>
-            <Avatar url={this.props.playerAvatar.url} />
-            {this.state.isFinished && (
-              <img className="completed-icon" src={checkedIcon} />
-            )}
-          </div>
+          {this.props.playerAvatar && this.renderAvatar()}
+
           <div style={{ position: 'absolute', left: 30 }}>
             {this.isEmptySlot && <Spinner />}
           </div>

@@ -45,7 +45,10 @@ export abstract class BasePlayer {
     return `${this.playerType} ${this.counterNumber}`;
   }
   get avatar(): PlayerAvatar {
-    return { picture: this.anonymousAvatar, isAnonymous: true };
+    return {
+      url:
+        'https://res.cloudinary.com/dujbozubz/image/facebook/v1545297217/65646572251.jpg'
+    };
   }
   public onGameEnd() {
     this.room.playerHasFinished(this);
