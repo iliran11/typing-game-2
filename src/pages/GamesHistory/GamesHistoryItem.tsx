@@ -21,7 +21,7 @@ export default function GameHistoryItem(props: Props) {
             return (
               <div className="history-item-player" key={index}>
                 <div className="history-item-avatar">
-                  <Avatar type={player.type} playerAvatar={player.avatar} />
+                  <Avatar url={player.avatar.url} />
                 </div>
                 <CircularProgress percentage={percentage} text={result} />
               </div>

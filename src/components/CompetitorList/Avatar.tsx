@@ -38,38 +38,3 @@ export function Avatar(props: Props) {
     return <img style={authenticatedAvatar} src={imageUrl} />;
   }
 }
-
-function getAnonymousAvatar(
-  type: PlayerType,
-  index: number | string,
-  className: any
-) {
-  if (PlayerType.human === type) {
-    switch (index) {
-      case 1:
-        return <img style={style} src={avatar1} className={className} />;
-      case 2:
-        return <img style={style} src={avatar2} className={className} />;
-      case 3:
-        return <img style={style} src={avatar3} className={className} />;
-      case 4:
-        return <img style={style} src={avatar4} className={className} />;
-      default:
-        return null;
-    }
-  } else {
-    switch (index) {
-      case 1:
-        return <img style={style} src={bot1} className={className} />;
-      case 2:
-        return <img style={style} src={bot19} className={className} />;
-      case 3:
-        return <img style={style} src={bot3} className={className} />;
-      case 4:
-        return <img style={style} src={bot15} className={className} />;
-
-      default:
-        return null;
-    }
-  }
-}

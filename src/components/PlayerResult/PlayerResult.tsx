@@ -44,7 +44,7 @@ export function PlayerResult(props: PlayerResultProps) {
               );
             }}
           </CSSTransition>
-          <Avatar playerAvatar={props.playerAvatar} type={props.playerType} />
+          <Avatar url={props.playerAvatar.url} />
         </div>
         <span className="competitor-name-section capitalize">{props.name}</span>
       </section>

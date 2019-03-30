@@ -2,17 +2,21 @@ import { BotPlayer } from './BotPlayer';
 import { BasePlayersOptions } from './BasePlayer';
 const random = require('lodash.random');
 
+export interface LinearBotPlayerOpts extends BasePlayersOptions {
+  startingPoint: number;
+  slope: number;
+}
+
 export class LinearBotPlayer extends BotPlayer {
   slope: number;
   startingPoint: number;
-  constructor(options: BasePlayersOptions) {
+  constructor(options: LinearBotPlayerOpts) {
     super(options);
-    this.slope = random(10, 30);
-    this.startingPoint = random(10, 30);
+    this.slope = options.slope;
+    this.startingPoint = options.startingPoint;
   }
   calculateCurrentWpm(timeFraction) {
     const random = require('lodash.random');
-    const startingPoint = random(10, 30);
     return this.slope * timeFraction + this.startingPoint;
   }
 }

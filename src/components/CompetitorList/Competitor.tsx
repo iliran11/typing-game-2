@@ -131,10 +131,7 @@ class Competitor extends React.PureComponent<Props, State> {
         <div className="competitor-progress">
           <div className="progress-bar" ref={this.progressBarRef} />
           <div className="avatar" style={this.avatarStyle}>
-            <Avatar
-              type={this.props.type}
-              playerAvatar={this.props.playerAvatar}
-            />
+            <Avatar url={this.props.playerAvatar.url} />
             {this.state.isFinished && (
               <img className="completed-icon" src={checkedIcon} />
             )}

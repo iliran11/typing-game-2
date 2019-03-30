@@ -1,5 +1,5 @@
 import * as React from 'react';
-import avatarPlaceholder from '../../assets/placeholder/avatarPlaceholder.svg';
+import avatarPlaceholder from 'src/assets/placeholder/avatarPlaceholder.svg';
 import cx from 'classnames';
 export interface ActiveUserAvatarProps {
   picture: string | undefined;

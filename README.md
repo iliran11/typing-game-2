@@ -25,15 +25,29 @@ REACT_APP_ENV=LOCAL
 ```
 
 # Start Client And Server
+
 - Start client : `npm start`
 - Start server: `npm run start-server`
 
 # Debugging
+
 - Watch server files : `npm run watch-server`
 - Start server from vscode Debug
 - Restart server with each server file change.
-![app preview](https://i.imgur.com/smfSGyp.png "")
+  ![app preview](https://i.imgur.com/smfSGyp.png)
 
+## Client folders
+
+- _src/pages/_ - Pages - compose components and specific behaviours to create unique experience for every page.
+- _src/components/_ - Components - generic components being used in Pages.
+- _src/middlewares/_ - Managers and Helpers to perform common tasks in generic way
+- _src/store/_ - Redux files. holds reducers, actions
+- _src/css/base_ - Base animations, base, typography, and utilies.
+- _src/css/components_- single scss file for each individual component
+- _src/css/layout_ - Header, footer, grid, navigation
+- _src/css/pages_ - Pages: Have a single scss for each specific page
+
+## Server folders
 
 # Code Glossary
 

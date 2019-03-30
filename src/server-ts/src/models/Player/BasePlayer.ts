@@ -61,9 +61,6 @@ export abstract class BasePlayer {
   public get playerGame() {
     return this.game;
   }
-  setAvatar(avatarIndex: number) {
-    this.anonymousAvatar = avatarIndex;
-  }
   get playerId() {
     return `${this.playerType} ${this.counterNumber}`;
   }
