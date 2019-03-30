@@ -11,9 +11,10 @@ export interface BotPlayerOptions extends BasePlayersOptions {
 export abstract class BotPlayer extends BasePlayer {
   private typingIndex: number = 0;
   private timeToTarget: number = 50000;
-
+  protected personaName: string;
   constructor(options: BotPlayerOptions) {
     super(options);
+    this.personaName = options.personaName;
   }
   get playerType() {
     return PlayerType.bot;
@@ -24,6 +25,9 @@ export abstract class BotPlayer extends BasePlayer {
   abstract calculateCurrentWpm(timeFraction: number): number;
   get isAuthenticated() {
     return false;
+  }
+  get name() {
+    return this.personaName;
   }
   protected get timeFraction(): number {
     return this.timeElapsed / this.timeToTarget;

@@ -26,8 +26,9 @@ export class GameRouter extends React.Component<GameRouterProps, any> {
     super(props);
     if (props.platform === DeviceType.UNKNOWN) {
       TCNavigator.getInstance().navigateHome();
+    } else {
+      SocketManager.getInstance().emitRequestToPlay(props.roomType);
     }
-    SocketManager.getInstance().emitRequestToPlay(props.roomType);
   }
   componentWillUnmount() {
     this.props.leaveGame();
@@ -43,6 +44,7 @@ export class GameRouter extends React.Component<GameRouterProps, any> {
     };
   }
   public render() {
+    if (this.props.platform === DeviceType.UNKNOWN) return null;
     if (this.props.activeRoomId) {
       switch (this.props.roomType) {
         case RoomType.MULTIPLAYER:

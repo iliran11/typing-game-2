@@ -12,6 +12,7 @@ export interface BotsPersonalities {
   [DeviceType.DESKTOP]: BotsProperties;
   [DeviceType.MOBILE]: BotsProperties;
   name: string;
+  avatarUrl: string;
 }
 
 export const botPersonalitiesData: BotsPersonalities[] = [
@@ -26,7 +27,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [90, 95],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Government Employee'
+    name: 'Government Employee',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${0}.png`
   },
   {
     desktop: {
@@ -39,7 +41,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [85, 95],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Postal Clerk'
+    name: 'Postal Clerk',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${1}.png`
   },
   {
     desktop: {
@@ -52,7 +55,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [85, 100],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Customer Services'
+    name: 'Customer Services',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${2}.png`
   },
   {
     desktop: {
@@ -65,7 +69,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [87, 100],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Receptionist'
+    name: 'Receptionist',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${3}.png`
   },
   {
     desktop: {
@@ -78,7 +83,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [87, 100],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Secretary'
+    name: 'Secretary',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${4}.png`
   },
   {
     desktop: {
@@ -91,7 +97,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [99, 99],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Data Entry'
+    name: 'Data Entry',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${5}.png`
   },
   {
     desktop: {
@@ -104,7 +111,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [90, 100],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Medical Transcriptionists'
+    name: 'Medical Transcriptionists',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${6}.png`
   },
   {
     desktop: {
@@ -117,7 +125,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [70, 94],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Administrative Assistant'
+    name: 'Administrative Assistant',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${7}.png`
   },
   {
     desktop: {
@@ -130,7 +139,8 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [80, 100],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Legal'
+    name: 'Legal',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${8}.png`
   },
   {
     desktop: {
@@ -143,6 +153,7 @@ export const botPersonalitiesData: BotsPersonalities[] = [
       accuracy: [99, 100],
       speedFunction: BotsSpeedFunction.constants
     },
-    name: 'Court Reporter'
+    name: 'Court Reporter',
+    avatarUrl: `https://res.cloudinary.com/dujbozubz/image/upload/v1553959546/robot-avatar/robot-avatar${9}.png`
   }
 ];

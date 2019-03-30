@@ -12,7 +12,7 @@ export default class PlayerManager {
     if (player instanceof HumanPlayer) {
       this.players.set(player.socket, player);
     } else {
-      this.players.set(player.playerId, player);
+      this.players.set(player.name, player);
     }
   }
   getPlayer(socket: io.Socket): BasePlayer {

@@ -22,7 +22,7 @@ export class BotManager {
   }
   addBot() {
     const maxRandomNumber = botPersonalitiesData.length;
-    let randomNumber = random(0, maxRandomNumber);
+    let randomNumber = random(0, maxRandomNumber - 1);
     while (this.addedBotsMap[randomNumber]) {
       randomNumber = random(0, maxRandomNumber - 1);
     }
@@ -34,9 +34,8 @@ export class BotManager {
       room: this.room,
       startingPoint: random(botPersona.wpmRange[0], botPersona.wpmRange[1]),
       slope: 0,
-      avatarUrl:
-        'https://res.cloudinary.com/dujbozubz/image/upload/v1545346983/sample.jpg',
-      personaName: 'dddd'
+      avatarUrl: botPersonalitiesData[randomNumber].avatarUrl,
+      personaName: botPersonalitiesData[randomNumber].name
     };
     return new LinearBotPlayer(linearBotPlayerOpts);
   }
