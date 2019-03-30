@@ -1,0 +1,3 @@
+node_modules
+src/ts-server/dist
+src-ts-server/node_modules
