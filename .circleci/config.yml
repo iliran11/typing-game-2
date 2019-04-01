@@ -62,7 +62,7 @@ workflows:
               only: dev
   deploy-prod-workflow:
     jobs:
-      - deploy-dev:
+      - deploy-prod:
           filters:
             branches:
               only: master
