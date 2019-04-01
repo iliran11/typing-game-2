@@ -9,9 +9,9 @@ export class EnviromentsManager {
       case EnviromentsEnum.STAGING:
         return 'https://typeit-staging.herokuapp.com/';
       case EnviromentsEnum.DEV:
-        return 'https://typeit-production.herokuapp.com/';
+        return 'https://typeit-dev.herokuapp.com/';
       case EnviromentsEnum.PRODUCTION:
-        return 
+        return 'https://typeit-production.herokuapp.com/';
       default:
         throw new Error('unknown enviroment - check your .env');
     }
