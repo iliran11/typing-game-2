@@ -131,12 +131,12 @@ export const botPersonalitiesData: BotsPersonalities[] = [
   {
     desktop: {
       wpmRange: [80, 100],
-      accuracy: [0.8, 0.1],
+      accuracy: [0.8, 1],
       speedFunction: BotsSpeedFunction.constants
     },
     mobile: {
       wpmRange: [45, 57],
-      accuracy: [0.8, 0.1],
+      accuracy: [0.8, 1],
       speedFunction: BotsSpeedFunction.constants
     },
     name: 'Legal',
