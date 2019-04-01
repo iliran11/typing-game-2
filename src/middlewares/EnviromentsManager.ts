@@ -24,8 +24,9 @@ export class EnviromentsManager {
         return '544172982736878';
 
       case EnviromentsEnum.STAGING:
-      case EnviromentsEnum.PRODUCTION:
         return '653846344985974';
+      case EnviromentsEnum.PRODUCTION:
+        return '2222778527971923';
       default:
         return '';
     }
