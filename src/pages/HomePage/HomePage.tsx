@@ -1,9 +1,9 @@
 import Button from '@material-ui/core/Button';
 import React from 'react';
-// import { Keyboard } from 'src/components/ComponentsIndex';
+import { Keyboard } from 'src/components/ComponentsIndex';
 import 'src/css/pages/homepage.scss';
 import { TCNavigator } from 'src/middlewares/TCNavigations';
-import { ReactComponent as Keyboard } from 'src/assets/keyboard/keyboard.svg';
+// import { ReactComponent as Keyboard } from 'src/assets/keyboard/keyboard.svg';
 
 const baseSteps = [
   {
@@ -88,7 +88,10 @@ export default class Home extends React.Component<Props, State> {
     return (
       <div id="home-page" className="page">
         <BaseTitle text={currentStep[text]} />
-        <Keyboard />
+        <Keyboard
+          row={currentStep.keyboard[0]}
+          letter={currentStep.keyboard[1]}
+        />
         <div className="buttons">
           <Button
             variant="raised"
