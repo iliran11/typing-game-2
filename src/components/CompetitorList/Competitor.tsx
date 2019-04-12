@@ -9,6 +9,7 @@ import {
   Avatar,
   BreakdownName
 } from 'src/components/ComponentsIndex';
+import CompetitorProgressbar from './CompetitorProgressbar';
 // wpm of maximum progress in circular progress.
 const maxWpmGauge = 80;
 
@@ -140,7 +141,10 @@ class Competitor extends React.PureComponent<Props, State> {
           {this.props.name && <BreakdownName name={this.props.name} />}
         </div>
         <div className="competitor-progress">
-          <div className="progress-bar" ref={this.progressBarRef} />
+          <CompetitorProgressbar
+            percentageCompleted={this.percentageCompleted}
+            progressBarRef={this.progressBarRef}
+          />
           {this.props.playerAvatar && this.renderAvatar()}
 
           <div style={{ position: 'absolute', left: 30 }}>

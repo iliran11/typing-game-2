@@ -1,5 +1,24 @@
 #competitor-list .CircularProgressbar .CircularProgressbar-text {
-  fill:#365902;
+  fill: #365902;
+}
+
+#competitor-list {
+  .completed-progress-bar {
+    height: 100%;
+    background-color: green;
+    transition: width 500ms;
+  }
+  .undone-progress-bar {
+    height: 100%;
+    background-color: black;
+    transition: width 500ms;
+  }
+  .progress-bar {
+    border-radius: 4px;
+    height: 10px;
+    flex: auto;
+    display: flex;
+  }
 }
 .competitor-container {
   /* background-color:red; */
@@ -19,7 +38,7 @@
   text-align: center;
   position: relative;
   color: #365902;
-  font-size:14px;
+  font-size: 14px;
   opacity: 0.87;
 }
 #you-indicator {
@@ -39,18 +58,6 @@
   align-items: center;
   padding-left: 30px;
   position: relative;
-}
-.competitor-progress .progress-bar {
-  border-radius:4px;
-  height: 10px;
-  background: rgba(19, 189, 19, 1);
-  background: linear-gradient(
-    to right,
-    rgba(19, 189, 19, 1) 0%,
-    rgba(62, 112, 14, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#13bd13', endColorstr='#3e700e', GradientType=1 );
-  flex: auto;
 }
 .competitor-progress .avatar {
   height: 30px;
@@ -81,7 +88,7 @@
   margin-bottom: 5px;
 }
 .competitor-wpm .wpm-label {
-  transform: translate(5px,50%);
+  transform: translate(5px, 50%);
   font-size: 10px;
   color: #365902;
 }

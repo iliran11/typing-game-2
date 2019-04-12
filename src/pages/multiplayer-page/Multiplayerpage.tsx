@@ -69,15 +69,15 @@ class MultiplayerPage extends PureComponent<Props, State> {
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}
+        <CompetitorListContainer
+          history={this.props.history}
+          roomId={this.props.roomId}
+        />
         <GameController
           gameActive={this.state.gameActive}
           gameType={RoomType.MULTIPLAYER}
           words={this.props.words}
           onFinish={this.onGameFinish}
-        />
-        <CompetitorListContainer
-          history={this.props.history}
-          roomId={this.props.roomId}
         />
       </div>
     );
