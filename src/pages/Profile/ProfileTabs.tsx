@@ -8,7 +8,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export interface ProfileTabsProps {
-  history: any;
+  platform: DeviceType
 }
 
 export interface ProfileTabsState {
@@ -24,7 +24,7 @@ export default class ProfileTabs extends React.PureComponent<
     super(props);
     this.state = {
       tabValue: 0,
-      platform: DeviceType.MOBILE
+      platform: props.platform
     };
     this.onTabChange = this.onTabChange.bind(this);
   }
