@@ -17,9 +17,6 @@ $colors: #1fbcd3, #cbe2b4, #f6b6ca;
   width: 100%;
   height: 100%;
 }
-body {
-  background: #455a64;
-}
 .container {
   @include cbox;
   transform-style: preserve-3d;
