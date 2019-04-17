@@ -40,20 +40,18 @@ export default class ProfilePage extends React.Component<
       return <BoxLoader message="Calculating your achievments so far" />;
     }
     return (
-      <div id="profile-page">
-        <div className="profile-scroller">
-          <section id="profile-info-section">
-            <h1>{this.props.fullName}</h1>
-            <ProfileHeader />
-            {/* <ProgressBar /> */}
-          </section>
-          {this.props.isDataPopulated && (
-            <ProfileTabs history={this.props.history} />
-          )}
-          {this.props.isDataPopulated === false && (
-            <ProfileEmptyState navigateToGame={this.navigateToGame} />
-          )}
-        </div>
+      <div id="profile-page" className="page">
+        <section id="profile-info-section">
+          <h1>{this.props.fullName}</h1>
+          <ProfileHeader />
+          {/* <ProgressBar /> */}
+        </section>
+        {this.props.isDataPopulated && (
+          <ProfileTabs history={this.props.history} />
+        )}
+        {this.props.isDataPopulated === false && (
+          <ProfileEmptyState navigateToGame={this.navigateToGame} />
+        )}
       </div>
     );
   }

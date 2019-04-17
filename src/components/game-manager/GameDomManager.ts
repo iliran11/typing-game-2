@@ -71,13 +71,15 @@ class GameDomManager {
     const tooltipRect = this.toolTipRef.getBoundingClientRect();
     const left =
       this.wordsBoxRect.left -
+      this.wordsBoxRect.left -
       tooltipRect.width / 2 +
       this.currentLetterRect.left -
       this.wordsBoxRect.left +
       this.letterRects[this.index].width / 2;
     const scroll = this.wordsBoxRef.scrollTop;
     this.toolTipRef.style.left = `${left}px`;
-    this.toolTipRef.style.top = `${this.currentLetterRect.top - scroll - 40}px`;
+    console.log(this.currentLetterRect.top, scroll);
+    this.toolTipRef.style.top = `${this.currentLetterRect.top - scroll - 86}px`;
   }
   private markerPosition() {
     const { top, left } = this.markerprops;
