@@ -72,12 +72,13 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 0px 20px;
-    padding-bottom:20px;
+    padding-bottom: 20px;
   }
 }
 @media (min-width: 992px) {
   .page {
     @include border('right');
     @include border('left');
+    width: 750px;
   }
 }

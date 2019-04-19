@@ -40,7 +40,11 @@ export class GenericResultPage extends React.Component<
   }
   public render() {
     if (Array.isArray(this.props.players) && this.props.players.length === 0)
-      return <BoxLoader message="getting your result" />;
+      return (
+        <div className="page">
+          <BoxLoader message="getting your result" />
+        </div>
+      );
     if (!this.props.players) {
       return <div>error</div>;
     }

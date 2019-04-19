@@ -68,7 +68,11 @@ export class GameRouter extends React.Component<GameRouterProps, any> {
           break;
       }
     } else {
-      return <BoxLoader message="Thinking about your challenge ..." />;
+      return (
+        <div className="page">
+          <BoxLoader message="Thinking about your challenge ..." />
+        </div>
+      );
     }
   }
 }

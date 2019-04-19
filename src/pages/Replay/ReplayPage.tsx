@@ -43,6 +43,10 @@ export default class ReplayPage extends React.Component<ReplayPageProps, any> {
         />
       );
     }
-    return <BoxLoader message="Rewinding back the time" />;
+    return (
+      <div className="page">
+        <BoxLoader message="Rewinding back the time" />
+      </div>
+    );
   }
 }

@@ -64,7 +64,11 @@ export default class TypingTestPage extends React.Component<
   }
   public render() {
     if (!this.props.roomId) {
-      return <BoxLoader message="Thinking about your challenge ..." />;
+      return (
+        <div className="page">
+          <BoxLoader message="Thinking about your challenge ..." />
+        </div>
+      );
     }
     return (
       <div id="game-page" className="typing-test-scope page">
