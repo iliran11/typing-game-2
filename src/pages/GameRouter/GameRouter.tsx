@@ -30,7 +30,17 @@ export class GameRouter extends React.Component<GameRouterProps, any> {
       SocketManager.getInstance().emitRequestToPlay(props.roomType);
     }
   }
+  toggleBodyNodeScrolling() {
+    const bodyNode = document.querySelector('body');
+    if (bodyNode) {
+      bodyNode.classList.toggle('restrict-scrolling');
+    }
+  }
+  componentDidMount() {
+    this.toggleBodyNodeScrolling();
+  }
   componentWillUnmount() {
+    this.toggleBodyNodeScrolling();
     this.props.leaveGame();
   }
   onGameFinished() {

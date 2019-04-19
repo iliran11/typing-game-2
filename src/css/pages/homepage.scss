@@ -1,4 +1,6 @@
 @import 'src/css/base/colors.scss';
+@import 'src/css/partials/variables.scss';
+
 #root {
   #home-page {
     height: 100%;
@@ -88,9 +90,9 @@
 
 @media (min-width: 992px) {
   #root {
-
     #home-page {
-      width: auto;
+      width: 750px;
+      padding: 0px 20px;
       p {
         font-size: 44px;
         max-width: initial;
@@ -98,7 +100,7 @@
       }
     }
     #keyboard {
-      width: 600px;
+      width: 100%;
     }
     .keyboard-row {
       height: 60px;

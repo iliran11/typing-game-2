@@ -33,6 +33,9 @@ class MultiplayerPage extends PureComponent<Props, State> {
     this.onTimerFinish = this.onTimerFinish.bind(this);
     this.onGameFinish = this.onGameFinish.bind(this);
   }
+  componentDidMount() {
+    const bodyNode = document.querySelector('body');
+  }
   componentWillUnmount() {
     if (!this.props.history.location.pathname.includes('/results')) {
       SocketManager.getInstance().emitLeaveGame(
@@ -65,7 +68,7 @@ class MultiplayerPage extends PureComponent<Props, State> {
   }
   render() {
     return (
-      <div className="page full-width">
+      <div id="multiplayer-game" className="page full-width">
         {this.state.timerActive && (
           <CountDown onTimerFinish={this.onTimerFinish} />
         )}
