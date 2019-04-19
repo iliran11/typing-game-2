@@ -39,7 +39,12 @@ class AuthenticationManager {
   }
   async initialAuthentication() {
     const appId = EnviromentsManager.getAppId();
-    console.log('[Authentication] ', `FacebookAppId: ${appId}`);
+    console.log(
+      '[Authentication] ',
+      `FacebookAppId: ${appId}. [ENV] `,
+      process.env.REACT_APP_ENV
+    );
+
     await loadFbSdk(appId);
     this.onSdkLoadedSuccess();
     const result: any = await getFbLoginStatus();
@@ -204,7 +209,6 @@ class AuthenticationManager {
     }
     return AuthenticationManager.instance;
   }
-  
 }
 
 export default AuthenticationManager;

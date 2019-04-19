@@ -13,8 +13,7 @@ jobs:
 
     steps:
       - checkout
-      - run: export REACT_APP_ENV=DEV
-      - run: npm install
+      - run: REACT_APP_ENV=STAGING npm install
       - run: npm run build
       - run: bash ./deploy-dev.sh
 
@@ -37,9 +36,8 @@ jobs:
 
     steps:
       - checkout
-      - run: export REACT_APP_ENV=PRODUCTION
       - run: npm install
-      - run: npm run build
+      - run: REACT_APP_ENV=PRODUCTION npm run build
       - run: bash ./deploy-prod.sh
 
       # Download and cache dependencies
