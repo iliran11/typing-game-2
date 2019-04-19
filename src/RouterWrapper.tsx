@@ -8,11 +8,9 @@ export default class RouterWrapper extends React.Component {
   }
   render() {
     return (
-      <div className="gradient-6" id="app-container">
-        <Router>
-          <App />
-        </Router>
-      </div>
+      <Router>
+        <App />
+      </Router>
     );
   }
 }

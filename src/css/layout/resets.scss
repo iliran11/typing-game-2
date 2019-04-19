@@ -6,12 +6,9 @@ html {
 *:after {
   box-sizing: inherit;
 }
-
-html,
-body,
-#root {
-  height: 100%;
-  margin: auto;
+html, body{
+  padding: 0;
+  margin: 0;
 }
 
 body {

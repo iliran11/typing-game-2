@@ -30,7 +30,17 @@ export class GameRouter extends React.Component<GameRouterProps, any> {
       SocketManager.getInstance().emitRequestToPlay(props.roomType);
     }
   }
+  toggleBodyNodeScrolling() {
+    const bodyNode = document.querySelector('body');
+    if (bodyNode) {
+      bodyNode.classList.toggle('restrict-scrolling');
+    }
+  }
+  componentDidMount() {
+    this.toggleBodyNodeScrolling();
+  }
   componentWillUnmount() {
+    this.toggleBodyNodeScrolling();
     this.props.leaveGame();
   }
   onGameFinished() {
@@ -58,7 +68,11 @@ export class GameRouter extends React.Component<GameRouterProps, any> {
           break;
       }
     } else {
-      return <BoxLoader message="Thinking about your challenge ..." />;
+      return (
+        <div className="page">
+          <BoxLoader message="Thinking about your challenge ..." />
+        </div>
+      );
     }
   }
 }

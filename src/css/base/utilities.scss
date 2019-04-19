@@ -1,6 +1,6 @@
 @import 'src/css/base/colors.scss';
 
-#app-container {
+#root {
   .overflow-auto-y {
     overflow-y: auto;
   }
@@ -34,9 +34,6 @@
   .snackbar-failure {
     background-color: red;
   }
-  .page {
-    overflow: auto;
-  }
 
   .right-border {
     &:after {
@@ -52,6 +49,22 @@
       position: absolute;
       bottom: 0;
       right: 0;
+    }
+  }
+  .left-border {
+    &:before {
+      content: '';
+      background: -webkit-linear-gradient(
+        bottom,
+        #365902 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      display: block;
+      height: 100%;
+      width: 2px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
     }
   }
   .bottom-border {

@@ -99,9 +99,9 @@ export class AppToolBar extends React.Component<AppToolBarProps, any> {
     return (
       <div id="app-toolbar">
         <AppBar
-          position="static"
           color="default"
           classes={{ colorDefault: 'toolbar-default-color' }}
+          position="fixed"
         >
           <Toolbar {...this.toolbarProps}>
             <DebugDialog />

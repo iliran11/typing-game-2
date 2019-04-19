@@ -1,6 +1,5 @@
-#game-page {
-  display: flex;
-  flex-direction: column;
+#multiplayer-game {
+  height: calc(100% - 48px);
 }
 #app-toolbar {
   flex: none;

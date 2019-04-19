@@ -1,0 +1,28 @@
+@mixin border($side) {
+  @if $side == 'left' {
+    &:after {
+      @include border-def(initial, 0);
+    }
+  }
+  @if $side == 'right' {
+    &:before {
+      @include border-def(0, initial);
+    }
+  }
+}
+
+@mixin border-def($right, $left) {
+  content: '';
+  background: -webkit-linear-gradient(
+    bottom,
+    #365902 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  display: block;
+  height: 100%;
+  width: 2px;
+  position: absolute;
+  bottom: 0;
+  right: $right;
+  left: $left;
+}

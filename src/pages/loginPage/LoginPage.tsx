@@ -23,7 +23,7 @@ export default class LoginPage extends React.Component<LoginPageProps, any> {
   }
   public render() {
     return (
-      <div id="login-page">
+      <div id="login-page" className="page">
         {this.props.connectionStatus === LoginStatus.connecting && (
           <BoxLoader message="Connecting to Facebook" />
         )}
