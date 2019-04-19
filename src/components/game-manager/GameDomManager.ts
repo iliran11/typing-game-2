@@ -69,9 +69,9 @@ class GameDomManager {
   }
   private tooltipPosition() {
     const tooltipRect = this.toolTipRef.getBoundingClientRect();
+    const pagePadding = 20;
     const left =
-      this.wordsBoxRect.left -
-      this.wordsBoxRect.left -
+      pagePadding -
       tooltipRect.width / 2 +
       this.currentLetterRect.left -
       this.wordsBoxRect.left +
