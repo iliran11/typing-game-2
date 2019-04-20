@@ -1,4 +1,7 @@
 import { EnviromentsEnum } from 'src/types/typesIndex';
+import * as Sentry from '@sentry/browser';
+// @ts-ignore
+import TagManager from 'react-gtm-module'
 
 export class EnviromentsManager {
   static getServerUrl() {
@@ -45,6 +48,40 @@ export class EnviromentsManager {
         return `https://typeit-production.herokuapp.com/${endpoint}`
       default:
       throw new Error('no enviroment!');
+    }
+  }
+  static SentryInit() {
+    switch(process.env.React_APP_ENV) {
+      case EnviromentsEnum.PUBLIC:
+      case EnviromentsEnum.DEV:
+      case EnviromentsEnum.LOCAL: {
+        // No sentry on those enviroments.
+        break;
+      }
+      case EnviromentsEnum.PRODUCTION:
+      case EnviromentsEnum.STAGING: {
+        Sentry.init({
+          dsn: 'https://f56a1efc23bc47abb7b9807bf2fbf077@sentry.io/1374851',
+          environment: process.env.REACT_APP_ENV,
+          // @ts-ignore
+          integrations: [
+            new Sentry.Integrations.Breadcrumbs({
+              console: false
+            })
+          ]
+        });
+      }
+    }
+  }
+  initTagManager() {
+    switch(process.env.React_APP_ENV) {
+      case EnviromentsEnum.PRODUCTION: {
+        const tagManagerArgs = {
+          gtmId: 'GTM-K6RM4T3'
+      }       
+      TagManager.initialize(tagManagerArgs)
+      
+      }
     }
   }
 }
