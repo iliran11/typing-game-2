@@ -28,7 +28,7 @@ export class EnviromentsManager {
       case EnviromentsEnum.PRODUCTION:
         return '2222778527971923';
       default:
-        return '';
+        throw new Error('no enviroment!');
     }
   }
 
@@ -38,11 +38,13 @@ export class EnviromentsManager {
       case EnviromentsEnum.PUBLIC:
         return `/${endpoint}`;
       case EnviromentsEnum.STAGING:
-        return `https://typing-dev-2.herokuapp.com/${endpoint}`;
+        return `https://typeit-staging.herokuapp.com/${endpoint}`;
       case EnviromentsEnum.DEV:
-        return `https://calm-ravine-85126.herokuapp.com/${endpoint}`;
+        return `https://typeit-dev.herokuapp.com/${endpoint}`;
+      case EnviromentsEnum.PRODUCTION:
+        return `https://typeit-production.herokuapp.com/${endpoint}`
       default:
-        return '/';
+      throw new Error('no enviroment!');
     }
   }
 }
