@@ -60,39 +60,50 @@ class AuthenticationManager {
         }
     }
   }
+  async loginPost() {
+    try {
+      const result = await axios.post(networkManager.prefixedPath('login'), {
+        [AUTH_FACEBOOK_HEADER]: this.state.authentication.facebookToken
+      });
+      return result;
+    } catch (e) {
+      console.error('error in post to login endpoint');
+      throw new Error(e);
+    }
+  }
   async login(): Promise<string> {
     this.dispatch({
       type: LOGGING_IN_ACTION
     });
+
     const facebookResult = await this.facebookLogin();
-    try {
-      if (this.state.authentication.facebookLoggedIn) {
-        const result = await axios.post(networkManager.prefixedPath('login'), {
-          [AUTH_FACEBOOK_HEADER]: this.state.authentication.facebookToken
-        });
-        const loginResponse: LoginResponse = result.data;
-        localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
-        localStorage.setItem(PLAYER_ID_KEY, loginResponse.data.facebookId);
-        this.setAxiosAuth();
+    if (this.state.authentication.facebookLoggedIn) {
+      const result = await this.loginPost();
+      const loginResponse: LoginResponse = result.data;
+      localStorage.setItem(AUTH_HEADER_NAME, loginResponse.token);
+      localStorage.setItem(PLAYER_ID_KEY, loginResponse.data.facebookId);
+      this.setAxiosAuth();
+      try {
         SocketManager.getInstance().reconnect();
-        this.dispatch({
-          type: LOGGED_IN
-        });
-        const handshakeData: HandShakeData = {
-          ...loginResponse.data,
-          appToken: loginResponse.token
-        };
-        this.dispatch({
-          type: SERVER_HANDSHAKE_RECIEVED,
-          payload: handshakeData
-        });
-        this.history.push('/');
-        return 'success-login';
-      } else {
-        return 'failed-login';
+      } catch (e) {
+        console.log('reconnecting to socket failed');
+        throw new Error(e);
       }
-    } catch (err) {
-      throw new Error('error in login');
+      this.dispatch({
+        type: LOGGED_IN
+      });
+      const handshakeData: HandShakeData = {
+        ...loginResponse.data,
+        appToken: loginResponse.token
+      };
+      this.dispatch({
+        type: SERVER_HANDSHAKE_RECIEVED,
+        payload: handshakeData
+      });
+      this.history.push('/');
+      return 'success-login';
+    } else {
+      return 'failed-login';
     }
   }
   logout() {
