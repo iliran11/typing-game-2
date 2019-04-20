@@ -1,9 +1,10 @@
 @import 'src/css/base/colors.scss';
+@import 'src/css/partials/mixins.scss';
 
 .typing-test-scope {
   #words-box {
     margin-top: 32px;
-    @media (min-width: 992px) {
+    @include desktop {
       margin-top: 56px;
     }
   }
@@ -22,7 +23,7 @@
   justify-content: flex-end;
   height: 40px;
   flex: none;
-  @media (min-width: 992px) {
+  @include desktop {
     margin-top: 48px;
   }
   margin-top: 16px;

@@ -31,6 +31,9 @@ body {
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
+      @include desktop {
+        width: $desktop-width;
+      }
     }
   }
   .toolbar-default-color {
@@ -73,20 +76,13 @@ body {
     margin-right: auto;
     padding: 0px 20px;
     padding-bottom: 20px;
-  }
-}
-@media (min-width: 992px) {
-  #root {
-    .page {
-      @include border('right');
-      @include border('left');
-      width: 750px;
-      padding:20px;
-      padding-top:0px;
-    }
-    #app-toolbar {
-      header {
-        width: $desktop-width;
+    @include desktop {
+      .page {
+        @include border('right');
+        @include border('left');
+        width: 750px;
+        padding: 20px;
+        padding-top: 0px;
       }
     }
   }

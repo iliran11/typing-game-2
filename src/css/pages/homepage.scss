@@ -1,5 +1,6 @@
 @import 'src/css/base/colors.scss';
 @import 'src/css/partials/variables.scss';
+@import 'src/css/partials/mixins.scss';
 
 #root {
   #home-page {
@@ -9,29 +10,40 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    @include desktop {
+      width: $desktop-width;
+    }
     .home-page-buttons {
       max-width: 600px;
       background-color: #f5f5f5;
       color: $color1;
     }
+    p {
+      font-size: 40px;
+      color: $color1;
+      font-weight: bold;
+      max-width: 320px;
+      margin-top: 28px;
+      margin-bottom: 0px;
+      font-weight: 700;
+      min-height: 120px;
+      line-height: 56px;
+      @include desktop {
+        font-size: 44px;
+        max-width: initial;
+        margin-top: 60px;
+      }
+    }
   }
   #sign-up {
     color: $color1;
   }
-  #home-page p {
-    font-size: 40px;
-    color: $color1;
-    font-weight: bold;
-    max-width: 320px;
-    margin-top: 28px;
-    margin-bottom: 0px;
-    font-weight: 700;
-    min-height: 120px;
-    line-height: 56px;
-  }
   #keyboard {
     width: 300px;
     margin-top: 12px;
+    @include desktop {
+      width: 100%;
+    }
   }
   #compete-now {
     margin-top: 24px;
@@ -47,6 +59,9 @@
     display: flex;
     justify-content: center;
     height: 30px;
+    @include desktop {
+      height: 60px;
+    }
   }
   .keyboard-row .keyboard-letter:not(:last-child) {
     margin-right: 5px;
@@ -74,6 +89,9 @@
     width: 82%;
     display: flex;
     flex-direction: column;
+    @include desktop {
+      width: 100%;
+    }
   }
   .home-page-button {
     background-color: $color9;
@@ -84,28 +102,6 @@
     padding: 16px 16px;
     &:first-child {
       margin-top: 0px;
-    }
-  }
-}
-
-@media (min-width: 992px) {
-  #root {
-    #home-page {
-      width: 750px;
-      p {
-        font-size: 44px;
-        max-width: initial;
-        margin-top: 60px;
-      }
-    }
-    #keyboard {
-      width: 100%;
-    }
-    .keyboard-row {
-      height: 60px;
-    }
-    .buttons {
-      width: 100%;
     }
   }
 }

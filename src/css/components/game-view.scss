@@ -1,3 +1,5 @@
+@import 'src/css/partials/mixins.scss';
+
 #multiplayer-game {
   height: calc(100% - 48px);
 }
@@ -153,7 +155,7 @@ input:focus {
   transition: opacity 0.3s;
   padding-top: 5px;
   padding-bottom: 5px;
-  @media (min-width: 992px) {
+  @include desktop {
     margin-top: 56px;
   }
 }

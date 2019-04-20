@@ -1,3 +1,10 @@
+@import 'src/css/partials/variables';
+
+@mixin desktop {
+  @media (min-width: $desktop-width) {
+    @content;
+  }
+}
 @mixin border($side) {
   @if $side == 'left' {
     &:after {
