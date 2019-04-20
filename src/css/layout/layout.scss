@@ -76,9 +76,16 @@ body {
   }
 }
 @media (min-width: 992px) {
-  .page {
-    @include border('right');
-    @include border('left');
-    width: 750px;
+  #root {
+    .page {
+      @include border('right');
+      @include border('left');
+      width: 750px;
+    }
+    #app-toolbar {
+      header {
+        width: $desktop-width;
+      }
+    }
   }
 }

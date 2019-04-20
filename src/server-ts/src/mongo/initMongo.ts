@@ -39,8 +39,16 @@ function initMongo() {
       break;
     case EnviromentsEnum.PUBLIC:
       initMongoGeneric();
+      break;
+    case EnviromentsEnum.PRODUCTION:
+      initMongoGeneric();
+      break;
     default:
-      throw new Error('uknown enviroment! check your .enum ');
+      throw new Error(
+        `${
+          process.env.SERVER_ENVIROMENT
+        } is uknown enviroment! check your .enum `
+      );
   }
 }
 
