@@ -81,6 +81,8 @@ body {
       @include border('right');
       @include border('left');
       width: 750px;
+      padding:20px;
+      padding-top:0px;
     }
     #app-toolbar {
       header {
