@@ -4,7 +4,8 @@ import {
   SOCKET_HAS_CONNECTED,
   SOCKET_HAS_DISCONNECTED,
   TYPING_TEST_IS_ACTIVE,
-  YOU_JOINED_ROOM
+  YOU_JOINED_ROOM,
+  RESET_ACTIVE_ROOM
 } from '../../constants';
 import {
   ServerStatusReducer,
@@ -44,6 +45,12 @@ export default function ServerStatus(
       return typingTestActive(state, action.payload);
     case LEAVE_GAME:
       return leaveGame(state);
+    case RESET_ACTIVE_ROOM: {
+      return {
+        ...state,
+        activeRoomId: null
+      };
+    }
     default:
       return state;
   }

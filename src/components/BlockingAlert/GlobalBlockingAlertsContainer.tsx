@@ -6,6 +6,10 @@ import { NotificationTypes } from '../../types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { TCNavigator } from 'src/middlewares/TCNavigations';
+import { Store } from 'src/middlewares/Store';
+import { SHOW_NOTIFICATION, RESET_ACTIVE_ROOM } from 'src/constants';
+import { SocketManager } from 'src/middlewares/socketManager';
+const tvNavigator = TCNavigator.getInstance();
 
 const styles = {
   logoutSpinner: {
@@ -45,18 +49,37 @@ function getAlertProps(notificationType: NotificationTypes) {
         ),
         actions: null
       };
-    case NotificationTypes.GAME_TIMEOUT_NOTIFICATION:
+    case NotificationTypes.GAME_TIMEOUT_NOTIFICATION: {
+      const callback = () => {
+        const store = Store.store;
+        store.dispatch({
+          type: RESET_ACTIVE_ROOM
+        });
+        SocketManager.getInstance().reconnect();
+        // TCNavigator.getInstance().navigateToMultiplayer();
+        store.dispatch({
+          type: SHOW_NOTIFICATION,
+          payload: {
+            notificationType: NotificationTypes.NONE
+          }
+        });
+      };
       if (TCNavigator.getInstance().isGameUrl) {
         return {
           open: true,
           title: 'Game is Over',
           dialogContentText:
             'Game has timed out due. it should be faster than this :)',
-          actions: <Button color="primary">Try Again!</Button>
+          actions: (
+            <Button color="primary" onClick={callback}>
+              Try Again!
+            </Button>
+          )
         };
       } else {
         return noNotificationObject;
       }
+    }
     case NotificationTypes.SOCKET_DISCONNECT:
       return {
         open: true,
