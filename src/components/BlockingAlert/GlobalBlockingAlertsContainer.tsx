@@ -5,6 +5,7 @@ import { BlockingAlert } from './BlockingAlert';
 import { NotificationTypes } from '../../types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
+import { TCNavigator } from 'src/middlewares/TCNavigations';
 
 const styles = {
   logoutSpinner: {
@@ -25,6 +26,12 @@ export const GlobalBlockingAlerts = connect(
   mapDispatchToProps
 )(BlockingAlert);
 
+const noNotificationObject = {
+  open: false,
+  title: '',
+  dialogContentText: '',
+  actions: null
+};
 function getAlertProps(notificationType: NotificationTypes) {
   switch (notificationType) {
     case NotificationTypes.LOGOUT_NOTIFICATION:
@@ -39,13 +46,17 @@ function getAlertProps(notificationType: NotificationTypes) {
         actions: null
       };
     case NotificationTypes.GAME_TIMEOUT_NOTIFICATION:
-      return {
-        open: true,
-        title: 'Game is Over',
-        dialogContentText:
-          'Game has timed out due. it should be faster than this :)',
-        actions: <Button color="primary">Try Again!</Button>
-      };
+      if (TCNavigator.getInstance().isGameUrl) {
+        return {
+          open: true,
+          title: 'Game is Over',
+          dialogContentText:
+            'Game has timed out due. it should be faster than this :)',
+          actions: <Button color="primary">Try Again!</Button>
+        };
+      } else {
+        return noNotificationObject;
+      }
     case NotificationTypes.SOCKET_DISCONNECT:
       return {
         open: true,
@@ -55,11 +66,6 @@ function getAlertProps(notificationType: NotificationTypes) {
         actions: <Button color="primary">Try to Reconnect</Button>
       };
     default:
-      return {
-        open: false,
-        title: '',
-        dialogContentText: '',
-        actions: null
-      };
+      return noNotificationObject;
   }
 }

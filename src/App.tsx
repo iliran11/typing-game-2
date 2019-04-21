@@ -76,8 +76,8 @@ class App extends React.Component<AppProps> {
             component={AchievementProgressPageContainer}
           /> */}
           <Route path="/results" component={GenericResultsContainer} />
-          <GlobalBlockingAlerts />
         </Switch>
+        <GlobalBlockingAlerts/>
       </Fragment>
     );
   }

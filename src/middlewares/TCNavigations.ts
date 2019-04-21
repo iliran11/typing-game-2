@@ -31,6 +31,9 @@ export class TCNavigator {
   updateNavigationStack(path: string) {
     this.navigationStack.push(path);
   }
+  get isGameUrl() {
+    return this.history.location.pathname === '/game';
+  }
   static initNavigators(history: any) {
     TCNavigator.instance = new TCNavigator(history);
   }
