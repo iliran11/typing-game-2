@@ -1,0 +1,9 @@
+@import 'src/css/base/colors.scss';
+
+body {
+  .tc-button {
+    max-width: 600px;
+    background-color: #f5f5f5;
+    color: $color1;
+  }
+}

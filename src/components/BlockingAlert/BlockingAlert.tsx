@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export interface BlockingAlertProps {
   open: boolean;
-  title: string;
+  title: any;
   dialogContentText: any;
   actions: any;
 }

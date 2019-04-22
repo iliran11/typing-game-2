@@ -1,6 +1,7 @@
 @import 'src/css/base/colors.scss';
 
-#root {
+#root,
+body {
   .overflow-auto-y {
     overflow-y: auto;
   }
@@ -118,6 +119,12 @@
   }
   .color-1 {
     color: $color1;
+  }
+  .color-2 {
+    color: $color2;
+  }
+  .color-3 {
+    color: $color3;
   }
   .facebook-background {
     background-color: $facebook-color;

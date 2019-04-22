@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import { BlockingAlert } from './BlockingAlert';
 import { NotificationTypes } from '../../types';
+import { TCButton } from 'src/components/ComponentsIndex';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { TCNavigator } from 'src/middlewares/TCNavigations';
 import { Store } from 'src/middlewares/Store';
 import { SHOW_NOTIFICATION, RESET_ACTIVE_ROOM } from 'src/constants';
 import { SocketManager } from 'src/middlewares/socketManager';
-const tvNavigator = TCNavigator.getInstance();
+import clock from 'src/assets/clock/clock.svg';
+import 'src/css/components/notifications.scss';
 
 const styles = {
   logoutSpinner: {
@@ -50,7 +52,7 @@ function getAlertProps(notificationType: NotificationTypes) {
         actions: null
       };
     case NotificationTypes.GAME_TIMEOUT_NOTIFICATION: {
-      const callback = () => {
+      const tryAgain = () => {
         const store = Store.store;
         store.dispatch({
           type: RESET_ACTIVE_ROOM
@@ -64,16 +66,36 @@ function getAlertProps(notificationType: NotificationTypes) {
           }
         });
       };
+      const toHome = () => {
+        const store = Store.store;
+        TCNavigator.getInstance().navigateHome();
+        store.dispatch({
+          type: SHOW_NOTIFICATION,
+          payload: {
+            notificationType: NotificationTypes.NONE
+          }
+        });
+      };
       if (TCNavigator.getInstance().isGameUrl) {
         return {
           open: true,
-          title: 'Game is Over',
-          dialogContentText:
-            'Game has timed out due. it should be faster than this :)',
+          title: (
+            <div className="timeout-notification">
+              <img src={clock} />
+              <span>&nbsp;</span>
+              <span className="color-1">Game is Over</span>
+            </div>
+          ),
+          dialogContentText: (
+            <span className="color-3">
+              The game is over, you can start a new game.
+            </span>
+          ),
           actions: (
-            <Button color="primary" onClick={callback}>
-              Try Again!
-            </Button>
+            <div className="timeout-actions">
+              <TCButton onClick={tryAgain}>Try Again!</TCButton>
+              <TCButton onClick={toHome}>Back Home!</TCButton>
+            </div>
           )
         };
       } else {

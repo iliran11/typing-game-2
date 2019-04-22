@@ -1,6 +1,5 @@
-import Button from '@material-ui/core/Button';
 import React from 'react';
-import { Keyboard } from 'src/components/ComponentsIndex';
+import { Keyboard, TCButton } from 'src/components/ComponentsIndex';
 import 'src/css/pages/homepage.scss';
 import { TCNavigator } from 'src/middlewares/TCNavigations';
 // import { ReactComponent as Keyboard } from 'src/assets/keyboard/keyboard.svg';
@@ -79,9 +78,6 @@ export default class Home extends React.Component<Props, State> {
   navigateToTypingTest() {
     TCNavigator.getInstance().navigateToTypingTest();
   }
-  classes = {
-    root: 'home-page-button'
-  };
   render() {
     const text = 'text';
     const currentStep = baseSteps[this.state.step];
@@ -93,20 +89,15 @@ export default class Home extends React.Component<Props, State> {
           letter={currentStep.keyboard[1]}
         />
         <div className="buttons">
-          <Button
-            variant="raised"
-            classes={this.classes}
-            onClick={this.navigateToGame}
-          >
+          <TCButton rootClass="home-page-button" onClick={this.navigateToGame}>
             Multiplayer
-          </Button>
-          <Button
-            variant="raised"
-            classes={this.classes}
+          </TCButton>
+          <TCButton
+            rootClass="home-page-button"
             onClick={this.navigateToTypingTest}
           >
             Typing Test
-          </Button>
+          </TCButton>
         </div>
       </div>
     );
