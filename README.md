@@ -23,14 +23,13 @@ REACT_APP_PUBLIC_URL = http://localhost:3000
 NODE_PATH=./
 REACT_APP_ENV=LOCAL
 ```
-j
 # Start Client And Server
 
 - Start client : `npm start`
 - Start server: `npm run start-server`
 
 # Debugging
-
+kk
 - Watch server files : `npm run watch-server`
 - Start server from vscode Debug
 - Restart server with each server file change.
