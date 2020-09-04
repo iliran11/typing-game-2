@@ -27,7 +27,7 @@
     "install": "^0.12.2",
     "lodash.get": "^4.4.2",
     "lodash.random": "^3.2.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-circular-progressbar": "^1.0.0",
