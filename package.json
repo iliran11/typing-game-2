@@ -18,7 +18,7 @@
     "@types/scroll-into-view": "^1.6.5",
     "@types/socket.io-client": "^1.4.32",
     "animate.css": "^3.7.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.7.3",
     "classnames": "^2.2.6",
     "create-react-app": "^2.0.4",
